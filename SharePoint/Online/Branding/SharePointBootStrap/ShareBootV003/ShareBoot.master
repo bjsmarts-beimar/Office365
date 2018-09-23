@@ -1,0 +1,185 @@
+<%@Master language="C#"%>
+<%@Register TagPrefix="SharePoint" Namespace="Microsoft.SharePoint.WebControls" Assembly="Microsoft.SharePoint, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c"%>
+<%@Register TagPrefix="WebPartPages" Namespace="Microsoft.SharePoint.WebPartPages" Assembly="Microsoft.SharePoint, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c"%>
+<%@Register TagPrefix="wssucmui" TagName="MUISelector" Src="~/_controltemplates/15/MUISelector.ascx"%>
+<%@Register TagPrefix="wssuc" TagName="Welcome" Src="~/_controltemplates/15/Welcome.ascx"%>
+<%@Register TagPrefix="SearchWC" Namespace="Microsoft.Office.Server.Search.WebControls" Assembly="Microsoft.Office.Server.Search, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c"%>
+<%@Register TagPrefix="PublishingNavigation" Namespace="Microsoft.SharePoint.Publishing.Navigation" Assembly="Microsoft.SharePoint.Publishing, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c"%>
+<%@Register TagPrefix="PublishingRibbon" TagName="PublishingRibbon" Src="~/_controltemplates/15/Ribbon.ascx"%>
+
+<!DOCTYPE HTML>
+<SharePoint:SPHtmlTag runat="server" id="SPHtmlTag" dir="&lt;%$Resources:wss,multipages_direction_dir_value%&gt;">
+<head runat="server">
+<meta http-equiv="X-UA-Compatible" content="IE=10" />
+<meta charset="utf-8" />
+<meta name="GENERATOR" content="Microsoft SharePoint + TopSharePoint.com Theme" />
+<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+<meta http-equiv="Expires" content="0" />
+<SharePoint:RobotsMetaTag runat="server" />
+<SharePoint:SPShortcutIcon runat="server" IconUrl="/_catalogs/masterpage/ShareBoot/images/favicon.ico" />
+<SharePoint:SPPinnedSiteTile runat="server" TileUrl="/_catalogs/masterpage/ShareBoot/images/metrotile.png" TileColor="#333333" />				
+<SharePoint:PageTitle runat="server"><asp:ContentPlaceHolder id="PlaceHolderPageTitle" runat="server"><SharePoint:ProjectProperty Property="Title" runat="server" /></asp:ContentPlaceHolder></SharePoint:PageTitle>
+<SharePoint:StartScript runat="server" />
+<SharePoint:CssLink runat="server" Version="15" />
+<SharePoint:CacheManifestLink runat="server" />
+<SharePoint:PageRenderMode runat="server" RenderModeType="Standard" />
+<SharePoint:ScriptLink language="javascript" name="core.js" OnDemand="true" runat="server" Localizable="false" />
+<SharePoint:ScriptLink language="javascript" name="menu.js" OnDemand="true" runat="server" Localizable="false" />
+<SharePoint:ScriptLink language="javascript" name="callout.js" OnDemand="true" runat="server" Localizable="false" />
+<SharePoint:ScriptLink language="javascript" name="sharing.js" OnDemand="true" runat="server" Localizable="false" />
+<SharePoint:ScriptLink language="javascript" name="suitelinks.js" OnDemand="true" runat="server" Localizable="false" />
+<SharePoint:CustomJSUrl runat="server" />
+<SharePoint:SoapDiscoveryLink runat="server" />
+<asp:ContentPlaceHolder ID="PlaceHolderAdditionalPageHead" runat="server" />
+<SharePoint:DelegateControl runat="server" ControlId="AdditionalPageHead" AllowMultipleControls="true" />
+<SharePoint:CssRegistration Name="Themable/corev15.css" runat="server" />
+<SharePoint:CssRegistration name="/_catalogs/masterpage/ShareBoot/css/bootstrap.css" After="corev15.css" runat="server" />
+<SharePoint:CssRegistration name="/_catalogs/masterpage/ShareBoot/css/font-awesome.css" After="corev15.css" runat="server" />
+<SharePoint:CssRegistration name="/_catalogs/masterpage/ShareBoot/css/ShareBoot.css" After="corev15.css" runat="server" />	
+</head>
+	
+<body>
+<SharePoint:SPClientIDGenerator runat="server" ServerControlID="DeltaPlaceHolderMain;DeltaPlaceHolderPageTitleInTitleArea;DeltaPlaceHolderUtilityContent" />
+<SharePoint:ImageLink runat="server" />
+<SharePoint:SharePointForm onsubmit="if (typeof(_spFormOnSubmitWrapper) != 'undefined') {return _spFormOnSubmitWrapper();} else {return true;}" runat="server">
+<script type="text/javascript"> var submitHook = function () { return false; }; theForm._spOldSubmit = theForm.submit; theForm.submit = function () { if (!submitHook()) { this._spOldSubmit(); } }; </script>
+<WebPartPages:SPWebPartManager runat="server" />		
+<asp:ScriptManager id="ScriptManager" runat="server" EnablePageMethods="false" EnablePartialRendering="true" EnableScriptGlobalization="false" EnableScriptLocalization="true" />
+		
+<!-- Start Ribbon -->
+<PublishingRibbon:PublishingRibbon runat="server" />
+<!-- End Ribbon -->
+			
+<SharePoint:SPSecurityTrimmedControl runat="server" AuthenticationRestrictions="AnonymousUsersOnly"><wssuc:Welcome runat="server" EnableViewState="false" /></SharePoint:SPSecurityTrimmedControl>
+
+<div id="s4-workspace">
+<div id="s4-bodyContainer">
+
+<!-- Start Top Navigation -->
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+	<div class="container">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			<a class="navbar-brand" href="/">ShareBoot</a>
+		</div>
+		<div class="collapse navbar-collapse navbar-ex1-collapse navbar-right">
+			<PublishingNavigation:PortalSiteMapDataSource ID="topSiteMap" runat="server" EnableViewState="false" SiteMapProvider="GlobalNavigationSwitchableProvider" StartFromCurrentNode="true" StartingNodeOffset="0" ShowStartingNode="false" TrimNonCurrentTypes="Heading" />
+			<SharePoint:AspMenu ID="TopNavigationMenu" runat="server" EnableViewState="false" DataSourceID="topSiteMap" AccessKey="&lt;%$Resources:wss,navigation_accesskey%&gt;" UseSimpleRendering="true" UseSeparateCss="true" Orientation="Horizontal" StaticDisplayLevels="1" AdjustForShowStartingNode="true" MaximumDynamicDisplayLevels="1" SkipLinkText="" />
+		</div>
+	</div>
+</nav>
+<!-- End Top Navigation -->
+
+<!-- Start Title Area -->
+<div class="container">
+	<div class="row">
+		<div class="col-lg-12">
+			<h1 class="pageTitle">	
+				<SharePoint:AjaxDelta id="DeltaPlaceHolderPageTitleInTitleArea" runat="server">							
+					<asp:ContentPlaceHolder id="PlaceHolderPageTitleInTitleArea" runat="server">
+						<SharePoint:SPTitleBreadcrumb runat="server" RenderCurrentNodeAsLink="true" SiteMapProvider="SPContentMapProvider" CentralAdminSiteMapProvider="SPXmlAdminContentMapProvider">
+							<PATHSEPARATORTEMPLATE><SharePoint:ClusteredDirectionalSeparatorArrow runat="server" /></PATHSEPARATORTEMPLATE>
+						</SharePoint:SPTitleBreadcrumb>
+					</asp:ContentPlaceHolder>
+				</SharePoint:AjaxDelta>
+			</h1>
+		</div>
+	</div>
+</div>
+<!-- End Title Area -->
+
+<!-- Start Breadcrumbs -->
+<asp:ContentPlaceHolder id="PlaceHolderTitleBreadcrumb" runat="server" />
+<!-- End Breadcrumbs -->
+
+<!-- Start Left Navigation -->
+<asp:ContentPlaceHolder id="PlaceHolderLeftNavBar" runat="server"/>
+<!-- End Left Navigation -->	
+					
+<!-- Start Main Content -->
+<asp:ContentPlaceHolder ID="PlaceHolderMain" runat="server" />
+<!-- End Main Content -->
+
+<!-- Start Right Navigation -->
+<asp:ContentPlaceHolder id="PlaceHolderRightNavBar" runat="server"/>
+<!-- End Right Navigation -->
+
+<!-- Start Footer -->
+<div class="section-colored stickyfooter">
+	<div class="container">
+		<footer>			
+			<div class="row">
+				<div class="col-md-4">
+					<h3>ShareBoot - SharePoint 2013 Theme</h3>
+					<p>More SharePoint Themes by <a href="http://www.topsharepoint.com/themes" target="_blank">TopSharePoint.com</a></p>
+					<a href="http://www.topsharepoint.com/somnio-premium-sharepoint-2013-theme" target="_blank">Somnio SharePoint 2013 Theme</a><br />
+					<a href="http://www.topsharepoint.com/brevis-premium-sharepoint-2013-theme" target="_blank">Brevis SharePoint 2013 Theme</a><br />
+					<a href="http://www.topsharepoint.com/xpecto-free-sharepoint-2013-theme" target="_blank">xpecto SharePoint 2013 Theme</a><br />
+					<a href="http://www.topsharepoint.com/allegra-premium-sharepoint-2010-theme" target="_blank">Allegra SharePoint 2010 Theme</a><br />
+					<a href="http://www.topsharepoint.com/avicia-free-sharepoint-online-theme" target="_blank">Avicia SharePoint 2010 Theme</a><br />
+					<a href="http://www.topsharepoint.com/responsive-free-sharepoint-2010-theme" target="_blank">Responsive SharePoint 2010 Theme</a>
+				</div>
+				<div class="col-md-4">
+					<h3>Lorem Ipsum Dolor</h3>
+					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam viverra euismod odio, gravida pellentesque urna varius vitae.</p>
+					<a href="#">Home</a><br />
+					<a href="#">About Us</a><br />
+					<a href="#">Services</a><br />
+					<a href="#">Portfolio</a><br />
+					<a href="#">Contact Us</a>
+				</div>
+				<div class="col-md-4">
+					<h3>Search The Site</h3>
+					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam viverra euismod odio, gravida pellentesque urna varius vitae.</p>
+					<!-- Start Search -->
+					<asp:ContentPlaceHolder id="PlaceHolderSearchArea" runat="server"><SearchWC:SearchBoxScriptWebPart UseSiteCollectionSettings="true" EmitStyleReference="false" ShowQuerySuggestions="true" ChromeType="None" UseSharedSettings="true" TryInplaceQuery="false" ServerInitialRender="true" runat="server" /></asp:ContentPlaceHolder>
+					<!-- End Search -->
+				</div>
+			</div>			
+		</footer>
+	</div>
+</div>
+<!-- End Footer -->
+
+</div>
+</div>
+
+<!-- JavaScript -->
+<script src="/_catalogs/masterpage/ShareBoot/js/jquery.js"></script>
+<script src="/_catalogs/masterpage/ShareBoot/js/bootstrap.js"></script>
+<script src="/_catalogs/masterpage/ShareBoot/js/ShareBoot.js"></script>
+			
+<!-- Form Digest -->
+<asp:ContentPlaceHolder id="PlaceHolderFormDigest" runat="server"><SharePoint:formdigest runat="server" /></asp:ContentPlaceHolder>
+		
+<!-- Hide Various Placeholders -->	
+<asp:ContentPlaceHolder id="PlaceHolderBodyAreaClass" Visible="False" runat="server" />
+<asp:ContentPlaceHolder id="PlaceHolderTitleAreaClass" Visible="False" runat="server" />
+<asp:ContentPlaceHolder id="PlaceHolderGlobalNavigationSiteMap" Visible="False" runat="server" />
+<asp:ContentPlaceHolder id="PlaceHolderGlobalNavigation" Visible="False" runat="server" />
+<asp:ContentPlaceHolder id="PlaceHolderHorizontalNav" Visible="False" runat="server" />
+<asp:ContentPlaceHolder id="PlaceHolderTopNavBar" Visible="False" runat="server" />
+<asp:ContentPlaceHolder id="PlaceHolderSiteName" Visible="False" runat="server" />
+<asp:ContentPlaceHolder id="PlaceHolderPageDescription" Visible="False" runat="server" />
+<asp:ContentPlaceHolder id="PlaceHolderPageImage" Visible="False" runat="server" />
+<asp:ContentPlaceHolder id="PlaceHolderTitleLeftBorder" Visible="False" runat="server" />
+<asp:ContentPlaceHolder id="PlaceHolderMiniConsole" Visible="False" runat="server" />
+<asp:ContentPlaceHolder id="PlaceHolderTitleRightMargin" Visible="False" runat="server" />
+<asp:ContentPlaceHolder id="PlaceHolderTitleAreaSeparator" Visible="False" runat="server" />
+<asp:ContentPlaceHolder id="PlaceHolderNavSpacer" Visible="False" runat="server" />
+<asp:ContentPlaceHolder id="PlaceHolderLeftNavBarBorder" Visible="False" runat="server" />
+<asp:ContentPlaceHolder id="PlaceHolderBodyLeftBorder" Visible="False" runat="server" />
+<asp:ContentPlaceHolder id="PlaceHolderBodyRightMargin" Visible="False" runat="server" />
+<asp:ContentPlaceHolder id="WSSDesignConsole" Visible="False" runat="server" />
+				
+</SharePoint:SharePointForm>
+
+<asp:ContentPlaceHolder id="PlaceHolderUtilityContent" runat="server"/>
+
+</body>
+</SharePoint:SPHtmlTag>

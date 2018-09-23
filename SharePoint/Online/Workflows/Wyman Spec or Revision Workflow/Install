@@ -1,0 +1,237 @@
+
+. create the parent site
+    Specification Review Quality Workflow Portal  /srqw
+
+. create the child site
+    Specification Review Quality Workflow Data Site /Data
+
+. On the parent site enable Publishing Site Infrastructure
+
+On the Child Site
+=================
+
+. double-click on "Site Assets" folder and create "srqw" folder
+
+. add the following folders to the "srqw" folder: blockUI, bootstrap, jQuery, js, moment, treeView
+
+. upload files from source code to the folders created in previous step
+
+. create the sharepoint list "Groups"
+
+. create the sharepoint list "Approvers"
+
+. Add the following columns to this list "Approvers":
+    (Title) Account Name (text field)
+    Account (Person field)    
+    ExternalAccount (choice field) Yes|No
+    ExternalEmail (text field)
+    Group (lookup field -> Groups)
+
+. create the document library "Spec and Revision Library"
+    
+. create the sharepoint list "Tasks"
+
+. Add the following columns to this list "Tasks":
+    Revision Name           (text field)
+    Revision Id             (number field)
+    Specification           (text field)
+    Issue                   (text field)
+    Task Status             (choice field) Pending|Approved|Reject 
+    Comments                (free text)
+    AssignTo                (free text)
+    AssignToEmail           (free text)
+    IsReprocess             (choice field) Yes|No
+    PersonAssignTo          (Person field)
+
+. Create One View on the list "Tasks"
+    Pending
+    Open Tasks
+
+. create the sharepoint list "Revisions"
+. Add the following columns to this list "Revisions":
+    Revision Name           (text field)
+    Revision Id             (number field)
+    Specification           (text field)
+    Issue                   (text field)
+    Revision Status         (choice field) Initiation|In Revision|Accepted|Rejected|Complete
+    Initiator               (text field)
+    InitiatorEmail          (text field)
+    Link                    (text field)    
+    HasExceptionForm        (choice field) Yes|No  Default Value: No
+    Approvers               (Person field) Allow multiple selections: Yes
+    Comments                (free text)
+    ExtApprovers            (text field)
+
+
+. Create three views on the list "Revisions" 
+             Complete 
+             In Revision
+             Rejected
+
+. create the sharepoint list "Implementations"
+. Add the following columns to this list "Implementations"
+    Revision Name           (text field)
+    Revision Id             (number field)
+    Specification           (text field)
+    Issue                   (text field)
+    Revision Date Created   (date field)
+    Comments                (free Text)
+    Implemented             (choice field) Yes|No
+
+. Create One View on the list "Implementations"
+    Pending
+
+. create the sharepoint list "Exceptions"
+. Add the following columns to the list "Exceptions"
+    Revision Name           (text field)
+    Revision Id             (number field)
+    Specification           (text field)
+    Issue                   (text field)
+    Revision Date Created   (date field)
+    Implementation Id       (number field)
+    Comments                (free Text)
+
+. create the document library "Attachments"
+
+. create the following list "Links"
+   Link                     (text field)
+   Revision Id              (Number)
+
+Pages
+. create a page "dashboard.aspx"
+. create a page "tasks.aspx"
+. create a page "process.aspx"
+. create a page "implementation.aspx"
+. create a page "rejection.aspx"
+. create a page "complete.aspx"
+. create a page "reprocess.aspx"
+. create a page "exception.aspx"
+
+. update the dashboard.aspx
+Copy the dashboard.html
+Copy and Paste
+TEST:  https://bjsmartssm.sharepoint.com/sites/wyman/srqw/data/SiteAssets/srqw/
+PROD: https://precastcorp.sharepoint.com/sites/wyman/houston/qa/srqw/data/SiteAssets/SRQW/
+add revisions/in revision list 
+add reference 
+
+
+. update the tasks.aspx
+copy the tasks.html
+Copy and Paste
+TEST:  https://bjsmartssm.sharepoint.com/sites/wyman/srqw/data/SiteAssets/srqw/
+PROD: https://precastcorp.sharepoint.com/sites/wyman/houston/qa/srqw/data/SiteAssets/SRQW/
+add tasks/All Items
+add reference 
+TEST: ~sitecollection/srqw/data/SiteAssets/srqw/js/Tasks.js
+PROD: ~sitecollection/houston/qa/srqw/data/SiteAssets/SRQW/js/Tasks.js
+
+. update the process.aspx
+copy the process.html
+Copy and Paste
+TEST:  https://bjsmartssm.sharepoint.com/sites/wyman/srqw/data/SiteAssets/srqw/
+PROD: https://precastcorp.sharepoint.com/sites/wyman/houston/qa/srqw/data/SiteAssets/SRQW/
+add task/All Items
+add reference 
+TEST: ~sitecollection/srqw/data/SiteAssets/srqw/js/ProcessExt.js
+PROD: ~sitecollection/houston/qa/srqw/data/SiteAssets/SRQW/js/ProcessExt.js
+
+
+. update the implementation.aspx
+copy the implementation.html
+Copy and Paste
+TEST:  https://bjsmartssm.sharepoint.com/sites/wyman/srqw/data/SiteAssets/srqw/
+PROD: https://precastcorp.sharepoint.com/sites/wyman/houston/qa/srqw/data/SiteAssets/SRQW/
+add implementation/Pending
+add reference 
+TEST: ~sitecollection/srqw/data/SiteAssets/srqw/js/Implementation.js
+PROD: ~sitecollection/houston/qa/srqw/data/SiteAssets/SRQW/js/Implementation.js
+
+. update the rejection.aspx
+copy the rejection.html
+Copy and Paste
+TEST:  https://bjsmartssm.sharepoint.com/sites/wyman/srqw/data/SiteAssets/srqw/
+PROD: https://precastcorp.sharepoint.com/sites/wyman/houston/qa/srqw/data/SiteAssets/SRQW/
+add revisions
+add reference 
+TEST: ~sitecollection/srqw/data/SiteAssets/srqw/js/Rejected.js
+PROD: ~sitecollection/houston/qa/srqw/data/SiteAssets/SRQW/js/Rejected.js
+
+. update the complete.aspx
+copy the complete.html
+add revisions
+Copy and Paste
+TEST:  https://bjsmartssm.sharepoint.com/sites/wyman/srqw/data/SiteAssets/srqw/
+PROD: https://precastcorp.sharepoint.com/sites/wyman/houston/qa/srqw/data/SiteAssets/SRQW/
+add reference 
+TEST: ~sitecollection/srqw/data/SiteAssets/srqw/js/accepted.js
+PROD: ~sitecollection/houston/qa/srqw/data/SiteAssets/SRQW/js/accepted.js
+
+. update the reprocess.aspx
+copy the reprocess.html
+add tasks/All Items
+Copy and Paste
+TEST:  https://bjsmartssm.sharepoint.com/sites/wyman/srqw/data/SiteAssets/srqw/
+PROD: https://precastcorp.sharepoint.com/sites/wyman/houston/qa/srqw/data/SiteAssets/SRQW/
+add reference
+TEST: ~sitecollection/srqw/data/SiteAssets/srqw/js/ReprocessExt.js
+PROD: ~sitecollection/houston/qa/srqw/data/SiteAssets/SRQW/js/ReprocessExt.js
+
+. update the "exception.aspx"
+copy the exception.html
+Copy and Paste
+TEST:  https://bjsmartssm.sharepoint.com/sites/wyman/srqw/data/SiteAssets/srqw/
+PROD: https://precastcorp.sharepoint.com/sites/wyman/houston/qa/srqw/data/SiteAssets/SRQW/
+add links
+add reference 
+TEST: ~sitecollection/srqw/data/SiteAssets/srqw/js/ExceptionExt.js
+PROD: ~sitecollection/houston/qa/srqw/data/SiteAssets/SRQW/js/ExceptionExt.js
+
+. move the following pages to the Parent site
+"dashboard.aspx"
+"tasks.aspx"
+"process.aspx"
+"implementation.aspx"
+"rejection.aspx"
+"complete.aspx"
+"reprocess.aspx"
+"exception.aspx"
+
+On the Parent Site
+==================
+
+. create a page "add.aspx"
+. create a page "approval.aspx"
+. create a page "feedback.aspx"
+
+. update the add.aspx
+Copy the add.html 
+
+Copy and Paste
+TEST:  https://bjsmartssm.sharepoint.com/sites/wyman/srqw/data/SiteAssets/srqw/
+PROD: https://precastcorp.sharepoint.com/sites/wyman/houston/qa/srqw/data/SiteAssets/SRQW/
+
+Remove: houston/qa/
+
+. update the approval.aspx
+copy the approval.html
+
+. update the feedback.aspx
+copy the feedback.html
+
+. update the "Navigation" 
+
+Add New/Revised Specification -> /sites/wyman/srqw/SitePages/add.aspx
+Open New/Revised Specifications -> /sites/wyman/srqw/SitePages/dashboard.aspx
+Open Implementations -> /sites/wyman/srqw/SitePages/implementation.aspx
+Completed New/Revised Specifications -> /sites/wyman/srqw/SitePages/complete.aspx 
+Rejected New/Revised Specifications -> /sites/wyman/srqw/SitePages/rejection.aspx
+
+
+Workflows
+=========
+. create a 'Quality Engineering Initial Notification Flow'
+. create a 'Quality Engineering Daily Overdue Flow'
+. create a 'Quality Engineering Check Revisions Flow'
+. create a 'Quality Engineering Reprocess Notification Flow'
+. create a 'Quality Engineering Implementation Notification Flow'

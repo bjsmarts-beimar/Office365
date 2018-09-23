@@ -1,0 +1,250 @@
+
+<!-- Styles -->
+<link rel="stylesheet" href="https://precastcorp.sharepoint.com/sites/wyman/houston/qa/srqw/data/SiteAssets/SRQW/bootstrap/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<link href="https://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" type="text/css" href="https://precastcorp.sharepoint.com/sites/wyman/houston/qa/srqw/data/SiteAssets/SRQW/treeView/css/highCheckTree.css"/>
+<link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+<style type="text/css">
+body { font-family:'Open Sans'; font-size:14px;}
+    #main-container{
+        width: 600px;
+        margin:  150px auto;
+    }
+    
+    #tree-container label.hover{
+        color: blue;
+    }
+    #pageTitle
+    {
+       display:none;
+    }
+</style>
+
+<!-- Javascript Files -->
+<script src="https://precastcorp.sharepoint.com/sites/wyman/houston/qa/srqw/data/SiteAssets/SRQW/jQuery/jquery-1.9.1.min.js" type="text/javascript"></script>
+<script src="https://precastcorp.sharepoint.com/sites/wyman/houston/qa/srqw/data/SiteAssets/SRQW/blockUI/jquery.blockUI.min.js" type="text/javascript"></script>
+<script src="https://precastcorp.sharepoint.com/sites/wyman/houston/qa/srqw/data/SiteAssets/SRQW/bootstrap/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script type="text/javascript" src="https://precastcorp.sharepoint.com/sites/wyman/houston/qa/srqw/data/SiteAssets/SRQW/treeView/js/highchecktree.js"></script>
+
+<!-- Custom Javascript Files -->
+<script type="text/javascript" src="https://precastcorp.sharepoint.com/sites/wyman/houston/qa/srqw/data/SiteAssets/SRQW/js/FileUpload.js"></script>
+<br><br>
+<div class="container-fluid">
+    <div class="row">
+            <div class="form-group">
+                    <h2>Add New Spec or Revision</h2>
+            </div>
+    </div>
+    <div class="row">
+            <div class="form-group">
+                <label>Please select reviewer(s) from the list</lalel>                
+                <div id="tree-container"></div>
+                
+                <script>
+
+                    var serverUrl = _spPageContextInfo.webAbsoluteUrl; 
+                    var mockData = [];
+                    
+                    $.blockUI({ 
+                        message: '<h4>Loading ...</h4>',
+                        css: { 
+                        border: 'none', 
+                        padding: '15px',                          
+                        backgroundColor: '#000', 
+                        '-webkit-border-radius': '10px', 
+                        '-moz-border-radius': '10px', 
+                        opacity: .5, 
+                        color: '#fff' 
+                    } });
+
+                    setTimeout($.unblockUI, 3000); 
+                    
+                    $.ajax({  
+                        url: serverUrl + "/data/_api/web/lists/getbytitle('Groups')/items?$Select=Title,ID&$orderby=ID", // ur site url goes here  
+                        type: "GET",  
+                        headers: {  
+                            "Accept": "application/json;odata=verbose"  
+                        },  
+                        success: function(data, textStatus, xhr) {  
+
+                            $.each(data.d.results, function(index, item) {  
+                                
+                                var group = item.Title;
+                                var groupId = item.ID;
+                                //var approversUrl = serverUrl + "/data/_api/web/lists/getbytitle('Approvers')/items?$select=Title,Account/ID,Group/Title&$expand=Account/ID,Group/Title&$filter=Group/Title eq '" + group + "'";
+                                var approversUrl = serverUrl + "/data/_api/web/lists/getbytitle('Approvers')/items?$select=Title,ExternalAccount,ExternalEmail,Account/ID,Group/Title&$expand=Account/ID,Group/Title&$filter=Group/Title eq '" + group + "'";
+
+                                $.ajax({  
+                                    url: approversUrl, // ur site url goes here  
+                                    type: "GET",  
+                                    headers: {  
+                                        "Accept": "application/json;odata=verbose"  
+                                    },  
+                                    success: function(data, textStatus, xhr) {
+                                        
+                                        var serverData = [];
+
+                                        $.each(data.d.results, function(index, item) {  
+
+                                            //console.log("The items in list are : " + group + " - " + item.Account.ID + ": " + item.Title);                                              
+                                            //console.log('account info', item);
+
+                                            if ( item.ExternalAccount === null || item.ExternalAccount === "No") {
+                                                var id = item.Account.ID;
+                                                //var id = item.Account.results[0].ID;
+                                                
+                                                serverData.push({
+                                                    item:{
+                                                            id: id.toString(), //"'" + item.Account.ID + "'",
+                                                            label: item.Title,
+                                                            checked: false
+                                                        } 
+                                                });
+                                            }
+                                            else {
+                                                var id = item.Account.ID + "|Yes|" + item.ExternalEmail;
+                                                //var id = item.Account.results[0].ID;
+                                                
+                                                serverData.push({
+                                                    item:{
+                                                            id: id.toString(), //"'" + item.Account.ID + "'",
+                                                            label: item.Title + " (Ext)",
+                                                            checked: false
+                                                        } 
+                                                });
+
+                                            }
+                                            
+                                            
+                                            
+                                        }) 
+                                        
+                                        console.log('approvers', serverData);                                                                                
+                                        
+                                        mockData.push({
+                                            item:{
+                                                id: "'" + item.ID + "'",
+                                                label: group,
+                                                checked: false
+                                            },
+                                            children: serverData 
+                                        });                                        
+
+                                        console.log(mockData);                                                                                
+
+                                        $('#tree-container').highCheckTree({
+                                            data: mockData,
+                                            onCheck: function(node){
+                                                
+                                                var parsed = $.parseHTML(node[0].outerHTML);
+
+                                                if ( parsed[0].childElementCount == 3 )
+                                                {
+                                                    
+                                                    var selectedValue = "";                                                    
+
+                                                    if(!isNaN(parsed[0].attributes[0].nodeValue)){
+
+                                                        selectedValue = parsed[0].attributes[0].nodeValue;
+                                                    }
+                                                    else {
+
+                                                        if ( parsed[0].attributes[0].nodeValue.indexOf('@') > 0 )
+                                                        {
+                                                            selectedValue = parsed[0].attributes[0].nodeValue;
+                                                        }
+                                                        else {
+                                                            selectedValue = parsed[0].attributes[1].nodeValue;
+                                                        }
+                                                    }
+
+                                                    console.log(selectedValue + ' - ' + node[0].innerText + ' was selected');
+                                                    selectedUsers.push(selectedValue);
+                                                }     
+                                                
+                                                console.log('selected Users Array', selectedUsers);
+                                                
+                                            },
+
+                                            onUnCheck: function(node){
+                                                
+                                                var parsed = $.parseHTML(node[0].outerHTML);
+
+                                                if ( parsed[0].childElementCount == 3 )
+                                                {
+                                                    var userId = 0;
+
+                                                    if(!isNaN(parsed[0].attributes[0].nodeValue)){
+
+                                                        userId = parsed[0].attributes[0].nodeValue;
+                                                    }
+                                                    else {
+
+                                                        userId = parsed[0].attributes[1].nodeValue;
+                                                    }
+
+                                                    console.log(userId + ' - ' + node[0].innerText + ' was unselected');
+
+                                                    var newArray = [];
+
+                                                    for ( var i=0; i<selectedUsers.length; i++) {
+                                                        if ( selectedUsers[i] !== userId)
+                                                            newArray.push(selectedUsers[i])
+                                                    }
+
+                                                    selectedUsers = newArray;                                                    
+                                                }
+                                            }
+                                        });
+
+                                        //setTimeout($.unblockUI, 5000);
+                                    },  
+                                    error: function r(xhr, textStatus, errorThrown) {  
+                                        alert("error:" + JSON.stringify(xhr));  
+                                    }  
+                                });
+
+                            })  
+                            
+                        },  
+                        error: function r(xhr, textStatus, errorThrown) {  
+                            alert("error:" + JSON.stringify(xhr));  
+                        }  
+                    });
+                                                            
+                </script>
+
+            <span id="error-checkboxes" style="color: red; display: none;">You must select at least one reviewee</span>  
+            </div>  
+    </div>
+    <div class="row">
+        <div class="form-group">
+            <label>Specification #</lalel>
+            <input id="displayName" style="width: 100%" type="text" value="" />
+            <span id="error-revision-name" style="color: red; display: none;">You must provide Specification Number</span>
+        </div> 
+    </div>
+    <div class="row">
+        <div class="form-group">
+            <label>Issue #</lalel>
+            <input id="displayIssue" style="width: 100%" type="text" value="" />
+            <span id="error-issue-name" style="color: red; display: none;">You must provide Issue Number</span>
+        </div> 
+    </div>  
+    <div class="row">
+        <div class="form-group">
+            <label>Please select New Spec or Revised file and click submit</lalel>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-3" style="padding-left: 0px;">
+                <input id="getFile" type="file" class="form-control-file"/>   
+                <span id="error-revision-file" style="color: red; display: none;"><b>You must choose a file</b></span>
+                <span id="error-revision-file2" style="color: red; display: none;"><b>file already exist in library</b></span>
+            </div>
+            <div class="col-sm-3" style="padding-left: 0px;">
+                <input id="addFileButton" type="button" class="btn btn-success" value="Submit" onclick="uploadFileV2WithValidation()"/>                
+            </div>              
+            <div class="col-sm-6">&nbsp;</div>                                               
+        </div>            
+    </div>
+</div>
