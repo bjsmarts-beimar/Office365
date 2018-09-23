@@ -1,0 +1,15 @@
+Administrator Mail Server account
+=================================
+Link: https://mailadmin.zoho.com/
+user: beimar.medina@bjsmarts.com
+pass: P@ss(0)d!
+
+BJSmarts User Accounts
+======================
+Link: https://mail.zoho.com
+beimar.medina@bjsmarts.com
+bmedina@bjsmarts.com
+jmedina@bjsmarts.com
+aparedez@bjsmarts.com
+john.smith@bjsmarts.com
+john.johnson@bjsmarts.com

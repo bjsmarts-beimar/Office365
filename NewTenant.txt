@@ -1,0 +1,14 @@
+
+Link to create a Office 365 Trial Tenant: 
+https://danusher.com/how-do-i-cloud/how-to-create-an-e3-e5-trial-tenant/
+
+Tenant Information:
+Date Created: September 23
+User Account: john.johnson@bjsmarts.com
+Password: P@ss(0)d!
+Office 365 User Account: jjohnson@BJ001Smarts.onmicrosoft.com
+
+
+
+
+
