@@ -145,3 +145,7 @@ body {
     width: 100% !important;
 }
 
+.form-border-color {
+    border-color: #ababab !important;
+}
+

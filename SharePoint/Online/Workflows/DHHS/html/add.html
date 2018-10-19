@@ -1,3 +1,14 @@
+
+<script src="/_layouts/15/sp.runtime.js"></script>  
+<script src="/_layouts/15/sp.js"></script>  
+<script src="/_layouts/15/1033/strings.js"></script>  
+<script src="/_layouts/15/clienttemplates.js"></script>  
+<script src="/_layouts/15/clientforms.js"></script>  
+<script src="/_layouts/15/clientpeoplepicker.js"></script>  
+<script src="/_layouts/15/autofill.js"></script>  
+<script src="_layouts/15/sp.core.js"></script> 
+
+
 <!-- Styles -->
 <!-- <link rel="stylesheet" href="https://schhs.sharepoint.com/sites/SBH/wp/data/SiteAssets/WorkAround/bootstrap/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"> -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
@@ -60,6 +71,13 @@
                         </div>                
           </div>
           <div class="form-group row">
+                <label for="TypeLabel" class="col-2 col-form-label form-label-workaround">3. Submitted By</label>
+                <div class="col-10">                                
+                        <div id="peoplePickerDiv"></div>                                
+                </div>
+          </div>
+
+          <div class="form-group row">
                         <label for="releaseLabel" class="col-2 col-form-label form-label-workaround">4. Release Number</label>
                         <div class="col-10">
                              <input class="form-control" type="text" id="release">
@@ -78,7 +96,7 @@
                         </div>                
           </div>
           <div class="form-group row">
-                        <label for="timeUsageLabel" class="col-2 col-form-label form-label-workaround">6. Time Usage</label>
+                        <label for="timeUsageLabel" class="col-2 col-form-label form-label-workaround form-border-color">6. Time Usage</label>
                         <div class="col-10">
                              <select class="form-control" id="timeUsage">
                                 <option value="0">Select ... </option>
@@ -93,7 +111,7 @@
                         </div>                
           </div>
           <div class="form-group row">
-                        <label for="goLiveLabel" class="col-2 col-form-label form-label-workaround">7. Go Live</label>
+                        <label for="goLiveLabel" class="col-2 col-form-label form-label-workaround form-border-color">7. Go Live</label>
                         <div class="col-10">
                              <select class="form-control" id="golive">
                                 <option value="0">Select ... </option>
@@ -114,11 +132,11 @@
           <div class="form-group row">
                         <label for="triggerLabel" class="col-2 col-form-label form-label-workaround">10. Workaround Steps</label>
                         <div class="col-10">
-                             <textarea class="form-control" rows="5" id="steps"></textarea>                          
+                             <textarea class="form-control form-border-color" rows="5" id="steps" ></textarea>                          
                         </div>                
           </div>
           <div class="form-group row">
-                        <label for="goLiveLabel" class="col-2 col-form-label form-label-workaround">12. Test Case</label>
+                        <label for="goLiveLabel" class="col-2 col-form-label form-label-workaround form-border-color">12. Test Case</label>
                         <div class="col-10">
                              <select class="form-control" id="testCase">
                                 <option value="0">Select ... </option>
@@ -135,7 +153,7 @@
           </div>
           <div class="form-group pull-right">                                
                 <button type="button" class="btn btn-light" onclick="SubmitFormWithValidation()">Submit</button>
-                <button type="button" class="btn btn-light">Cancel</button>                                
+                <button type="button" class="btn btn-light" onclick="Cancel()">Cancel</button>                                
           </div>                                        
         </form>                                                              
         </div>

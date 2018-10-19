@@ -18,7 +18,7 @@ function retrieveWorkAroundItem(WorkAroundId)
 {   
     jQuery.ajax  
     ({  
-        url: _spPageContextInfo.webAbsoluteUrl + "/data/_api/web/lists/GetByTitle('Workaround')/items?$select=ID,Title,Release_x0020_Number,Workaround_x0020_Trigger,Issue,DefectCRNumber,Workaround_x0020_Number,Created,WorkaroundType,WorkaroundUsage,WorkaroundGoLive,Test_x0020_Case&$filter=ID eq " + WorkAroundId,  
+        url: _spPageContextInfo.webAbsoluteUrl + "/data/_api/web/lists/GetByTitle('Workaround')/items?$select=ID,Title,Release_x0020_Number,Workaround_x0020_Trigger,Issue,DefectCRNumber,Workaround_x0020_Number,Created,WorkaroundType,WorkaroundUsage,WorkaroundGoLive,Test_x0020_Case,Workaround_x0020_Steps,Workaround_x0020_Submitted_x0020/Title&$expand=Workaround_x0020_Submitted_x0020&$filter=ID eq " + WorkAroundId,  
         type: "GET",  
         headers:  
         {  
@@ -43,7 +43,9 @@ function retrieveWorkAroundItem(WorkAroundId)
                 jQuery("#release").val(item.Release_x0020_Number);
                 jQuery("#trigger").val(item.Workaround_x0020_Trigger);
                 jQuery("#issue").val(item.Issue);
-                jQuery("#defectCR").val(item.DefectCRNumber);                                
+                jQuery("#defectCR").val(item.DefectCRNumber);   
+                jQuery("#steps").text(stripHtml(item.Workaround_x0020_Steps));    
+                jQuery("#submitted").val(item.Workaround_x0020_Submitted_x0020.Title);                         
 
                 $("#typeWorkaround option").each(function (a, b) {
                     if ($(this).html() == item.WorkaroundType ) $(this).attr("selected", "selected");
@@ -82,4 +84,13 @@ function getUrlParameter(sParam) {
             return sParameterName[1] === undefined ? true : sParameterName[1];
         }
     }
+}
+
+function stripHtml(html){
+    // Create a new div element
+    var temporalDivElement = document.createElement("div");
+    // Set the HTML content with the providen
+    temporalDivElement.innerHTML = html;
+    // Retrieve the text property of the element (cross-browser support)
+    return temporalDivElement.textContent || temporalDivElement.innerText || "";
 }
