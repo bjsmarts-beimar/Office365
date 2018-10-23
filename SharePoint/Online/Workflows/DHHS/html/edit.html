@@ -60,13 +60,13 @@
                         </div>                
           </div>
           <div class="form-group row">
-                        <label for="submitterLabel" class="col-2 col-form-label form-label-workaround">3. Submitted By</label>
-                        <div class="col-10">
-                             <input class="form-control form-readOnly" type="text" id="submitted" disabled>                             
+                        <div class="col-3" style="text-align: right;"><label style="max-width: 100%;" for="IBMBALabel" class="col-2 col-form-label form-label-workaround">IBM BA</label></div>                        
+                        <div class="col-9">                                                          
+                             <input class="form-control form-readOnly" type="text" id="ibmba" disabled>                             
                         </div>
           </div>
           <div class="form-group row">
-                        <label for="releaseLabel" class="col-2 col-form-label form-label-workaround">4. Release Number</label>
+                        <label for="releaseLabel" class="col-2 col-form-label form-label-workaround">3. Release Number</label>
                         <div class="col-10">
                              <input class="form-control form-readOnly" type="text" id="release" disabled>
                              <small id="passwordHelpInline" class="text-muted">
@@ -75,7 +75,7 @@
                         </div>
           </div>
           <div class="form-group row">
-                        <label for="triggerLabel" class="col-2 col-form-label form-label-workaround">5. Workaround Trigger</label>
+                        <label for="triggerLabel" class="col-2 col-form-label form-label-workaround">4. Workaround Trigger</label>
                         <div class="col-10">
                              <input class="form-control form-readOnly" type="text" id="trigger" disabled>
                              <small id="passwordHelpInline" class="text-muted">
@@ -84,7 +84,7 @@
                         </div>                
           </div>
           <div class="form-group row">
-                        <label for="timeUsageLabel" class="col-2 col-form-label form-label-workaround">6. Time Usage</label>
+                        <label for="timeUsageLabel" class="col-2 col-form-label form-label-workaround">5. Time Usage</label>
                         <div class="col-10">
                              <select class="form-control form-readOnly" id="timeUsage" disabled>
                                 <option value="0">Select ... </option>
@@ -99,7 +99,7 @@
                         </div>                
           </div>
           <div class="form-group row">
-                        <label for="goLiveLabel" class="col-2 col-form-label form-label-workaround">7. Go Live</label>
+                        <label for="goLiveLabel" class="col-2 col-form-label form-label-workaround">6. Go Live</label>
                         <div class="col-10">
                              <select class="form-control form-readOnly" id="golive" disabled>
                                 <option value="0">Select ... </option>
@@ -112,19 +112,45 @@
                         </div>                
           </div>
           <div class="form-group row">
-                        <label for="issueLabel" class="col-2 col-form-label form-label-workaround">9. Issue</label>
+                <label for="impactedLabel" class="col-2 col-form-label form-label-workaround">7. Impacted Audience</label>
+                <div class="col-10">
+                        <div class="checkbox">
+                                <label class="form-label-workaround form-readOnly"><input type="checkbox" id="EligibilityCaseWorkers" value="Eligibility Case Workers" disabled>Eligibility Case Workers</label>
+                        </div>
+                        <div class="checkbox">
+                                <label class="form-label-workaround form-readOnly"><input type="checkbox" id="SpecialtyUnits" value="Specialty Units" disabled>Specialty Units</label>
+                        </div>
+                        <div class="checkbox">
+                                <label class="form-label-workaround form-readOnly"><input type="checkbox" id="HelpDesk" value="Help Desk" disabled>Help Desk</label>
+                        </div>
+                        <div class="checkbox">
+                                <label class="form-label-workaround form-readOnly"><input type="checkbox" id="PolicySpecialist" value="Policy Specialist" disabled>Policy Specialist</label>
+                        </div>
+                        <div class="checkbox">
+                                <label class="form-label-workaround form-readOnly"><input type="checkbox" id="EscalationTeam" value="Escalation Team" disabled>Escalation Team</label>
+                        </div>                             
+                </div>                
+          </div>
+          <div class="form-group row">
+                        <label for="issueLabel" class="col-2 col-form-label form-label-workaround">8. Issue</label>
                         <div class="col-10">
                              <input class="form-control form-readOnly" type="text" id="issue" disabled>                             
                         </div>                
           </div>
           <div class="form-group row">
-                        <label for="triggerLabel" class="col-2 col-form-label form-label-workaround">10. Workaround Steps</label>
+                        <label for="triggerLabel" class="col-2 col-form-label form-label-workaround">9. Workaround Steps</label>
                         <div class="col-10">
-                             <textarea class="form-control" rows="5" id="steps"></textarea>                          
+                             <textarea class="form-control form-readOnly" rows="5" id="steps" disabled></textarea>                          
                         </div>                
           </div>
           <div class="form-group row">
-                        <label for="goLiveLabel" class="col-2 col-form-label form-label-workaround">12. Test Case</label>
+                <label for="trainingDeveloperLabel" class="col-2 col-form-label form-label-workaround">10. Training Developer Name</label>
+                <div class="col-10">
+                     <input class="form-control form-readOnly" type="text" id="developer" disabled>                             
+                </div>
+          </div>
+          <div class="form-group row">
+                        <label for="goLiveLabel" class="col-2 col-form-label form-label-workaround">11. Test Case</label>
                         <div class="col-10">
                              <select class="form-control form-readOnly" id="testCase" disabled>
                                 <option value="0">Select ... </option>
@@ -134,14 +160,21 @@
                         </div>                
           </div>
           <div class="form-group row">
-                        <label for="defectLabel" class="col-2 col-form-label form-label-workaround">13. Defect/CR Number</label>
+                        <label for="defectLabel" class="col-2 col-form-label form-label-workaround">12. Defect/CR Number</label>
                         <div class="col-10">
                              <input class="form-control form-readOnly" type="text" id="defectCR" disabled>                             
                         </div>                
           </div>
-          <div class="form-group pull-right">                                
-                <button type="button" class="btn btn-success">Approve</button>
-                <button type="button" class="btn btn-danger">Reject</button>                                
+          <div class="form-group row">
+                <label for="commentsLabel" class="col-2 col-form-label form-label-workaround">13. Comments</label>
+                <div class="col-10">
+                        <textarea class="form-control" rows="5" id="field-comments" maxlength="1500" style="width: 100%;"></textarea>
+                        <span id="error-comments" style="color: red; display: none;">You must provide Comments</span>                 
+                </div>                
+          </div>
+          <div class="form-group">                                                
+                <button type="button" class="btn btn-success btn-lg" onclick="Approve()">Approve</button>
+                <button type="button" class="btn btn-danger btn-lg" onclick="Reject()">Reject</button>                                
           </div>                                        
         </form>                                                              
         </div>
