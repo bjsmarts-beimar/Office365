@@ -102,68 +102,102 @@ function CreateWorkAroundRecord()
     let testCase = getSelectedTextFromField("testCase");
     let timeUsage = getSelectedTextFromField("timeUsage");
     
-    var account = getAccountId();
+    var account = getAccountId(SPClientPeoplePicker.SPClientPeoplePickerDict.peoplePickerDiv_TopSpan);
     account.done(function (data) {
         
-        let ibmba = data;
+        let IBMBAPeoplePickerId = data;
 
-        var developer = getDeveloperAccounId();
+        var developer = getAccountId(SPClientPeoplePicker.SPClientPeoplePickerDict.peoplePickerDivDeveloper_TopSpan);
         developer.done(function(data) {
 
-            let dev = data;
-            let iaIds = getImpactedAudiencesIds();            
+            let DeveloperPeoplePickerId = data;
 
-            let item = {
-                "__metadata": { "type": itemType },
-                "Title": title,
-                "Workaround_x0020_Number": WorkaroundNumber,
-                "Release_x0020_Number": releaseNumber,
-                "Workaround_x0020_Trigger": trigger,
-                "Issue": issue,
-                "Workaround_x0020_Steps": steps,
-                "DefectCRNumber": defectCR,
-                "WorkaroundGoLive": goLive,
-                "WorkaroundType": typeWorkaround,
-                "Test_x0020_Case": testCase,
-                "WorkaroundUsage": timeUsage,
-                "IBM_x0020_BAId": ibmba,
-                "Training_x0020_DeveloperId": dev,
-                "Impacted_x0020_Audience": {"results": iaIds}
-            };
-        
-            $.ajax({
-                url: _spPageContextInfo.webAbsoluteUrl + "/data/_api/web/lists/getbytitle('" + listName + "')/items",
-                type: "POST",
-                contentType: "application/json;odata=verbose",
-                data: JSON.stringify(item),
-                headers: {
-                    "Accept": "application/json;odata=verbose",
-                    "X-RequestDigest": $("#__REQUESTDIGEST").val()
-                },
-                success: function (data) {
+            var tester = getAccountId(SPClientPeoplePicker.SPClientPeoplePickerDict.testersPeoplePickerDiv_TopSpan);
+            tester.done(function(data) {
+
+                let testerPeoplePickerId = data;
+
+                var analystLead = getAccountId(SPClientPeoplePicker.SPClientPeoplePickerDict.BALeadPeoplePickerDiv_TopSpan);
+                analystLead.done(function(data) {
+
+                    let analystPeoplePickerId = data;
+
+                    var projectManager = getAccountId(SPClientPeoplePicker.SPClientPeoplePickerDict.projectManagerPeoplePickerDiv_TopSpan);
+                    projectManager.done(function(data) {
+
+                        let managerPeoplePickerId = data;
+
+                        let iaIds = getImpactedAudiencesIds();            
+
+                        let item = {
+                            "__metadata": { "type": itemType },
+                            "Title": title,
+                            "Workaround_x0020_Number": WorkaroundNumber,
+                            "Release_x0020_Number": releaseNumber,
+                            "Workaround_x0020_Trigger": trigger,
+                            "Issue": issue,
+                            "Workaround_x0020_Steps": steps,
+                            "DefectCRNumber": defectCR,
+                            "WorkaroundGoLive": goLive,
+                            "WorkaroundType": typeWorkaround,
+                            "Test_x0020_Case": testCase,
+                            "WorkaroundUsage": timeUsage,
+                            "IBM_x0020_BAId": IBMBAPeoplePickerId,
+                            "Training_x0020_DeveloperId": DeveloperPeoplePickerId,
+                            "Testing_x0020_TeamId": testerPeoplePickerId,
+                            "State_x0020_BA_x0020_LeadId": analystPeoplePickerId,
+                            "MMRP_x0020_State_x0020_Project_xId": managerPeoplePickerId,
+                            "Impacted_x0020_Audience": {"results": iaIds}
+                        };
                     
-                    console.log(data);      
-                                        
-                    jQuery.alert({        
-                        title: false,
-                        content: '<div style="font-size: large;font-style: italic;">Your Workaround Process form has been submitted for Initial Review.</div>',
-                        columnClass: 'medium',
-                        buttons: {            
-                            Ok: {
-                                text: 'Ok',
-                                btnClass: 'btn-default btn-md',
-                                action: function(){
-                                    window.location = _spPageContextInfo.webAbsoluteUrl;                                            
-                                }
+                        $.ajax({
+                            url: _spPageContextInfo.webAbsoluteUrl + "/data/_api/web/lists/getbytitle('" + listName + "')/items",
+                            type: "POST",
+                            contentType: "application/json;odata=verbose",
+                            data: JSON.stringify(item),
+                            headers: {
+                                "Accept": "application/json;odata=verbose",
+                                "X-RequestDigest": $("#__REQUESTDIGEST").val()
+                            },
+                            success: function (data) {
+                                
+                                console.log(data);      
+                                                    
+                                jQuery.alert({        
+                                    title: false,
+                                    content: '<div style="font-size: large;font-style: italic;">Your Workaround Process form has been submitted for Initial Review.</div>',
+                                    columnClass: 'medium',
+                                    buttons: {            
+                                        Ok: {
+                                            text: 'Ok',
+                                            btnClass: 'btn-default btn-md',
+                                            action: function(){
+                                                window.location = _spPageContextInfo.webAbsoluteUrl;                                            
+                                            }
+                                        }
+                                    }
+                                });
+                                    
+                            },
+                            error: function (data) {
+                                alert(data);
                             }
-                        }
+                        });
+
                     });
-                           
-                },
-                error: function (data) {
-                    alert(data);
-                }
+                    projectManager.fail(function(data) {
+                        alert(error);
+                    });
+
+                });
+                analystLead.fail(function(data) {
+                    alert(error);
+                });
+
             });
+            tester.fail(function(data) {
+                alert(error);
+            });              
 
         });
         developer.fail(function(data) {
@@ -215,12 +249,13 @@ function initializePeoplePicker(peoplePickerElementId) {
     SPClientPeoplePicker_InitStandaloneControlWrapper(peoplePickerElementId, null, schema);
 }
 
-function getAccountId() {
+function getAccountId(peoplePickerDiv_TopSpan) {
 
     var deferred = jQuery.Deferred();
 
     // Get the people picker object from the page.
-    var peoplePicker = SPClientPeoplePicker.SPClientPeoplePickerDict.peoplePickerDiv_TopSpan;
+    //var peoplePicker = SPClientPeoplePicker.SPClientPeoplePickerDict.peoplePickerDiv_TopSpan;
+    var peoplePicker = peoplePickerDiv_TopSpan;
 
     // Get information about all users.
     var users = peoplePicker.GetAllUserInfo();
@@ -260,47 +295,4 @@ function getAccountId() {
     return deferred.promise();
 }
 
-function getDeveloperAccounId() {
 
-    var deferred = jQuery.Deferred();
-
-    // Get the people picker object from the page.
-    var peoplePicker = SPClientPeoplePicker.SPClientPeoplePickerDict.peoplePickerDivDeveloper_TopSpan;
-
-    // Get information about all users.
-    var users = peoplePicker.GetAllUserInfo();
-    var userInfo = '';
-    for (var i = 0; i < users.length; i++) {
-        var user = users[i];
-        for (var userProperty in user) { 
-            userInfo += userProperty + ':  ' + user[userProperty] + '<br>';
-        }
-    }
-
-    // Get the first user's ID by using the login name.
-    var logonName = users[0].Key;
-
-    var item = {  
-        'logonName': logonName  
-    };  
-
-    jQuery.ajax({  
-        url: _spPageContextInfo.siteAbsoluteUrl + "/_api/web/ensureuser",  
-        type: "POST",  
-        //async: false,  
-        contentType: "application/json;odata=verbose",  
-        data: JSON.stringify(item),  
-        headers: {  
-            "Accept": "application/json;odata=verbose",  
-            "X-RequestDigest": $("#__REQUESTDIGEST").val()  
-        },  
-        success:function(data){
-            deferred.resolve(data.d.Id);
-        },
-        error:function(err){
-            deferred.reject(err);
-        }
-    });  
-    
-    return deferred.promise();
-}
