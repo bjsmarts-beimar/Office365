@@ -106,25 +106,61 @@ function stripHtml(html){
 }
 
 function Approve()
-{
-    if (confirm('Are you sure you want to Approve this Workaround?')) {
-        
-        var WorkaroundId = getUrlParameter('WorkaroundId');
-        //updateWorkAround('Approved', WorkaroundId);                        
-                                
-    } else {
-        // Do nothing!
-    }
+{    
+    jQuery.confirm({        
+        title: false,
+        content: '<div style="font-size: large;font-style: italic;">Are you sure you want to Approve this Workaround?</div>',
+        columnClass: 'large',
+        buttons: {            
+            Ok: {
+                text: 'Yes',
+                btnClass: 'btn-default btn-md',
+                action: function(){
+
+                    var WorkaroundId = getUrlParameter('WorkaroundId');
+                    //updateWorkAround('Approved', WorkaroundId);         
+                    
+                }
+            },
+            Cancel: {
+                text: 'No',
+                btnClass: 'btn-default btn-md',
+                action: function(){
+                    
+                }
+            }
+        }
+    });
 }
 
 function Reject()
 {
     if ( isFormValid() )
-    {
-        if (confirm('Are you sure you want to Reject this Specification?')) {            
-            var WorkaroundId = getUrlParameter('WorkaroundId');
-            //updateWorkAround('Reject', WorkaroundId);
-        }
+    {        
+        jQuery.confirm({        
+            title: false,
+            content: '<div style="font-size: large;font-style: italic;">Are you sure you want to Reject this Workaround?</div>',
+            columnClass: 'medium',
+            buttons: {            
+                Ok: {
+                    text: 'Yes',
+                    btnClass: 'btn-default btn-md',
+                    action: function(){
+    
+                        var WorkaroundId = getUrlParameter('WorkaroundId');
+                        //updateWorkAround('Reject', WorkaroundId);         
+                        
+                    }
+                },
+                Cancel: {
+                    text: 'No',
+                    btnClass: 'btn-default btn-md',
+                    action: function(){
+                        
+                    }
+                }
+            }
+        });
     }
 }
 

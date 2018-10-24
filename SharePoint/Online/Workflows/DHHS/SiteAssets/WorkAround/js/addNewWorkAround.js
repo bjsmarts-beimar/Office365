@@ -15,14 +15,12 @@ jQuery(document).ready(function () {
     jQuery('#WorkaroundNumber').text(workaroundNumber);
     
     initializePeoplePicker('peoplePickerDiv');  
+    initializePeoplePicker('testersPeoplePickerDiv');
+    initializePeoplePicker('BALeadPeoplePickerDiv');
+    initializePeoplePicker('projectManagerPeoplePickerDiv');
     initializePeoplePicker('peoplePickerDivDeveloper');                          
     
 });
-
-function Cancel()
-{
-    window.location = _spPageContextInfo.webAbsoluteUrl;    
-}
 
 function SubmitFormWithValidation()
 {    
@@ -40,14 +38,23 @@ function SubmitFormWithValidation()
 
 function hasBeenSelected()
 {
-    var valueSelected = document.getElementById("typeWorkaround").value;
+    var valueSelected = document.getElementById("typeWorkaround").value;    
 
     if ( valueSelected != 0 )
     {
+        document.getElementById("DDIWorkAroundReviewersDiv").style.display = "flex";
         document.getElementById("ibmbaPeoplePickerDiv").style.display = "flex";
+        document.getElementById("testingTeamPeoplePickerDiv").style.display = "flex";
+        document.getElementById("sblTeamPeoplePickerDiv").style.display = "flex";
+        document.getElementById("projectManagerTeamPeoplePickerDiv").style.display = "flex";
+        
     }
     else {
+        document.getElementById("DDIWorkAroundReviewersDiv").style.display = "none";
         document.getElementById("ibmbaPeoplePickerDiv").style.display = "none";
+        document.getElementById("testingTeamPeoplePickerDiv").style.display = "none";
+        document.getElementById("sblTeamPeoplePickerDiv").style.display = "none";
+        document.getElementById("projectManagerTeamPeoplePickerDiv").style.display = "none";
     }     
 }
 
@@ -121,7 +128,6 @@ function CreateWorkAroundRecord()
                 "WorkaroundUsage": timeUsage,
                 "IBM_x0020_BAId": ibmba,
                 "Training_x0020_DeveloperId": dev,
-                //"Impacted_x0020_Audience": iaIds
                 "Impacted_x0020_Audience": {"results": iaIds}
             };
         
@@ -135,9 +141,24 @@ function CreateWorkAroundRecord()
                     "X-RequestDigest": $("#__REQUESTDIGEST").val()
                 },
                 success: function (data) {
+                    
                     console.log(data);      
-                    alert('Your Workaround Process form has been submitted for Initial Review');
-                    window.location = _spPageContextInfo.webAbsoluteUrl;       
+                                        
+                    jQuery.alert({        
+                        title: false,
+                        content: '<div style="font-size: large;font-style: italic;">Your Workaround Process form has been submitted for Initial Review.</div>',
+                        columnClass: 'medium',
+                        buttons: {            
+                            Ok: {
+                                text: 'Ok',
+                                btnClass: 'btn-default btn-md',
+                                action: function(){
+                                    window.location = _spPageContextInfo.webAbsoluteUrl;                                            
+                                }
+                            }
+                        }
+                    });
+                           
                 },
                 error: function (data) {
                     alert(data);
@@ -147,12 +168,7 @@ function CreateWorkAroundRecord()
         });
         developer.fail(function(data) {
             alert(error);
-        });
-
-        
-
-        
-
+        });                
 
     });
     account.fail(function(error) {

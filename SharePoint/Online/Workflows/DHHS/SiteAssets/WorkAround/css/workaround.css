@@ -149,3 +149,11 @@ body {
     border-color: #ababab !important;
 }
 
+.form-display-none {
+    display: none !important;
+}
+
+.form-max-width-100 {
+    max-width: 100% !important;
+}
+
