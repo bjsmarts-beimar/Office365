@@ -14,7 +14,8 @@ jQuery(document).ready(function () {
     if ( WorkAroundId )
     {
         retrieveWorkAroundItem(WorkAroundId);
-    }                      
+    }
+                                 
 });
 
 function retrieveWorkAroundItem(WorkAroundId)
@@ -109,9 +110,4 @@ function stripHtml(html){
     temporalDivElement.innerHTML = html;
     // Retrieve the text property of the element (cross-browser support)
     return temporalDivElement.textContent || temporalDivElement.innerText || "";
-}
-
-// Get List Item Type metadata
-function GetItemTypeForListName(name) {
-    return "SP.Data." + name.charAt(0).toUpperCase() + name.split(" ").join("").slice(1) + "ListItem";
 }
