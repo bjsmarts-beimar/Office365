@@ -53,8 +53,8 @@
           <div class="form-group row">
                 <label for="titleLabel" class="col-2 col-form-label form-label-workaround">1. Workaround Title</label>
                 <div class="col-10">
-                     <input class="form-control" type="text" id="title">
-                     <span id="error-Title" style="color: red; display: none;">You must provide Workaround Title</span>
+                     <input class="form-control" type="text" id="title" maxlength="50">
+                     <span id="error-title" class="form-error-label-workaround" style="display: none">You must provide Workaround Title</span>
                 </div>
           </div>
           <div class="form-group row">
@@ -65,12 +65,14 @@
                                         DDI Post-Implementation (Needed due to defect from previous DDI Release)<br>
                                         O&M Implementation(Will be resolved by future O&M Release)<br>
                              </small>
+                             
                              <select class="form-control" id="typeWorkaround" onchange="hasBeenSelected()">
                                 <option value="0">Select ... </option>
                                 <option value="1">DDI Pre-Implementation</option>
                                 <option value="2">DDI Post-Implementation</option>
                                 <option value="3">O&M</option>                                
-                             </select>                             
+                             </select>                                      
+                             <span id="error-typeWorkaround" class="form-error-label-workaround" style="display: none">You must select Workaround Type</span>                    
                         </div>                
           </div>          
 
@@ -82,45 +84,51 @@
                         <div class="col-5" style="text-align: right;"><label for="IBMBALabel" class="col-2 col-form-label form-label-workaround form-max-width-100">IBM BA</label></div>                
                         <div class="col-7">                                                        
                                 <div id="peoplePickerDiv"></div>                                
+                                <span id="error-peoplePickerDiv" class="form-error-label-workaround" style="display: none">You must provide IBM Business Analyst</span>
                         </div>
           </div>
           <div id="testingTeamPeoplePickerDiv" class="form-group row" style="display: none;">                
                         <div class="col-5" style="text-align: right;"><label for="testingTeamLabel" class="col-2 col-form-label form-label-workaround form-max-width-100">Testing Team</label></div>                
                         <div class="col-7">                                                        
-                                <div id="testersPeoplePickerDiv"></div>                                
+                                <div id="testersPeoplePickerDiv"></div>
+                                <span id="error-testersPeoplePickerDiv" class="form-error-label-workaround" style="display: none">You must provide Testing Team Analyst</span>                                
                         </div>
           </div>          
           <div id="sblTeamPeoplePickerDiv" class="form-group row" style="display: none;" >                
                         <div class="col-5" style="text-align: right;"><label for="sblLabel" class="col-2 col-form-label form-label-workaround form-max-width-100">State BA Lead</label></div>                
                         <div class="col-7">                                                        
                                 <div id="BALeadPeoplePickerDiv"></div>                                
+                                <span id="error-BALeadPeoplePickerDiv" class="form-error-label-workaround" style="display: none">You must provide Business Analyst Lead</span>
                         </div>
           </div>          
           <div id="projectManagerTeamPeoplePickerDiv" class="form-group row" style="display: none;">                
                         <div class="col-5" style="text-align: right;"><label for="sblLabel" class="col-2 col-form-label form-label-workaround form-max-width-100">MMRP State Project Manager</label></div>                
                         <div class="col-7">                                                        
-                                <div id="projectManagerPeoplePickerDiv"></div>                                
+                                <div id="projectManagerPeoplePickerDiv"></div>  
+                                <span id="error-projectManagerPeoplePickerDiv" class="form-error-label-workaround" style="display: none">You must provide State Project Manager</span>                              
                         </div>
           </div>
 
           <div class="form-group row">
                         <label for="releaseLabel" class="col-2 col-form-label form-label-workaround">3. Release Number</label>
                         <div class="col-10">
-                             <input class="form-control" type="text" id="release">
+                             <input class="form-control" type="text" id="release" maxlength="50">                             
                              <small id="passwordHelpInline" class="text-muted">
                                 Specify Release Number that this workaround will be fixed
-                             </small>
+                             </small><br>
+                             <span id="error-release" class="form-error-label-workaround" style="display: none">You must provide Release Number</span>
                         </div>
           </div>          
           <div class="form-group row">
                         <label for="triggerLabel" class="col-2 col-form-label form-label-workaround">4. Workaround Trigger</label>
                         <div class="col-10">
-                             <input class="form-control" type="text" id="trigger">
+                             <input class="form-control" type="text" id="trigger" maxlength="50">
                              <small id="passwordHelpInline" class="text-muted">
                                 What is the trigger for this Workaround for the user?
-                             </small>
+                             </small><br>
+                             <span id="error-trigger" class="form-error-label-workaround" style="display: none">You must provide Workaround Trigger</span>
                         </div>                
-          </div>
+          </div>            
           <div class="form-group row">
                         <label for="timeUsageLabel" class="col-2 col-form-label form-label-workaround form-border-color">5. Time Usage</label>
                         <div class="col-10">
@@ -133,21 +141,33 @@
                              </select>
                              <small id="passwordHelpInline" class="text-muted">
                                 When and how often will this Workaround be used?
-                             </small>
+                             </small><br>
+                             <span id="error-timeUsage" class="form-error-label-workaround" style="display: none">You must select Time Usage</span>
                         </div>                
           </div>
           <div class="form-group row">
                         <label for="goLiveLabel" class="col-2 col-form-label form-label-workaround form-border-color">6. Go Live</label>
                         <div class="col-10">
-                             <select class="form-control" id="golive">
+                             <select class="form-control" id="golive" onchange="goLiveSelected()">
                                 <option value="0">Select ... </option>
                                 <option value="1">Yes</option>
                                 <option value="2">No</option>                                
                              </select>
                              <small id="passwordHelpInline" class="text-muted">
                                 Can the system go live without the Workaround being approved
-                             </small>
+                             </small><br>
+                             <span id="error-golive" class="form-error-label-workaround" style="display: none">You must select go live options</span>
                         </div>                
+          </div>
+          <div id="ExplainLabelDiv" class="form-group row" style="display: none;" >
+                        <div class="col-2"></div>
+                        <div class="col-10"><label for="releaseLabel" class="col-2 col-form-label form-label-workaround form-max-width-100">Please explain:</label></div>                        
+          </div>   
+          <div id="ExplainDiv" class="form-group row" style="display: none;">                
+                        <div class="col-2" style="text-align: right;"></div>                
+                        <div class="col-10">                                                        
+                                <textarea class="form-control form-border-color" rows="5" id="explanationText" maxlength="1500" ></textarea>                                    
+                        </div>
           </div>
           <div class="form-group row">
                 <label for="impactedLabel" class="col-2 col-form-label form-label-workaround">7. Impacted Audience</label>
@@ -172,35 +192,53 @@
           <div class="form-group row">
                         <label for="issueLabel" class="col-2 col-form-label form-label-workaround">8. Issue</label>
                         <div class="col-10">
-                             <input class="form-control" type="text" id="issue">                             
+                             <input class="form-control" type="text" id="issue" maxlength="50">                             
+                             <span id="error-issue" class="form-error-label-workaround" style="display: none">You must provide an issue</span>                             
                         </div>                
           </div>
           <div class="form-group row">
                         <label for="triggerLabel" class="col-2 col-form-label form-label-workaround">9. Workaround Steps</label>
                         <div class="col-10">
-                             <textarea class="form-control form-border-color" rows="5" id="steps" ></textarea>                          
+                             <textarea class="form-control form-border-color" rows="5" id="steps" maxlength="1500" ></textarea>               
+                             <span id="error-steps" class="form-error-label-workaround" style="display: none">You must provide workaround steps</span>           
                         </div>                
           </div>
           <div class="form-group row">
-                <label for="DeveloperLabel" class="col-2 col-form-label form-label-workaround">10. Training Developer Name</label>
+                <label for="DeveloperLabel" class="col-2 col-form-label form-label-workaround">10. Training Developer</label>
                 <div class="col-10">                                
-                        <div id="peoplePickerDivDeveloper"></div>                                
+                        <div id="peoplePickerDivDeveloper"></div>               
+                        <span id="error-peoplePickerDivDeveloper" class="form-error-label-workaround" style="display: none">You must provide Training Developer</span>                 
                 </div>
           </div>
           <div class="form-group row">
                         <label for="goLiveLabel" class="col-2 col-form-label form-label-workaround form-border-color">11. Test Case</label>
                         <div class="col-10">
-                             <select class="form-control" id="testCase">
+                             <select class="form-control" id="testCase" onchange="testCaseSelected()">
                                 <option value="0">Select ... </option>
                                 <option value="1">Yes</option>
                                 <option value="2">No</option>                                
-                             </select>                             
+                             </select>                                                          
+                             <span id="error-testCase" class="form-error-label-workaround" style="display: none">You must select Test Case options</span>
                         </div>                
+          </div>
+          <div id="passTestCaseDiv" class="form-group row" style="display: none;">                
+                        <div class="col-3" style="text-align: right;"></div>                
+                        <div class="col-9">                                                        
+                                <div class="radio"><label class="col-form-label form-label-workaround"><input class="form-check-input" type="radio" id="pass" name="testcaseGroup" value="1"><label class="form-check-label">Test Case Pass</label></label></div>                                
+                        </div>
+          </div>
+          <div id="failTestCaseDiv" class="form-group row" style="display: none;">                
+                        <div class="col-3" style="text-align: right;"></div>                
+                        <div class="col-9">                                                        
+                                <div class="radio"><label class="col-form-label form-label-workaround"><input class="form-check-input" type="radio" id="fail" name="testcaseGroup" value="2"><label class="form-check-label">Test Case Fail</label></label></div>                                
+                                <span id="error-testcaseGroup" class="form-error-label-workaround" style="display: none">You must select Test Case status</span>
+                        </div>
           </div>
           <div class="form-group row">
                         <label for="defectLabel" class="col-2 col-form-label form-label-workaround">12. Defect/CR Number</label>
                         <div class="col-10">
-                             <input class="form-control" type="text" id="defectCR">                             
+                             <input class="form-control" type="text" id="defectCR" maxlength="50">                                                          
+                             <span id="error-defectCR" class="form-error-label-workaround" style="display: none">You must provide Defect/CR Number</span>
                         </div>                
           </div>
           <div class="form-group row">                                

@@ -157,3 +157,8 @@ body {
     max-width: 100% !important;
 }
 
+.form-error-label-workaround {
+    color: red !important;     
+    font-style: italic !important;
+}
+

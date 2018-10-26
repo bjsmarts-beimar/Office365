@@ -1,15 +1,39 @@
 (function () {
     var overrideContext = {};
     overrideContext.Templates = {};
-    overrideContext.Templates.Header = "<h3 style='padding-top: 30px;'><b><i><u>WorkAround Submitted Items</u></i><b></h3><br><br><table class='table table-striped table-hover'><tr><th>Workaround Title</th><th>Workaround Number</th><th>WorkAround Type</th><th>Status</th><th>Date Submitted</th></tr>";
+    overrideContext.Templates.Header = "<h3 style='padding-top: 30px;'><b><i><u>WorkAround Rejected Items</u></i><b></h3><br><br><table class='table table-striped table-hover'><tr><th>Workaround Title</th><th>Workaround Number</th><th>WorkAround Type</th><th>Rejected By</th><th>Comments</th></tr>";
     overrideContext.Templates.Item = overrideTemplate;
     overrideContext.Templates.Footer = "</table>";
     SPClientTemplates.TemplateManager.RegisterTemplateOverrides(overrideContext);
     })();
      
     function overrideTemplate(ctx) {
+
+        let RejectedBy = "";
+
+        if ( ctx.CurrentItem.IBMBAStatus == "Rejected")
+        {
+            RejectedBy = ctx.CurrentItem.IBM_x0020_BA[0].title;
+        }
+
+        if ( ctx.CurrentItem.TestingTeamStatus == "Rejected")
+        {
+            RejectedBy = ctx.CurrentItem.Testing_x0020_Team[0].title;
+        }
+
+        if ( ctx.CurrentItem.StateBaLeadStatus == "Rejected")
+        {
+            RejectedBy = ctx.CurrentItem.State_x0020_BA_x0020_Lead[0].title;
+        }
+
+        if ( ctx.CurrentItem.ProjectManagerStatus == "Rejected")
+        {
+            RejectedBy = ctx.CurrentItem.MMRP_x0020_State_x0020_Project_x[0].title;
+        }
+
+
     return "<tr style='background-color: white; color: black'><td>"
-    + "<a href='edit.aspx?WorkaroundId=" + ctx.CurrentItem.ID + "'>" + ctx.CurrentItem.Title + "</a>"
+    + "<a href='resubmit.aspx?WorkaroundId=" + ctx.CurrentItem.ID + "'>" + ctx.CurrentItem.Title + "</a>"
     + "</td>" 
     + "<td>" 
     + ctx.CurrentItem.Workaround_x0020_Number 
@@ -18,10 +42,10 @@
     + ctx.CurrentItem.WorkaroundType
     + "</td>"    
     + "<td>" 
-    + "<a href='details.aspx?WorkaroundId=" + ctx.CurrentItem.ID + "'>" + ctx.CurrentItem.WorkaroundWorkflowStatus + "</a>"
+    + RejectedBy
     + "</td>"
     + "<td>" 
-    + ctx.CurrentItem.Created
+    + ctx.CurrentItem.Comments
     + "</td>"
     + "</tr>";
     }

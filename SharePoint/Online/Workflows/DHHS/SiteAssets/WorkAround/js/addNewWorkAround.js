@@ -23,17 +23,157 @@ jQuery(document).ready(function () {
 });
 
 function SubmitFormWithValidation()
-{    
-    let title = jQuery('#title').val();
+{           
+    let IsFormValid = true;
+    
+    if ( !IsThisComboFieldValid("typeWorkaround")) {
+        IsFormValid = false;    
+    }
 
-    if ( title.length > 0 )
-    {
-        jQuery("#error-Title").hide();
-        CreateWorkAroundRecord();
+    if ( !IsThisComboFieldValid("testCase")) {
+        IsFormValid = false;    
     }
     else {
-        jQuery("#error-Title").show();
-    }        
+
+        let field = document.getElementById("testCase");
+    
+        if ( field.value != 2 )
+        {
+            if ( !jQuery('input[name=testcaseGroup]:checked').val() ) 
+            {        
+                let errorField = document.getElementById("error-testcaseGroup");
+                errorField.style.display = "inline";
+                IsFormValid = false;
+            }
+            else {
+                let errorField = document.getElementById("error-testcaseGroup");
+                errorField.style.display = "none";
+            }
+        }        
+    }
+
+    if ( !IsThisComboFieldValid("golive")) {
+        IsFormValid = false;    
+    }
+
+    if ( !IsThisComboFieldValid("timeUsage")) {
+        IsFormValid = false;    
+    }
+
+    if ( !IsThisTextFieldValid("title") )
+    {
+        IsFormValid = false;        
+    }
+
+    if ( !IsThisTextFieldValid("release") )
+    {
+        IsFormValid = false;        
+    }
+
+    if ( !IsThisTextFieldValid("trigger") )
+    {
+        IsFormValid = false;        
+    }
+
+    if ( !IsThisTextFieldValid("issue") )
+    {
+        IsFormValid = false;        
+    }
+
+    if ( !IsThisTextFieldValid("defectCR") )
+    {
+        IsFormValid = false;        
+    }
+
+    if ( !IsThisTextFieldValid("steps") )
+    {
+        IsFormValid = false;        
+    }
+
+    if ( !IsPeoplePickerFieldValid(SPClientPeoplePicker.SPClientPeoplePickerDict.peoplePickerDivDeveloper_TopSpan, "peoplePickerDivDeveloper") )
+    {
+        IsFormValid = false;        
+    }
+
+    if ( !IsPeoplePickerFieldValid(SPClientPeoplePicker.SPClientPeoplePickerDict.peoplePickerDiv_TopSpan, "peoplePickerDiv") )
+    {
+        IsFormValid = false;        
+    }
+
+    if ( !IsPeoplePickerFieldValid(SPClientPeoplePicker.SPClientPeoplePickerDict.testersPeoplePickerDiv_TopSpan, "testersPeoplePickerDiv") )
+    {
+        IsFormValid = false;        
+    }
+
+    if ( !IsPeoplePickerFieldValid(SPClientPeoplePicker.SPClientPeoplePickerDict.BALeadPeoplePickerDiv_TopSpan, "BALeadPeoplePickerDiv") )
+    {
+        IsFormValid = false;        
+    }
+
+    if ( !IsPeoplePickerFieldValid(SPClientPeoplePicker.SPClientPeoplePickerDict.projectManagerPeoplePickerDiv_TopSpan, "projectManagerPeoplePickerDiv") )
+    {
+        IsFormValid = false;        
+    }
+
+    
+    
+    if ( IsFormValid )
+    {
+        //CreateWorkAroundRecord();
+    }
+}
+
+
+
+function IsPeoplePickerFieldValid(fieldName_TopSpan, fieldName)
+{
+    let errorField = document.getElementById("error-" + fieldName);
+
+    if ( fieldName_TopSpan.TotalUserCount > 0 )
+    {
+        errorField.style.display = "none";
+        return true;
+    }
+    else {
+        errorField.style.display = "inline";
+        return false;
+    }    
+}
+
+function IsThisComboFieldValid(fieldName)
+{
+    let field = document.getElementById(fieldName);
+    let errorField = document.getElementById("error-" + fieldName);
+
+    if ( field.value == 0 )
+    {
+        errorField.style.display = "inline";
+        return false;
+    }
+    else {
+
+        errorField.style.display = "none";
+        return true;
+    }
+
+    return false;
+}
+
+function IsThisTextFieldValid(fieldName)
+{    
+    let field = document.getElementById(fieldName);
+    let errorField = document.getElementById("error-" + fieldName);
+    
+    if ( field.value.length > 0 )
+    {
+        errorField.style.display = "none";
+        return true;
+    }
+    else {
+
+        errorField.style.display = "inline";
+        return false;
+    }    
 }
 
 function hasBeenSelected()
@@ -56,6 +196,36 @@ function hasBeenSelected()
         document.getElementById("sblTeamPeoplePickerDiv").style.display = "none";
         document.getElementById("projectManagerTeamPeoplePickerDiv").style.display = "none";
     }     
+}
+
+function goLiveSelected()
+{
+    var valueSelected = document.getElementById("golive").value;    
+
+    if ( valueSelected == 2 )
+    {
+        document.getElementById("ExplainLabelDiv").style.display = "flex";
+        document.getElementById("ExplainDiv").style.display = "flex";
+    }
+    else {
+        document.getElementById("ExplainLabelDiv").style.display = "none";
+        document.getElementById("ExplainDiv").style.display = "none";
+    }
+}
+
+function testCaseSelected() 
+{
+    var valueSelected = document.getElementById("testCase").value;    
+
+    if ( valueSelected == 1 )
+    {
+        document.getElementById("passTestCaseDiv").style.display = "flex";
+        document.getElementById("failTestCaseDiv").style.display = "flex";
+    }
+    else {
+        document.getElementById("passTestCaseDiv").style.display = "none";
+        document.getElementById("failTestCaseDiv").style.display = "none";
+    }
 }
 
 function getImpactedAudiencesIds() 
@@ -95,12 +265,16 @@ function CreateWorkAroundRecord()
     let trigger = jQuery('#trigger').val();    
     let issue = jQuery('#issue').val();
     let steps = jQuery('#steps').val();
+    let explanationText = jQuery('#explanationText').val();
     let defectCR = jQuery('#defectCR').val();
     let WorkaroundNumber = document.getElementById('WorkaroundNumber').innerText;
     let goLive = getSelectedTextFromField("golive");
     let typeWorkaround = getSelectedTextFromField("typeWorkaround");    
     let testCase = getSelectedTextFromField("testCase");
     let timeUsage = getSelectedTextFromField("timeUsage");
+    let testcaseOption = jQuery('input[name=testcaseGroup]:checked').val();
+    let testcasePass = testcaseOption == 1? "Yes": "No";
+    let testcaseFail = testcaseOption == 2? "Yes": "No";
     
     var account = getAccountId(SPClientPeoplePicker.SPClientPeoplePickerDict.peoplePickerDiv_TopSpan);
     account.done(function (data) {
@@ -147,7 +321,10 @@ function CreateWorkAroundRecord()
                             "Testing_x0020_TeamId": testerPeoplePickerId,
                             "State_x0020_BA_x0020_LeadId": analystPeoplePickerId,
                             "MMRP_x0020_State_x0020_Project_xId": managerPeoplePickerId,
-                            "Impacted_x0020_Audience": {"results": iaIds}
+                            "Impacted_x0020_Audience": {"results": iaIds},
+                            "GoLiveComments": explanationText,
+                            "Test_x0020_Case_x0020_Pass": testcasePass,
+                            "Test_x0020_Case_x0020_Fail": testcaseFail
                         };
                     
                         $.ajax({
