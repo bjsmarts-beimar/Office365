@@ -18,7 +18,7 @@
     + ctx.CurrentItem.WorkaroundType
     + "</td>"    
     + "<td>" 
-    + "<a href='details.aspx?WorkaroundId=" + ctx.CurrentItem.ID + "'>" + ctx.CurrentItem.WorkaroundWorkflowStatus + "</a>"
+    + ctx.CurrentItem.WorkaroundWorkflowStatus
     + "</td>"
     + "<td>" 
     + ctx.CurrentItem.Created

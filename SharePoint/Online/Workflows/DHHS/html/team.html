@@ -17,7 +17,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.0/jquery-confirm.min.js"></script>
 
 <!-- Custom Javascript Files -->
-<script type="text/javascript" src="https://schhs.sharepoint.com/sites/SBH/wp/data/SiteAssets/WorkAround/js/Approval.js"></script>
+<script type="text/javascript" src="https://schhs.sharepoint.com/sites/SBH/wp/data/SiteAssets/WorkAround/js/Team.js"></script>
 
 <br>
     
@@ -197,18 +197,18 @@
                         </div>                
           </div>
           <div class="form-group row">
-                <label for="commentsLabel" class="col-2 col-form-label form-label-workaround">14. Comments</label>
+                <label for="reasonsLabel" class="col-2 col-form-label form-label-workaround">14. Reason</label>
                 <div class="col-10">
-                        <textarea class="form-control" rows="5" id="field-comments" maxlength="1500" style="width: 100%;"></textarea>
-                        <span id="error-comments" class="form-label-workaround" style="color: red; display: none;">You must provide Comments</span>                 
+                        <textarea class="form-control" rows="5" id="field-reason" maxlength="1500" style="width: 100%;"></textarea>
+                        <span id="error-reason" class="form-label-workaround" style="color: red; display: none;">You must provide a Reason</span>                 
                 </div>                
           </div>
           <div class="form-group row">  
                         <div class="col-6">
-                                        <button type="button" class="btn btn-success btn-lg btn-block btn-huge" onclick="Approve()">Approve</button>
+                                        <button type="button" class="btn btn-success btn-lg btn-block btn-huge" onclick="YesAction()">Yes</button>
                         </div>
                         <div class="col-6">
-                                        <button type="button" class="btn btn-danger btn-lg btn-block btn-huge" onclick="Reject()">Reject</button>
+                                        <button type="button" class="btn btn-danger btn-lg btn-block btn-huge" onclick="NoAction()">No</button>
                         </div>                                                                                                              
           </div>                                        
         </form>                                                              

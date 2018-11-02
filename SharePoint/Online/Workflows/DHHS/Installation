@@ -1,1 +1,61 @@
 How to install
+
+~sitecollection/wp/data/SiteAssets/WorkAround/js/Home.js
+~sitecollection/wp/data/SiteAssets/WorkAround/js/Home2.js
+
+
+
+
+5. create "Workaround" views
+
+(for regular user)
+MyItemsInitialApproval (DONE)
+MyItemsFinalApproval (DONE)
+MyItemsTestingTrainingApproval (DONE)
+MyItemsRejected (DONE)
+MyItemsCompleted
+MyItemsRetired
+
+
+(for administrator user)
+ItemsInitialApproval
+ItemsInitialApprovalDetails
+ItemsFinalApproval
+ItemsTestingTrainingApproval
+ItemDetails
+ItemsRejected (DONE)
+ItemsCompleted
+ItemsRetired
+
+Delete the following: MyWorkArounds, MyWorkAroundsDetails, MyWorkAroundsRejected, NotCompleted.
+
+
+6. create "Workaround" pages
+
+Parent Site
+-----------
+approval.aspx
+edit.aspx
+feedback.aspx
+final.aspx
+new.aspx
+resubmit.aspx
+
+Child Site
+----------
+
+home.aspx
+details.aspx
+overall.aspx
+reject.aspx
+myreject.aspx
+completed.aspx
+mycompleted.aspx
+retire.aspx
+myretire.aspx
+
+
+
+
+
+

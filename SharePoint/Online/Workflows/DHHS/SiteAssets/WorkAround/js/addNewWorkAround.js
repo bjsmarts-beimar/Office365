@@ -119,7 +119,7 @@ function SubmitFormWithValidation()
     
     if ( IsFormValid )
     {
-        //CreateWorkAroundRecord();
+        CreateWorkAroundRecord();
     }
 }
 

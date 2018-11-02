@@ -162,3 +162,8 @@ body {
     font-style: italic !important;
 }
 
+.ms-webpart-titleText {
+    font-style: italic !important;
+    font-size: x-large !important;
+}
+

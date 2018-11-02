@@ -17,7 +17,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.0/jquery-confirm.min.js"></script>
 
 <!-- Custom Javascript Files -->
-<script type="text/javascript" src="https://schhs.sharepoint.com/sites/SBH/wp/data/SiteAssets/WorkAround/js/Approval.js"></script>
+<script type="text/javascript" src="https://schhs.sharepoint.com/sites/SBH/wp/data/SiteAssets/WorkAround/js/final.js"></script>
 
 <br>
     
@@ -197,12 +197,20 @@
                         </div>                
           </div>
           <div class="form-group row">
-                <label for="commentsLabel" class="col-2 col-form-label form-label-workaround">14. Comments</label>
+                <label for="finalApproverLabel" class="col-2 col-form-label form-label-workaround form-border-color">14. State Final Approver</label>
                 <div class="col-10">
-                        <textarea class="form-control" rows="5" id="field-comments" maxlength="1500" style="width: 100%;"></textarea>
-                        <span id="error-comments" class="form-label-workaround" style="color: red; display: none;">You must provide Comments</span>                 
+                     <select class="form-control" id="finalApprover">
+                        <option value="0">Select ... </option>
+                        <option value="i:0#.f|membership|beimar.medina@scdhhs.gov">Beimar Medina</option>
+                        <option value="i:0#.f|membership|michael.jones@scdhhs.gov">Michael Jones</option>
+                        <option value="i:0#.f|membership|timothy.cozine@scdhhs.gov">Timothy Cozine</option>                        
+                     </select>                     
+                     <span id="error-finalApprover" class="form-error-label-workaround" style="display: none">You must select a Final Approver</span>
                 </div>                
-          </div>                                                  
+          </div>
+          <div class="form-group row">                                
+                <button type="button" class="btn btn-info btn-lg btn-block btn-huge" onclick="SubmitFormWithValidation()">Submit Workaround for Final Approval</button>                                                
+          </div>                                                                 
         </form>                                                              
         </div>
 </main>

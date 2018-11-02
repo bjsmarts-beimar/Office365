@@ -7,19 +7,23 @@ https://wonderlaura.com/2013/05/30/workflow-create-a-hyperlink/
 
 
 
-A new  work around task has been assigned to you for your Approval.
-
-Click here <a href="https://schhs.sharepoint.com/sites/SBH/wp/Pages/edit.aspx?WorkaroundId=">here</a> to respond to the task.
 
 
+Initial Workflow email
+----------------------
 
 Title: The following workaround "" has been assigned to you for your Approval
+
+Body: 
 
 <P>The following workaround "" has been assigned to you for your Approval.<BR><BR>
 
 Click here <a href="https://schhs.sharepoint.com/sites/SBH/wp/Pages/approval.aspx?WorkaroundId=&ApprovalType=1">here</a> to respond to the task.</P>
 
 
+
+Rejected email
+--------------
 
 Title: The following workaround "" has been REJECTED 
 
@@ -29,9 +33,54 @@ Click here <a href="https://schhs.sharepoint.com/sites/SBH/wp/Pages/edit.aspx?Wo
 
 
 
+Initial Approval email
+----------------------
 
 Title: The following workaround "" has been APPROVED 
 
 <P>The following workaround "" has been APPROVED<BR><BR>
 
-Click here <a href="https://schhs.sharepoint.com/sites/SBH/wp/Pages/edit.aspx?WorkaroundId=&ApprovalType=1">here</a> to review the workaround and to submit it for final Approval.</P>
+Click here <a href="https://schhs.sharepoint.com/sites/SBH/wp/Pages/edit.aspx?WorkaroundId=&ApprovalType=4">here</a> to review the workaround and to submit it for final Approval.</P>
+
+
+
+Final Approval Email
+--------------------
+
+Title: The following workaround "" has been submitted for final Approval. 
+
+<P>The following workaround "" has been submitted for final Approval<BR><BR>
+
+Click here <a href="https://schhs.sharepoint.com/sites/SBH/wp/Pages/approval.aspx?WorkaroundId=&ApprovalType=5">here</a> to review the workaround and respond to the task.</P>
+
+
+Training Team Approval email
+----------------------
+
+Title: The following workaround "" has been APPROVED 
+
+<P>The following workaround "" has been APPROVED<BR><BR>
+
+Click here <a href="https://schhs.sharepoint.com/sites/SBH/wp/Pages/edit.aspx?WorkaroundId=&ApprovalType=6">here</a> to review the workaround and to submit it for Training Team Approval.</P>
+
+
+Initial Workflow email
+----------------------
+
+Title: The following workaround "" has been assigned to you for your Approval
+
+Body: 
+
+<P>The following workaround "" has been assigned to you for your Approval.<BR><BR>
+
+Click here <a href="https://schhs.sharepoint.com/sites/SBH/wp/Pages/approval.aspx?WorkaroundId=&ApprovalType=6">here</a> to respond to the task.</P>
+
+Final Email
+-----------
+
+Title: The following workaround "" has been APPROVED 
+
+<P>The following workaround "" has been APPROVED<BR><BR></P>
+
+
+

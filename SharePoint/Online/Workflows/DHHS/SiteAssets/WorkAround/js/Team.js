@@ -10,7 +10,8 @@ jQuery(document).ready(function () {
     }    
 
     var WorkAroundId = getUrlParameter('WorkaroundId');
-    
+    var ApprovalType = getUrlParameter('ApprovalType');
+
     if ( WorkAroundId )
     {
         retrieveWorkAroundItem(WorkAroundId);
@@ -88,62 +89,116 @@ function retrieveWorkAroundItem(WorkAroundId)
     });
 }
 
-function SubmitFormWithValidation()
-{    
+function getUrlParameter(sParam) {
+    var sPageURL = decodeURIComponent(window.location.search.substring(1)),
+        sURLVariables = sPageURL.split('&'),
+        sParameterName,
+        i;
 
-    let IsFormValid = true;
+    for (i = 0; i < sURLVariables.length; i++) {
+        sParameterName = sURLVariables[i].split('=');
 
-    if ( !IsThisComboFieldValid("finalApprover")) {
-        IsFormValid = false;    
+        if (sParameterName[0] === sParam) {
+            return sParameterName[1] === undefined ? true : sParameterName[1];
+        }
     }
+}
 
-    if ( IsFormValid) 
-    {
+function stripHtml(html){
+    // Create a new div element
+    var temporalDivElement = document.createElement("div");
+    // Set the HTML content with the providen
+    temporalDivElement.innerHTML = html;
+    // Retrieve the text property of the element (cross-browser support)
+    return temporalDivElement.textContent || temporalDivElement.innerText || "";
+}
+
+function YesAction()
+{    
+    jQuery.confirm({        
+        title: false,
+        content: '<div style="font-size: large;font-style: italic;">Are you sure you want to the Training Team Approval?</div>',
+        columnClass: 'large',
+        buttons: {            
+            Ok: {
+                text: 'Yes',
+                btnClass: 'btn-default btn-md',
+                action: function(){                    
+                    
+                    let WorkaroundId = getUrlParameter('WorkaroundId');
+                    let page = "/Pages/feedback.aspx";
+
+                    if ( WorkaroundId )
+                    {
+                        let comments = "";
+                        let data = getWorkaroundMetaData("Team Training (Pending)", comments);
+                            
+                        if ( data ) {
+                            
+                            var results = updateWorkAround(WorkaroundId, data);
+                                results.done(function (data) {
+
+                                    var serverUrl = _spPageContextInfo.webAbsoluteUrl;
+                                    window.location = serverUrl + page;
+                                
+                                query.fail(function(error) {
+                                    alert(error);
+                                });
+                            });
+                            results.fail(function(error) {
+                                alert(error);
+                            });    
+                        }
+                    }        
+                    
+                }
+            },
+            Cancel: {
+                text: 'No',
+                btnClass: 'btn-default btn-md',
+                action: function(){
+                    
+                }
+            }
+        }
+    });
+}
+
+function NoAction()
+{
+    if ( isFormValid() )
+    {        
         jQuery.confirm({        
             title: false,
-            content: '<div style="font-size: large;font-style: italic;">Are you sure you want to submit this Workaround for final Approval?</div>',
-            columnClass: 'large',
+            content: '<div style="font-size: large;font-style: italic;">Are you sure you do not want the Training Team Approval?</div>',
+            columnClass: 'medium',
             buttons: {            
                 Ok: {
                     text: 'Yes',
                     btnClass: 'btn-default btn-md',
-                    action: function(){    
-                        
+                    action: function(){
+    
                         let WorkaroundId = getUrlParameter('WorkaroundId');
                         let page = "/Pages/feedback.aspx";
 
                         if ( WorkaroundId )
-                        {   
-                            var logonName = document.getElementById("finalApprover").value;                            
-
-                            var account = getAccountId(logonName);
-                                account.done(function (data) {
-
-                                let finalApproverId = data;
-                                
-                                let comments = "";
-                                let metaData = getWorkaroundMetaData("Final Approval (Pending)", finalApproverId, comments);
-                                
-                                if ( metaData ) 
-                                {
-                                    var results = updateWorkAround(WorkaroundId, metaData);
-                                        results.done(function (data) {
-                                            var serverUrl = _spPageContextInfo.webAbsoluteUrl;
-                                            window.location = serverUrl + page;
-                                        });
-                                            results.fail(function(error) {
-                                                alert(error);
-                                        });
-                                }    
-
-                            });
-                                account.fail(function(error) {
-                                    alert(error);
-                            });                                  
+                        {
+                            let comments = "";
+                            let data = getWorkaroundMetaData("Completed", comments);
                             
-                        }         
-                                                
-                        
+                            if ( data ) {
+
+                                var results = updateWorkAround(WorkaroundId, data);
+                                results.done(function (data) {
+                                    var serverUrl = _spPageContextInfo.webAbsoluteUrl;
+                                    window.location = serverUrl + page;
+
+                                });
+                                results.fail(function(error) {
+                                    alert(error);
+                                });    
+                            }
+                        }                                                                                 
                     }
                 },
                 Cancel: {
@@ -155,56 +210,39 @@ function SubmitFormWithValidation()
                 }
             }
         });
-    }    
+    }
 }
 
-function getAccountId(logonName) {
+function isFormValid()
+{
+    var reason = jQuery('#field-reason').val();
 
-    var deferred = jQuery.Deferred();
+    if ( reason.length > 0 )
+    {
+        jQuery("#error-reason").hide();
+        return true;
+    }
 
-    var item = {  
-        'logonName': logonName  
-    };  
+    jQuery("#error-reason").show();
+    return false;
+}
 
-    jQuery.ajax({  
-        url: _spPageContextInfo.siteAbsoluteUrl + "/_api/web/ensureuser",  
-        type: "POST",  
-        //async: false,  
-        contentType: "application/json;odata=verbose",  
-        data: JSON.stringify(item),  
-        headers: {  
-            "Accept": "application/json;odata=verbose",  
-            "X-RequestDigest": $("#__REQUESTDIGEST").val()  
-        },  
-        success:function(data){
-            deferred.resolve(data.d.Id);
-        },
-        error:function(err){
-            deferred.reject(err);
-        }
-    });  
+function getWorkaroundMetaData(Decision, commentsVal)
+{
+    var ApprovalType = getUrlParameter('ApprovalType');
+
+    var itemType = GetItemTypeForListName("Workaround");   
     
-    return deferred.promise();
-}
-
-function getWorkaroundMetaData(Decision, finalApproverId, commentsVal)
-{    
-    var itemType = GetItemTypeForListName("Workaround");    
-
     var data = {
         "__metadata": { "type": itemType },
-        "Comments": commentsVal,        
-        "WorkaroundWorkflowStatus": "Final Approval (Pending)",     
-        "finalApproverId": finalApproverId       
+        "Comments": commentsVal,
+        "WorkaroundWorkflowStatus": Decision,                
     };
     
     return data;    
+}   
 
-}
 
-function GetItemTypeForListName(name) {
-    return "SP.Data." + name.charAt(0).toUpperCase() + name.split(" ").join("").slice(1) + "ListItem";
-}
 
 function updateWorkAround(WorkaroundId, data)  
 {   
@@ -237,45 +275,45 @@ function updateWorkAround(WorkaroundId, data)
     return deferred.promise();
 }
 
-function IsThisComboFieldValid(fieldName)
-{
-    let field = document.getElementById(fieldName);
-    let errorField = document.getElementById("error-" + fieldName);
+function getWorkAround(WorkAroundId)
+{   
+    var deferred = jQuery.Deferred();
 
-    if ( field.value == 0 )
-    {
-        errorField.style.display = "inline";
-        return false;
-    }
-    else {
+    let item = null;
 
-        errorField.style.display = "none";
-        return true;
-    }
+    jQuery.ajax  
+    ({  
+        url: _spPageContextInfo.webAbsoluteUrl + "/data/_api/web/lists/GetByTitle('Workaround')/items?$filter=ID eq " + WorkAroundId,  
+        type: "GET",  
+        headers:  
+        {  
+            "Accept": "application/json;odata=verbose",  
+            "Content-Type": "application/json;odata=verbose",  
+            "X-RequestDigest": $("#__REQUESTDIGEST").val(),  
+            "IF-MATCH": "*",  
+            "X-HTTP-Method": null  
+        },  
+        cache: false,  
+        success: function(data)   
+        {              
+            console.log(data);
+            if ( data.d.results.length > 0 )
+            {
+                item = data.d.results[0];                  
+                deferred.resolve(item);
+            }  
+        },  
+        error: function(err)  
+        {  
+            alert(data.responseText);
+            deferred.reject(err);    
+        }  
+    });
 
-    return false;
+    return deferred.promise();
 }
 
-function getUrlParameter(sParam) {
-    var sPageURL = decodeURIComponent(window.location.search.substring(1)),
-        sURLVariables = sPageURL.split('&'),
-        sParameterName,
-        i;
-
-    for (i = 0; i < sURLVariables.length; i++) {
-        sParameterName = sURLVariables[i].split('=');
-
-        if (sParameterName[0] === sParam) {
-            return sParameterName[1] === undefined ? true : sParameterName[1];
-        }
-    }
-}
-
-function stripHtml(html){
-    // Create a new div element
-    var temporalDivElement = document.createElement("div");
-    // Set the HTML content with the providen
-    temporalDivElement.innerHTML = html;
-    // Retrieve the text property of the element (cross-browser support)
-    return temporalDivElement.textContent || temporalDivElement.innerText || "";
+// Get List Item Type metadata
+function GetItemTypeForListName(name) {
+    return "SP.Data." + name.charAt(0).toUpperCase() + name.split(" ").join("").slice(1) + "ListItem";
 }

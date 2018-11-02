@@ -1,7 +1,7 @@
 (function () {
     var overrideContext = {};
     overrideContext.Templates = {};
-    overrideContext.Templates.Header = "<h3 style='padding-top: 30px;'><b><i><u>WorkAround Rejected Items</u></i><b></h3><br><br><table class='table table-striped table-hover'><tr><th>Workaround Title</th><th>Workaround Number</th><th>WorkAround Type</th><th>Rejected By</th><th>Comments</th></tr>";
+    overrideContext.Templates.Header = "<table class='table table-striped table-hover'><tr><th>Workaround Title</th><th>Workaround Number</th><th>WorkAround Type</th><th>Rejected By</th><th>Comments</th></tr>";
     overrideContext.Templates.Item = overrideTemplate;
     overrideContext.Templates.Footer = "</table>";
     SPClientTemplates.TemplateManager.RegisterTemplateOverrides(overrideContext);

@@ -355,6 +355,53 @@ function getWorkaroundMetaData(Decision, commentsVal)
                 return data;
             }
         }
+        else if ( ApprovalType == 5 )
+        {
+            if ( Decision != "Rejected" )
+            {
+                var data = {
+                    "__metadata": { "type": itemType },
+                    "Comments": commentsVal,
+                    "WorkaroundWorkflowStatus": "Final Approval (Approved)",            
+                };
+                
+                return data;
+
+            }
+            else {
+                var data = {
+                    "__metadata": { "type": itemType },
+                    "Comments": commentsVal,
+                    "WorkaroundWorkflowStatus": Decision,            
+                };
+                
+                return data;
+
+            }
+        }
+        else if ( ApprovalType == 6 )
+        {
+            if ( Decision != "Rejected" )
+            {
+                var data = {
+                    "__metadata": { "type": itemType },
+                    "Comments": commentsVal,
+                    "WorkaroundWorkflowStatus": "Completed",            
+                };
+                
+                return data;
+
+            }
+            else {
+                var data = {
+                    "__metadata": { "type": itemType },
+                    "Comments": commentsVal,
+                    "WorkaroundWorkflowStatus": Decision,            
+                };
+                
+                return data;
+            }
+        }
         else {
             return null;
         }
