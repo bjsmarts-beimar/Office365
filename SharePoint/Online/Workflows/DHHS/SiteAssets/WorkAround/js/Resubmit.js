@@ -1,6 +1,8 @@
 'use strict';
 
 var PageContextRevisionID = null;
+var user, Titles, Labels, Emails;
+
 
 jQuery(document).ready(function () {
 
@@ -8,6 +10,21 @@ jQuery(document).ready(function () {
     if (!window.FileReader) {
         alert('This browser does not support the FileReader API.');
     }    
+
+    getDataFromlocalStorage();
+    setTitleFromLocalStorage();
+    setLabelsFromLocalStorage("1");
+    setLabelsFromLocalStorage("2");
+    setLabelsFromLocalStorage("3");
+    setLabelsFromLocalStorage("4");
+    setLabelsFromLocalStorage("5");
+    setLabelsFromLocalStorage("6");
+    setLabelsFromLocalStorage("7");
+    setLabelsFromLocalStorage("8");
+    setLabelsFromLocalStorage("9");
+    setLabelsFromLocalStorage("10");
+    setLabelsFromLocalStorage("11");
+    setLabelsFromLocalStorage("12");   
 
     var WorkAroundId = getUrlParameter('WorkaroundId');
     
@@ -17,6 +34,97 @@ jQuery(document).ready(function () {
     }
                                  
 });
+
+function getDataFromlocalStorage()
+{
+    if ( localStorage )
+    {
+        let _Titles = localStorage.getItem("Titles");
+
+        if ( _Titles )            
+        {
+            console.log('localStorage Titles: ', JSON.parse(_Titles));            
+            Titles = JSON.parse(_Titles);
+
+            let _Emails = localStorage.getItem("Emails");
+
+            if ( _Emails )
+            {
+                console.log('localStorage Emails: ', JSON.parse(_Emails));
+                let Emails = JSON.parse(_Emails);
+
+                let _Labels = localStorage.getItem("Labels");
+
+                if ( _Labels )
+                {
+                    console.log('localStorage Labels: ', JSON.parse(_Labels));
+                    Labels = JSON.parse(_Labels);
+                    return;
+                }
+                else {
+
+                    let urlQuery = "?$select=LabelID,Title";
+
+                    let resultsLabels = retrieveListItems("Labels", urlQuery);
+                    resultsLabels.done(function (data) {
+                        localStorage.setItem("Labels", JSON.stringify(data));                        
+                        getDataFromlocalStorage();
+                    });
+                    resultsLabels.fail(function(err) {
+                        alert(err.responseText);
+                    });
+
+                }                    
+            }
+            else {
+
+                let urlQuery = "?$select=EmailID,Title,EmailBody";
+
+                let resultsEmails = retrieveListItems("Emails", urlQuery);
+                    resultsEmails.done(function (data) {
+                        localStorage.setItem("Emails", JSON.stringify(data));                        
+                        getDataFromlocalStorage();
+                    });
+                    resultsEmails.fail(function(err) {
+                        alert(err.responseText);
+                    });   
+            }
+        }
+        else {
+
+            let urlQuery = "?$select=TitleID,Title,titleForm";
+
+            let results = retrieveListItems("Titles", urlQuery);
+            results.done(function (data) {
+                localStorage.setItem("Titles", JSON.stringify(data));                
+                getDataFromlocalStorage();
+            });
+            results.fail(function(err) {
+                alert(err.responseText);
+            });             
+        }               
+    }
+}
+
+function setTitleFromLocalStorage()
+{      
+    let _title = Titles.find(function(title) {
+        return title.Title === "EEMS Workaround Resubmit Form"
+    });
+
+    jQuery("#label_form_title").text(_title.titleForm);  
+}
+
+function setLabelsFromLocalStorage(labelIndex)
+{
+    let _label  = Labels.find(function(title) {
+        return title.LabelID === labelIndex
+    });
+
+    name = "label" + labelIndex;
+
+    jQuery("#" + name).text(_label.Title);  
+}
 
 function retrieveWorkAroundItem(WorkAroundId)
 {   
@@ -50,11 +158,12 @@ function retrieveWorkAroundItem(WorkAroundId)
                 jQuery("#defectCR").val(item.DefectCRNumber);   
                 jQuery("#steps").text(stripHtml(item.Workaround_x0020_Steps));    
                 jQuery("#ibmba").val(item.IBM_x0020_BA.Title);    
-                jQuery("#developer").val(item.Training_x0020_Developer.Title); 
+                //jQuery("#developer").val(item.Training_x0020_Developer.Title); 
                 jQuery("#tester").val(item.Testing_x0020_Team.Title); 
                 jQuery("#analyst").val(item.State_x0020_BA_x0020_Lead.Title);
                 jQuery("#manager").val(item.MMRP_x0020_State_x0020_Project_x.Title);
-                jQuery("#submitter").val(item.Author.Title);
+                //jQuery("#submitter").val(item.Author.Title);
+                jQuery("#submitter").text("Created at " + moment(item.Created).format('MM/DD/YYYY h:mm:ss a') + " by " + item.Author.Title);
 
                 let ImpactedAudiences = item.Impacted_x0020_Audience.results;
                                 
@@ -86,6 +195,41 @@ function retrieveWorkAroundItem(WorkAroundId)
             alert(data.responseText);  
         }  
     });
+}
+
+function retrieveListItems(listName, urlQuery)  
+{  
+    var deferred = jQuery.Deferred();
+
+    jQuery.ajax  
+    ({  
+        url: _spPageContextInfo.webAbsoluteUrl + "/data/_api/web/lists/GetByTitle('" + listName + "')/items" + urlQuery,  
+        type: "GET",  
+        headers:  
+        {  
+            "Accept": "application/json;odata=verbose",  
+            "Content-Type": "application/json;odata=verbose",  
+            "X-RequestDigest": $("#__REQUESTDIGEST").val(),  
+            "IF-MATCH": "*",  
+            "X-HTTP-Method": null  
+        },  
+        cache: false,  
+        success: function(data)   
+        {  
+            deferred.resolve(data.d.results);            
+        },  
+        error: function(err)  
+        {  
+            deferred.reject(err);              
+        }  
+    });  
+
+    return deferred.promise();
+}
+
+function ReSubmitFormWithValidation()
+{
+
 }
 
 function getUrlParameter(sParam) {
