@@ -1,6 +1,6 @@
 'use strict';
 
-let user, Titles, Labels, Emails;
+//let user, Titles, Labels, Emails;
 let WorkAroudTypeId = 0;
 let _attachments = new Array();
 let _testCaseAttachments = new Array();
@@ -25,7 +25,6 @@ jQuery(document).ready(function () {
     initializePeoplePicker('analystPeoplePickerDiv');
     initializePeoplePicker('managerPeoplePickerDiv');
     initializePeoplePicker('businesAnalystPeoplePickerDiv');
-    // initializePeoplePicker('peoplePickerDivDeveloper');                          
     
     getDataFromlocalStorage();
     setTitleFromLocalStorage();
@@ -43,99 +42,6 @@ jQuery(document).ready(function () {
     setLabelsFromLocalStorage("12");    
 
 });
-
-function getDataFromlocalStorage()
-{
-    if ( localStorage )
-    {
-        let _Titles = localStorage.getItem("Titles");
-
-        if ( _Titles )            
-        {
-            console.log('localStorage Titles: ', JSON.parse(_Titles));            
-            Titles = JSON.parse(_Titles);
-
-            let _Emails = localStorage.getItem("Emails");
-
-            if ( _Emails )
-            {
-                console.log('localStorage Emails: ', JSON.parse(_Emails));
-                let Emails = JSON.parse(_Emails);
-
-                let _Labels = localStorage.getItem("Labels");
-
-                if ( _Labels )
-                {
-                    console.log('localStorage Labels: ', JSON.parse(_Labels));
-                    Labels = JSON.parse(_Labels);
-                    return;
-                }
-                else {
-
-                    let urlQuery = "?$select=LabelID,Title";
-
-                    let resultsLabels = retrieveListItems("Labels", urlQuery);
-                    resultsLabels.done(function (data) {
-                        localStorage.setItem("Labels", JSON.stringify(data));                        
-                        getDataFromlocalStorage();
-                    });
-                    resultsLabels.fail(function(err) {
-                        alert(err.responseText);
-                    });
-
-                }                    
-            }
-            else {
-
-                let urlQuery = "?$select=EmailID,Title,EmailBody";
-
-                let resultsEmails = retrieveListItems("Emails", urlQuery);
-                    resultsEmails.done(function (data) {
-                        localStorage.setItem("Emails", JSON.stringify(data));                        
-                        getDataFromlocalStorage();
-                    });
-                    resultsEmails.fail(function(err) {
-                        alert(err.responseText);
-                    });   
-            }
-        }
-        else {
-
-            let urlQuery = "?$select=TitleID,Title,titleForm";
-
-            let results = retrieveListItems("Titles", urlQuery);
-            results.done(function (data) {
-                localStorage.setItem("Titles", JSON.stringify(data));                
-                getDataFromlocalStorage();
-            });
-            results.fail(function(err) {
-                alert(err.responseText);
-            });             
-        }               
-    }
-
-}
-
-function setTitleFromLocalStorage()
-{      
-    let _title = Titles.find(function(title) {
-        return title.Title === "EEMS Workaround Initiation Form"
-    });
-
-    jQuery("#label_form_title").text(_title.titleForm);  
-}
-
-function setLabelsFromLocalStorage(labelIndex)
-{
-
-    let _label  = Labels.find(function(title) {
-        return title.LabelID === labelIndex
-    });
-
-    name = "label" + labelIndex;
-
-    jQuery("#" + name).text(_label.Title);  
-}
 
 function SubmitFormWithValidation()
 {           
@@ -205,11 +111,6 @@ function SubmitFormWithValidation()
         IsFormValid = false;        
     }
 
-    // if ( !IsPeoplePickerFieldValid(SPClientPeoplePicker.SPClientPeoplePickerDict.peoplePickerDivDeveloper_TopSpan, "peoplePickerDivDeveloper") )
-    // {
-    //     IsFormValid = false;        
-    // }
-
     if ( !IsPeoplePickerFieldValid(SPClientPeoplePicker.SPClientPeoplePickerDict.peoplePickerDiv_TopSpan, "peoplePickerDiv") )
     {
         IsFormValid = false;        
@@ -264,59 +165,6 @@ function SubmitFormWithValidation()
         }
         
     }
-}
-
-
-
-function IsPeoplePickerFieldValid(fieldName_TopSpan, fieldName)
-{
-    let errorField = document.getElementById("error-" + fieldName);
-
-    if ( fieldName_TopSpan.TotalUserCount > 0 )
-    {
-        errorField.style.display = "none";
-        return true;
-    }
-    else {
-        errorField.style.display = "inline";
-        return false;
-    }    
-}
-
-function IsThisComboFieldValid(fieldName)
-{
-    let field = document.getElementById(fieldName);
-    let errorField = document.getElementById("error-" + fieldName);
-
-    if ( field.value == 0 )
-    {
-        errorField.style.display = "inline";
-        return false;
-    }
-    else {
-
-        errorField.style.display = "none";
-        return true;
-    }
-
-    return false;
-}
-
-function IsThisTextFieldValid(fieldName)
-{    
-    let field = document.getElementById(fieldName);
-    let errorField = document.getElementById("error-" + fieldName);
-    
-    if ( field.value.length > 0 )
-    {
-        errorField.style.display = "none";
-        return true;
-    }
-    else {
-
-        errorField.style.display = "inline";
-        return false;
-    }    
 }
 
 function hasBeenSelected()
@@ -525,7 +373,59 @@ function CreateOMWorkAroundRecord()
                                             },
                                             success: function (data) {
                                                 
-                                                console.log(data);      
+                                                console.log(data); 
+                                
+                                                let WorkaroundID = data.d.ID;
+
+                                                for(var i=0; i<_attachments.length; ++i){   
+                                                                                        
+                                                    let name = _attachments[i][0];
+                                                    let serverRelativeURL = _attachments[i][1]; 
+                                                    
+                                                    var listName = "Links";
+                                                    var itemType = GetItemTypeForListName(listName);
+                                                    
+                                                    var item = {
+                                                        "__metadata": { "type": itemType },
+                                                        "Title": name,
+                                                        "Link": serverRelativeURL,
+                                                        "WorkAroundID": WorkaroundID,
+                                                        "IsTestCaseAttachment": "No"
+                                                    };
+
+                                                    let attachment = addItemToSharePointList(item, listName);
+                                                    attachment.done(function(data) {
+                                                        console.log(data);
+                                                    });
+                                                    attachment.fail(function(error) {
+                                                        alert(error);
+                                                    });
+                                                }
+
+                                                for(var i=0; i<_testCaseAttachments.length; ++i){   
+                                                                                        
+                                                    let name = _testCaseAttachments[i][0];
+                                                    let serverRelativeURL = _testCaseAttachments[i][1];  
+                                                    
+                                                    var listName = "Links";
+                                                    var itemType = GetItemTypeForListName(listName);
+                                                    
+                                                    var item = {
+                                                        "__metadata": { "type": itemType },
+                                                        "Title": name,
+                                                        "Link": serverRelativeURL,
+                                                        "WorkAroundID": WorkaroundID,
+                                                        "IsTestCaseAttachment": "Yes"
+                                                    };
+
+                                                    let attachment = addItemToSharePointList(item, listName);
+                                                    attachment.done(function(data) {
+                                                        console.log(data);
+                                                    });
+                                                    attachment.fail(function(error) {
+                                                        alert(error);
+                                                    });
+                                                }      
                                                                     
                                                 jQuery.alert({        
                                                     title: false,
@@ -558,14 +458,11 @@ function CreateOMWorkAroundRecord()
                                     alert(error);
                                 });
 
-
                             });
                             analyst.fail( function(error) {
                                 alert(error);
                             });
-
                                 
-
                         });
                         director.fail(function(error) {
                             alert(error);
@@ -617,12 +514,7 @@ function CreateWorkAroundRecord()
     account.done(function (data) {
         
         let IBMBAPeoplePickerId = data;
-
-        // var developer = getAccountId(SPClientPeoplePicker.SPClientPeoplePickerDict.peoplePickerDivDeveloper_TopSpan);
-        // developer.done(function(data) {
-
-            // let DeveloperPeoplePickerId = data;
-
+        
             var tester = getAccountId(SPClientPeoplePicker.SPClientPeoplePickerDict.testersPeoplePickerDiv_TopSpan);
             tester.done(function(data) {
 
@@ -654,7 +546,6 @@ function CreateWorkAroundRecord()
                             "Test_x0020_Case": testCase,
                             "WorkaroundUsage": timeUsage,
                             "IBM_x0020_BAId": IBMBAPeoplePickerId,
-                            // "Training_x0020_DeveloperId": DeveloperPeoplePickerId,
                             "Testing_x0020_TeamId": testerPeoplePickerId,
                             "State_x0020_BA_x0020_LeadId": analystPeoplePickerId,
                             "MMRP_x0020_State_x0020_Project_xId": managerPeoplePickerId,
@@ -677,14 +568,25 @@ function CreateWorkAroundRecord()
                                 
                                 console.log(data); 
                                 
-                                let workaroundID = data.d.ID;
+                                let WorkaroundID = data.d.ID;
 
                                 for(var i=0; i<_attachments.length; ++i){   
                                                                         
                                     let name = _attachments[i][0];
-                                    let serverRelativeURL = _attachments[i][1];                              
+                                    let serverRelativeURL = _attachments[i][1];  
 
-                                    let attachment = CreateLink(name, serverRelativeURL, workaroundID, "No");
+                                    var listName = "Links";
+                                    var itemType = GetItemTypeForListName(listName);
+                                                    
+                                    var item = {
+                                        "__metadata": { "type": itemType },
+                                        "Title": name,
+                                        "Link": serverRelativeURL,
+                                        "WorkAroundID": WorkaroundID,
+                                        "IsTestCaseAttachment": "No"
+                                    };
+
+                                    let attachment = addItemToSharePointList(item, listName);                                                                
                                     attachment.done(function(data) {
                                         console.log(data);
                                     });
@@ -696,9 +598,20 @@ function CreateWorkAroundRecord()
                                 for(var i=0; i<_testCaseAttachments.length; ++i){   
                                                                         
                                     let name = _testCaseAttachments[i][0];
-                                    let serverRelativeURL = _testCaseAttachments[i][1];                              
+                                    let serverRelativeURL = _testCaseAttachments[i][1];  
+                                    
+                                    var listName = "Links";
+                                    var itemType = GetItemTypeForListName(listName);
+                                                    
+                                    var item = {
+                                        "__metadata": { "type": itemType },
+                                        "Title": name,
+                                        "Link": serverRelativeURL,
+                                        "WorkAroundID": WorkaroundID,
+                                        "IsTestCaseAttachment": "Yes"
+                                    };
 
-                                    let attachment = CreateLink(name, serverRelativeURL, workaroundID, "Yes");
+                                    let attachment = addItemToSharePointList(item, listName);
                                     attachment.done(function(data) {
                                         console.log(data);
                                     });
@@ -743,131 +656,24 @@ function CreateWorkAroundRecord()
                 alert(error);
             });              
 
-        // });
-        // developer.fail(function(data) {
-        //     alert(error);
-        // });                
-
     });
     account.fail(function(error) {
         alert(error);
     });               
 }
 
-// Get List Item Type metadata
-function GetItemTypeForListName(name) {
-    return "SP.Data." + name.charAt(0).toUpperCase() + name.split(" ").join("").slice(1) + "ListItem";
-}
+// function getSelectedTextFromField(name)
+// {
+//     let selectedValue = jQuery( "#" + name + " option:selected" ).val();
+//     let selectedText = "";
 
-function getSelectedTextFromField(name)
-{
-    let selectedValue = jQuery( "#" + name + " option:selected" ).val();
-    let selectedText = "";
+//     if ( selectedValue != 0 )
+//     {
+//         selectedText = jQuery( "#" + name + " option:selected" ).text();
+//     }    
 
-    if ( selectedValue != 0 )
-    {
-        selectedText = jQuery( "#" + name + " option:selected" ).text();
-    }    
-
-    return selectedText;
-}
-
-// Render and initialize the client-side People Picker.
-function initializePeoplePicker(peoplePickerElementId) {
-
-    // Create a schema to store picker properties, and set the properties.
-    var schema = {};
-    //schema['PrincipalAccountType'] = 'User,DL,SecGroup,SPGroup';
-    schema['PrincipalAccountType'] = 'User';
-    schema['SearchPrincipalSource'] = 15;
-    schema['ResolvePrincipalSource'] = 15;
-    schema['AllowMultipleValues'] = false;
-    schema['MaximumEntitySuggestions'] = 50;
-    schema['Width'] = '400px';
-
-    // Render and initialize the picker. 
-    // Pass the ID of the DOM element that contains the picker, an array of initial
-    // PickerEntity objects to set the picker value, and a schema that defines
-    // picker properties.
-    //this.SPClientPeoplePicker_InitStandaloneControlWrapper(peoplePickerElementId, null, schema);
-    SPClientPeoplePicker_InitStandaloneControlWrapper(peoplePickerElementId, null, schema);
-}
-
-function getAccountId(peoplePickerDiv_TopSpan) {
-
-    var deferred = jQuery.Deferred();
-
-    // Get the people picker object from the page.
-    //var peoplePicker = SPClientPeoplePicker.SPClientPeoplePickerDict.peoplePickerDiv_TopSpan;
-    var peoplePicker = peoplePickerDiv_TopSpan;
-
-    // Get information about all users.
-    var users = peoplePicker.GetAllUserInfo();
-    var userInfo = '';
-    for (var i = 0; i < users.length; i++) {
-        var user = users[i];
-        for (var userProperty in user) { 
-            userInfo += userProperty + ':  ' + user[userProperty] + '<br>';
-        }
-    }
-
-    // Get the first user's ID by using the login name.
-    var logonName = users[0].Key;
-
-    var item = {  
-        'logonName': logonName  
-    };  
-
-    jQuery.ajax({  
-        url: _spPageContextInfo.siteAbsoluteUrl + "/_api/web/ensureuser",  
-        type: "POST",  
-        //async: false,  
-        contentType: "application/json;odata=verbose",  
-        data: JSON.stringify(item),  
-        headers: {  
-            "Accept": "application/json;odata=verbose",  
-            "X-RequestDigest": $("#__REQUESTDIGEST").val()  
-        },  
-        success:function(data){
-            deferred.resolve(data.d.Id);
-        },
-        error:function(err){
-            deferred.reject(err);
-        }
-    });  
-    
-    return deferred.promise();
-}
-
-function retrieveListItems(listName, urlQuery)  
-{  
-    var deferred = jQuery.Deferred();
-
-    jQuery.ajax  
-    ({  
-        url: _spPageContextInfo.webAbsoluteUrl + "/data/_api/web/lists/GetByTitle('" + listName + "')/items" + urlQuery,  
-        type: "GET",  
-        headers:  
-        {  
-            "Accept": "application/json;odata=verbose",  
-            "Content-Type": "application/json;odata=verbose",  
-            "X-RequestDigest": $("#__REQUESTDIGEST").val(),  
-            "IF-MATCH": "*",  
-            "X-HTTP-Method": null  
-        },  
-        cache: false,  
-        success: function(data)   
-        {  
-            deferred.resolve(data.d.results);            
-        },  
-        error: function(data)  
-        {  
-            deferred.reject(err);              
-        }  
-    });  
-
-    return deferred.promise();
-}
+//     return selectedText;
+// }
 
 function uploadTestCaseAttachment()
 {
@@ -1049,152 +855,47 @@ function DeleteTestCaseAttachment(ServerRelativeUrl, Index, divBucket, startDiv,
     })      
 }
 
-function uploadAttachment()
-{
-    var fileInput = jQuery('#getFile');
 
-    if ( fileInput[0].files.length > 0 )
-    {
-        jQuery("#error-revision-file").hide();
 
-        var serverRelativeUrlToFolder = '/sites/SBH/wp/data/Attachments/';
-        
-        // Get test values from the file input and text input page controls.
-        //var fileInput = jQuery('#getFile');
-        //newName = jQuery('#displayName').val();
-        
-        // Get the server URL.
-        var serverUrl = _spPageContextInfo.webAbsoluteUrl;
-        
-        // Initiate method calls using jQuery promises.
-        // Get the local file as an array buffer.
-        var getFile = getFileBuffer(fileInput);
-        getFile.done(function (arrayBuffer) {
-        
-        // Add the file to the SharePoint folder.
-        var addFile = addFileToFolder(arrayBuffer, fileInput, serverUrl, serverRelativeUrlToFolder);
-            addFile.done(function (file, status, xhr) {
-                    
-                    //CreateLink(file.d.Name, file.d.ServerRelativeUrl);
-                    console.log(file);
-                    
-                    // Reset the input control
-                    fileInput.val("");
+// function CreateLink(Name, Link, WorkaroundID, IsTestCaseAttachment)
+// {
 
-                    // Add new file 
-                    let newItem = [file.d.Name, file.d.ServerRelativeUrl];
-                    _attachments.push(newItem);
+//     var deferred = jQuery.Deferred();
 
-                    document.getElementById("attachmentsDiv").style.display = "flex";                    
-                       
-                    let full_list = "<div class='col-2' style='text-align: right;'></div><div class='col-10'>";
-                    for(var i=0; i<_attachments.length; ++i){                        
-                        full_list = full_list + _attachments[i][0]+ "&nbsp;&nbsp;&nbsp;<span class='ms-delAttachments'><img src='/_layouts/15/images/rect.gif?rev=44'>&nbsp;<a href='javascript:deleteAttachment(" + i + ")'>Delete</a></span><br>";
-                    } 
-
-                    full_list = full_list + "</div>";
-
-                    $("#attachmentsDiv").html(full_list);
-        
-            });
-            addFile.fail(onError);        
-        });
-        getFile.fail(onError);
-        
-    }
-    else {
-        jQuery("#error-revision-file").show();
-    }    
-}
-
-function DeleteAttachment(ServerRelativeUrl, Index)
-{
-    var siteUrl = _spPageContextInfo.webAbsoluteUrl;
+//     var listName = "Links";
+//     var itemType = GetItemTypeForListName(listName);
     
-    var fullUrl = siteUrl + "/data/_api/web/GetFileByServerRelativeUrl('" + ServerRelativeUrl +"')";
-    
-    $.ajax({        
-        url: fullUrl,    
-        method: "POST",    
-        headers: {    
-            "accept": "application/json;odata=verbose",    
-            "content-type": "application/json;odata=verbose",    
-            "X-RequestDigest": $("#__REQUESTDIGEST").val(),    
-            "IF-MATCH": "*",    
-            "X-HTTP-Method": "DELETE"    
-        },    
-        success: function(data) {    
+//     var item = {
+//         "__metadata": { "type": itemType },
+//         "Title": Name,
+//         "Link": Link,
+//         "WorkAroundID": WorkaroundID,
+//         "IsTestCaseAttachment": IsTestCaseAttachment
+//     };
+
+//     $.ajax({
+//         //url: _spPageContextInfo.siteAbsoluteUrl + "/_api/web/lists/getbytitle('" + listName + "')/items",
+//         url: _spPageContextInfo.webAbsoluteUrl + "/data/_api/web/lists/getbytitle('" + listName + "')/items",
+//         type: "POST",
+//         contentType: "application/json;odata=verbose",
+//         data: JSON.stringify(item),
+//         headers: {
+//             "Accept": "application/json;odata=verbose",
+//             "X-RequestDigest": $("#__REQUESTDIGEST").val()
+//         },  
+//         success: function (data) {
+//             console.log(data);  
+//             deferred.resolve(data);  
             
-            console.log(data);
+//         },
+//         error: function(err) {
+//             alert(data);
+//             deferred.reject(err);
+//         }
+//     });
 
-            document.getElementById("attachmentsDiv").style.display = "flex";  
-            
-            let newAttachmentArray = new Array();
-                       
-            for(var i=0; i<_attachments.length; ++i){         
-                
-                if ( i !== Index )
-                {                    
-                    newAttachmentArray.push(_attachments[i]);
-                }                
-            } 
-
-            _attachments = newAttachmentArray;
-
-            let full_list = "<div class='col-2' style='text-align: right;'></div><div class='col-10'>";
-            for(var i=0; i<_attachments.length; ++i){                        
-                full_list = full_list + _attachments[i][0]+ "&nbsp;&nbsp;&nbsp;<span class='ms-delAttachments'><img src='/_layouts/15/images/rect.gif?rev=44'>&nbsp;<a href='javascript:deleteAttachment(" + i + ")'>Delete</a></span><br>";
-            } 
-
-            full_list = full_list + "</div>";
-            
-            $("#attachmentsDiv").html(full_list);
-        },    
-        error: function(error) {    
-            alert(JSON.stringify(error));        
-        }        
-    })      
-}
-
-function CreateLink(Name, Link, WorkaroundID, IsTestCaseAttachment)
-{
-
-    var deferred = jQuery.Deferred();
-
-    var listName = "Links";
-    var itemType = GetItemTypeForListName(listName);
-    
-    var item = {
-        "__metadata": { "type": itemType },
-        "Title": Name,
-        "Link": Link,
-        "WorkAroundID": WorkaroundID,
-        "IsTestCaseAttachment": IsTestCaseAttachment
-    };
-
-    $.ajax({
-        //url: _spPageContextInfo.siteAbsoluteUrl + "/_api/web/lists/getbytitle('" + listName + "')/items",
-        url: _spPageContextInfo.webAbsoluteUrl + "/data/_api/web/lists/getbytitle('" + listName + "')/items",
-        type: "POST",
-        contentType: "application/json;odata=verbose",
-        data: JSON.stringify(item),
-        headers: {
-            "Accept": "application/json;odata=verbose",
-            "X-RequestDigest": $("#__REQUESTDIGEST").val()
-        },  
-        success: function (data) {
-            console.log(data);  
-            deferred.resolve(data);  
-            
-        },
-        error: function(err) {
-            alert(data);
-            deferred.reject(err);
-        }
-    });
-
-    return deferred.promise();
-}
+//     return deferred.promise();
+// }
 
 // Get the local file as an array buffer.
 function getFileBuffer(fileInput) {

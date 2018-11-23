@@ -1,7 +1,8 @@
 'use strict';
 
 var PageContextRevisionID = null;
-let user, Titles, Labels, Emails;
+var WorkAroudTypeId = 0;
+var urlQuery = "";
 
 jQuery(document).ready(function () {
 
@@ -25,126 +26,17 @@ jQuery(document).ready(function () {
     setLabelsFromLocalStorage("11");
     setLabelsFromLocalStorage("12");   
 
+
     var WorkAroundId = getUrlParameter('WorkaroundId');
     
     if ( WorkAroundId )
     {
-        retrieveWorkAroundItem(WorkAroundId);
-    }           
-});
 
-function getDataFromlocalStorage()
-{
-    if ( localStorage )
-    {
-        let _Titles = localStorage.getItem("Titles");
+        urlQuery = "?$select=ID,Title,Release_x0020_Number,Workaround_x0020_Trigger,Issue,DefectCRNumber,Workaround_x0020_Number,Created,WorkaroundType,WorkaroundUsage,WorkaroundGoLive,Test_x0020_Case,Impacted_x0020_Audience,Training_x0020_Developer/Title,Workaround_x0020_Steps,IBM_x0020_BA/Title,Testing_x0020_Team/Title,State_x0020_BA_x0020_Lead/Title,MMRP_x0020_State_x0020_Project_x/Title,State_x0020_MMRP_x0020_O_x0026_M0/Title,State_x0020_MMRP_x0020_Testing_x/Title,State_x0020_MMRP_x0020_O_x0026_M/Title,State_x0020_MMRP_x0020_Program_x/Title,Author/Title&$expand=Training_x0020_Developer,IBM_x0020_BA,Testing_x0020_Team,State_x0020_BA_x0020_Lead,MMRP_x0020_State_x0020_Project_x,State_x0020_MMRP_x0020_O_x0026_M0,State_x0020_MMRP_x0020_Testing_x,State_x0020_MMRP_x0020_O_x0026_M,State_x0020_MMRP_x0020_Program_x,Author&$filter=ID eq " + WorkAroundId;
+        let results = retrieveSharePointListItemsByListName("Workaround", urlQuery);
 
-        if ( _Titles )            
-        {
-            console.log('localStorage Titles: ', JSON.parse(_Titles));            
-            Titles = JSON.parse(_Titles);
+        results.done(function (data) {
 
-            let _Emails = localStorage.getItem("Emails");
-
-            if ( _Emails )
-            {
-                console.log('localStorage Emails: ', JSON.parse(_Emails));
-                let Emails = JSON.parse(_Emails);
-
-                let _Labels = localStorage.getItem("Labels");
-
-                if ( _Labels )
-                {
-                    console.log('localStorage Labels: ', JSON.parse(_Labels));
-                    Labels = JSON.parse(_Labels);
-                    return;
-                }
-                else {
-
-                    let urlQuery = "?$select=LabelID,Title";
-
-                    let resultsLabels = retrieveListItems("Labels", urlQuery);
-                    resultsLabels.done(function (data) {
-                        localStorage.setItem("Labels", JSON.stringify(data));                        
-                        getDataFromlocalStorage();
-                    });
-                    resultsLabels.fail(function(err) {
-                        alert(err.responseText);
-                    });
-
-                }                    
-            }
-            else {
-
-                let urlQuery = "?$select=EmailID,Title,EmailBody";
-
-                let resultsEmails = retrieveListItems("Emails", urlQuery);
-                    resultsEmails.done(function (data) {
-                        localStorage.setItem("Emails", JSON.stringify(data));                        
-                        getDataFromlocalStorage();
-                    });
-                    resultsEmails.fail(function(err) {
-                        alert(err.responseText);
-                    });   
-            }
-        }
-        else {
-
-            let urlQuery = "?$select=TitleID,Title,titleForm";
-
-            let results = retrieveListItems("Titles", urlQuery);
-            results.done(function (data) {
-                localStorage.setItem("Titles", JSON.stringify(data));                
-                getDataFromlocalStorage();
-            });
-            results.fail(function(err) {
-                alert(err.responseText);
-            });             
-        }               
-    }
-}
-
-function setTitleFromLocalStorage()
-{      
-    let _title = Titles.find(function(title) {
-        return title.Title === "EEMS Workaround View Form"
-    });
-
-    jQuery("#label_form_title").text(_title.titleForm);  
-}
-
-function setLabelsFromLocalStorage(labelIndex)
-{
-
-    let _label  = Labels.find(function(title) {
-        return title.LabelID === labelIndex
-    });
-
-    name = "label" + labelIndex;
-
-    jQuery("#" + name).text(_label.Title);  
-}
-
-function retrieveWorkAroundItem(WorkAroundId)
-{   
-    jQuery.ajax  
-    ({  
-        url: _spPageContextInfo.webAbsoluteUrl + "/data/_api/web/lists/GetByTitle('Workaround')/items?$select=ID,Title,Release_x0020_Number,Workaround_x0020_Trigger,Issue,DefectCRNumber,Workaround_x0020_Number,Created,WorkaroundType,WorkaroundUsage,WorkaroundGoLive,Test_x0020_Case,Impacted_x0020_Audience,Training_x0020_Developer/Title,Workaround_x0020_Steps,IBM_x0020_BA/Title,Testing_x0020_Team/Title,State_x0020_BA_x0020_Lead/Title,MMRP_x0020_State_x0020_Project_x/Title,Author/Title&$expand=Training_x0020_Developer,IBM_x0020_BA,Testing_x0020_Team,State_x0020_BA_x0020_Lead,MMRP_x0020_State_x0020_Project_x,Author&$filter=ID eq " + WorkAroundId,  
-        type: "GET",  
-        headers:  
-        {  
-            "Accept": "application/json;odata=verbose",  
-            "Content-Type": "application/json;odata=verbose",  
-            "X-RequestDigest": $("#__REQUESTDIGEST").val(),  
-            "IF-MATCH": "*",  
-            "X-HTTP-Method": null  
-        },  
-        cache: false,  
-        success: function(data)   
-        {              
-            console.log(data);
-            if ( data.d.results.length > 0 )
-            {
                 var item = data.d.results[0];  
                 
                 PageContextRevisionID = item.ID;
@@ -157,14 +49,30 @@ function retrieveWorkAroundItem(WorkAroundId)
                 jQuery("#defectCR").val(item.DefectCRNumber);   
                 jQuery("#steps").text(stripHtml(item.Workaround_x0020_Steps));    
                 jQuery("#ibmba").val(item.IBM_x0020_BA.Title);    
-                //jQuery("#developer").val(item.Training_x0020_Developer.Title); 
                 jQuery("#tester").val(item.Testing_x0020_Team.Title); 
                 jQuery("#analyst").val(item.State_x0020_BA_x0020_Lead.Title);
                 jQuery("#manager").val(item.MMRP_x0020_State_x0020_Project_x.Title);
-                //jQuery("#submitter").val(item.Author.Title);
+                jQuery("omBusinessAnalyst").val(item.State_x0020_MMRP_x0020_O_x0026_M0.Title);
                 jQuery("#submitter").text("Created at " + moment(item.Created).format('MM/DD/YYYY h:mm:ss a') + " by " + item.Author.Title);
 
-                
+                if ( item.WorkaroundType === "O&M")
+                {
+                    WorkAroudTypeId = 3;
+                }                
+
+                if ( WorkAroudTypeId === 3)
+                {
+                    document.getElementById("OMRelatedWorkAroundApproversDiv").style.display = "flex";
+                    document.getElementById("stateBusinessAnalystPeoplePickerDiv").style.display = "flex";
+                    document.getElementById("testingAnalystPeoplePickerDiv").style.display = "flex";
+                    document.getElementById("stateManagerPeoplePickerDiv").style.display = "flex";
+                    document.getElementById("programDirectorPeoplePickerDiv").style.display = "flex";
+
+                    jQuery("#omBusinessAnalyst").val(item.State_x0020_MMRP_x0020_O_x0026_M0.Title);                    
+                    jQuery("#omTestingAnalyst").val(item.State_x0020_MMRP_x0020_Testing_x.Title);                    
+                    jQuery("#omManager").val(item.State_x0020_MMRP_x0020_O_x0026_M.Title);
+                    jQuery("#omDirector").val(item.State_x0020_MMRP_x0020_Program_x.Title);
+                }
 
                 let ImpactedAudiences = item.Impacted_x0020_Audience.results;
                                 
@@ -202,13 +110,14 @@ function retrieveWorkAroundItem(WorkAroundId)
                 }
 
 
-                let urlQuery = "?$select=Title,Link&$filter=WorkAroundID eq " + PageContextRevisionID + " and IsTestCaseAttachment eq 'No'" ;
+                urlQuery = "?$select=Title,Link&$filter=WorkAroundID eq " + PageContextRevisionID + " and IsTestCaseAttachment eq 'No'" ;
 
-                let results = retrieveListItems("Links", urlQuery);
+                let results = retrieveSharePointListItemsByListName("Links", urlQuery);
                 results.done(function (data) {
                        console.log('links', data); 
 
-                       let arrayBucket = data;
+                       //let arrayBucket = data;
+                       let arrayBucket = data.d.results;
 
                        document.getElementById("attachmentsDiv").style.display = "flex";  
 
@@ -223,13 +132,15 @@ function retrieveWorkAroundItem(WorkAroundId)
 
                         $("#" + "attachmentsDiv").html(full_list);
 
-                        let urlQuery2 = "?$select=Title,Link&$filter=WorkAroundID eq " + PageContextRevisionID + " and IsTestCaseAttachment eq 'Yes'" ;
-                        let results2 = retrieveListItems("Links", urlQuery2);
+                        urlQuery = "?$select=Title,Link&$filter=WorkAroundID eq " + PageContextRevisionID + " and IsTestCaseAttachment eq 'Yes'" ;
+                        let results2 = retrieveSharePointListItemsByListName("Links", urlQuery);
+
                         results2.done(function(data) {
                             
                             console.log('links2', data); 
 
-                            let arrayBucket2 = data;
+                            //let arrayBucket2 = data;
+                            let arrayBucket2 = data.d.results;
 
                             document.getElementById("attachmentsTestCaseDiv").style.display = "flex";  
 
@@ -251,70 +162,11 @@ function retrieveWorkAroundItem(WorkAroundId)
                 results.fail(function(err) {
                     alert(err.responseText);
                 });
-            }  
-        },  
-        error: function(data)  
-        {  
-            alert(data.responseText);  
-        }  
-    });
-}
-
-function getUrlParameter(sParam) {
-    var sPageURL = decodeURIComponent(window.location.search.substring(1)),
-        sURLVariables = sPageURL.split('&'),
-        sParameterName,
-        i;
-
-    for (i = 0; i < sURLVariables.length; i++) {
-        sParameterName = sURLVariables[i].split('=');
-
-        if (sParameterName[0] === sParam) {
-            return sParameterName[1] === undefined ? true : sParameterName[1];
-        }
-    }
-}
-
-function retrieveListItems(listName, urlQuery)  
-{  
-    var deferred = jQuery.Deferred();
-
-    jQuery.ajax  
-    ({  
-        url: _spPageContextInfo.webAbsoluteUrl + "/data/_api/web/lists/GetByTitle('" + listName + "')/items" + urlQuery,  
-        type: "GET",  
-        headers:  
-        {  
-            "Accept": "application/json;odata=verbose",  
-            "Content-Type": "application/json;odata=verbose",  
-            "X-RequestDigest": $("#__REQUESTDIGEST").val(),  
-            "IF-MATCH": "*",  
-            "X-HTTP-Method": null  
-        },  
-        cache: false,  
-        success: function(data)   
-        {  
-            deferred.resolve(data.d.results);            
-        },  
-        error: function(err)  
-        {  
-            deferred.reject(err);              
-        }  
-    });  
-
-    return deferred.promise();
-}
-
-function stripHtml(html){
-    // Create a new div element
-    var temporalDivElement = document.createElement("div");
-    // Set the HTML content with the providen
-    temporalDivElement.innerHTML = html;
-    // Retrieve the text property of the element (cross-browser support)
-    return temporalDivElement.textContent || temporalDivElement.innerText || "";
-}
-
-// Get List Item Type metadata
-function GetItemTypeForListName(name) {
-    return "SP.Data." + name.charAt(0).toUpperCase() + name.split(" ").join("").slice(1) + "ListItem";
-}
+            
+        });
+        results.fail(function(err) {
+            alert(err.responseText);
+        });
+        
+    }           
+});

@@ -17,6 +17,9 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.0/jquery-confirm.min.js"></script>
 
 <!-- Custom Javascript Files -->
+<script type="text/javascript" src="https://schhs.sharepoint.com/sites/SBH/wp/data/SiteAssets/WorkAround/js/util.js"></script>
+<script type="text/javascript" src="https://schhs.sharepoint.com/sites/SBH/wp/data/SiteAssets/WorkAround/js/service.js"></script>
+<script type="text/javascript" src="https://schhs.sharepoint.com/sites/SBH/wp/data/SiteAssets/WorkAround/js/localstorage.js"></script>
 <script type="text/javascript" src="https://schhs.sharepoint.com/sites/SBH/wp/data/SiteAssets/WorkAround/js/editWorkAround.js"></script>
 
 <br>
@@ -90,6 +93,34 @@
                              <input class="form-control form-readOnly" type="text" id="manager" disabled>                             
                         </div>
           </div>          
+          <div id="OMRelatedWorkAroundApproversDiv" class="form-group row" style="display: none;">
+                        <div class="col-2"></div>
+                        <div class="col-10"><label for="releaseLabel" class="col-2 col-form-label form-label-workaround form-max-width-100"><u>O&M Related Workaround Approvers</u></label></div>                        
+          </div>  
+          <div id="stateBusinessAnalystPeoplePickerDiv" class="form-group row" style="display: none;">
+                        <div class="col-5" style="text-align: right;"><label for="BusinessAnalystLabel" class="col-2 col-form-label form-label-workaround form-max-width-100">State MMRP O&M Business Analyst</label></div>                        
+                        <div class="col-7">                                                          
+                             <input class="form-control form-readOnly" type="text" id="omBusinessAnalyst" disabled>                             
+                        </div>
+          </div>
+          <div id="testingAnalystPeoplePickerDiv" class="form-group row" style="display: none;">
+                        <div class="col-5" style="text-align: right;"><label for="TestingAnalystLabel" class="col-2 col-form-label form-label-workaround form-max-width-100">State MMRP Testing Analyst</label></div>                        
+                        <div class="col-7">                                                          
+                             <input class="form-control form-readOnly" type="text" id="omTestingAnalyst" disabled>                             
+                        </div>
+          </div>
+          <div id="stateManagerPeoplePickerDiv" class="form-group row" style="display: none;">
+                        <div class="col-5" style="text-align: right;"><label for="ManagerLabel" class="col-2 col-form-label form-label-workaround form-max-width-100">State MMRP O&M Manager</label></div>                        
+                        <div class="col-7">                                                          
+                             <input class="form-control form-readOnly" type="text" id="omManager" disabled>                             
+                        </div>
+          </div>
+          <div id="programDirectorPeoplePickerDiv" class="form-group row" style="display: none;">
+                        <div class="col-5" style="text-align: right;"><label for="DirectorLabel" class="col-2 col-form-label form-label-workaround form-max-width-100">State MMRP Program Director</label></div>                        
+                        <div class="col-7">                                                          
+                             <input class="form-control form-readOnly" type="text" id="omDirector" disabled>                             
+                        </div>
+          </div>
           <div class="form-group row">
                         <label for="releaseLabel" class="col-2 col-form-label form-label-workaround">3. <span id="label3" name="label3"></span></label>
                         <div class="col-10">
