@@ -1,6 +1,6 @@
 'use strict';
 
-var user, Titles, Labels, Emails;
+var user, Titles, Labels, Emails, Alerts;
 
 function getDataFromlocalStorage()
 {
@@ -26,7 +26,28 @@ function getDataFromlocalStorage()
                 {
                     console.log('localStorage Labels: ', JSON.parse(_Labels));
                     Labels = JSON.parse(_Labels);
-                    return;
+
+                    let _Alerts = localStorage.getItem("Alerts");
+
+                    if ( _Alerts )
+                    {
+                        console.log('localstorage Alerts: ', JSON.parse(_Alerts));
+                        Alerts = JSON.parse(_Alerts);
+                        return;
+                    }
+                    else {
+                        let urlQuery = "?$select=AlertID,Title,Days";                        
+
+                        let resultsLabels = retrieveSharePointListItemsByListName("Alerts", urlQuery);
+                        resultsLabels.done(function (data) {
+                            localStorage.setItem("Alerts", JSON.stringify(data));                        
+                            getDataFromlocalStorage();
+                        });
+                        resultsLabels.fail(function(err) {
+                            alert(err.responseText);
+                        });
+                    }
+                    
                 }
                 else {
 
@@ -40,7 +61,6 @@ function getDataFromlocalStorage()
                     resultsLabels.fail(function(err) {
                         alert(err.responseText);
                     });
-
                 }                    
             }
             else {
