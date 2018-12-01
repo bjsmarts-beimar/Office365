@@ -13,12 +13,11 @@ function getDataFromlocalStorage()
             console.log('localStorage Titles: ', JSON.parse(_Titles));            
             Titles = JSON.parse(_Titles);
 
-            let _Emails = localStorage.getItem("Emails");
-
+            let _Emails = localStorage.getItem("Emails");            
             if ( _Emails )
             {
                 console.log('localStorage Emails: ', JSON.parse(_Emails));
-                let Emails = JSON.parse(_Emails);
+                Emails = JSON.parse(_Emails);
 
                 let _Labels = localStorage.getItem("Labels");
 
@@ -38,12 +37,12 @@ function getDataFromlocalStorage()
                     else {
                         let urlQuery = "?$select=AlertID,Title,Days";                        
 
-                        let resultsLabels = retrieveSharePointListItemsByListName("Alerts", urlQuery);
-                        resultsLabels.done(function (data) {
-                            localStorage.setItem("Alerts", JSON.stringify(data));                        
+                        let resultsAlerts = retrieveSharePointListItemsByListName("Alerts", urlQuery);
+                        resultsAlerts.done(function (data) {
+                            localStorage.setItem("Alerts", JSON.stringify(data.d.results));                        
                             getDataFromlocalStorage();
                         });
-                        resultsLabels.fail(function(err) {
+                        resultsAlerts.fail(function(err) {
                             alert(err.responseText);
                         });
                     }
@@ -55,7 +54,7 @@ function getDataFromlocalStorage()
 
                     let resultsLabels = retrieveSharePointListItemsByListName("Labels", urlQuery);
                     resultsLabels.done(function (data) {
-                        localStorage.setItem("Labels", JSON.stringify(data));                        
+                        localStorage.setItem("Labels", JSON.stringify(data.d.results));                        
                         getDataFromlocalStorage();
                     });
                     resultsLabels.fail(function(err) {
@@ -65,11 +64,11 @@ function getDataFromlocalStorage()
             }
             else {
 
-                let urlQuery = "?$select=EmailID,Title,EmailBody";
+                let urlQuery = "?$select=EmailID,Title,EmailSubject,EmailBody";
 
                 let resultsEmails = retrieveSharePointListItemsByListName("Emails", urlQuery);
                     resultsEmails.done(function (data) {
-                        localStorage.setItem("Emails", JSON.stringify(data));                        
+                        localStorage.setItem("Emails", JSON.stringify(data.d.results));                        
                         getDataFromlocalStorage();
                     });
                     resultsEmails.fail(function(err) {
@@ -83,7 +82,7 @@ function getDataFromlocalStorage()
 
             let results = retrieveSharePointListItemsByListName("Titles", urlQuery);
             results.done(function (data) {
-                localStorage.setItem("Titles", JSON.stringify(data));                
+                localStorage.setItem("Titles", JSON.stringify(data.d.results));                
                 getDataFromlocalStorage();
             });
             results.fail(function(err) {
@@ -93,10 +92,10 @@ function getDataFromlocalStorage()
     }
 }
 
-function setTitleFromLocalStorage()
+function setTitleFromLocalStorage(TitleKey)
 {      
     let _title = Titles.find(function(title) {
-        return title.Title === "EEMS Workaround View Form"
+        return title.Title === TitleKey
     });
 
     jQuery("#label_form_title").text(_title.titleForm);  
@@ -112,4 +111,13 @@ function setLabelsFromLocalStorage(labelIndex)
     name = "label" + labelIndex;
 
     jQuery("#" + name).text(_label.Title);  
+}
+
+function getEmailVerbagefromLocalStorage(EmailKey)
+{
+    let emailSearch = Emails.find(function(email) {
+        return email.Title === EmailKey
+    });    
+
+    return emailSearch;
 }

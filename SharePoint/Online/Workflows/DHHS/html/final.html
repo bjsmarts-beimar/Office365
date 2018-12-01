@@ -17,15 +17,19 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.0/jquery-confirm.min.js"></script>
 
 <!-- Custom Javascript Files -->
+<script type="text/javascript" src="https://schhs.sharepoint.com/sites/SBH/wp/data/SiteAssets/WorkAround/js/util.js"></script>
+<script type="text/javascript" src="https://schhs.sharepoint.com/sites/SBH/wp/data/SiteAssets/WorkAround/js/service.js"></script>
+<script type="text/javascript" src="https://schhs.sharepoint.com/sites/SBH/wp/data/SiteAssets/WorkAround/js/localstorage.js"></script>
 <script type="text/javascript" src="https://schhs.sharepoint.com/sites/SBH/wp/data/SiteAssets/WorkAround/js/final.js"></script>
 
 <br>
+
     
 <main class="container pt-5">
         <div class="card mb-5">  
             <div class="card-header">
                 <div class="form-group row">          
-                        <h1 class="form-Title">EEMS Workaround Form</h1>
+                        <h1 class="form-Title"><label id="label_form_title" name="label_form_title"></h1>
                 </div>
                 <div class="form-group row">                     
                         <label class="col-form-label form-label-workaround">Date Submitted:  </label>   
@@ -40,14 +44,14 @@
         <div class="card-block mb-5">
         <form>
           <div class="form-group row">
-                <label for="titleLabel" class="col-2 col-form-label form-label-workaround">1. Workaround Title</label>
+                <label for="titleLabel" class="col-2 col-form-label form-label-workaround">1. <span id="label1" name="label1"></span></label>
                 <div class="col-10">
                      <input class="form-control form-readOnly" type="text" id="title" disabled>                          
                      <span id="error-Title" style="color: red; display: none;">You must provide Workaround Title</span>
                 </div>
           </div>
           <div class="form-group row">
-                        <label for="TypeLabel" class="col-2 col-form-label form-label-workaround">2. Workaround Type</label>
+                        <label for="TypeLabel" class="col-2 col-form-label form-label-workaround">2. <span id="label2" name="label2"></span></label>
                         <div class="col-10">
                              <small id="passwordHelpInline" class="text-muted">
                                         DDI Pre-Implementation (Will be resolved by a future DDI Release)<br>
@@ -90,14 +94,14 @@
                              <input class="form-control form-readOnly" type="text" id="manager" disabled>                             
                         </div>
           </div>
-          <div class="form-group row">
+          <!-- <div class="form-group row">
                         <label for="submitterLabel" class="col-2 col-form-label form-label-workaround">3. Submitted By</label>
                         <div class="col-10">
                              <input class="form-control form-readOnly" type="text" id="submitter" disabled>                             
                         </div>                
-          </div>
+          </div> -->
           <div class="form-group row">
-                        <label for="releaseLabel" class="col-2 col-form-label form-label-workaround">4. Release Number</label>
+                        <label for="releaseLabel" class="col-2 col-form-label form-label-workaround">3. <span id="label3" name="label3"></span></label>
                         <div class="col-10">
                              <input class="form-control form-readOnly" type="text" id="release" disabled>
                              <small id="passwordHelpInline" class="text-muted">
@@ -106,7 +110,7 @@
                         </div>
           </div>
           <div class="form-group row">
-                        <label for="triggerLabel" class="col-2 col-form-label form-label-workaround">5. Workaround Trigger</label>
+                        <label for="triggerLabel" class="col-2 col-form-label form-label-workaround">4. <span id="label4" name="label4"></span></label>
                         <div class="col-10">
                              <input class="form-control form-readOnly" type="text" id="trigger" disabled>
                              <small id="passwordHelpInline" class="text-muted">
@@ -115,7 +119,7 @@
                         </div>                
           </div>
           <div class="form-group row">
-                        <label for="timeUsageLabel" class="col-2 col-form-label form-label-workaround">6. Time Usage</label>
+                        <label for="timeUsageLabel" class="col-2 col-form-label form-label-workaround">5. <span id="label5" name="label5"></span></label>
                         <div class="col-10">
                              <select class="form-control form-readOnly" id="timeUsage" disabled>
                                 <option value="0">Select ... </option>
@@ -130,7 +134,7 @@
                         </div>                
           </div>
           <div class="form-group row">
-                        <label for="goLiveLabel" class="col-2 col-form-label form-label-workaround">7. Go Live</label>
+                        <label for="goLiveLabel" class="col-2 col-form-label form-label-workaround">6. <span id="label6" name="label6"></span></label>
                         <div class="col-10">
                              <select class="form-control form-readOnly" id="golive" disabled>
                                 <option value="0">Select ... </option>
@@ -143,7 +147,7 @@
                         </div>                
           </div>
           <div class="form-group row">
-                <label for="impactedLabel" class="col-2 col-form-label form-label-workaround">8. Impacted Audience</label>
+                <label for="impactedLabel" class="col-2 col-form-label form-label-workaround">7. <span id="label7" name="label7"></span></label>
                 <div class="col-10">
                         <div class="checkbox">
                                 <label class="form-label-workaround form-readOnly"><input type="checkbox" id="EligibilityCaseWorkers" value="Eligibility Case Workers" disabled>Eligibility Case Workers</label>
@@ -163,25 +167,25 @@
                 </div>                
           </div>
           <div class="form-group row">
-                        <label for="issueLabel" class="col-2 col-form-label form-label-workaround">9. Issue</label>
+                        <label for="issueLabel" class="col-2 col-form-label form-label-workaround">8. <span id="label8" name="label8"></span></label>
                         <div class="col-10">
                              <input class="form-control form-readOnly" type="text" id="issue" disabled>                             
                         </div>                
           </div>
           <div class="form-group row">
-                        <label for="triggerLabel" class="col-2 col-form-label form-label-workaround">10. Workaround Steps</label>
+                        <label for="triggerLabel" class="col-2 col-form-label form-label-workaround">9. <span id="label9" name="label9"></span></label>
                         <div class="col-10">
                              <textarea class="form-control form-readOnly" rows="5" id="steps" disabled></textarea>                          
                         </div>                
           </div>
-          <div class="form-group row">
+          <!-- <div class="form-group row">
                 <label for="trainingDeveloperLabel" class="col-2 col-form-label form-label-workaround">11. Training Developer</label>
                 <div class="col-10">
                      <input class="form-control form-readOnly" type="text" id="developer" disabled>                             
                 </div>
-          </div>
+          </div> -->
           <div class="form-group row">
-                        <label for="goLiveLabel" class="col-2 col-form-label form-label-workaround">12. Test Case</label>
+                        <label for="goLiveLabel" class="col-2 col-form-label form-label-workaround">10. <span id="label10" name="label10"></span></label>
                         <div class="col-10">
                              <select class="form-control form-readOnly" id="testCase" disabled>
                                 <option value="0">Select ... </option>
@@ -190,14 +194,47 @@
                              </select>                             
                         </div>                
           </div>
+          <div id="passTestCaseDiv" class="form-group row" style="display: none;">                
+                    <div class="col-3" style="text-align: right;"></div>                
+                    <div class="col-9">                                                        
+                            <div class="radio"><label class="col-form-label form-label-workaround"><input class="form-check-input" disabled type="radio" id="pass" name="testcaseGroup" value="1"><label class="form-check-label form-readOnly">Test Case Pass</label></label></div> 
+                    </div>
+          </div>
+          <div id="failTestCaseDiv" class="form-group row" style="display: none;">                
+                         <div class="col-3" style="text-align: right;"></div>                
+                         <div class="col-9">                                                        
+                              <div class="radio"><label class="col-form-label form-label-workaround"><input class="form-check-input" disabled type="radio" id="fail" name="testcaseGroup" value="2"><label class="form-check-label form-readOnly">Test Case Fail</label></label></div>
+                         </div>
+          </div>
+          <div id="attachmentTestCaseDiv" class="form-group row" style="display: none;">
+                         <div class="col-3" style="text-align: right;"></div>                
+                         <div class="col-2">     
+                              <label class="form-check-label form-label-workaround">Test Case Attachments</label>
+                         </div>
+                         <div class="col-7">
+                              <div id="attachmentsTestCaseDiv"></div>                                                                                                            
+                         </div>
+          </div>
           <div class="form-group row">
-                        <label for="defectLabel" class="col-2 col-form-label form-label-workaround">13. Defect/CR Number</label>
+                        <label for="defectLabel" class="col-2 col-form-label form-label-workaround">11. <span id="label11" name="label11"></span></label>
                         <div class="col-10">
                              <input class="form-control form-readOnly" type="text" id="defectCR" disabled>                             
                         </div>                
           </div>
           <div class="form-group row">
-                <label for="finalApproverLabel" class="col-2 col-form-label form-label-workaround form-border-color">14. State Final Approver</label>
+                    <label for="attachmentsLabel" class="col-3 col-form-label form-label-workaround">12. <span id="label12" name="label12"></span></label>
+                    <div class="col-9">
+
+                            <div id="attachmentsDiv" class="form-group row" style="display: none;">                                                        
+                            </div>
+
+                    </div>
+          </div>
+          <div class="form-group row">
+               <label id="submitter" class="col-form-label form-label-workaround" style="width: 100%; text-align: right"></label>
+          </div>  
+          <div class="form-group row">
+                <label for="finalApproverLabel" class="col-2 col-form-label form-label-workaround form-border-color">13. State Final Approver</label>
                 <div class="col-10">
                      <select class="form-control" id="finalApprover">
                         <option value="0">Select ... </option>

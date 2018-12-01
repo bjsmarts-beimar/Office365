@@ -12,7 +12,7 @@ jQuery(document).ready(function () {
     }    
 
     getDataFromlocalStorage();
-    setTitleFromLocalStorage();
+    setTitleFromLocalStorage("EEMS Workaround View Form");
     setLabelsFromLocalStorage("1");
     setLabelsFromLocalStorage("2");
     setLabelsFromLocalStorage("3");
@@ -33,6 +33,7 @@ jQuery(document).ready(function () {
     {
 
         urlQuery = "?$select=ID,Title,Release_x0020_Number,Workaround_x0020_Trigger,Issue,DefectCRNumber,Workaround_x0020_Number,Created,WorkaroundType,WorkaroundUsage,WorkaroundGoLive,Test_x0020_Case,Impacted_x0020_Audience,Training_x0020_Developer/Title,Workaround_x0020_Steps,IBM_x0020_BA/Title,Testing_x0020_Team/Title,State_x0020_BA_x0020_Lead/Title,MMRP_x0020_State_x0020_Project_x/Title,State_x0020_MMRP_x0020_O_x0026_M0/Title,State_x0020_MMRP_x0020_Testing_x/Title,State_x0020_MMRP_x0020_O_x0026_M/Title,State_x0020_MMRP_x0020_Program_x/Title,Author/Title&$expand=Training_x0020_Developer,IBM_x0020_BA,Testing_x0020_Team,State_x0020_BA_x0020_Lead,MMRP_x0020_State_x0020_Project_x,State_x0020_MMRP_x0020_O_x0026_M0,State_x0020_MMRP_x0020_Testing_x,State_x0020_MMRP_x0020_O_x0026_M,State_x0020_MMRP_x0020_Program_x,Author&$filter=ID eq " + WorkAroundId;
+        
         let results = retrieveSharePointListItemsByListName("Workaround", urlQuery);
 
         results.done(function (data) {
@@ -73,6 +74,7 @@ jQuery(document).ready(function () {
                     jQuery("#omManager").val(item.State_x0020_MMRP_x0020_O_x0026_M.Title);
                     jQuery("#omDirector").val(item.State_x0020_MMRP_x0020_Program_x.Title);
                 }
+
 
                 let ImpactedAudiences = item.Impacted_x0020_Audience.results;
                                 

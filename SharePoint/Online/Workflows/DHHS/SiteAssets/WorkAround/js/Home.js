@@ -1,4 +1,5 @@
 (function () {
+    
     var overrideContext = {};
     overrideContext.Templates = {};
     overrideContext.Templates.Header = "<table class='table table-striped table-hover'><tr><th>Workaround Title</th><th>Workaround Number</th><th>WorkAround Type</th><th>Status</th><th>Date Submitted</th></tr>";
@@ -7,9 +8,23 @@
     SPClientTemplates.TemplateManager.RegisterTemplateOverrides(overrideContext);
     })();
      
-    function overrideTemplate(ctx) {
-    return "<tr style='background-color: white; color: black'><td>"
-    + "<a href='edit.aspx?WorkaroundId=" + ctx.CurrentItem.ID + "'>" + ctx.CurrentItem.Title + "</a>"
+    function overrideTemplate(ctx) {  
+        
+        getDataFromlocalStorage(); 
+
+           
+        var backgroundColor = getRowBackgroundColor(ctx.CurrentItem.Created);
+        var color = getRowColor(ctx.CurrentItem.Created);
+        var linkColor = "white";
+
+        if ( backgroundColor != "red")
+        {
+            linkColor = "black";
+        }
+        
+
+    return "<tr style='background-color: " + backgroundColor  + "; color: " + color + "'><td>"
+    + "<a style='color: " + linkColor + "' href='edit.aspx?WorkaroundId=" + ctx.CurrentItem.ID + "'>" + ctx.CurrentItem.Title + "</a>"
     + "</td>" 
     + "<td>" 
     + ctx.CurrentItem.Workaround_x0020_Number 
@@ -18,14 +33,14 @@
     + ctx.CurrentItem.WorkaroundType
     + "</td>"    
     + "<td>" 
-    + "<a href='details.aspx?WorkaroundId=" + ctx.CurrentItem.ID + "'>" + ctx.CurrentItem.WorkaroundWorkflowStatus + "</a>"
+    + "<a style='color: " + linkColor + "' href='details.aspx?WorkaroundId=" + ctx.CurrentItem.ID + "'>" + ctx.CurrentItem.WorkaroundWorkflowStatus + "</a>"
     + "</td>"
     + "<td>" 
     + ctx.CurrentItem.Created
     + "</td>"
     + "</tr>";
     }
-
+    
     
 
 

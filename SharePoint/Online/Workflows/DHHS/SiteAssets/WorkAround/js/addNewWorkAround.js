@@ -27,7 +27,7 @@ jQuery(document).ready(function () {
     initializePeoplePicker('businesAnalystPeoplePickerDiv');
     
     getDataFromlocalStorage();
-    setTitleFromLocalStorage();
+    setTitleFromLocalStorage("EEMS Workaround Initiation Form");
     setLabelsFromLocalStorage("1");
     setLabelsFromLocalStorage("2");
     setLabelsFromLocalStorage("3");
@@ -382,8 +382,8 @@ function CreateOMWorkAroundRecord()
                                                     let name = _attachments[i][0];
                                                     let serverRelativeURL = _attachments[i][1]; 
                                                     
-                                                    var listName = "Links";
-                                                    var itemType = GetItemTypeForListName(listName);
+                                                    listName = "Links";
+                                                    itemType = GetItemTypeForListName(listName);
                                                     
                                                     var item = {
                                                         "__metadata": { "type": itemType },
@@ -407,8 +407,8 @@ function CreateOMWorkAroundRecord()
                                                     let name = _testCaseAttachments[i][0];
                                                     let serverRelativeURL = _testCaseAttachments[i][1];  
                                                     
-                                                    var listName = "Links";
-                                                    var itemType = GetItemTypeForListName(listName);
+                                                    listName = "Links";
+                                                    itemType = GetItemTypeForListName(listName);
                                                     
                                                     var item = {
                                                         "__metadata": { "type": itemType },
@@ -426,66 +426,145 @@ function CreateOMWorkAroundRecord()
                                                         alert(error);
                                                     });
                                                 }      
-                                                                    
-                                                jQuery.alert({        
-                                                    title: false,
-                                                    content: '<div style="font-size: large;font-style: italic;">Your Workaround Process form has been submitted for Initial Review.</div>',
-                                                    columnClass: 'medium',
-                                                    buttons: {            
-                                                        Ok: {
-                                                            text: 'Ok',
-                                                            btnClass: 'btn-default btn-md',
-                                                            action: function(){
-                                                                window.location = _spPageContextInfo.webAbsoluteUrl;                                            
+
+                                                listName = "Workaround";
+                                                itemType = GetItemTypeForListName(listName);     
+
+                                                let email = getEmailVerbagefromLocalStorage("Initial Notification Email");
+                                                let rejectEmail = getEmailVerbagefromLocalStorage("Rejected Notification Email");
+                                                let initialApprovedEmail = getEmailVerbagefromLocalStorage("Initial Approval Email");
+                                                let finalApprovedEmail = getEmailVerbagefromLocalStorage("Final Approval Email");
+                                                
+                                                let EmailTitle = email.EmailSubject.replace('{Title}', data.d.Title);                                                
+                                                
+                                                let EmailBody1 = stripHtml(email.EmailBody);
+                                                EmailBody1 = EmailBody1.replace('{Title}', data.d.Title).replace('{ID}', data.d.ID).replace('{TypeID}', '1');
+
+                                                let EmailBody2 = stripHtml(email.EmailBody);
+                                                EmailBody2 = EmailBody2.replace('{Title}', data.d.Title).replace('{ID}', data.d.ID).replace('{TypeID}', '2');
+
+                                                let EmailBody3 = stripHtml(email.EmailBody);
+                                                EmailBody3 = EmailBody3.replace('{Title}', data.d.Title).replace('{ID}', data.d.ID).replace('{TypeID}', '3');
+                                
+                                                let EmailBody4 = stripHtml(email.EmailBody);
+                                                EmailBody4 = EmailBody4.replace('{Title}', data.d.Title).replace('{ID}', data.d.ID).replace('{TypeID}', '4');
+
+                                                let EmailBody5 = stripHtml(email.EmailBody);
+                                                EmailBody5 = EmailBody5.replace('{Title}', data.d.Title).replace('{ID}', data.d.ID).replace('{TypeID}', '5');
+                                                
+                                                let EmailBody6 = stripHtml(email.EmailBody);
+                                                EmailBody6 = EmailBody6.replace('{Title}', data.d.Title).replace('{ID}', data.d.ID).replace('{TypeID}', '6');
+
+                                                let EmailBody7 = stripHtml(email.EmailBody);
+                                                EmailBody7 = EmailBody7.replace('{Title}', data.d.Title).replace('{ID}', data.d.ID).replace('{TypeID}', '7');
+
+                                                let EmailBody8 = stripHtml(email.EmailBody);
+                                                EmailBody8 = EmailBody8.replace('{Title}', data.d.Title).replace('{ID}', data.d.ID).replace('{TypeID}', '8');
+
+                                                let rejectedEmailTitle = rejectEmail.EmailSubject.replace('{Title}', data.d.Title);
+                                                let rejectedEmailBody = stripHtml(rejectEmail.EmailBody);
+                                                rejectedEmailBody = rejectedEmailBody.replace('{Title}', data.d.Title).replace('{ID}', data.d.ID).replace('{TypeID}', '1');
+
+                                                let initialApprovedEmailTitle = initialApprovedEmail.EmailSubject.replace('{Title}', data.d.Title);
+                                                let initialApprovedEmailBody = stripHtml(initialApprovedEmail.EmailBody);
+                                                initialApprovedEmailBody = initialApprovedEmailBody.replace('{Title}', data.d.Title).replace('{ID}', data.d.ID).replace('{TypeID}', '1');
+
+                                                let finalApprovedEmailTitle = finalApprovedEmail.EmailSubject.replace('{Title}', data.d.Title);
+                                                let finalApprovedEmailBody = stripHtml(finalApprovedEmail.EmailBody);
+                                                finalApprovedEmailBody = finalApprovedEmailBody.replace('{Title}', data.d.Title).replace('{ID}', data.d.ID).replace('{TypeID}', '1');
+
+
+                                                let metadata = {
+                                                    "__metadata": { "type": itemType },
+                                                    "InitialNotificationEmailTitle": EmailTitle,
+                                                    "BAInitialNotificationEmailBody": EmailBody1.trim(),                                                    
+                                                    "TAInitialNotificationEmailBody": EmailBody2.trim(),                                                    
+                                                    "LAInitialNotificationEmailBody": EmailBody3.trim(),                                                    
+                                                    "PMInitialNotificationEmailBody": EmailBody4.trim(),
+                                                    "OMBAInitialNotificationEmailBody": EmailBody5.trim(),
+                                                    "OMTAInitialNotificationEmailBody": EmailBody6.trim(),
+                                                    "OMManagerInitialNotificationEmailBody": EmailBody7.trim(),
+                                                    "OMDirectorInitialNotificationEmailBody": EmailBody8.trim(),
+                                                    "InitiatorInitialApprovedEmailTit": initialApprovedEmailTitle,
+                                                    "InitiatorInitialApprovedEmailBod": initialApprovedEmailBody.trim(),
+                                                    "InitiatorFinalApprovedEmailTitle": finalApprovedEmailTitle,
+                                                    "InitiatorFinalApprovalEmailBody": finalApprovedEmailBody.trim(),
+                                                    "InitiatorInitialRejectedEmailTit": rejectedEmailTitle,
+                                                    "InitiatorInitialRejectedEmailBod": rejectedEmailBody.trim(),
+                                                    "IBMBAStatus": "In Progress",
+                                                    "TestingTeamStatus": "In Progress",
+                                                    "StateBaLeadStatus": "In Progress",                                                    
+                                                    "O_x0026_MWorkaroundWorkflowStatu": "Initial Approval (Pending)"
+                                                };
+
+                                                let results = updateSharePointListItem(WorkaroundID, metadata, listName);
+                                                results.done(function (data) {
+
+                                                    jQuery.alert({        
+                                                        title: false,
+                                                        content: '<div style="font-size: large;font-style: italic;">Your Workaround Process form has been submitted for Initial Review.</div>',
+                                                        columnClass: 'medium',
+                                                        buttons: {            
+                                                            Ok: {
+                                                                text: 'Ok',
+                                                                btnClass: 'btn-default btn-md',
+                                                                action: function(){
+                                                                    window.location = _spPageContextInfo.webAbsoluteUrl;                                            
+                                                                }
                                                             }
                                                         }
-                                                    }
+                                                    });
                                                 });
+                                                results.fail(function (error) {
+                                                    alert('Error has occurred: ' + error.responseText);
+                                                });
+                                                                    
+                                                
                                                     
                                             },
                                             error: function (data) {
-                                                alert(data);
+                                                alert(data.responseText);
                                             }
                                         });
 
                                     });
                                     businesAnalyst.fail( function(error) {
-
+                                        alert(error.responseText);
                                     });                                        
 
                                 });
                                 manager.fail( function(error) {
-                                    alert(error);
+                                    alert(error.responseText);
                                 });
 
                             });
                             analyst.fail( function(error) {
-                                alert(error);
+                                alert(error.responseText);
                             });
                                 
                         });
                         director.fail(function(error) {
-                            alert(error);
+                            alert(error.responseText);
                         });
                                                     
                     });
                     projectManager.fail(function(error) {
-                        alert(error);
+                        alert(error.responseText);
                     });
 
                 });
                 analystLead.fail(function(error) {
-                    alert(error);
+                    alert(error.responseText);
                 });
 
             });
             tester.fail(function(error) {
-                alert(error);
+                alert(error.responseText);
             });                                      
 
     });
     account.fail(function(error) {
-        alert(error);
+        alert(error.responseText);
     });
 }
 
@@ -575,8 +654,8 @@ function CreateWorkAroundRecord()
                                     let name = _attachments[i][0];
                                     let serverRelativeURL = _attachments[i][1];  
 
-                                    var listName = "Links";
-                                    var itemType = GetItemTypeForListName(listName);
+                                    listName = "Links";
+                                    itemType = GetItemTypeForListName(listName);
                                                     
                                     var item = {
                                         "__metadata": { "type": itemType },
@@ -600,8 +679,8 @@ function CreateWorkAroundRecord()
                                     let name = _testCaseAttachments[i][0];
                                     let serverRelativeURL = _testCaseAttachments[i][1];  
                                     
-                                    var listName = "Links";
-                                    var itemType = GetItemTypeForListName(listName);
+                                    listName = "Links";
+                                    itemType = GetItemTypeForListName(listName);
                                                     
                                     var item = {
                                         "__metadata": { "type": itemType },
@@ -619,46 +698,114 @@ function CreateWorkAroundRecord()
                                         alert(error);
                                     });
                                 }
+                                
+                                listName = "Workaround";
+                                itemType = GetItemTypeForListName(listName);     
+
+                                let email = getEmailVerbagefromLocalStorage("Initial Notification Email");
+                                let rejectEmail = getEmailVerbagefromLocalStorage("Rejected Notification Email");
+                                let initialApprovedEmail = getEmailVerbagefromLocalStorage("Initial Approval Email");
+                                let pendingFinalApproval = getEmailVerbagefromLocalStorage("Pending Final Approval Email");
+                                let finalApprovedEmail = getEmailVerbagefromLocalStorage("Final Approval Email");
+
+                                
+                                let EmailTitle = email.EmailSubject.replace('{Title}', data.d.Title);
+                                
+                                let EmailBody1 = stripHtml(email.EmailBody);
+                                EmailBody1 = EmailBody1.replace('{Title}', data.d.Title).replace('{ID}', data.d.ID).replace('{TypeID}', '1');
+
+                                let EmailBody2 = stripHtml(email.EmailBody);
+                                EmailBody2 = EmailBody2.replace('{Title}', data.d.Title).replace('{ID}', data.d.ID).replace('{TypeID}', '2');
+
+                                let EmailBody3 = stripHtml(email.EmailBody);
+                                EmailBody3 = EmailBody3.replace('{Title}', data.d.Title).replace('{ID}', data.d.ID).replace('{TypeID}', '3');
+                                
+                                let EmailBody4 = stripHtml(email.EmailBody);
+                                EmailBody4 = EmailBody4.replace('{Title}', data.d.Title).replace('{ID}', data.d.ID).replace('{TypeID}', '4');
+
+                                let rejectedEmailTitle = rejectEmail.EmailSubject.replace('{Title}', data.d.Title);
+                                let rejectedEmailBody = stripHtml(rejectEmail.EmailBody);
+                                rejectedEmailBody = rejectedEmailBody.replace('{Title}', data.d.Title).replace('{ID}', data.d.ID).replace('{TypeID}', '1');
+
+                                let initialApprovedEmailTitle = initialApprovedEmail.EmailSubject.replace('{Title}', data.d.Title);
+                                let initialApprovedEmailBody = stripHtml(initialApprovedEmail.EmailBody);
+                                initialApprovedEmailBody = initialApprovedEmailBody.replace('{Title}', data.d.Title).replace('{ID}', data.d.ID).replace('{TypeID}', '1');
+
+                                let pendingFinalApprovalTitle = pendingFinalApproval.EmailSubject.replace('{Title}', data.d.Title);
+                                let pendingFinalApprovalBody = stripHtml(pendingFinalApproval.EmailBody);
+                                pendingFinalApprovalBody = pendingFinalApprovalBody.replace('{Title}', data.d.Title).replace('{ID}', data.d.ID).replace('{TypeID}', '5');
+
+                                let finalApprovedEmailTitle = finalApprovedEmail.EmailSubject.replace('{Title}', data.d.Title);
+                                let finalApprovedEmailBody = stripHtml(finalApprovedEmail.EmailBody);
+                                finalApprovedEmailBody = finalApprovedEmailBody.replace('{Title}', data.d.Title).replace('{ID}', data.d.ID).replace('{TypeID}', '1');
+
+                                let metadata = {
+                                                    "__metadata": { "type": itemType },
+                                                    "InitialNotificationEmailTitle": EmailTitle,
+                                                    "BAInitialNotificationEmailBody": EmailBody1.trim(),                                                    
+                                                    "TAInitialNotificationEmailBody": EmailBody2.trim(),                                                    
+                                                    "LAInitialNotificationEmailBody": EmailBody3.trim(),                                                    
+                                                    "PMInitialNotificationEmailBody": EmailBody4.trim(),
+                                                    "InitiatorInitialApprovedEmailTit": initialApprovedEmailTitle,
+                                                    "InitiatorInitialApprovedEmailBod": initialApprovedEmailBody.trim(),
+                                                    "InitiatorPendingFinalEmailTitle": pendingFinalApprovalTitle,
+                                                    "InitiatorPendingFinalEmailBody": pendingFinalApprovalBody.trim(),
+                                                    "InitiatorFinalApprovedEmailTitle": finalApprovedEmailTitle,
+                                                    "InitiatorFinalApprovalEmailBody": finalApprovedEmailBody.trim(),
+                                                    "InitiatorInitialRejectedEmailTit": rejectedEmailTitle,
+                                                    "InitiatorInitialRejectedEmailBod": rejectedEmailBody.trim(),
+                                                    "IBMBAStatus": "In Progress",
+                                                    "TestingTeamStatus": "In Progress",
+                                                    "StateBaLeadStatus": "In Progress",                                                    
+                                                    "WorkaroundWorkflowStatus": "Initial Approval (Pending)"
+                                };                 
+
+                                let results = updateSharePointListItem(WorkaroundID, metadata, listName);
+                                results.done(function (data) {
                                                     
-                                jQuery.alert({        
-                                    title: false,
-                                    content: '<div style="font-size: large;font-style: italic;">Your Workaround Process form has been submitted for Initial Review.</div>',
-                                    columnClass: 'medium',
-                                    buttons: {            
-                                        Ok: {
-                                            text: 'Ok',
-                                            btnClass: 'btn-default btn-md',
-                                            action: function(){
-                                                window.location = _spPageContextInfo.webAbsoluteUrl;                                            
-                                            }
-                                        }
-                                    }
+                                    jQuery.alert({        
+                                                        title: false,
+                                                        content: '<div style="font-size: large;font-style: italic;">Your Workaround Process form has been submitted for Initial Review.</div>',
+                                                        columnClass: 'medium',
+                                                        buttons: {            
+                                                            Ok: {
+                                                                text: 'Ok',
+                                                                btnClass: 'btn-default btn-md',
+                                                                action: function(){
+                                                                    window.location = _spPageContextInfo.webAbsoluteUrl;                                            
+                                                                }
+                                                            }
+                                                        }
+                                    });
+                                });
+                                results.fail(function (error) {
+                                    alert('Error has occurred: ' + error.responseText); 
                                 });
                                     
                             },
                             error: function (data) {
-                                alert(data);
+                                alert(data.responseText);
                             }
                         });
 
                     });
                     projectManager.fail(function(error) {
-                        alert(error);
+                        alert(error.responseText);
                     });
 
                 });
                 analystLead.fail(function(error) {
-                    alert(error);
+                    alert(error.responseText);
                 });
 
             });
             tester.fail(function(error) {
-                alert(error);
+                alert(error.responseText);
             });              
 
     });
     account.fail(function(error) {
-        alert(error);
+        alert(error.responseText);
     });               
 }
 
