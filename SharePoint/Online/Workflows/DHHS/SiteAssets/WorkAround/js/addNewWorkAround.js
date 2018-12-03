@@ -425,7 +425,7 @@ function CreateOMWorkAroundRecord()
                                                     attachment.fail(function(error) {
                                                         alert(error);
                                                     });
-                                                }      
+                                                }                                                      
 
                                                 listName = "Workaround";
                                                 itemType = GetItemTypeForListName(listName);     
@@ -433,9 +433,11 @@ function CreateOMWorkAroundRecord()
                                                 let email = getEmailVerbagefromLocalStorage("Initial Notification Email");
                                                 let rejectEmail = getEmailVerbagefromLocalStorage("Rejected Notification Email");
                                                 let initialApprovedEmail = getEmailVerbagefromLocalStorage("Initial Approval Email");
+                                                let pendingFinalApproval = getEmailVerbagefromLocalStorage("Pending Final Approval Email");
                                                 let finalApprovedEmail = getEmailVerbagefromLocalStorage("Final Approval Email");
+
                                                 
-                                                let EmailTitle = email.EmailSubject.replace('{Title}', data.d.Title);                                                
+                                                let EmailTitle = email.EmailSubject.replace('{Title}', data.d.Title);
                                                 
                                                 let EmailBody1 = stripHtml(email.EmailBody);
                                                 EmailBody1 = EmailBody1.replace('{Title}', data.d.Title).replace('{ID}', data.d.ID).replace('{TypeID}', '1');
@@ -445,7 +447,7 @@ function CreateOMWorkAroundRecord()
 
                                                 let EmailBody3 = stripHtml(email.EmailBody);
                                                 EmailBody3 = EmailBody3.replace('{Title}', data.d.Title).replace('{ID}', data.d.ID).replace('{TypeID}', '3');
-                                
+                                                
                                                 let EmailBody4 = stripHtml(email.EmailBody);
                                                 EmailBody4 = EmailBody4.replace('{Title}', data.d.Title).replace('{ID}', data.d.ID).replace('{TypeID}', '4');
 
@@ -469,32 +471,37 @@ function CreateOMWorkAroundRecord()
                                                 let initialApprovedEmailBody = stripHtml(initialApprovedEmail.EmailBody);
                                                 initialApprovedEmailBody = initialApprovedEmailBody.replace('{Title}', data.d.Title).replace('{ID}', data.d.ID).replace('{TypeID}', '1');
 
+                                                let pendingFinalApprovalTitle = pendingFinalApproval.EmailSubject.replace('{Title}', data.d.Title);
+                                                let pendingFinalApprovalBody = stripHtml(pendingFinalApproval.EmailBody);
+                                                pendingFinalApprovalBody = pendingFinalApprovalBody.replace('{Title}', data.d.Title).replace('{ID}', data.d.ID).replace('{TypeID}', '5');
+
                                                 let finalApprovedEmailTitle = finalApprovedEmail.EmailSubject.replace('{Title}', data.d.Title);
                                                 let finalApprovedEmailBody = stripHtml(finalApprovedEmail.EmailBody);
                                                 finalApprovedEmailBody = finalApprovedEmailBody.replace('{Title}', data.d.Title).replace('{ID}', data.d.ID).replace('{TypeID}', '1');
 
-
                                                 let metadata = {
-                                                    "__metadata": { "type": itemType },
-                                                    "InitialNotificationEmailTitle": EmailTitle,
-                                                    "BAInitialNotificationEmailBody": EmailBody1.trim(),                                                    
-                                                    "TAInitialNotificationEmailBody": EmailBody2.trim(),                                                    
-                                                    "LAInitialNotificationEmailBody": EmailBody3.trim(),                                                    
-                                                    "PMInitialNotificationEmailBody": EmailBody4.trim(),
-                                                    "OMBAInitialNotificationEmailBody": EmailBody5.trim(),
-                                                    "OMTAInitialNotificationEmailBody": EmailBody6.trim(),
-                                                    "OMManagerInitialNotificationEmailBody": EmailBody7.trim(),
-                                                    "OMDirectorInitialNotificationEmailBody": EmailBody8.trim(),
-                                                    "InitiatorInitialApprovedEmailTit": initialApprovedEmailTitle,
-                                                    "InitiatorInitialApprovedEmailBod": initialApprovedEmailBody.trim(),
-                                                    "InitiatorFinalApprovedEmailTitle": finalApprovedEmailTitle,
-                                                    "InitiatorFinalApprovalEmailBody": finalApprovedEmailBody.trim(),
-                                                    "InitiatorInitialRejectedEmailTit": rejectedEmailTitle,
-                                                    "InitiatorInitialRejectedEmailBod": rejectedEmailBody.trim(),
-                                                    "IBMBAStatus": "In Progress",
-                                                    "TestingTeamStatus": "In Progress",
-                                                    "StateBaLeadStatus": "In Progress",                                                    
-                                                    "O_x0026_MWorkaroundWorkflowStatu": "Initial Approval (Pending)"
+                                                                    "__metadata": { "type": itemType },
+                                                                    "InitialNotificationEmailTitle": EmailTitle,
+                                                                    "BAInitialNotificationEmailBody": EmailBody1.trim(),                                                    
+                                                                    "TAInitialNotificationEmailBody": EmailBody2.trim(),                                                    
+                                                                    "LAInitialNotificationEmailBody": EmailBody3.trim(),                                                    
+                                                                    "PMInitialNotificationEmailBody": EmailBody4.trim(),
+                                                                    "OMBAInitialNotificationEmailBody": EmailBody5.trim(),
+                                                                    "OMTAInitialNotificationEmailBody": EmailBody6.trim(),
+                                                                    "OMManagerInitialNotificationEmai": EmailBody7.trim(),
+                                                                    "OMDirectorInitialNotificationEma": EmailBody8.trim(),
+                                                                    "InitiatorInitialApprovedEmailTit": initialApprovedEmailTitle,
+                                                                    "InitiatorInitialApprovedEmailBod": initialApprovedEmailBody.trim(),
+                                                                    "InitiatorPendingFinalEmailTitle": pendingFinalApprovalTitle,
+                                                                    "InitiatorPendingFinalEmailBody": pendingFinalApprovalBody.trim(),
+                                                                    "InitiatorFinalApprovedEmailTitle": finalApprovedEmailTitle,
+                                                                    "InitiatorFinalApprovalEmailBody": finalApprovedEmailBody.trim(),
+                                                                    "InitiatorInitialRejectedEmailTit": rejectedEmailTitle,
+                                                                    "InitiatorInitialRejectedEmailBod": rejectedEmailBody.trim(),
+                                                                    "IBMBAStatus": "In Progress",
+                                                                    "TestingTeamStatus": "In Progress",
+                                                                    "StateBaLeadStatus": "In Progress",                                                    
+                                                                    "WorkaroundWorkflowStatus": "Initial Approval (Pending)"
                                                 };
 
                                                 let results = updateSharePointListItem(WorkaroundID, metadata, listName);

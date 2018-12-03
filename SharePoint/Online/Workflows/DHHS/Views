@@ -1,0 +1,24 @@
+
+
+DDI Pre-Implementation
+DDI Post-Implementation
+O&M
+
+
+
+
+MyItemsInitialApproval
+MyOMItemsInitialApproval
+MyItemsFinalApproval
+MyOMItemsFinalApproval
+MyItemsRejected
+MyItemsCompleted
+
+MyWorkArounds
+
+
+WorkaroundsCompleted                            Completed
+WorkaroundsInitialApproval                      Initial Approval (Pending) Initial Approval (Approved)
+WorkaroundsFinalApproval                        Final Approval (Pending) Final Approval (Approved)
+WorkaroundsRejected                             Rejected
+WorkAroundsAllItems

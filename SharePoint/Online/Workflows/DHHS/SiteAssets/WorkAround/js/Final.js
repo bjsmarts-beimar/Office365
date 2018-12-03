@@ -110,11 +110,15 @@ jQuery(document).ready(function () {
                     document.getElementById("passTestCaseDiv").style.display = "flex";
                     document.getElementById("failTestCaseDiv").style.display = "flex";
                     document.getElementById("attachmentTestCaseDiv").style.display = "flex";
+
+                    $('input:radio[name=testcaseGroup]')[0].checked = true;
                 }
                 else {
                     document.getElementById("passTestCaseDiv").style.display = "none";
                     document.getElementById("failTestCaseDiv").style.display = "none";
                     document.getElementById("attachmentTestCaseDiv").style.display = "none";
+
+                    $('input:radio[name=testcaseGroup]')[1].checked = true;
                 }
 
 

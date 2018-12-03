@@ -128,7 +128,7 @@ function UpdateWorkAroundRecord()
 
                         let metadata = {
                             "__metadata": { "type": itemType },
-                            "Title": title,
+                            "Title": title, 
                             "Release_x0020_Number": releaseNumber,
                             "Workaround_x0020_Trigger": trigger,
                             "Issue": issue,
@@ -158,72 +158,74 @@ function UpdateWorkAroundRecord()
                 
                         results.done(function (data) {
 
-                            console.log('done', data);
+                                                                
+                                    let WorkaroundID = WorkaroundItem.ID;
 
-                            for(var i=0; i<_attachments.length; ++i){   
-                                                                                        
-                                let name = _attachments[i][0];
-                                let serverRelativeURL = _attachments[i][1]; 
-                                
-                                var listName = "Links";
-                                var itemType = GetItemTypeForListName(listName);
-                                
-                                var item = {
-                                    "__metadata": { "type": itemType },
-                                    "Title": name,
-                                    "Link": serverRelativeURL,
-                                    "WorkAroundID": WorkaroundID,
-                                    "IsTestCaseAttachment": "No"
-                                };
+                                    // for(var i=0; i<_attachments.length; ++i){   
+                                                                                                
+                                    //     let name = _attachments[i][0];
+                                    //     let serverRelativeURL = _attachments[i][1]; 
+                                        
+                                    //     var listName = "Links";
+                                    //     var itemType = GetItemTypeForListName(listName);
+                                        
+                                    //     var item = {
+                                    //         "__metadata": { "type": itemType },
+                                    //         "Title": name,
+                                    //         "Link": serverRelativeURL,
+                                    //         "WorkAroundID": WorkaroundID,
+                                    //         "IsTestCaseAttachment": "No"
+                                    //     };
 
-                                let attachment = addItemToSharePointList(item, listName);
-                                attachment.done(function(data) {
-                                    console.log(data);
-                                });
-                                attachment.fail(function(error) {
-                                    alert(error);
-                                });
-                            }
+                                    //     let attachment = addItemToSharePointList(item, listName);
+                                    //     attachment.done(function(data) {
+                                    //         console.log(data);
+                                    //     });
+                                    //     attachment.fail(function(error) {
+                                    //         alert(error);
+                                    //     });
+                                    // }
 
-                            for(var i=0; i<_testCaseAttachments.length; ++i){   
-                                                                    
-                                let name = _testCaseAttachments[i][0];
-                                let serverRelativeURL = _testCaseAttachments[i][1];  
-                                
-                                var listName = "Links";
-                                var itemType = GetItemTypeForListName(listName);
-                                
-                                var item = {
-                                    "__metadata": { "type": itemType },
-                                    "Title": name,
-                                    "Link": serverRelativeURL,
-                                    "WorkAroundID": WorkaroundID,
-                                    "IsTestCaseAttachment": "Yes"
-                                };
+                                    // for(var i=0; i<_testCaseAttachments.length; ++i){   
+                                                                            
+                                    //     let name = _testCaseAttachments[i][0];
+                                    //     let serverRelativeURL = _testCaseAttachments[i][1];  
+                                        
+                                    //     var listName = "Links";
+                                    //     var itemType = GetItemTypeForListName(listName);
+                                        
+                                    //     var item = {
+                                    //         "__metadata": { "type": itemType },
+                                    //         "Title": name,
+                                    //         "Link": serverRelativeURL,
+                                    //         "WorkAroundID": WorkaroundID,
+                                    //         "IsTestCaseAttachment": "Yes"
+                                    //     };
 
-                                let attachment = addItemToSharePointList(item, listName);
-                                attachment.done(function(data) {
-                                    console.log(data);
-                                });
-                                attachment.fail(function(error) {
-                                    alert(error);
-                                });
-                            }
+                                    //     let attachment = addItemToSharePointList(item, listName);
+                                    //     attachment.done(function(data) {
+                                    //         console.log(data);
+                                    //     });
+                                    //     attachment.fail(function(error) {
+                                    //         alert(error);
+                                    //     });
+                                    // }
 
-                            jQuery.alert({        
-                                title: false,
-                                content: '<div style="font-size: large;font-style: italic;">Your Workaround Process form has been resubmitted for Review.</div>',
-                                columnClass: 'medium',
-                                buttons: {            
-                                    Ok: {
-                                        text: 'Ok',
-                                        btnClass: 'btn-default btn-md',
-                                        action: function(){
-                                            window.location = _spPageContextInfo.webAbsoluteUrl;                                            
+                                    jQuery.alert({        
+                                        title: false,
+                                        content: '<div style="font-size: large;font-style: italic;">Your Workaround Process form has been resubmitted for Review.</div>',
+                                        columnClass: 'medium',
+                                        buttons: {            
+                                            Ok: {
+                                                text: 'Ok',
+                                                btnClass: 'btn-default btn-md',
+                                                action: function(){
+                                                    window.location = _spPageContextInfo.webAbsoluteUrl;                                            
+                                                }
+                                            }
                                         }
-                                    }
-                                }
-                            });
+                                    });                            
+                            
                 
                         });
                         results.fail(function (error) {
@@ -661,12 +663,16 @@ function retrieveWorkAroundItem(WorkAroundId)
                     document.getElementById("failTestCaseDiv").style.display = "flex";
                     document.getElementById("attachmentTestCaseDiv").style.display = "flex";
                     document.getElementById("attachmentsTestCaseDiv").style.display = "flex";
+
+                    $('input:radio[name=testcaseGroup]')[0].checked = true;
                 }
                 else {
                     document.getElementById("passTestCaseDiv").style.display = "none";
                     document.getElementById("failTestCaseDiv").style.display = "none";
                     document.getElementById("attachmentTestCaseDiv").style.display = "none";
                     document.getElementById("attachmentsTestCaseDiv").style.display = "none";
+
+                    $('input:radio[name=testcaseGroup]')[1].checked = true;
                 }
 
                 urlQuery = "?$select=Title,Link&$filter=WorkAroundID eq " + PageContextRevisionID + " and IsTestCaseAttachment eq 'No'" ;
