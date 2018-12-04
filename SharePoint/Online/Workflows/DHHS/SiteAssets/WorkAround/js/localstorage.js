@@ -93,31 +93,38 @@ function getDataFromlocalStorage()
 }
 
 function setTitleFromLocalStorage(TitleKey)
-{      
-    let _title = Titles.find(function(title) {
-        return title.Title === TitleKey
-    });
+{          
+    for (var i=0; i<Titles.length; i++) {
 
-    jQuery("#label_form_title").text(_title.titleForm);  
+        if ( Titles[i].Title === TitleKey )
+        {
+            jQuery("#label_form_title").text(Titles[i].titleForm);
+        }
+
+    }          
 }
 
 function setLabelsFromLocalStorage(labelIndex)
-{
-
-    let _label  = Labels.find(function(title) {
-        return title.LabelID === labelIndex
-    });
-
-    name = "label" + labelIndex;
-
-    jQuery("#" + name).text(_label.Title);  
+{    
+    for(var i=0; i<Labels.length; i++ )
+    {
+        if ( Labels[i].LabelID == labelIndex )
+        {
+            var name = "label" + labelIndex;
+            jQuery("#" + name).text(Labels[i].Title);  
+        }
+    }
 }
 
 function getEmailVerbagefromLocalStorage(EmailKey)
 {
-    let emailSearch = Emails.find(function(email) {
-        return email.Title === EmailKey
-    });    
-
-    return emailSearch;
+    for(var i=0; i<Emails.length; i++)
+    {
+        if ( Emails[i].Title = EmailKey )
+        {
+            return Emails[i];
+        }
+    } 
+    
+    return null;
 }

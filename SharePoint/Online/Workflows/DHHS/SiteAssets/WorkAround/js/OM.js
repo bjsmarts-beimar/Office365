@@ -34,7 +34,7 @@
     + ctx.CurrentItem.WorkaroundType
     + "</td>"    
     + "<td>" 
-    + "<a style='color: " + linkColor + "' href='details.aspx?WorkaroundId=" + ctx.CurrentItem.ID + "'>" + ctx.CurrentItem.WorkaroundWorkflowStatus + "</a>"
+    + "<a style='color: " + linkColor + "' href='omdetails.aspx?WorkaroundId=" + ctx.CurrentItem.ID + "'>" + ctx.CurrentItem.WorkaroundWorkflowStatus + "</a>"
     + "</td>"
     + "<td>" 
     + ctx.CurrentItem.Created

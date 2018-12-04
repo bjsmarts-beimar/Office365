@@ -2,6 +2,7 @@
 
 var PageContextRevisionID = null;
 var WorkAroudTypeId = 0;
+var WorkaroundType = "";
 var urlQuery = "";
 
 
@@ -40,6 +41,8 @@ jQuery(document).ready(function () {
         results.done(function (data) {
 
                 var item = data.d.results[0];  
+
+                WorkaroundType = item.WorkaroundType;
                 
                 PageContextRevisionID = item.ID;
                 jQuery("#title").val(item.Title);
@@ -179,121 +182,6 @@ jQuery(document).ready(function () {
                                  
 });
 
-// function retrieveWorkAroundItem(WorkAroundId)
-// {   
-//     jQuery.ajax  
-//     ({  
-//         //url: _spPageContextInfo.webAbsoluteUrl + "/data/_api/web/lists/GetByTitle('Workaround')/items?$select=ID,Title,Release_x0020_Number,Workaround_x0020_Trigger,Issue,DefectCRNumber,Workaround_x0020_Number,Created,WorkaroundType,WorkaroundUsage,WorkaroundGoLive,Test_x0020_Case,Impacted_x0020_Audience,Training_x0020_Developer/Title,Workaround_x0020_Steps,IBM_x0020_BA/Title,Testing_x0020_Team/Title,State_x0020_BA_x0020_Lead/Title,MMRP_x0020_State_x0020_Project_x/Title,Author/Title&$expand=Training_x0020_Developer,IBM_x0020_BA,Testing_x0020_Team,State_x0020_BA_x0020_Lead,MMRP_x0020_State_x0020_Project_x,Author&$filter=ID eq " + WorkAroundId,  
-//         urlQuery = "?$select=ID,Title,Release_x0020_Number,Workaround_x0020_Trigger,Issue,DefectCRNumber,Workaround_x0020_Number,Created,WorkaroundType,WorkaroundUsage,WorkaroundGoLive,Test_x0020_Case,Impacted_x0020_Audience,Training_x0020_Developer/Title,Workaround_x0020_Steps,IBM_x0020_BA/Title,Testing_x0020_Team/Title,State_x0020_BA_x0020_Lead/Title,MMRP_x0020_State_x0020_Project_x/Title,State_x0020_MMRP_x0020_O_x0026_M0/Title,State_x0020_MMRP_x0020_Testing_x/Title,State_x0020_MMRP_x0020_O_x0026_M/Title,State_x0020_MMRP_x0020_Program_x/Title,Author/Title&$expand=Training_x0020_Developer,IBM_x0020_BA,Testing_x0020_Team,State_x0020_BA_x0020_Lead,MMRP_x0020_State_x0020_Project_x,State_x0020_MMRP_x0020_O_x0026_M0,State_x0020_MMRP_x0020_Testing_x,State_x0020_MMRP_x0020_O_x0026_M,State_x0020_MMRP_x0020_Program_x,Author&$filter=ID eq " + WorkAroundId;
-//         type: "GET",  
-//         headers:  
-//         {  
-//             "Accept": "application/json;odata=verbose",  
-//             "Content-Type": "application/json;odata=verbose",  
-//             "X-RequestDigest": $("#__REQUESTDIGEST").val(),  
-//             "IF-MATCH": "*",  
-//             "X-HTTP-Method": null  
-//         },  
-//         cache: false,  
-//         success: function(data)   
-//         {              
-//             console.log(data);
-//             if ( data.d.results.length > 0 )
-//             {
-//                 var item = data.d.results[0];  
-                
-//                 PageContextRevisionID = item.ID;
-//                 jQuery("#title").val(item.Title);
-//                 jQuery("#WorkaroundNumber").text(item.Workaround_x0020_Number);
-//                 jQuery("#DateSubmitted").text(item.Created);
-//                 jQuery("#release").val(item.Release_x0020_Number);
-//                 jQuery("#trigger").val(item.Workaround_x0020_Trigger);
-//                 jQuery("#issue").val(item.Issue);
-//                 jQuery("#defectCR").val(item.DefectCRNumber);   
-//                 jQuery("#steps").text(stripHtml(item.Workaround_x0020_Steps));    
-//                 jQuery("#ibmba").val(item.IBM_x0020_BA.Title);    
-//                 // jQuery("#developer").val(item.Training_x0020_Developer.Title); 
-//                 jQuery("#tester").val(item.Testing_x0020_Team.Title); 
-//                 jQuery("#analyst").val(item.State_x0020_BA_x0020_Lead.Title);
-//                 jQuery("#manager").val(item.MMRP_x0020_State_x0020_Project_x.Title);
-//                 //jQuery("#submitter").val(item.Author.Title);
-//                 jQuery("#submitter").text("Created at " + moment(item.Created).format('MM/DD/YYYY h:mm:ss a') + " by " + item.Author.Title);
-
-//                 if ( item.WorkaroundType === "O&M")
-//                 {
-//                     WorkAroudTypeId = 3;
-//                 }                
-
-//                 if ( WorkAroudTypeId === 3)
-//                 {
-//                     document.getElementById("OMRelatedWorkAroundApproversDiv").style.display = "flex";
-//                     document.getElementById("stateBusinessAnalystPeoplePickerDiv").style.display = "flex";
-//                     document.getElementById("testingAnalystPeoplePickerDiv").style.display = "flex";
-//                     document.getElementById("stateManagerPeoplePickerDiv").style.display = "flex";
-//                     document.getElementById("programDirectorPeoplePickerDiv").style.display = "flex";
-
-//                     jQuery("#omBusinessAnalyst").val(item.State_x0020_MMRP_x0020_O_x0026_M0.Title);                    
-//                     jQuery("#omTestingAnalyst").val(item.State_x0020_MMRP_x0020_Testing_x.Title);                    
-//                     jQuery("#omManager").val(item.State_x0020_MMRP_x0020_O_x0026_M.Title);
-//                     jQuery("#omDirector").val(item.State_x0020_MMRP_x0020_Program_x.Title);
-//                 }
-
-//                 let ImpactedAudiences = item.Impacted_x0020_Audience.results;
-                                
-//                 ImpactedAudiences.forEach(function(item){
-//                     let fieldId = item.replace(/ /g,'');
-//                     jQuery("#" +  fieldId).prop( "checked", true );
-//                 });
-                
-
-//                 $("#typeWorkaround option").each(function (a, b) {
-//                     if ($(this).html() == item.WorkaroundType ) $(this).attr("selected", "selected");
-//                 });
-                
-//                 $("#timeUsage option").each(function (a, b) {
-//                     if ($(this).html() == item.WorkaroundUsage ) $(this).attr("selected", "selected");
-//                 });                
-
-//                 $("#golive option").each(function (a, b) {
-//                     if ($(this).html() == item.WorkaroundGoLive ) $(this).attr("selected", "selected");
-//                 });                
-
-//                 $("#testCase option").each(function (a, b) {
-//                     if ($(this).html() == item.Test_x0020_Case ) $(this).attr("selected", "selected");
-//                 });
-//             }  
-//         },  
-//         error: function(data)  
-//         {  
-//             alert(data.responseText);  
-//         }  
-//     });
-// }
-
-// function getUrlParameter(sParam) {
-//     var sPageURL = decodeURIComponent(window.location.search.substring(1)),
-//         sURLVariables = sPageURL.split('&'),
-//         sParameterName,
-//         i;
-
-//     for (i = 0; i < sURLVariables.length; i++) {
-//         sParameterName = sURLVariables[i].split('=');
-
-//         if (sParameterName[0] === sParam) {
-//             return sParameterName[1] === undefined ? true : sParameterName[1];
-//         }
-//     }
-// }
-
-// function stripHtml(html){
-//     // Create a new div element
-//     var temporalDivElement = document.createElement("div");
-//     // Set the HTML content with the providen
-//     temporalDivElement.innerHTML = html;
-//     // Retrieve the text property of the element (cross-browser support)
-//     return temporalDivElement.textContent || temporalDivElement.innerText || "";
-// }
-
 function Approve()
 {    
     jQuery.confirm({        
@@ -312,7 +200,7 @@ function Approve()
                     if ( WorkaroundId )
                     {
                         let comments = "";
-                        let data = getWorkaroundMetaData("Approved", comments);
+                        let data = getWorkaroundMetaData("Approved", comments, WorkaroundType);
                             
                         if ( data ) {
                             
@@ -321,32 +209,60 @@ function Approve()
 
                                 var query = getWorkAround(WorkaroundId);
                                 query.done(function(workAroundItem) {
-                                    
-                                    if ( workAroundItem.IBMBAStatus == "Approved" && workAroundItem.TestingTeamStatus == "Approved" && workAroundItem.StateBaLeadStatus == "Approved" && workAroundItem.ProjectManagerStatus != "Approved" )
+
+                                    if ( workAroundItem.ProjectManagerStatus == "Not Started")
                                     {
-                                        var itemType = GetItemTypeForListName("Workaround");  
+                                        if ( workAroundItem.IBMBAStatus == "Approved" && workAroundItem.TestingTeamStatus == "Approved" && workAroundItem.StateBaLeadStatus == "Approved" && workAroundItem.ProjectManagerStatus != "Approved" )
+                                        {
+                                            var itemType = GetItemTypeForListName("Workaround");  
 
-                                        var data = {
-                                            "__metadata": { "type": itemType },
-                                            "ProjectManagerStatus": "In Progress",                                                            
-                                        };
+                                            var data = {
+                                                "__metadata": { "type": itemType },
+                                                "ProjectManagerStatus": "In Progress",                                                            
+                                            };
 
-                                        var assignWorkAroundToProjectManager = updateWorkAround(WorkaroundId, data);
-                                        assignWorkAroundToProjectManager.done(function(data) {
+                                            var assignWorkAroundToProjectManager = updateWorkAround(WorkaroundId, data);
+                                            assignWorkAroundToProjectManager.done(function(data) {
 
+                                                var serverUrl = _spPageContextInfo.webAbsoluteUrl;
+                                                window.location = serverUrl + page;
+
+                                            });
+                                            assignWorkAroundToProjectManager.fail(function(error) {
+                                                alert(error);
+                                            });
+                                        }
+                                    }
+                                    else if ( workAroundItem.O_x0026_MDirectorStatus == "Not Started")
+                                    {
+                                        if ( workAroundItem.O_x0026_MBusinessAnalystStatus == "Approved" && workAroundItem.O_x0026_MTestingAnalystStatus == "Approved" && workAroundItem.O_x0026_MManagerStatus == "Approved") {
+                                            
+                                            var itemType = GetItemTypeForListName("Workaround");  
+
+                                            var data = {
+                                                "__metadata": { "type": itemType },
+                                                "O_x0026_MDirectorStatus": "In Progress",                                                            
+                                            };
+
+                                            var results = updateWorkAround(WorkaroundId, data);
+                                            results.done(function(data) {
+
+                                                var serverUrl = _spPageContextInfo.webAbsoluteUrl;
+                                                window.location = serverUrl + page;
+
+                                            });
+                                            results.fail(function(error) {
+                                                alert(error);
+                                            });
+                                        }
+                                        else {
                                             var serverUrl = _spPageContextInfo.webAbsoluteUrl;
                                             window.location = serverUrl + page;
-
-                                        });
-                                        assignWorkAroundToProjectManager.fail(function(error) {
-                                            alert(error);
-                                        });
+                                        }
                                     }
                                     else {
-
                                         var serverUrl = _spPageContextInfo.webAbsoluteUrl;
                                         window.location = serverUrl + page;
-
                                     }
                                 });
                                 query.fail(function(error) {
@@ -392,7 +308,7 @@ function Reject()
                         if ( WorkaroundId )
                         {
                             let comments = "";
-                            let data = getWorkaroundMetaData("Rejected", comments);
+                            let data = getWorkaroundMetaData("Rejected", comments, WorkaroundType);
                             
                             if ( data ) {
 
@@ -435,7 +351,7 @@ function isFormValid()
     return false;
 }
 
-function getWorkaroundMetaData(Decision, commentsVal)
+function getWorkaroundMetaData(Decision, commentsVal, WorkaroundTypeVal)
 {
     var ApprovalType = getUrlParameter('ApprovalType');
 
@@ -538,28 +454,176 @@ function getWorkaroundMetaData(Decision, commentsVal)
         }
         else if ( ApprovalType == 5 )
         {
-            if ( Decision != "Rejected" )
+            
+            if ( WorkaroundTypeVal === "O&M" )
+            {
+                if ( Decision != "Rejected")
+                {
+                    var data = {
+                        "__metadata": { "type": itemType },
+                        "Comments": commentsVal,
+                        "O_x0026_MBusinessAnalystStatus": "In Progress",    
+                        "O_x0026_MTestingAnalystStatus": "In Progress", 
+                        "O_x0026_MManagerStatus": "In Progress", 
+                        "WorkaroundWorkflowStatus": "O&M Initial Approval (Pending)",            
+                    };
+                    
+                    return data;
+                }
+                else {
+                    var data = {
+                        "__metadata": { "type": itemType },
+                        "Comments": commentsVal,
+                        "WorkaroundWorkflowStatus": Decision,               
+                    };
+                    
+                    return data;
+                }
+
+            }
+            else {
+
+                if ( Decision != "Rejected" )
+                {
+                    var data = {
+                        "__metadata": { "type": itemType },
+                        "Comments": commentsVal,
+                        "WorkaroundWorkflowStatus": "Completed",            
+                    };
+                    
+                    return data;
+
+                }
+                else {
+                    var data = {
+                        "__metadata": { "type": itemType },
+                        "Comments": commentsVal,
+                        "WorkaroundWorkflowStatus": Decision,            
+                    };
+                    
+                    return data;
+
+                }
+            }            
+        }       
+        if ( ApprovalType == 6)
+        {
+            if ( Decision != "Rejected")
             {
                 var data = {
                     "__metadata": { "type": itemType },
                     "Comments": commentsVal,
-                    "WorkaroundWorkflowStatus": "Completed",            
+                    "O_x0026_MBusinessAnalystStatus": Decision,                
                 };
                 
                 return data;
-
             }
             else {
                 var data = {
                     "__metadata": { "type": itemType },
                     "Comments": commentsVal,
+                    "O_x0026_MBusinessAnalystStatus": Decision,     
                     "WorkaroundWorkflowStatus": Decision,            
                 };
                 
                 return data;
+            }            
+        }
+        else if ( ApprovalType == 7)
+        {
+            if ( Decision != "Rejected")
+            {
+                var data = {
+                    "__metadata": { "type": itemType },
+                    "Comments": commentsVal,
+                    "O_x0026_MTestingAnalystStatus": Decision,                
+                };
+                
+                return data;
+            }
+            else {
+                var data = {
+                    "__metadata": { "type": itemType },
+                    "Comments": commentsVal,
+                    "O_x0026_MTestingAnalystStatus": Decision,     
+                    "WorkaroundWorkflowStatus": Decision,            
+                };
+                
+                return data;
+            }
+        }
+        else if ( ApprovalType == 8)
+        {
+            if ( Decision != "Rejected")
+            {
+                var data = {
+                    "__metadata": { "type": itemType },
+                    "Comments": commentsVal,
+                    "O_x0026_MManagerStatus": Decision,                
+                };
+                
+                return data;
+            }
+            else {
+                var data = {
+                    "__metadata": { "type": itemType },
+                    "Comments": commentsVal,
+                    "O_x0026_MManagerStatus": Decision,     
+                    "WorkaroundWorkflowStatus": Decision,            
+                };
+                
+                return data;
+            }
+        }
+        else if (ApprovalType == 9)
+        {
+            if ( Decision != "Rejected")
+            {
+                var data = {
+                    "__metadata": { "type": itemType },
+                    "Comments": commentsVal,
+                    "O_x0026_MDirectorStatus": Decision,    
+                    "WorkaroundWorkflowStatus": "O&M Initial Approval (Approved)",            
+                };
+                
+                return data;
+            }
+            else {
+                var data = {
+                    "__metadata": { "type": itemType },
+                    "Comments": commentsVal,
+                    "O_x0026_MDirectorStatus": Decision,     
+                    "WorkaroundWorkflowStatus": Decision,            
+                };
+                
+                return data;
+            }
+        } 
+        else if ( ApprovalType == 10 )
+        {
+                        
+            if ( Decision != "Rejected" )
+            {
+                    var data = {
+                        "__metadata": { "type": itemType },
+                        "Comments": commentsVal,
+                        "WorkaroundWorkflowStatus": "Completed",            
+                    };
+                    
+                    return data;
 
             }
-        }        
+            else {
+                var data = {
+                        "__metadata": { "type": itemType },
+                        "Comments": commentsVal,
+                        "WorkaroundWorkflowStatus": Decision,            
+                };
+                    
+                return data;
+            }                        
+        }
+        
         else {
             return null;
         }
@@ -638,8 +702,3 @@ function getWorkAround(WorkAroundId)
 
     return deferred.promise();
 }
-
-// Get List Item Type metadata
-// function GetItemTypeForListName(name) {
-//     return "SP.Data." + name.charAt(0).toUpperCase() + name.split(" ").join("").slice(1) + "ListItem";
-// }

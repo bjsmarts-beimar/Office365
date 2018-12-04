@@ -435,6 +435,7 @@ function CreateOMWorkAroundRecord()
                                                 let initialApprovedEmail = getEmailVerbagefromLocalStorage("Initial Approval Email");
                                                 let pendingFinalApproval = getEmailVerbagefromLocalStorage("Pending Final Approval Email");
                                                 let finalApprovedEmail = getEmailVerbagefromLocalStorage("Final Approval Email");
+                                                let initialOMApprovedEmail = getEmailVerbagefromLocalStorage("Initiate OM Approval Notification Email");
 
                                                 
                                                 let EmailTitle = email.EmailSubject.replace('{Title}', data.d.Title);
@@ -451,17 +452,20 @@ function CreateOMWorkAroundRecord()
                                                 let EmailBody4 = stripHtml(email.EmailBody);
                                                 EmailBody4 = EmailBody4.replace('{Title}', data.d.Title).replace('{ID}', data.d.ID).replace('{TypeID}', '4');
 
-                                                let EmailBody5 = stripHtml(email.EmailBody);
-                                                EmailBody5 = EmailBody5.replace('{Title}', data.d.Title).replace('{ID}', data.d.ID).replace('{TypeID}', '5');
-                                                
+                                                // let EmailBody5 = stripHtml(email.EmailBody);
+                                                // EmailBody5 = EmailBody5.replace('{Title}', data.d.Title).replace('{ID}', data.d.ID).replace('{TypeID}', '5');
+
                                                 let EmailBody6 = stripHtml(email.EmailBody);
                                                 EmailBody6 = EmailBody6.replace('{Title}', data.d.Title).replace('{ID}', data.d.ID).replace('{TypeID}', '6');
-
+                                                
                                                 let EmailBody7 = stripHtml(email.EmailBody);
                                                 EmailBody7 = EmailBody7.replace('{Title}', data.d.Title).replace('{ID}', data.d.ID).replace('{TypeID}', '7');
 
                                                 let EmailBody8 = stripHtml(email.EmailBody);
                                                 EmailBody8 = EmailBody8.replace('{Title}', data.d.Title).replace('{ID}', data.d.ID).replace('{TypeID}', '8');
+
+                                                let EmailBody9 = stripHtml(email.EmailBody);
+                                                EmailBody9 = EmailBody9.replace('{Title}', data.d.Title).replace('{ID}', data.d.ID).replace('{TypeID}', '9');
 
                                                 let rejectedEmailTitle = rejectEmail.EmailSubject.replace('{Title}', data.d.Title);
                                                 let rejectedEmailBody = stripHtml(rejectEmail.EmailBody);
@@ -479,6 +483,10 @@ function CreateOMWorkAroundRecord()
                                                 let finalApprovedEmailBody = stripHtml(finalApprovedEmail.EmailBody);
                                                 finalApprovedEmailBody = finalApprovedEmailBody.replace('{Title}', data.d.Title).replace('{ID}', data.d.ID).replace('{TypeID}', '1');
 
+                                                let initialOMApprovedEmailTitle = initialOMApprovedEmail.EmailSubject.replace('{Title}', data.d.Title);
+                                                let initialOMApprovedEmailBody = stripHtml(initialOMApprovedEmail.EmailBody);
+                                                initialOMApprovedEmailBody = initialOMApprovedEmailBody.replace('{Title}', data.d.Title).replace('{ID}', data.d.ID).replace('{TypeID}', '5');
+
                                                 let metadata = {
                                                                     "__metadata": { "type": itemType },
                                                                     "InitialNotificationEmailTitle": EmailTitle,
@@ -486,10 +494,10 @@ function CreateOMWorkAroundRecord()
                                                                     "TAInitialNotificationEmailBody": EmailBody2.trim(),                                                    
                                                                     "LAInitialNotificationEmailBody": EmailBody3.trim(),                                                    
                                                                     "PMInitialNotificationEmailBody": EmailBody4.trim(),
-                                                                    "OMBAInitialNotificationEmailBody": EmailBody5.trim(),
-                                                                    "OMTAInitialNotificationEmailBody": EmailBody6.trim(),
-                                                                    "OMManagerInitialNotificationEmai": EmailBody7.trim(),
-                                                                    "OMDirectorInitialNotificationEma": EmailBody8.trim(),
+                                                                    "OMBAInitialNotificationEmailBody": EmailBody6.trim(),
+                                                                    "OMTAInitialNotificationEmailBody": EmailBody7.trim(),
+                                                                    "OMManagerInitialNotificationEmai": EmailBody8.trim(),
+                                                                    "OMDirectorInitialNotificationEma": EmailBody9.trim(),
                                                                     "InitiatorInitialApprovedEmailTit": initialApprovedEmailTitle,
                                                                     "InitiatorInitialApprovedEmailBod": initialApprovedEmailBody.trim(),
                                                                     "InitiatorPendingFinalEmailTitle": pendingFinalApprovalTitle,
@@ -498,6 +506,8 @@ function CreateOMWorkAroundRecord()
                                                                     "InitiatorFinalApprovalEmailBody": finalApprovedEmailBody.trim(),
                                                                     "InitiatorInitialRejectedEmailTit": rejectedEmailTitle,
                                                                     "InitiatorInitialRejectedEmailBod": rejectedEmailBody.trim(),
+                                                                    "InitialOMApprovalEmailTitle": initialOMApprovedEmailTitle,
+                                                                    "InitialOMApprovalEmailBody": initialOMApprovedEmailBody,
                                                                     "IBMBAStatus": "In Progress",
                                                                     "TestingTeamStatus": "In Progress",
                                                                     "StateBaLeadStatus": "In Progress",                                                    
