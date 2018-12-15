@@ -4,6 +4,7 @@ var PageContextRevisionID = null;
 var WorkAroudTypeId = 0;
 var WorkaroundType = "";
 var urlQuery = "";
+var currentComments = null;
 
 
 jQuery(document).ready(function () {
@@ -34,7 +35,7 @@ jQuery(document).ready(function () {
     if ( WorkAroundId )
     {
 
-        urlQuery = "?$select=ID,Title,Release_x0020_Number,Workaround_x0020_Trigger,Issue,DefectCRNumber,Workaround_x0020_Number,Created,WorkaroundType,WorkaroundUsage,WorkaroundGoLive,Test_x0020_Case,Impacted_x0020_Audience,Training_x0020_Developer/Title,Workaround_x0020_Steps,IBM_x0020_BA/Title,Testing_x0020_Team/Title,State_x0020_BA_x0020_Lead/Title,MMRP_x0020_State_x0020_Project_x/Title,State_x0020_MMRP_x0020_O_x0026_M0/Title,State_x0020_MMRP_x0020_Testing_x/Title,State_x0020_MMRP_x0020_O_x0026_M/Title,State_x0020_MMRP_x0020_Program_x/Title,Author/Title&$expand=Training_x0020_Developer,IBM_x0020_BA,Testing_x0020_Team,State_x0020_BA_x0020_Lead,MMRP_x0020_State_x0020_Project_x,State_x0020_MMRP_x0020_O_x0026_M0,State_x0020_MMRP_x0020_Testing_x,State_x0020_MMRP_x0020_O_x0026_M,State_x0020_MMRP_x0020_Program_x,Author&$filter=ID eq " + WorkAroundId;
+        urlQuery = "?$select=Comments,ID,Title,Release_x0020_Number,Workaround_x0020_Trigger,Issue,DefectCRNumber,Workaround_x0020_Number,Created,WorkaroundType,WorkaroundUsage,WorkaroundGoLive,Test_x0020_Case,Impacted_x0020_Audience,Training_x0020_Developer/Title,Workaround_x0020_Steps,IBM_x0020_BA/Title,Testing_x0020_Team/Title,State_x0020_BA_x0020_Lead/Title,MMRP_x0020_State_x0020_Project_x/Title,State_x0020_MMRP_x0020_O_x0026_M0/Title,State_x0020_MMRP_x0020_Testing_x/Title,State_x0020_MMRP_x0020_O_x0026_M/Title,State_x0020_MMRP_x0020_Program_x/Title,Author/Title&$expand=Training_x0020_Developer,IBM_x0020_BA,Testing_x0020_Team,State_x0020_BA_x0020_Lead,MMRP_x0020_State_x0020_Project_x,State_x0020_MMRP_x0020_O_x0026_M0,State_x0020_MMRP_x0020_Testing_x,State_x0020_MMRP_x0020_O_x0026_M,State_x0020_MMRP_x0020_Program_x,Author&$filter=ID eq " + WorkAroundId;
         
         let results = retrieveSharePointListItemsByListName("Workaround", urlQuery);
 
@@ -43,6 +44,7 @@ jQuery(document).ready(function () {
                 var item = data.d.results[0];  
 
                 WorkaroundType = item.WorkaroundType;
+                currentComments = item.Comments; 
                 
                 PageContextRevisionID = item.ID;
                 jQuery("#title").val(item.Title);
@@ -79,14 +81,15 @@ jQuery(document).ready(function () {
                     jQuery("#omDirector").val(item.State_x0020_MMRP_x0020_Program_x.Title);
                 }
 
-
-                let ImpactedAudiences = item.Impacted_x0020_Audience.results;
+                if ( item.ImpactedAudiences )
+                {
+                    let ImpactedAudiences = item.Impacted_x0020_Audience.results;
                                 
-                ImpactedAudiences.forEach(function(item){
-                    let fieldId = item.replace(/ /g,'');
-                    jQuery("#" +  fieldId).prop( "checked", true );
-                });
-                
+                    ImpactedAudiences.forEach(function(item){
+                        let fieldId = item.replace(/ /g,'');
+                        jQuery("#" +  fieldId).prop( "checked", true );
+                    });
+                }
 
                 $("#typeWorkaround option").each(function (a, b) {
                     if ($(this).html() == item.WorkaroundType ) $(this).attr("selected", "selected");
@@ -199,8 +202,21 @@ function Approve()
 
                     if ( WorkaroundId )
                     {
+                        let utc = new Date().toLocaleString(); 
+                        let signature = "Wrote on " + utc;
                         let comments = "";
-                        let data = getWorkaroundMetaData("Approved", comments, WorkaroundType);
+                        
+                        if ( currentComments !== null ) {
+                                comments = currentComments + '<br>' + $("#field-comments").val() + '<br>' + signature + '<br>';
+                        }
+                        else {
+                                if ( $("#field-comments").val().length > 0  )
+                                {
+                                    comments = $("#field-comments").val() + '<br>' + signature;
+                                }
+                        }
+
+                        let data = getWorkaroundMetaData("Approved", comments, "", WorkaroundType);
                             
                         if ( data ) {
                             
@@ -231,6 +247,10 @@ function Approve()
                                             assignWorkAroundToProjectManager.fail(function(error) {
                                                 alert(error);
                                             });
+                                        }
+                                        else {
+                                            var serverUrl = _spPageContextInfo.webAbsoluteUrl;
+                                            window.location = serverUrl + page;
                                         }
                                     }
                                     else if ( workAroundItem.O_x0026_MDirectorStatus == "Not Started")
@@ -307,8 +327,24 @@ function Reject()
 
                         if ( WorkaroundId )
                         {
+
+                            let utc = new Date().toLocaleString(); 
+                            let signature = "Wrote on " + utc;
                             let comments = "";
-                            let data = getWorkaroundMetaData("Rejected", comments, WorkaroundType);
+                            let ReasonForRejection = "";
+
+                            if ( currentComments !== null ) {
+                                comments = currentComments + '<br>' + $("#field-comments").val() + '<br>' + signature + '<br>';
+                            }
+                            else {
+                                if ( $("#field-comments").val().length > 0  )
+                                {
+                                    comments = $("#field-comments").val() + '<br>' + signature;
+                                    ReasonForRejection = $("#field-comments").val();
+                                }
+                            }
+
+                            let data = getWorkaroundMetaData("Rejected", comments, ReasonForRejection, WorkaroundType);
                             
                             if ( data ) {
 
@@ -351,7 +387,7 @@ function isFormValid()
     return false;
 }
 
-function getWorkaroundMetaData(Decision, commentsVal, WorkaroundTypeVal)
+function getWorkaroundMetaData(Decision, commentsVal, ReasonForRejectionVal, WorkaroundTypeVal)
 {
     var ApprovalType = getUrlParameter('ApprovalType');
 
@@ -366,7 +402,8 @@ function getWorkaroundMetaData(Decision, commentsVal, WorkaroundTypeVal)
                 var data = {
                     "__metadata": { "type": itemType },
                     "Comments": commentsVal,
-                    "IBMBAStatus": Decision,                
+                    "IBMBAStatus": Decision,           
+                    "IBMBAStatusDate": new Date() //.toLocaleString();      
                 };
                 
                 return data;
@@ -375,7 +412,9 @@ function getWorkaroundMetaData(Decision, commentsVal, WorkaroundTypeVal)
                 var data = {
                     "__metadata": { "type": itemType },
                     "Comments": commentsVal,
+                    "ReasonForRejection": ReasonForRejectionVal,
                     "IBMBAStatus": Decision,     
+                    "IBMBAStatusDate": new Date(), //.toLocaleString();
                     "WorkaroundWorkflowStatus": Decision,            
                 };
                 
@@ -389,7 +428,8 @@ function getWorkaroundMetaData(Decision, commentsVal, WorkaroundTypeVal)
                 var data = {
                     "__metadata": { "type": itemType },
                     "Comments": commentsVal,
-                    "TestingTeamStatus": Decision,                
+                    "TestingTeamStatus": Decision, 
+                    "TestingTeamStatusDate": new Date() //.toLocaleString();               
                 };
                 
                 return data;
@@ -398,7 +438,9 @@ function getWorkaroundMetaData(Decision, commentsVal, WorkaroundTypeVal)
                 var data = {
                     "__metadata": { "type": itemType },
                     "Comments": commentsVal,
-                    "TestingTeamStatus": Decision,     
+                    "TestingTeamStatus": Decision,    
+                    "TestingTeamStatusDate": new Date(), //.toLocaleString();
+                    "ReasonForRejection": ReasonForRejectionVal, 
                     "WorkaroundWorkflowStatus": Decision,            
                 };
                 
@@ -412,7 +454,8 @@ function getWorkaroundMetaData(Decision, commentsVal, WorkaroundTypeVal)
                 var data = {
                     "__metadata": { "type": itemType },
                     "Comments": commentsVal,
-                    "StateBaLeadStatus": Decision,                
+                    "StateBaLeadStatus": Decision, 
+                    "StateBaLeadStatusDate": new Date() //.toLocaleString();               
                 };
                 
                 return data;
@@ -421,7 +464,9 @@ function getWorkaroundMetaData(Decision, commentsVal, WorkaroundTypeVal)
                 var data = {
                     "__metadata": { "type": itemType },
                     "Comments": commentsVal,
+                    "ReasonForRejection": ReasonForRejectionVal,
                     "StateBaLeadStatus": Decision,     
+                    "StateBaLeadStatusDate": new Date(), //.toLocaleString();
                     "WorkaroundWorkflowStatus": Decision,            
                 };
                 
@@ -435,7 +480,8 @@ function getWorkaroundMetaData(Decision, commentsVal, WorkaroundTypeVal)
                 var data = {
                     "__metadata": { "type": itemType },
                     "Comments": commentsVal,
-                    "ProjectManagerStatus": Decision,    
+                    "ProjectManagerStatus": Decision,   
+                    "ProjectManagerStatusDate": new Date(), //.toLocaleString(); 
                     "WorkaroundWorkflowStatus": "Initial Approval (Approved)",            
                 };
                 
@@ -445,7 +491,9 @@ function getWorkaroundMetaData(Decision, commentsVal, WorkaroundTypeVal)
                 var data = {
                     "__metadata": { "type": itemType },
                     "Comments": commentsVal,
+                    "ReasonForRejection": ReasonForRejectionVal,
                     "ProjectManagerStatus": Decision,     
+                    "ProjectManagerStatusDate": new Date(), //.toLocaleString();
                     "WorkaroundWorkflowStatus": Decision,            
                 };
                 
@@ -474,6 +522,7 @@ function getWorkaroundMetaData(Decision, commentsVal, WorkaroundTypeVal)
                     var data = {
                         "__metadata": { "type": itemType },
                         "Comments": commentsVal,
+                        "ReasonForRejection": ReasonForRejectionVal,
                         "WorkaroundWorkflowStatus": Decision,               
                     };
                     
@@ -488,6 +537,8 @@ function getWorkaroundMetaData(Decision, commentsVal, WorkaroundTypeVal)
                     var data = {
                         "__metadata": { "type": itemType },
                         "Comments": commentsVal,
+                        "finalApproverStatusDate": new Date(), //.toLocaleString();
+                        "finalApproverStatus": "Approved",
                         "WorkaroundWorkflowStatus": "Completed",            
                     };
                     
@@ -498,6 +549,8 @@ function getWorkaroundMetaData(Decision, commentsVal, WorkaroundTypeVal)
                     var data = {
                         "__metadata": { "type": itemType },
                         "Comments": commentsVal,
+                        "finalApproverStatusDate": new Date(), //.toLocaleString();
+                        "ReasonForRejection": ReasonForRejectionVal,
                         "WorkaroundWorkflowStatus": Decision,            
                     };
                     
@@ -513,7 +566,8 @@ function getWorkaroundMetaData(Decision, commentsVal, WorkaroundTypeVal)
                 var data = {
                     "__metadata": { "type": itemType },
                     "Comments": commentsVal,
-                    "O_x0026_MBusinessAnalystStatus": Decision,                
+                    "O_x0026_MBusinessAnalystStatus": Decision,       
+                    "O_x0026_MBAStatusDate": new Date() //.toLocaleString();          
                 };
                 
                 return data;
@@ -522,7 +576,9 @@ function getWorkaroundMetaData(Decision, commentsVal, WorkaroundTypeVal)
                 var data = {
                     "__metadata": { "type": itemType },
                     "Comments": commentsVal,
-                    "O_x0026_MBusinessAnalystStatus": Decision,     
+                    "ReasonForRejection": ReasonForRejectionVal,
+                    "O_x0026_MBusinessAnalystStatus": Decision,
+                    "O_x0026_MBAStatusDate": new Date(), //.toLocaleString();     
                     "WorkaroundWorkflowStatus": Decision,            
                 };
                 
@@ -536,7 +592,9 @@ function getWorkaroundMetaData(Decision, commentsVal, WorkaroundTypeVal)
                 var data = {
                     "__metadata": { "type": itemType },
                     "Comments": commentsVal,
-                    "O_x0026_MTestingAnalystStatus": Decision,                
+                    "ReasonForRejection": ReasonForRejectionVal,
+                    "O_x0026_MTestingAnalystStatus": Decision,       
+                    "O_x0026_MTAStatusDate": new Date() //.toLocaleString();         
                 };
                 
                 return data;
@@ -545,7 +603,9 @@ function getWorkaroundMetaData(Decision, commentsVal, WorkaroundTypeVal)
                 var data = {
                     "__metadata": { "type": itemType },
                     "Comments": commentsVal,
-                    "O_x0026_MTestingAnalystStatus": Decision,     
+                    "ReasonForRejection": ReasonForRejectionVal,
+                    "O_x0026_MTestingAnalystStatus": Decision,   
+                    "O_x0026_MTAStatusDate": new Date(), //.toLocaleString();    
                     "WorkaroundWorkflowStatus": Decision,            
                 };
                 
@@ -559,7 +619,8 @@ function getWorkaroundMetaData(Decision, commentsVal, WorkaroundTypeVal)
                 var data = {
                     "__metadata": { "type": itemType },
                     "Comments": commentsVal,
-                    "O_x0026_MManagerStatus": Decision,                
+                    "O_x0026_MManagerStatus": Decision,       
+                    "O_x0026_MManagerStatusDate": new Date() //.toLocaleString();           
                 };
                 
                 return data;
@@ -568,7 +629,9 @@ function getWorkaroundMetaData(Decision, commentsVal, WorkaroundTypeVal)
                 var data = {
                     "__metadata": { "type": itemType },
                     "Comments": commentsVal,
+                    "ReasonForRejection": ReasonForRejectionVal,
                     "O_x0026_MManagerStatus": Decision,     
+                    "O_x0026_MManagerStatusDate": new Date(), //.toLocaleString();  
                     "WorkaroundWorkflowStatus": Decision,            
                 };
                 
@@ -583,6 +646,7 @@ function getWorkaroundMetaData(Decision, commentsVal, WorkaroundTypeVal)
                     "__metadata": { "type": itemType },
                     "Comments": commentsVal,
                     "O_x0026_MDirectorStatus": Decision,    
+                    "O_x0026_MDirectorStatusDate": new Date(), //.toLocaleString();   
                     "WorkaroundWorkflowStatus": "O&M Initial Approval (Approved)",            
                 };
                 
@@ -592,7 +656,9 @@ function getWorkaroundMetaData(Decision, commentsVal, WorkaroundTypeVal)
                 var data = {
                     "__metadata": { "type": itemType },
                     "Comments": commentsVal,
-                    "O_x0026_MDirectorStatus": Decision,     
+                    "ReasonForRejection": ReasonForRejectionVal,
+                    "O_x0026_MDirectorStatus": Decision,   
+                    "O_x0026_MDirectorStatusDate": new Date(), //.toLocaleString();  
                     "WorkaroundWorkflowStatus": Decision,            
                 };
                 
@@ -607,6 +673,8 @@ function getWorkaroundMetaData(Decision, commentsVal, WorkaroundTypeVal)
                     var data = {
                         "__metadata": { "type": itemType },
                         "Comments": commentsVal,
+                        "finalApproverStatusDate": new Date(), //.toLocaleString();
+                        "finalApproverStatus": "Approved",
                         "WorkaroundWorkflowStatus": "Completed",            
                     };
                     
@@ -617,6 +685,8 @@ function getWorkaroundMetaData(Decision, commentsVal, WorkaroundTypeVal)
                 var data = {
                         "__metadata": { "type": itemType },
                         "Comments": commentsVal,
+                        "ReasonForRejection": ReasonForRejectionVal,
+                        "finalApproverStatusDate": new Date(), //.toLocaleString();
                         "WorkaroundWorkflowStatus": Decision,            
                 };
                     

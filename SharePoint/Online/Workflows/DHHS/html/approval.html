@@ -44,6 +44,9 @@
         <div class="card-block mb-5">
         <form>
           <div class="form-group row">
+               <label id="submitter" class="col-form-label form-label-workaround" style="width: 100%; text-align: right; font-weight: bolder; font-size: larger;"></label>
+          </div> 
+          <div class="form-group row">
                 <label for="titleLabel" class="col-2 col-form-label form-label-workaround">1. <span id="label1" name="label1"></span></label>
                 <div class="col-10">
                      <input class="form-control form-readOnly" type="text" id="title" disabled>                          
@@ -212,6 +215,7 @@
                      <input class="form-control form-readOnly" type="text" id="developer" disabled>                             
                 </div>
           </div> -->
+          
           <div class="form-group row">
                         <label for="goLiveLabel" class="col-2 col-form-label form-label-workaround">10. <span id="label10" name="label10"></span></label>
                         <div class="col-10">
@@ -264,10 +268,7 @@
                         <textarea class="form-control" rows="5" id="field-comments" maxlength="1500" style="width: 100%;"></textarea>
                         <span id="error-comments" class="form-label-workaround" style="color: red; display: none;">You must provide Comments</span>                 
                 </div>                
-          </div>
-          <div class="form-group row">
-               <label id="submitter" class="col-form-label form-label-workaround" style="width: 100%; text-align: right"></label>
-          </div>   
+          </div>            
           <div class="form-group row">  
                         <div class="col-6">
                                         <button type="button" class="btn btn-success btn-lg btn-block btn-huge" onclick="Approve()">Approve</button>

@@ -120,6 +120,26 @@ function GetItemTypeForListName(name) {
     return "SP.Data." + name.charAt(0).toUpperCase() + name.split(" ").join("").slice(1) + "ListItem";
 }
 
+function getComments(comments, currentComments)
+{
+
+    let utc = new Date().toLocaleString(); 
+    let signature = "Wrote on " + utc;
+    let returnVal = "";
+                        
+    if ( currentComments !== null ) {
+        //comments = currentComments + '<br>' + $("#field-comments").val() + '<br>' + signature + '<br>';
+        returnVal = currentComments + '<br>' + comments + '<br>' + signature + '<br>';
+    }
+    else {
+        if ( $("#field-comments").val().length > 0  )
+        {
+            returnVal = comments + '<br>' + signature;
+        }
+    }
+
+    return returnVal
+}
 
 function getRowBackgroundColor(created)
 {    

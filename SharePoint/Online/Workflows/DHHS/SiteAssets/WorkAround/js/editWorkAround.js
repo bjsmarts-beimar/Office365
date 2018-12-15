@@ -28,11 +28,17 @@ jQuery(document).ready(function () {
 
 
     var WorkAroundId = getUrlParameter('WorkaroundId');
+    var DisplayRejection = getUrlParameter('DisplayRejection');
+
+    if ( DisplayRejection )
+        document.getElementById("ReasonForRejectionDiv").style.display = "flex";
+
     
     if ( WorkAroundId )
     {
 
-        urlQuery = "?$select=ID,Title,Release_x0020_Number,Workaround_x0020_Trigger,Issue,DefectCRNumber,Workaround_x0020_Number,Created,WorkaroundType,WorkaroundUsage,WorkaroundGoLive,Test_x0020_Case,Impacted_x0020_Audience,Training_x0020_Developer/Title,Workaround_x0020_Steps,IBM_x0020_BA/Title,Testing_x0020_Team/Title,State_x0020_BA_x0020_Lead/Title,MMRP_x0020_State_x0020_Project_x/Title,State_x0020_MMRP_x0020_O_x0026_M0/Title,State_x0020_MMRP_x0020_Testing_x/Title,State_x0020_MMRP_x0020_O_x0026_M/Title,State_x0020_MMRP_x0020_Program_x/Title,Author/Title&$expand=Training_x0020_Developer,IBM_x0020_BA,Testing_x0020_Team,State_x0020_BA_x0020_Lead,MMRP_x0020_State_x0020_Project_x,State_x0020_MMRP_x0020_O_x0026_M0,State_x0020_MMRP_x0020_Testing_x,State_x0020_MMRP_x0020_O_x0026_M,State_x0020_MMRP_x0020_Program_x,Author&$filter=ID eq " + WorkAroundId;
+        //urlQuery = "?$select=WorkaroundWorkflowStatus,ReasonForRejection,ID,Title,Release_x0020_Number,Workaround_x0020_Trigger,Issue,DefectCRNumber,Workaround_x0020_Number,Created,WorkaroundType,WorkaroundUsage,WorkaroundGoLive,Test_x0020_Case,Impacted_x0020_Audience,Training_x0020_Developer/Title,Workaround_x0020_Steps,IBM_x0020_BA/Title,Testing_x0020_Team/Title,State_x0020_BA_x0020_Lead/Title,MMRP_x0020_State_x0020_Project_x/Title,State_x0020_MMRP_x0020_O_x0026_M0/Title,State_x0020_MMRP_x0020_Testing_x/Title,State_x0020_MMRP_x0020_O_x0026_M/Title,State_x0020_MMRP_x0020_Program_x/Title,Author/Title&$expand=Training_x0020_Developer,IBM_x0020_BA,Testing_x0020_Team,State_x0020_BA_x0020_Lead,MMRP_x0020_State_x0020_Project_x,State_x0020_MMRP_x0020_O_x0026_M0,State_x0020_MMRP_x0020_Testing_x,State_x0020_MMRP_x0020_O_x0026_M,State_x0020_MMRP_x0020_Program_x,Author&$filter=ID eq " + WorkAroundId;
+        urlQuery = "?$select=finalApproverStatus,finalApproverStatusDate,ProjectManagerStatus,ProjectManagerStatusDate,StateBaLeadStatus,StateBaLeadStatusDate,TestingTeamStatus,TestingTeamStatusDate,IBMBAStatus,IBMBAStatusDate,WorkaroundWorkflowStatus,ReasonForRejection,ID,Title,Release_x0020_Number,Workaround_x0020_Trigger,Issue,DefectCRNumber,Workaround_x0020_Number,Created,WorkaroundType,WorkaroundUsage,WorkaroundGoLive,Test_x0020_Case,Impacted_x0020_Audience,Training_x0020_Developer/Title,Workaround_x0020_Steps,IBM_x0020_BA/Title,Testing_x0020_Team/Title,State_x0020_BA_x0020_Lead/Title,MMRP_x0020_State_x0020_Project_x/Title,State_x0020_MMRP_x0020_O_x0026_M0/Title,State_x0020_MMRP_x0020_Testing_x/Title,State_x0020_MMRP_x0020_O_x0026_M/Title,State_x0020_MMRP_x0020_Program_x/Title,Author/Title,finalApprover/Title&$expand=Training_x0020_Developer,IBM_x0020_BA,Testing_x0020_Team,State_x0020_BA_x0020_Lead,MMRP_x0020_State_x0020_Project_x,State_x0020_MMRP_x0020_O_x0026_M0,State_x0020_MMRP_x0020_Testing_x,State_x0020_MMRP_x0020_O_x0026_M,State_x0020_MMRP_x0020_Program_x,Author,finalApprover&$filter=ID eq " + WorkAroundId;
         
         let results = retrieveSharePointListItemsByListName("Workaround", urlQuery);
 
@@ -42,6 +48,7 @@ jQuery(document).ready(function () {
                 
                 PageContextRevisionID = item.ID;
                 jQuery("#title").val(item.Title);
+                jQuery("#ReasonForRejection").text(stripHtml(item.ReasonForRejection));
                 jQuery("#WorkaroundNumber").text(item.Workaround_x0020_Number);
                 jQuery("#DateSubmitted").text(item.Created);
                 jQuery("#release").val(item.Release_x0020_Number);
@@ -75,14 +82,15 @@ jQuery(document).ready(function () {
                     jQuery("#omDirector").val(item.State_x0020_MMRP_x0020_Program_x.Title);
                 }
 
-
-                let ImpactedAudiences = item.Impacted_x0020_Audience.results;
+                if ( item.ImpactedAudiences )
+                {
+                    let ImpactedAudiences = item.Impacted_x0020_Audience.results;
                                 
-                ImpactedAudiences.forEach(function(item){
-                    let fieldId = item.replace(/ /g,'');
-                    jQuery("#" +  fieldId).prop( "checked", true );
-                });
-                
+                    ImpactedAudiences.forEach(function(item){
+                        let fieldId = item.replace(/ /g,'');
+                        jQuery("#" +  fieldId).prop( "checked", true );
+                    });
+                }
 
                 $("#typeWorkaround option").each(function (a, b) {
                     if ($(this).html() == item.WorkaroundType ) $(this).attr("selected", "selected");
@@ -113,6 +121,31 @@ jQuery(document).ready(function () {
                     document.getElementById("attachmentTestCaseDiv").style.display = "none";
 
                     $('input:radio[name=testcaseGroup]')[1].checked = true;
+                }
+
+                if ( item.WorkaroundWorkflowStatus === "Completed")
+                {
+                    document.getElementById("finalApproverPeoplePickerDiv").style.display = "flex";
+                     
+                    jQuery("#IBMBAStatus").text(item.IBMBAStatus);
+                    jQuery("#IBMBAStatusDate").text(moment(item.IBMBAStatusDate).format('MM/DD/YYYY h:mm:ss a'));
+
+                    jQuery("#IBMTAStatus").text(item.TestingTeamStatus);
+                    jQuery("#IBMTAStatusDate").text(moment(item.TestingTeamStatusDate).format('MM/DD/YYYY h:mm:ss a'));
+
+                    jQuery("#IBMLeadStatus").text(item.StateBaLeadStatus);
+                    jQuery("#IBMLeadStatusDate").text(moment(item.StateBaLeadStatusDate).format('MM/DD/YYYY h:mm:ss a'));
+
+                    jQuery("#managerStatus").text(item.ProjectManagerStatus);
+                    jQuery("#managerStatusDate").text(moment(item.ProjectManagerStatusDate).format('MM/DD/YYYY h:mm:ss a'));
+
+                    jQuery("#finalApproverStatus").text(item.finalApproverStatus);
+                    jQuery("#finalApproverStatusDate").text(moment(item.finalApproverStatusDate).format('MM/DD/YYYY h:mm:ss a'));
+
+                    jQuery("#finalAprover").val(item.finalApprover.Title);
+                }
+                else {
+                    document.getElementById("finalApproverPeoplePickerDiv").style.display = "none";
                 }
 
 

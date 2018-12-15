@@ -7,6 +7,7 @@ var _attachments = new Array();
 var _testCaseAttachments = new Array();
 var urlQuery = "";
 var WorkaroundItem = null;
+var currentComments = null;
 
 
 jQuery(document).ready(function () {
@@ -120,15 +121,16 @@ function UpdateWorkAroundRecord()
                     projectManager.done(function(data) {
 
                         let projectManagerId = data;
-
-                        let iaIds = getImpactedAudiencesIds();  
-                        
+                        let iaIds = getImpactedAudiencesIds();                          
                         console.log('Current WorkaroundItem: ', WorkaroundItem);
+                        
+                        let fieldComments = getComments($("#field-comments").val(), currentComments);
 
 
                         let metadata = {
                             "__metadata": { "type": itemType },
                             "Title": title, 
+                            "Comments": fieldComments,
                             "Release_x0020_Number": releaseNumber,
                             "Workaround_x0020_Trigger": trigger,
                             "Issue": issue,
@@ -150,7 +152,7 @@ function UpdateWorkAroundRecord()
                             "IBMBAStatus": WorkaroundItem.IBMBAStatus === "Approved" ? WorkaroundItem.IBMBAStatus : "In Progress",
                             "TestingTeamStatus": WorkaroundItem.TestingTeamStatus === "Approved" ? WorkaroundItem.IBMBAStatus : "In Progress",
                             "StateBaLeadStatus": WorkaroundItem.StateBaLeadStatus === "Approved" ? WorkaroundItem.StateBaLeadStatus : "In Progress",
-                            "ProjectManagerStatus": WorkaroundItem.ProjectManagerStatus === "Approved" ? WorkaroundItem.ProjectManagerStatus : "In Progress",
+                            "ProjectManagerStatus": WorkaroundItem.ProjectManagerStatus === "Not Started" ? WorkaroundItem.ProjectManagerStatus : "In Progress",
                             "WorkaroundWorkflowStatus": "Initial Approval (Pending)"
                         };
                 
@@ -314,11 +316,14 @@ function UpdateOMWorkAroundRecord()
 
                                         let businessAnalystId = data;
 
-                                        let iaIds = getImpactedAudiencesIds();      
+                                        let iaIds = getImpactedAudiencesIds();   
+                                        
+                                        let fieldComments = getComments($("#field-comments").val(), currentComments);                                        
 
                                         let metadata = {
                                             "__metadata": { "type": itemType },
                                             "Title": title,
+                                            "Comments": fieldComments,
                                             "Release_x0020_Number": releaseNumber,
                                             "Workaround_x0020_Trigger": trigger,
                                             "Issue": issue,
@@ -344,7 +349,7 @@ function UpdateOMWorkAroundRecord()
                                             "IBMBAStatus": WorkaroundItem.IBMBAStatus === "Approved" ? WorkaroundItem.IBMBAStatus : "In Progress",
                                             "TestingTeamStatus": WorkaroundItem.TestingTeamStatus === "Approved" ? WorkaroundItem.IBMBAStatus : "In Progress",
                                             "StateBaLeadStatus": WorkaroundItem.StateBaLeadStatus === "Approved" ? WorkaroundItem.StateBaLeadStatus : "In Progress",
-                                            "ProjectManagerStatus": WorkaroundItem.ProjectManagerStatus === "Approved" ? WorkaroundItem.ProjectManagerStatus : "In Progress",
+                                            "ProjectManagerStatus": WorkaroundItem.ProjectManagerStatus === "Not Started" ? WorkaroundItem.ProjectManagerStatus : "In Progress",
                                             "WorkaroundWorkflowStatus": "Initial Approval (Pending)"                     
                                         };
                                 
@@ -462,10 +467,7 @@ function UpdateOMWorkAroundRecord()
     businessanalyst.fail(function(error) {
         alert(error.responseText);
     });
-
 }
-
-
 
 function getImpactedAudiencesIds() 
 {
@@ -586,7 +588,7 @@ function retrieveWorkAroundItem(WorkAroundId)
     jQuery.ajax  
     ({  
         //url: _spPageContextInfo.webAbsoluteUrl + "/data/_api/web/lists/GetByTitle('Workaround')/items?$select=ID,Title,Release_x0020_Number,Workaround_x0020_Trigger,Issue,DefectCRNumber,Workaround_x0020_Number,Created,WorkaroundType,WorkaroundUsage,WorkaroundGoLive,Test_x0020_Case,Impacted_x0020_Audience,Training_x0020_Developer/Title,Workaround_x0020_Steps,IBM_x0020_BA/Title,Testing_x0020_Team/Title,State_x0020_BA_x0020_Lead/Title,MMRP_x0020_State_x0020_Project_x/Title,Author/Title&$expand=Training_x0020_Developer,IBM_x0020_BA,Testing_x0020_Team,State_x0020_BA_x0020_Lead,MMRP_x0020_State_x0020_Project_x,Author&$filter=ID eq " + WorkAroundId,  
-        url: _spPageContextInfo.webAbsoluteUrl + "/data/_api/web/lists/GetByTitle('Workaround')/items?$select=ID,Title,Release_x0020_Number,Workaround_x0020_Trigger,Issue,DefectCRNumber,Workaround_x0020_Number,Created,WorkaroundType,WorkaroundUsage,WorkaroundGoLive,Test_x0020_Case,Impacted_x0020_Audience,Training_x0020_Developer/Title,Workaround_x0020_Steps,IBMBAStatus,IBM_x0020_BA/EMail,TestingTeamStatus,Testing_x0020_Team/EMail,StateBaLeadStatus,State_x0020_BA_x0020_Lead/EMail,ProjectManagerStatus,MMRP_x0020_State_x0020_Project_x/EMail,State_x0020_MMRP_x0020_O_x0026_M0/EMail,State_x0020_MMRP_x0020_Testing_x/EMail,State_x0020_MMRP_x0020_O_x0026_M/EMail,State_x0020_MMRP_x0020_Program_x/EMail,Author/Title&$expand=Training_x0020_Developer,IBM_x0020_BA/Id,Testing_x0020_Team/Id,State_x0020_BA_x0020_Lead/Id,MMRP_x0020_State_x0020_Project_x/Id,State_x0020_MMRP_x0020_O_x0026_M0/Id,State_x0020_MMRP_x0020_Testing_x/Id,State_x0020_MMRP_x0020_O_x0026_M/Id,State_x0020_MMRP_x0020_Program_x/Id,Author&$filter=ID eq " + WorkAroundId,  
+        url: _spPageContextInfo.webAbsoluteUrl + "/data/_api/web/lists/GetByTitle('Workaround')/items?$select=ReasonForRejection,Comments,ID,Title,Release_x0020_Number,Workaround_x0020_Trigger,Issue,DefectCRNumber,Workaround_x0020_Number,Created,WorkaroundType,WorkaroundUsage,WorkaroundGoLive,Test_x0020_Case,Impacted_x0020_Audience,Training_x0020_Developer/Title,Workaround_x0020_Steps,IBMBAStatus,IBM_x0020_BA/EMail,TestingTeamStatus,Testing_x0020_Team/EMail,StateBaLeadStatus,State_x0020_BA_x0020_Lead/EMail,ProjectManagerStatus,MMRP_x0020_State_x0020_Project_x/EMail,State_x0020_MMRP_x0020_O_x0026_M0/EMail,State_x0020_MMRP_x0020_Testing_x/EMail,State_x0020_MMRP_x0020_O_x0026_M/EMail,State_x0020_MMRP_x0020_Program_x/EMail,Author/Title&$expand=Training_x0020_Developer,IBM_x0020_BA/Id,Testing_x0020_Team/Id,State_x0020_BA_x0020_Lead/Id,MMRP_x0020_State_x0020_Project_x/Id,State_x0020_MMRP_x0020_O_x0026_M0/Id,State_x0020_MMRP_x0020_Testing_x/Id,State_x0020_MMRP_x0020_O_x0026_M/Id,State_x0020_MMRP_x0020_Program_x/Id,Author&$filter=ID eq " + WorkAroundId,  
         type: "GET",  
         headers:  
         {  
@@ -604,10 +606,11 @@ function retrieveWorkAroundItem(WorkAroundId)
             {
                 var item = data.d.results[0];  
                 WorkaroundItem = data.d.results[0];
-
                 console.log('loading the workarounditem:', WorkaroundItem);
                 
                 PageContextRevisionID = item.ID;
+                currentComments = WorkaroundItem.Comments;
+                jQuery("#ReasonForRejection").text(stripHtml(item.ReasonForRejection));
                 jQuery("#title").val(item.Title);
                 jQuery("#WorkaroundNumber").text(item.Workaround_x0020_Number);
                 jQuery("#DateSubmitted").text(item.Created);

@@ -108,7 +108,7 @@ function setLabelsFromLocalStorage(labelIndex)
 {    
     for(var i=0; i<Labels.length; i++ )
     {
-        if ( Labels[i].LabelID == labelIndex )
+        if ( Labels[i].LabelID === labelIndex )
         {
             var name = "label" + labelIndex;
             jQuery("#" + name).text(Labels[i].Title);  
@@ -120,7 +120,7 @@ function getEmailVerbagefromLocalStorage(EmailKey)
 {
     for(var i=0; i<Emails.length; i++)
     {
-        if ( Emails[i].Title = EmailKey )
+        if ( Emails[i].Title === EmailKey )
         {
             return Emails[i];
         }
