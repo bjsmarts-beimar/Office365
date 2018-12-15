@@ -20,7 +20,7 @@
 <script type="text/javascript" src="https://schhs.sharepoint.com/sites/SBH/wp/data/SiteAssets/WorkAround/js/util.js"></script>
 <script type="text/javascript" src="https://schhs.sharepoint.com/sites/SBH/wp/data/SiteAssets/WorkAround/js/service.js"></script>
 <script type="text/javascript" src="https://schhs.sharepoint.com/sites/SBH/wp/data/SiteAssets/WorkAround/js/localstorage.js"></script>
-<script type="text/javascript" src="https://schhs.sharepoint.com/sites/SBH/wp/data/SiteAssets/WorkAround/js/editWorkAround.js"></script>
+<script type="text/javascript" src="https://schhs.sharepoint.com/sites/SBH/wp/data/SiteAssets/WorkAround/js/edit.js"></script>
 
 <br>
     
@@ -80,7 +80,7 @@
                         <div class="col-10"><label for="releaseLabel" class="col-2 col-form-label form-label-workaround form-max-width-100"><u>DDI Related Workaround Reviewers</u></label></div>                        
           </div>   
           <div class="form-group row">
-                        <div class="col-5" style="text-align: right;"><label for="IBMBALabel" class="col-2 col-form-label form-label-workaround form-max-width-100">IBM BA</label></div>                        
+                        <div class="col-5" style="text-align: right;"><label for="IBMBALabel" class="col-2 col-form-label form-label-workaround form-max-width-100"><span id="label13" name="label13"></label></div>                        
                         <div class="col-3">                                                          
                              <input class="form-control form-readOnly" type="text" id="ibmba" disabled>                             
                         </div>
@@ -92,7 +92,7 @@
                         </div>
           </div>
           <div class="form-group row">
-                        <div class="col-5" style="text-align: right;"><label style="max-width: 100%;" for="IBMBALabel" class="col-2 col-form-label form-label-workaround">Testing Team</label></div>                        
+                        <div class="col-5" style="text-align: right;"><label style="max-width: 100%;" for="IBMBALabel" class="col-2 col-form-label form-label-workaround"><span id="label14" name="label14"></label></div>                        
                         <div class="col-3">                                                          
                              <input class="form-control form-readOnly" type="text" id="tester" disabled>                             
                         </div>
@@ -104,7 +104,7 @@
                         </div>
           </div>
           <div class="form-group row">
-                        <div class="col-5" style="text-align: right;"><label style="max-width: 100%;" for="IBMBALabel" class="col-2 col-form-label form-label-workaround">State BA Lead</label></div>                        
+                        <div class="col-5" style="text-align: right;"><label style="max-width: 100%;" for="IBMBALabel" class="col-2 col-form-label form-label-workaround"><span id="label15" name="label15"></label></div>                        
                         <div class="col-3">                                                          
                              <input class="form-control form-readOnly" type="text" id="analyst" disabled>                             
                         </div>
@@ -116,7 +116,7 @@
                         </div>
           </div>
           <div class="form-group row">
-                        <div class="col-5" style="text-align: right;"><label style="max-width: 100%;" for="IBMBALabel" class="col-2 col-form-label form-label-workaround">MMRP State Project Manager</label></div>                        
+                        <div class="col-5" style="text-align: right;"><label style="max-width: 100%;" for="IBMBALabel" class="col-2 col-form-label form-label-workaround"><span id="label16" name="label16"></label></div>                        
                         <div class="col-3">                                                          
                              <input class="form-control form-readOnly" type="text" id="manager" disabled>                             
                         </div>
@@ -132,7 +132,7 @@
                         <div class="col-10"><label for="releaseLabel" class="col-2 col-form-label form-label-workaround form-max-width-100"><u>O&M Related Workaround Approvers</u></label></div>                        
           </div>  
           <div id="stateBusinessAnalystPeoplePickerDiv" class="form-group row" style="display: none;">
-                        <div class="col-5" style="text-align: right;"><label for="BusinessAnalystLabel" class="col-2 col-form-label form-label-workaround form-max-width-100">State MMRP O&M Business Analyst</label></div>                        
+                        <div class="col-5" style="text-align: right;"><label for="BusinessAnalystLabel" class="col-2 col-form-label form-label-workaround form-max-width-100"><span id="label17" name="label17"></span></label></div>                        
                         <div class="col-3">                                                          
                              <input class="form-control form-readOnly" type="text" id="omBusinessAnalyst" disabled>                             
                         </div>
@@ -145,7 +145,7 @@
                         
           </div>
           <div id="testingAnalystPeoplePickerDiv" class="form-group row" style="display: none;">
-                        <div class="col-5" style="text-align: right;"><label for="TestingAnalystLabel" class="col-2 col-form-label form-label-workaround form-max-width-100">State MMRP Testing Analyst</label></div>                        
+                        <div class="col-5" style="text-align: right;"><label for="TestingAnalystLabel" class="col-2 col-form-label form-label-workaround form-max-width-100"><span id="label18" name="label18"></span></label></div>                        
                         <div class="col-3">                                                          
                              <input class="form-control form-readOnly" type="text" id="omTestingAnalyst" disabled>                             
                         </div>
@@ -157,7 +157,7 @@
                         </div>
           </div>
           <div id="stateManagerPeoplePickerDiv" class="form-group row" style="display: none;">
-                        <div class="col-5" style="text-align: right;"><label for="ManagerLabel" class="col-2 col-form-label form-label-workaround form-max-width-100">State MMRP O&M Manager</label></div>                        
+                        <div class="col-5" style="text-align: right;"><label for="ManagerLabel" class="col-2 col-form-label form-label-workaround form-max-width-100"><span id="label19" name="label19"></label></div>                        
                         <div class="col-3">                                                          
                              <input class="form-control form-readOnly" type="text" id="omManager" disabled>                             
                         </div>
@@ -169,7 +169,7 @@
                         </div>
           </div>
           <div id="programDirectorPeoplePickerDiv" class="form-group row" style="display: none;">
-                        <div class="col-5" style="text-align: right;"><label for="DirectorLabel" class="col-2 col-form-label form-label-workaround form-max-width-100">State MMRP Program Director</label></div>                        
+                        <div class="col-5" style="text-align: right;"><label for="DirectorLabel" class="col-2 col-form-label form-label-workaround form-max-width-100"><span id="label20" name="label20"></label></div>                        
                         <div class="col-3">                                                          
                              <input class="form-control form-readOnly" type="text" id="omDirector" disabled>                             
                         </div>
@@ -270,12 +270,6 @@
                              <textarea class="form-control form-readOnly" rows="5" id="steps" disabled></textarea>                          
                         </div>                
           </div>
-          <!-- <div class="form-group row">
-                <label for="trainingDeveloperLabel" class="col-2 col-form-label form-label-workaround">11. Training Developer</label>
-                <div class="col-10">
-                     <input class="form-control form-readOnly" type="text" id="developer" disabled>                             
-                </div>
-          </div> -->
           <div class="form-group row">
                         <label for="goLiveLabel" class="col-2 col-form-label form-label-workaround">10. <span id="label10" name="label10"></span></label>
                         <div class="col-10">

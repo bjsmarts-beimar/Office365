@@ -3,6 +3,7 @@
 var PageContextRevisionID = null;
 var WorkAroudTypeId = 0;
 var urlQuery = "";
+var currentComments = null;
 
 jQuery(document).ready(function () {
 
@@ -10,6 +11,8 @@ jQuery(document).ready(function () {
     if (!window.FileReader) {
         alert('This browser does not support the FileReader API.');
     }    
+
+    //$("#finalApprover").append('<option value=1>My option</option>');
 
     getDataFromlocalStorage();
     setTitleFromLocalStorage("EEMS Workaround Final Form");
@@ -26,12 +29,14 @@ jQuery(document).ready(function () {
     setLabelsFromLocalStorage("11");
     setLabelsFromLocalStorage("12");  
 
+    setfinalApproversfromLocalStorage("finalApprover");
+
     var WorkAroundId = getUrlParameter('WorkaroundId');
     
     if ( WorkAroundId )
     {
 
-        urlQuery = "?$select=ID,Title,Release_x0020_Number,Workaround_x0020_Trigger,Issue,DefectCRNumber,Workaround_x0020_Number,Created,WorkaroundType,WorkaroundUsage,WorkaroundGoLive,Test_x0020_Case,Impacted_x0020_Audience,Training_x0020_Developer/Title,Workaround_x0020_Steps,IBM_x0020_BA/Title,Testing_x0020_Team/Title,State_x0020_BA_x0020_Lead/Title,MMRP_x0020_State_x0020_Project_x/Title,State_x0020_MMRP_x0020_O_x0026_M0/Title,State_x0020_MMRP_x0020_Testing_x/Title,State_x0020_MMRP_x0020_O_x0026_M/Title,State_x0020_MMRP_x0020_Program_x/Title,Author/Title&$expand=Training_x0020_Developer,IBM_x0020_BA,Testing_x0020_Team,State_x0020_BA_x0020_Lead,MMRP_x0020_State_x0020_Project_x,State_x0020_MMRP_x0020_O_x0026_M0,State_x0020_MMRP_x0020_Testing_x,State_x0020_MMRP_x0020_O_x0026_M,State_x0020_MMRP_x0020_Program_x,Author&$filter=ID eq " + WorkAroundId;
+        urlQuery = "?$select=Comments,ID,Title,Release_x0020_Number,Workaround_x0020_Trigger,Issue,DefectCRNumber,Workaround_x0020_Number,Created,WorkaroundType,WorkaroundUsage,WorkaroundGoLive,Test_x0020_Case,Impacted_x0020_Audience,Training_x0020_Developer/Title,Workaround_x0020_Steps,IBM_x0020_BA/Title,Testing_x0020_Team/Title,State_x0020_BA_x0020_Lead/Title,MMRP_x0020_State_x0020_Project_x/Title,State_x0020_MMRP_x0020_O_x0026_M0/Title,State_x0020_MMRP_x0020_Testing_x/Title,State_x0020_MMRP_x0020_O_x0026_M/Title,State_x0020_MMRP_x0020_Program_x/Title,Author/Title&$expand=Training_x0020_Developer,IBM_x0020_BA,Testing_x0020_Team,State_x0020_BA_x0020_Lead,MMRP_x0020_State_x0020_Project_x,State_x0020_MMRP_x0020_O_x0026_M0,State_x0020_MMRP_x0020_Testing_x,State_x0020_MMRP_x0020_O_x0026_M,State_x0020_MMRP_x0020_Program_x,Author&$filter=ID eq " + WorkAroundId;
         
         let results = retrieveSharePointListItemsByListName("Workaround", urlQuery);
 
@@ -40,6 +45,7 @@ jQuery(document).ready(function () {
                 var item = data.d.results[0];  
                 
                 PageContextRevisionID = item.ID;
+                currentComments = item.Comments; 
                 jQuery("#title").val(item.Title);
                 jQuery("#WorkaroundNumber").text(item.Workaround_x0020_Number);
                 jQuery("#DateSubmitted").text(item.Created);
@@ -212,6 +218,7 @@ function SubmitFormWithValidation()
                                 let finalApproverId = data;
                                 
                                 let comments = "";
+                                
                                 let metaData = getWorkaroundMetaData("Final Approval (Pending)", finalApproverId, comments);
                                 
                                 if ( metaData ) 
@@ -346,26 +353,26 @@ function IsThisComboFieldValid(fieldName)
     return false;
 }
 
-function getUrlParameter(sParam) {
-    var sPageURL = decodeURIComponent(window.location.search.substring(1)),
-        sURLVariables = sPageURL.split('&'),
-        sParameterName,
-        i;
+// function getUrlParameter(sParam) {
+//     var sPageURL = decodeURIComponent(window.location.search.substring(1)),
+//         sURLVariables = sPageURL.split('&'),
+//         sParameterName,
+//         i;
 
-    for (i = 0; i < sURLVariables.length; i++) {
-        sParameterName = sURLVariables[i].split('=');
+//     for (i = 0; i < sURLVariables.length; i++) {
+//         sParameterName = sURLVariables[i].split('=');
 
-        if (sParameterName[0] === sParam) {
-            return sParameterName[1] === undefined ? true : sParameterName[1];
-        }
-    }
-}
+//         if (sParameterName[0] === sParam) {
+//             return sParameterName[1] === undefined ? true : sParameterName[1];
+//         }
+//     }
+// }
 
-function stripHtml(html){
-    // Create a new div element
-    var temporalDivElement = document.createElement("div");
-    // Set the HTML content with the providen
-    temporalDivElement.innerHTML = html;
-    // Retrieve the text property of the element (cross-browser support)
-    return temporalDivElement.textContent || temporalDivElement.innerText || "";
-}
+// function stripHtml(html){
+//     // Create a new div element
+//     var temporalDivElement = document.createElement("div");
+//     // Set the HTML content with the providen
+//     temporalDivElement.innerHTML = html;
+//     // Retrieve the text property of the element (cross-browser support)
+//     return temporalDivElement.textContent || temporalDivElement.innerText || "";
+// }

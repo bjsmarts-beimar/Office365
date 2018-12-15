@@ -32,7 +32,7 @@
 <script type="text/javascript" src="https://schhs.sharepoint.com/sites/SBH/wp/data/SiteAssets/WorkAround/js/util.js"></script>
 <script type="text/javascript" src="https://schhs.sharepoint.com/sites/SBH/wp/data/SiteAssets/WorkAround/js/service.js"></script>
 <script type="text/javascript" src="https://schhs.sharepoint.com/sites/SBH/wp/data/SiteAssets/WorkAround/js/localstorage.js"></script>
-<script type="text/javascript" src="https://schhs.sharepoint.com/sites/SBH/wp/data/SiteAssets/WorkAround/js/addNewWorkAround.js"></script>
+<script type="text/javascript" src="https://schhs.sharepoint.com/sites/SBH/wp/data/SiteAssets/WorkAround/js/add.js"></script>
 
 <br>
     
@@ -85,28 +85,28 @@
                         <div class="col-10"><label for="releaseLabel" class="col-2 col-form-label form-label-workaround form-max-width-100"><u>DDI Related Workaround Reviewers</u></label></div>                        
           </div>   
           <div id="ibmbaPeoplePickerDiv" class="form-group row" style="display: none;">                
-                        <div class="col-5" style="text-align: right;"><label for="IBMBALabel" class="col-2 col-form-label form-label-workaround form-max-width-100">IBM BA</label></div>                
+                        <div class="col-5" style="text-align: right;"><label for="IBMBALabel" class="col-2 col-form-label form-label-workaround form-max-width-100"><span id="label13" name="label13"></span></label></div>                
                         <div class="col-7">                                                        
                                 <div id="peoplePickerDiv"></div>                                
                                 <span id="error-peoplePickerDiv" class="form-error-label-workaround" style="display: none">You must provide IBM Business Analyst</span>
                         </div>
           </div>
           <div id="testingTeamPeoplePickerDiv" class="form-group row" style="display: none;">                
-                        <div class="col-5" style="text-align: right;"><label for="testingTeamLabel" class="col-2 col-form-label form-label-workaround form-max-width-100">Testing Team</label></div>                
+                        <div class="col-5" style="text-align: right;"><label for="testingTeamLabel" class="col-2 col-form-label form-label-workaround form-max-width-100"><span id="label14" name="label14"></span></label></div>                
                         <div class="col-7">                                                        
                                 <div id="testersPeoplePickerDiv"></div>
                                 <span id="error-testersPeoplePickerDiv" class="form-error-label-workaround" style="display: none">You must provide Testing Team Analyst</span>                                
                         </div>
           </div>          
           <div id="sblTeamPeoplePickerDiv" class="form-group row" style="display: none;" >                
-                        <div class="col-5" style="text-align: right;"><label for="sblLabel" class="col-2 col-form-label form-label-workaround form-max-width-100">State BA Lead</label></div>                
+                        <div class="col-5" style="text-align: right;"><label for="sblLabel" class="col-2 col-form-label form-label-workaround form-max-width-100"><span id="label15" name="label16"></span></label></div>                
                         <div class="col-7">                                                        
                                 <div id="BALeadPeoplePickerDiv"></div>                                
                                 <span id="error-BALeadPeoplePickerDiv" class="form-error-label-workaround" style="display: none">You must provide Business Analyst Lead</span>
                         </div>
           </div>          
           <div id="projectManagerTeamPeoplePickerDiv" class="form-group row" style="display: none;">                
-                        <div class="col-5" style="text-align: right;"><label for="sblLabel" class="col-2 col-form-label form-label-workaround form-max-width-100">MMRP State Project Manager</label></div>                
+                        <div class="col-5" style="text-align: right;"><label for="sblLabel" class="col-2 col-form-label form-label-workaround form-max-width-100"><span id="label16" name="label16"></span></label></div>                
                         <div class="col-7">                                                        
                                 <div id="projectManagerPeoplePickerDiv"></div>  
                                 <span id="error-projectManagerPeoplePickerDiv" class="form-error-label-workaround" style="display: none">You must provide State Project Manager</span>                              
@@ -117,28 +117,28 @@
                         <div class="col-10"><label for="releaseLabel" class="col-2 col-form-label form-label-workaround form-max-width-100"><u>O&M Related Workaround Approvers</u></label></div>                        
           </div>                                 
           <div id="stateBusinessAnalystPeoplePickerDiv" class="form-group row" style="display: none;">                
-                        <div class="col-5" style="text-align: right;"><label for="directorLabel" class="col-2 col-form-label form-label-workaround form-max-width-100">State MMRP O&M Business Analyst</label></div>                
+                        <div class="col-5" style="text-align: right;"><label for="directorLabel" class="col-2 col-form-label form-label-workaround form-max-width-100"><span id="label17" name="label17"></span></label></div>                
                         <div class="col-7">                                                        
                                 <div id="businesAnalystPeoplePickerDiv"></div>                                
                                 <span id="error-businesAnalystPeoplePickerDiv" class="form-error-label-workaround" style="display: none">You must provide State MMRP O&M Business Analyst</span>
                         </div>
           </div>
           <div id="testingAnalystPeoplePickerDiv" class="form-group row" style="display: none;">                
-                        <div class="col-5" style="text-align: right;"><label for="directorLabel" class="col-2 col-form-label form-label-workaround form-max-width-100">State MMRP Testing Analyst</label></div>                
+                        <div class="col-5" style="text-align: right;"><label for="directorLabel" class="col-2 col-form-label form-label-workaround form-max-width-100"><span id="label18" name="label18"></span></label></div>                
                         <div class="col-7">                                                        
                                 <div id="analystPeoplePickerDiv"></div>                                
                                 <span id="error-analystPeoplePickerDiv" class="form-error-label-workaround" style="display: none">You must provide State MMRP Testing Analyst</span>
                         </div>
           </div>
           <div id="stateManagerPeoplePickerDiv" class="form-group row" style="display: none;">                
-                        <div class="col-5" style="text-align: right;"><label for="directorLabel" class="col-2 col-form-label form-label-workaround form-max-width-100">State MMRP O&M Manager</label></div>                
+                        <div class="col-5" style="text-align: right;"><label for="directorLabel" class="col-2 col-form-label form-label-workaround form-max-width-100"><span id="label19" name="label19"></span></label></div>                
                         <div class="col-7">                                                        
                                 <div id="managerPeoplePickerDiv"></div>                                
                                 <span id="error-managerPeoplePickerDiv" class="form-error-label-workaround" style="display: none">You must provide State MMRP O&M Manager</span>
                         </div>
           </div>
           <div id="programDirectorPeoplePickerDiv" class="form-group row" style="display: none;">                
-                        <div class="col-5" style="text-align: right;"><label for="directorLabel" class="col-2 col-form-label form-label-workaround form-max-width-100">State MMRP Program Director</label></div>                
+                        <div class="col-5" style="text-align: right;"><label for="directorLabel" class="col-2 col-form-label form-label-workaround form-max-width-100"><span id="label20" name="label20"></span></label></div>                
                         <div class="col-7">                                                        
                                 <div id="directorPeoplePickerDiv"></div>                                
                                 <span id="error-directorPeoplePickerDiv" class="form-error-label-workaround" style="display: none">You must provide State MMRP Program Director</span>
@@ -238,13 +238,6 @@
                              <span id="error-steps" class="form-error-label-workaround" style="display: none">You must provide workaround steps</span>           
                         </div>                
           </div>
-          <!-- <div class="form-group row">
-                <label for="DeveloperLabel" class="col-2 col-form-label form-label-workaround">10. Training Developer</label>
-                <div class="col-10">                                
-                        <div id="peoplePickerDivDeveloper"></div>               
-                        <span id="error-peoplePickerDivDeveloper" class="form-error-label-workaround" style="display: none">You must provide Training Developer</span>                 
-                </div>
-          </div> -->
           <div class="form-group row">
                         <label for="goLiveLabel" class="col-2 col-form-label form-label-workaround form-border-color">10. <span id="label10" name="label10"></span></label>
                         <div class="col-10">

@@ -1,6 +1,6 @@
 'use strict';
 
-var user, Titles, Labels, Emails, Alerts;
+var user, Titles, Labels, Emails, Alerts, Approvers;
 
 function getDataFromlocalStorage()
 {
@@ -32,7 +32,27 @@ function getDataFromlocalStorage()
                     {
                         console.log('localstorage Alerts: ', JSON.parse(_Alerts));
                         Alerts = JSON.parse(_Alerts);
-                        return;
+
+                        let _Approvers = localStorage.getItem("Approvers");
+
+                        if ( _Approvers )
+                        {
+                            console.log('localstorage Approvers: ', JSON.parse(_Approvers));
+                            Approvers = JSON.parse(_Approvers);
+                            return;
+                        } 
+                        else {
+                            let urlQuery = "?$select=ApproversId,Title,ADAccount";                        
+
+                            let resultsApprovers = retrieveSharePointListItemsByListName("Approvers", urlQuery);
+                            resultsApprovers.done(function (data) {
+                                localStorage.setItem("Approvers", JSON.stringify(data.d.results));                        
+                                getDataFromlocalStorage();
+                            });
+                            resultsApprovers.fail(function(err) {
+                                alert(err.responseText);
+                            });                            
+                        }                        
                     }
                     else {
                         let urlQuery = "?$select=AlertID,Title,Days";                        
@@ -92,6 +112,39 @@ function getDataFromlocalStorage()
     }
 }
 
+function removeAllItemsFromLocalStorage()
+{
+    if ( localStorage )
+    {
+        if ( localStorage.getItem("Titles") ) 
+        {
+            localStorage.removeItem("Titles");
+        }
+        
+        if ( localStorage.getItem("Emails") )
+        {
+            localStorage.removeItem("Emails");
+        }
+
+        if ( localStorage.getItem("Labels") )
+        {
+            localStorage.removeItem("Labels")
+        }
+
+        if ( localStorage.getItem("Alerts") )
+        {
+            localStorage.removeItem("Alerts")
+        }
+
+        if ( localStorage.getItem("Approvers") )
+        {
+            localStorage.removeItem("Approvers")
+        }
+    }
+
+    return true;
+}
+
 function setTitleFromLocalStorage(TitleKey)
 {          
     for (var i=0; i<Titles.length; i++) {
@@ -127,4 +180,12 @@ function getEmailVerbagefromLocalStorage(EmailKey)
     } 
     
     return null;
+}
+
+function setfinalApproversfromLocalStorage(selectName)
+{
+    for ( var i=0; i<Approvers.length; i++)
+    {
+        $("#" + selectName).append('<option value=' + Approvers[i].ADAccount + '>' + Approvers[i].Title + '</option>');
+    }    
 }

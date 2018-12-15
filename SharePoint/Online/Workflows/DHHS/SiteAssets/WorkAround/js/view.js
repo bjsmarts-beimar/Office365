@@ -24,7 +24,15 @@ jQuery(document).ready(function () {
     setLabelsFromLocalStorage("9");
     setLabelsFromLocalStorage("10");
     setLabelsFromLocalStorage("11");
-    setLabelsFromLocalStorage("12");   
+    setLabelsFromLocalStorage("12"); 
+    setLabelsFromLocalStorage("13");    
+    setLabelsFromLocalStorage("14");    
+    setLabelsFromLocalStorage("15");    
+    setLabelsFromLocalStorage("16");    
+    setLabelsFromLocalStorage("17");    
+    setLabelsFromLocalStorage("18");    
+    setLabelsFromLocalStorage("19");
+    setLabelsFromLocalStorage("20");   
 
 
     var WorkAroundId = getUrlParameter('WorkaroundId');
