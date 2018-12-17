@@ -446,7 +446,6 @@ function CreateOMWorkAroundRecord()
                                                 let initialOMApprovedEmail = getEmailVerbagefromLocalStorage("Initiate OM Approval Notification Email");
                                                 let allInitialRejectedEmail = getEmailVerbagefromLocalStorage("All Rejected Notification Email");
                                                 let trainingTeamEmail = getEmailVerbagefromLocalStorage("Traning Team Notification Email");
-
                                                 
                                                 let EmailTitle = email.EmailSubject.replace('{Title}', data.d.Title);
                                                 
@@ -461,10 +460,7 @@ function CreateOMWorkAroundRecord()
                                                 
                                                 let EmailBody4 = stripHtml(email.EmailBody);
                                                 EmailBody4 = EmailBody4.replace('{Title}', data.d.Title).replace('{ID}', data.d.ID).replace('{TypeID}', '4');
-
-                                                // let EmailBody5 = stripHtml(email.EmailBody);
-                                                // EmailBody5 = EmailBody5.replace('{Title}', data.d.Title).replace('{ID}', data.d.ID).replace('{TypeID}', '5');
-
+                                                
                                                 let EmailBody6 = stripHtml(email.EmailBody);
                                                 EmailBody6 = EmailBody6.replace('{Title}', data.d.Title).replace('{ID}', data.d.ID).replace('{TypeID}', '6');
                                                 
@@ -485,14 +481,17 @@ function CreateOMWorkAroundRecord()
                                                 let initialApprovedEmailTitle = initialApprovedEmail.EmailSubject.replace('{Title}', data.d.Title);
                                                 let initialApprovedEmailBody = stripHtml(initialApprovedEmail.EmailBody);
                                                 initialApprovedEmailBody = initialApprovedEmailBody.replace('{Title}', data.d.Title).replace('{ID}', data.d.ID).replace('{TypeID}', '1');
+                                                initialApprovedEmailBody = initialApprovedEmailBody.replace('{Title}', data.d.Title);
 
                                                 let pendingFinalApprovalTitle = pendingFinalApproval.EmailSubject.replace('{Title}', data.d.Title);
                                                 let pendingFinalApprovalBody = stripHtml(pendingFinalApproval.EmailBody);
                                                 pendingFinalApprovalBody = pendingFinalApprovalBody.replace('{Title}', data.d.Title).replace('{ID}', data.d.ID).replace('{TypeID}', '10');
+                                                pendingFinalApprovalBody = pendingFinalApprovalBody.replace('{Title}', data.d.Title);
 
                                                 let finalApprovedEmailTitle = finalApprovedEmail.EmailSubject.replace('{Title}', data.d.Title);
                                                 let finalApprovedEmailBody = stripHtml(finalApprovedEmail.EmailBody);
                                                 finalApprovedEmailBody = finalApprovedEmailBody.replace('{Title}', data.d.Title).replace('{ID}', data.d.ID).replace('{TypeID}', '1');
+                                                finalApprovedEmailBody = finalApprovedEmailBody.replace('{Title}', data.d.Title);
 
                                                 let initialOMApprovedEmailTitle = initialOMApprovedEmail.EmailSubject.replace('{Title}', data.d.Title);
                                                 let initialOMApprovedEmailBody = stripHtml(initialOMApprovedEmail.EmailBody);
@@ -523,7 +522,7 @@ function CreateOMWorkAroundRecord()
                                                                     "InitiatorInitialApprovedEmailTit": initialApprovedEmailTitle,
                                                                     "InitiatorInitialApprovedEmailBod": "Initiator \n" + initialApprovedEmailBody.trim(),
                                                                     "InitiatorPendingFinalEmailTitle": pendingFinalApprovalTitle,
-                                                                    "InitiatorPendingFinalEmailBody": pendingFinalApprovalBody.trim(),
+                                                                    "InitiatorPendingFinalEmailBody": "Final Approver \n" + pendingFinalApprovalBody.trim(),
                                                                     "InitiatorFinalApprovedEmailTitle": finalApprovedEmailTitle,
                                                                     "InitiatorFinalApprovalEmailBody": finalApprovedEmailBody.trim(),
                                                                     "InitiatorInitialRejectedEmailTit": rejectedEmailTitle,
@@ -810,7 +809,7 @@ function CreateWorkAroundRecord()
                                                     "InitiatorInitialApprovedEmailTit": initialApprovedEmailTitle,
                                                     "InitiatorInitialApprovedEmailBod": "Initiator \n" + initialApprovedEmailBody.trim(),
                                                     "InitiatorPendingFinalEmailTitle": pendingFinalApprovalTitle,
-                                                    "InitiatorPendingFinalEmailBody": "Initiator \n" + pendingFinalApprovalBody.trim(),
+                                                    "InitiatorPendingFinalEmailBody": "Final Approver \n" + pendingFinalApprovalBody.trim(),
                                                     "InitiatorFinalApprovedEmailTitle": finalApprovedEmailTitle,
                                                     "InitiatorFinalApprovalEmailBody": "Initiator \n" + finalApprovedEmailBody.trim(),
                                                     "InitiatorInitialRejectedEmailTit": rejectedEmailTitle,
@@ -818,7 +817,7 @@ function CreateWorkAroundRecord()
                                                     "AllInitialRejectedEmailTitle": AllInitialRejectedEmailTitle,
                                                     "AllInitialRejectedEmailBody": AllInitialRejectedEmailBody.trim(),
                                                     "trainingTeamEmailTitle": trainingTeamEmailTitle,
-                                                    "trainingTeamEmailBody": trainingTeamEmailBody.trim(),
+                                                    "trainingTeamEmailBody": "Training Team \n" + trainingTeamEmailBody.trim(),
                                                     "IBMBAStatus": "In Progress",
                                                     "TestingTeamStatus": "In Progress",
                                                     "StateBaLeadStatus": "In Progress",                                                    

@@ -9,7 +9,7 @@
      
     function overrideTemplate(ctx) {
     return "<tr style='background-color: white; color: black'><td>"
-    + "<a href='edit.aspx?WorkaroundId=" + ctx.CurrentItem.ID + "'>" + ctx.CurrentItem.Title + "</a>"
+    + "<a href='retire.aspx?WorkaroundId=" + ctx.CurrentItem.ID + "'>" + ctx.CurrentItem.Title + "</a>"
     + "</td>" 
     + "<td>" 
     + ctx.CurrentItem.Workaround_x0020_Number 

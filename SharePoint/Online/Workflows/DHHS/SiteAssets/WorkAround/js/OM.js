@@ -25,7 +25,7 @@
         
 
     return "<tr style='background-color: " + backgroundColor  + "; color: " + color + "'><td>"
-    + "<a style='color: " + linkColor + "' href='edit.aspx?WorkaroundId=" + ctx.CurrentItem.ID + "'>" + ctx.CurrentItem.Title + "</a>"
+    + "<a style='color: " + linkColor + "' href='view.aspx?WorkaroundId=" + ctx.CurrentItem.ID + "'>" + ctx.CurrentItem.Title + "</a>"
     + "</td>" 
     + "<td>" 
     + ctx.CurrentItem.Workaround_x0020_Number 

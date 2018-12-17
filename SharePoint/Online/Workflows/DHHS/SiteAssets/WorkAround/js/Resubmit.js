@@ -10,13 +10,79 @@ var WorkaroundItem = null;
 var currentComments = null;
 
 
+// jQuery(document).ready(function () {
+
+//     // Check for FileReader API (HTML5) support.
+//     if (!window.FileReader) {
+//         alert('This browser does not support the FileReader API.');
+//     }  
+    
+//     initializePeoplePicker('peoplePickerDiv');  
+//     initializePeoplePicker('testersPeoplePickerDiv');
+//     initializePeoplePicker('BALeadPeoplePickerDiv');
+//     initializePeoplePicker('projectManagerPeoplePickerDiv');
+
+//     initializePeoplePicker('businesAnalystPeoplePickerDiv');
+//     initializePeoplePicker('analystPeoplePickerDiv');
+//     initializePeoplePicker('managerPeoplePickerDiv');
+//     initializePeoplePicker('directorPeoplePickerDiv');
+
+//     var WorkAroundId = getUrlParameter('WorkaroundId');
+    
+//     if ( WorkAroundId )
+//     {
+//         retrieveWorkAroundItem(WorkAroundId);
+        
+//         document.getElementById("ibmbaPeoplePickerDiv").style.display = "flex";
+//         document.getElementById("testingTeamPeoplePickerDiv").style.display = "flex";
+//         document.getElementById("sblTeamPeoplePickerDiv").style.display = "flex";
+//         document.getElementById("projectManagerTeamPeoplePickerDiv").style.display = "flex";
+
+//         if ( WorkAroudTypeId === 3)
+//         {
+//             document.getElementById("OMRelatedWorkAroundApproversDiv").style.display = "flex";
+//             document.getElementById("stateBusinessAnalystPeoplePickerDiv").style.display = "flex";
+//             document.getElementById("testingAnalystPeoplePickerDiv").style.display = "flex";
+//             document.getElementById("stateManagerPeoplePickerDiv").style.display = "flex";
+//             document.getElementById("programDirectorPeoplePickerDiv").style.display = "flex";
+//         }
+//     }    
+
+//     getDataFromlocalStorage();
+//     setTitleFromLocalStorage("EEMS Workaround Resubmit Form");
+//     setLabelsFromLocalStorage("1");
+//     setLabelsFromLocalStorage("2");
+//     setLabelsFromLocalStorage("3");
+//     setLabelsFromLocalStorage("4");
+//     setLabelsFromLocalStorage("5");
+//     setLabelsFromLocalStorage("6");
+//     setLabelsFromLocalStorage("7");
+//     setLabelsFromLocalStorage("8");
+//     setLabelsFromLocalStorage("9");
+//     setLabelsFromLocalStorage("10");
+//     setLabelsFromLocalStorage("11");
+//     setLabelsFromLocalStorage("12");        
+//     setLabelsFromLocalStorage("13");    
+//     setLabelsFromLocalStorage("14");    
+//     setLabelsFromLocalStorage("15");    
+//     setLabelsFromLocalStorage("16");    
+//     setLabelsFromLocalStorage("17");    
+//     setLabelsFromLocalStorage("18");    
+//     setLabelsFromLocalStorage("19");
+//     setLabelsFromLocalStorage("20");      
+
+                                 
+// });
+
 jQuery(document).ready(function () {
 
     // Check for FileReader API (HTML5) support.
     if (!window.FileReader) {
         alert('This browser does not support the FileReader API.');
-    }  
-    
+    }    
+
+    loadingLocalStorageData("EEMS Workaround Resubmit Form");
+
     initializePeoplePicker('peoplePickerDiv');  
     initializePeoplePicker('testersPeoplePickerDiv');
     initializePeoplePicker('BALeadPeoplePickerDiv');
@@ -28,41 +94,15 @@ jQuery(document).ready(function () {
     initializePeoplePicker('directorPeoplePickerDiv');
 
     var WorkAroundId = getUrlParameter('WorkaroundId');
+    var DisplayRejection = getUrlParameter('DisplayRejection');
+
+    if ( DisplayRejection )
+        document.getElementById("ReasonForRejectionDiv").style.display = "flex";
     
     if ( WorkAroundId )
     {
-        retrieveWorkAroundItem(WorkAroundId);
-        
-        document.getElementById("ibmbaPeoplePickerDiv").style.display = "flex";
-        document.getElementById("testingTeamPeoplePickerDiv").style.display = "flex";
-        document.getElementById("sblTeamPeoplePickerDiv").style.display = "flex";
-        document.getElementById("projectManagerTeamPeoplePickerDiv").style.display = "flex";
-
-        if ( WorkAroudTypeId === 3)
-        {
-            document.getElementById("OMRelatedWorkAroundApproversDiv").style.display = "flex";
-            document.getElementById("stateBusinessAnalystPeoplePickerDiv").style.display = "flex";
-            document.getElementById("testingAnalystPeoplePickerDiv").style.display = "flex";
-            document.getElementById("stateManagerPeoplePickerDiv").style.display = "flex";
-            document.getElementById("programDirectorPeoplePickerDiv").style.display = "flex";
-        }
-    }    
-
-    getDataFromlocalStorage();
-    setTitleFromLocalStorage("EEMS Workaround Resubmit Form");
-    setLabelsFromLocalStorage("1");
-    setLabelsFromLocalStorage("2");
-    setLabelsFromLocalStorage("3");
-    setLabelsFromLocalStorage("4");
-    setLabelsFromLocalStorage("5");
-    setLabelsFromLocalStorage("6");
-    setLabelsFromLocalStorage("7");
-    setLabelsFromLocalStorage("8");
-    setLabelsFromLocalStorage("9");
-    setLabelsFromLocalStorage("10");
-    setLabelsFromLocalStorage("11");
-    setLabelsFromLocalStorage("12");           
-                                 
+        loadindWorkaroundEditMode(WorkAroundId, WorkaroundItem, currentComments);
+    }           
 });
 
 function ReSubmitFormWithValidation()

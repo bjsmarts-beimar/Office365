@@ -71,35 +71,82 @@
                         <div class="col-10"><label for="releaseLabel" class="col-2 col-form-label form-label-workaround form-max-width-100"><u>DDI Related Workaround Reviewers</u></label></div>                        
           </div>   
           <div class="form-group row">
-                        <div class="col-5" style="text-align: right;"><label for="IBMBALabel" class="col-2 col-form-label form-label-workaround form-max-width-100">IBM BA</label></div>                        
+                        <div class="col-5" style="text-align: right;"><label for="IBMBALabel" class="col-2 col-form-label form-label-workaround form-max-width-100"><span id="label13" name="label13"></label></div>                        
                         <div class="col-7">                                                          
                              <input class="form-control form-readOnly" type="text" id="ibmba" disabled>                             
                         </div>
           </div>
           <div class="form-group row">
-                        <div class="col-5" style="text-align: right;"><label style="max-width: 100%;" for="IBMBALabel" class="col-2 col-form-label form-label-workaround">Testing Team</label></div>                        
+                        <div class="col-5" style="text-align: right;"><label style="max-width: 100%;" for="IBMBALabel" class="col-2 col-form-label form-label-workaround"><span id="label14" name="label14"></label></div>                        
                         <div class="col-7">                                                          
                              <input class="form-control form-readOnly" type="text" id="tester" disabled>                             
                         </div>
           </div>
           <div class="form-group row">
-                        <div class="col-5" style="text-align: right;"><label style="max-width: 100%;" for="IBMBALabel" class="col-2 col-form-label form-label-workaround">State BA Lead</label></div>                        
+                        <div class="col-5" style="text-align: right;"><label style="max-width: 100%;" for="IBMBALabel" class="col-2 col-form-label form-label-workaround"><span id="label15" name="label15"></span></label></div>                        
                         <div class="col-7">                                                          
                              <input class="form-control form-readOnly" type="text" id="analyst" disabled>                             
                         </div>
           </div>
           <div class="form-group row">
-                        <div class="col-5" style="text-align: right;"><label style="max-width: 100%;" for="IBMBALabel" class="col-2 col-form-label form-label-workaround">MMRP State Project Manager</label></div>                        
+                        <div class="col-5" style="text-align: right;"><label style="max-width: 100%;" for="IBMBALabel" class="col-2 col-form-label form-label-workaround"><span id="label16" name="label16"></label></div>                        
                         <div class="col-7">                                                          
                              <input class="form-control form-readOnly" type="text" id="manager" disabled>                             
                         </div>
           </div>
-          <!-- <div class="form-group row">
-                        <label for="submitterLabel" class="col-2 col-form-label form-label-workaround">3. Submitted By</label>
-                        <div class="col-10">
-                             <input class="form-control form-readOnly" type="text" id="submitter" disabled>                             
-                        </div>                
-          </div> -->
+          <div id="OMRelatedWorkAroundApproversDiv" class="form-group row" style="display: none;">
+               <div class="col-2"></div>
+               <div class="col-10"><label for="releaseLabel" class="col-2 col-form-label form-label-workaround form-max-width-100"><u>O&M Related Workaround Approvers</u></label></div>                        
+ </div>  
+ <div id="stateBusinessAnalystPeoplePickerDiv" class="form-group row" style="display: none;">
+               <div class="col-5" style="text-align: right;"><label for="BusinessAnalystLabel" class="col-2 col-form-label form-label-workaround form-max-width-100"><span id="label17" name="label17"></span></label></div>                        
+               <div class="col-3">                                                          
+                    <input class="form-control form-readOnly" type="text" id="omBusinessAnalyst" disabled>                             
+               </div>
+               <div class="col-2">
+                     <label id="omBAStatus" class="col-form-label form-label-workaround" style="width: 100%; text-align: right; color: lightgreen; font-weight: bolder; font-size: larger;"></label>
+               </div>
+               <div class="col-2">
+                     <label id="omBAStatusDate" class="col-form-label form-label-workaround" style="width: 100%; text-align: right"></label>
+               </div>
+               
+ </div>
+ <div id="testingAnalystPeoplePickerDiv" class="form-group row" style="display: none;">
+               <div class="col-5" style="text-align: right;"><label for="TestingAnalystLabel" class="col-2 col-form-label form-label-workaround form-max-width-100"><span id="label18" name="label18"></span></label></div>                        
+               <div class="col-3">                                                          
+                    <input class="form-control form-readOnly" type="text" id="omTestingAnalyst" disabled>                             
+               </div>
+               <div class="col-2">
+                     <label id="omTAStatus" class="col-form-label form-label-workaround" style="width: 100%; text-align: right; color: lightgreen; font-weight: bolder; font-size: larger;"></label>
+               </div>
+               <div class="col-2">
+                     <label id="omTAStatusDate" class="col-form-label form-label-workaround" style="width: 100%; text-align: right"></label>
+               </div>
+ </div>
+ <div id="stateManagerPeoplePickerDiv" class="form-group row" style="display: none;">
+               <div class="col-5" style="text-align: right;"><label for="ManagerLabel" class="col-2 col-form-label form-label-workaround form-max-width-100"><span id="label19" name="label19"></label></div>                        
+               <div class="col-3">                                                          
+                    <input class="form-control form-readOnly" type="text" id="omManager" disabled>                             
+               </div>
+               <div class="col-2">
+                     <label id="omManagerStatus" class="col-form-label form-label-workaround" style="width: 100%; text-align: right; color: lightgreen; font-weight: bolder; font-size: larger;"></label>
+               </div>
+               <div class="col-2">
+                     <label id="omManagerStatusDate" class="col-form-label form-label-workaround" style="width: 100%; text-align: right"></label>
+               </div>
+ </div>
+ <div id="programDirectorPeoplePickerDiv" class="form-group row" style="display: none;">
+               <div class="col-5" style="text-align: right;"><label for="DirectorLabel" class="col-2 col-form-label form-label-workaround form-max-width-100"><span id="label20" name="label20"></label></div>                        
+               <div class="col-3">                                                          
+                    <input class="form-control form-readOnly" type="text" id="omDirector" disabled>                             
+               </div>
+               <div class="col-2">
+                     <label id="omDirectorStatus" class="col-form-label form-label-workaround" style="width: 100%; text-align: right; color: lightgreen; font-weight: bolder; font-size: larger;"></label>
+               </div>
+               <div class="col-2">
+                     <label id="omDirectorStatusDate" class="col-form-label form-label-workaround" style="width: 100%; text-align: right"></label>
+               </div>
+ </div>          
           <div class="form-group row">
                         <label for="releaseLabel" class="col-2 col-form-label form-label-workaround">3. <span id="label3" name="label3"></span></label>
                         <div class="col-10">
