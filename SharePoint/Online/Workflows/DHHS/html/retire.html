@@ -323,9 +323,18 @@
                     <textarea class="form-control" rows="5" id="field-comments" maxlength="1500" style="width: 100%;"></textarea>
                     <span id="error-comments" class="form-label-workaround" style="color: red; display: none;">You must provide Comments</span>                 
             </div>                
-      </div>                                                        
+      </div>                            
+      <div class="form-group row">
+               <label for="finalApproverLabel" class="col-2 col-form-label form-label-workaround form-border-color">14. State Final Approver</label>
+               <div class="col-10">
+                    <select class="form-control" id="finalApprover">
+                       <option value="0">Select ... </option>
+                    </select>                     
+                    <span id="error-finalApprover" class="form-error-label-workaround" style="display: none">You must select a Final Approver</span>
+               </div>                
+      </div>                            
       <div class="form-group row">                                
-        <button type="button" class="btn btn-info btn-lg btn-block btn-huge" onclick="SubmitFormWithValidation()">Close Out Workaround</button>                                                
+        <button type="button" class="btn btn-info btn-lg btn-block btn-huge" onclick="SubmitFormWithValidation()">Submit Workaround for Retirement</button>                                                
       </div> 
     </form>                                                              
     </div>

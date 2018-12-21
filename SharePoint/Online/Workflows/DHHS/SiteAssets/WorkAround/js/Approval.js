@@ -14,7 +14,7 @@ jQuery(document).ready(function () {
         alert('This browser does not support the FileReader API.');
     }        
     
-    loadingLocalStorageData("EEMS Workaround View Form");
+    loadingLocalStorageData("EEMS Workaround Approval Form");
 
     var WorkAroundId = getUrlParameter('WorkaroundId');
     var DisplayRejection = getUrlParameter('DisplayRejection');
@@ -721,7 +721,32 @@ function getWorkaroundMetaData(Decision, commentsVal, ReasonForRejectionVal, Wor
                 return data;
             }                        
         }
-        
+        else if ( ApprovalType == 11)
+        {
+            if ( Decision != Reject )
+            {
+                var data = {
+                    "__metadata": { "type": itemType },
+                    "Comments": commentsVal,
+                    "RetiredApprovalStatusDate": new Date(), //.toLocaleString();
+                    "RetiredApprovalStatus": "Approved"                                
+                };
+                
+                return data;
+            }
+            else {
+
+                var data = {
+                    "__metadata": { "type": itemType },
+                    "Comments": commentsVal,
+                    "ReasonForRejection": ReasonForRejectionVal,
+                    "RetiredApprovalStatusDate": new Date(), //.toLocaleString();
+                    "WorkaroundWorkflowStatus": Decision,            
+                };
+                    
+                return data;                
+            }
+        }        
         else {
             return null;
         }

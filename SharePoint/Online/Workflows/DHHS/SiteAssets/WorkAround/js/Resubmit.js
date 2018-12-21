@@ -6,8 +6,8 @@ var WorkAroudTypeId = 0;
 var _attachments = new Array();
 var _testCaseAttachments = new Array();
 var urlQuery = "";
-var WorkaroundItem = null;
-var currentComments = null;
+// var WorkaroundItem = null;
+// var currentComments = null;
 
 
 // jQuery(document).ready(function () {
@@ -101,7 +101,7 @@ jQuery(document).ready(function () {
     
     if ( WorkAroundId )
     {
-        loadindWorkaroundEditMode(WorkAroundId, WorkaroundItem, currentComments);
+        loadindWorkaroundEditMode(WorkAroundId);
     }           
 });
 
@@ -118,6 +118,7 @@ function ReSubmitFormWithValidation()
         }        
     }
 }
+
 
 function UpdateWorkAroundRecord()
 {
@@ -138,9 +139,7 @@ function UpdateWorkAroundRecord()
     let timeUsage = getSelectedTextFromField("timeUsage");
     let testcaseOption = jQuery('input[name=testcaseGroup]:checked').val();
     let testcasePass = testcaseOption == 1? "Yes": "No";
-    let testcaseFail = testcaseOption == 2? "Yes": "No";
-
-    
+    let testcaseFail = testcaseOption == 2? "Yes": "No";    
 
     var businessanalyst = getAccountId(SPClientPeoplePicker.SPClientPeoplePickerDict.peoplePickerDiv_TopSpan);
     businessanalyst.done(function (data) {

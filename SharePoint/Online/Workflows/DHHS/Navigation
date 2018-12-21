@@ -2,17 +2,20 @@
 
 Home
 
-My DDI Workarounds => MyDDIs.aspx
-My O&M Workarounds => MyOMs.aspx
-Add New Workaround => add.aspx
-My Rejected Workarounds => MyRejects.aspx
-My Completed Workarounds => MyCompleted.aspx
-My Retired Workarounds => MyRetired.aspx
 
-All Workarounds => AllWorkarounds.aspx
-Rejected Workarounds => AllRejects.aspx
-Completed Workarounds => AllCompleted.aspx
-Retired Workarounds => AllRetired.aspx
+Temporary Process Change (TPC)
+
+Add New Temporary Process Change (TPC) => add.aspx
+My DDI TPCs => MyDDIs.aspx
+My O&M TPCs => MyOMs.aspx
+My Rejected TPCs => MyRejects.aspx
+My Completed TPCs => MyCompleted.aspx
+//My Retired Temporary Process Change (TPC) => MyRetired.aspx
+
+All Pending TPCs => AllWorkarounds.aspx
+All Rejected TPCs => AllRejects.aspx
+All Activated TPCs => AllCompleted.aspx
+All Retired TPCs => AllRetired.aspx
 
 
 default page

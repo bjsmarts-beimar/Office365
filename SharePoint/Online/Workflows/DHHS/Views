@@ -7,14 +7,17 @@ O&M
 
 
 
+
+
+MyWorkArounds
 MyItemsInitialApproval
 MyOMItemsInitialApproval
 MyItemsFinalApproval
 MyOMItemsFinalApproval
 MyItemsRejected
 MyItemsCompleted
+MyRetired
 
-MyWorkArounds
 
 
 WorkaroundsCompleted                            Completed
@@ -22,3 +25,17 @@ WorkaroundsInitialApproval                      Initial Approval (Pending) Initi
 WorkaroundsFinalApproval                        Final Approval (Pending) Final Approval (Approved)
 WorkaroundsRejected                             Rejected
 WorkAroundsAllItems
+WorkAroundRetired
+
+
+Not Started
+In Progress
+Approved
+Rejected
+Completed
+
+RetiredApprover
+RetiredApprovalStatus
+RetiredApprovalStatusDate
+RetiredEmailApprovalTitle
+RetiredEmailApprovalBody
