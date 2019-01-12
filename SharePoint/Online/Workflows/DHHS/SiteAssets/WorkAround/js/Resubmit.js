@@ -2,7 +2,7 @@
 
 var PageContextRevisionID = null;
 //var user, Titles, Labels, Emails;
-var WorkAroudTypeId = 0;
+//var WorkAroudTypeId = 0;
 var _attachments = new Array();
 var _testCaseAttachments = new Array();
 var urlQuery = "";
@@ -93,8 +93,8 @@ jQuery(document).ready(function () {
     initializePeoplePicker('managerPeoplePickerDiv');
     initializePeoplePicker('directorPeoplePickerDiv');
 
-    var WorkAroundId = getUrlParameter('WorkaroundId');
-    var DisplayRejection = getUrlParameter('DisplayRejection');
+    let WorkAroundId = getUrlParameter('WorkaroundId');
+    let DisplayRejection = getUrlParameter('DisplayRejection');
 
     if ( DisplayRejection )
         document.getElementById("ReasonForRejectionDiv").style.display = "flex";
@@ -109,7 +109,7 @@ function ReSubmitFormWithValidation()
 {    
     if ( IsFormValid() )
     {
-        if ( WorkAroudTypeId != 3 )
+        if ( WorkaroundItem.WorkaroundType !== "O&M" )
         {
             UpdateWorkAroundRecord();
         }
@@ -165,6 +165,12 @@ function UpdateWorkAroundRecord()
                         
                         let fieldComments = getComments($("#field-comments").val(), currentComments);
 
+                                                
+                        let workflowStatus = "Initial Approval (Pending)";
+
+                        if ( WorkaroundItem.IBMBAStatus === "Approved" && WorkaroundItem.TestingTeamStatus === "Approved" && WorkaroundItem.StateBaLeadStatus === "Approved" && WorkaroundItem.ProjectManagerStatus === "Approved" ) {
+                            workflowStatus = "Final Approval (Pending)";
+                        } 
 
                         let metadata = {
                             "__metadata": { "type": itemType },
@@ -191,66 +197,29 @@ function UpdateWorkAroundRecord()
                             "IBMBAStatus": WorkaroundItem.IBMBAStatus === "Approved" ? WorkaroundItem.IBMBAStatus : "In Progress",
                             "TestingTeamStatus": WorkaroundItem.TestingTeamStatus === "Approved" ? WorkaroundItem.IBMBAStatus : "In Progress",
                             "StateBaLeadStatus": WorkaroundItem.StateBaLeadStatus === "Approved" ? WorkaroundItem.StateBaLeadStatus : "In Progress",
-                            "ProjectManagerStatus": WorkaroundItem.ProjectManagerStatus === "Not Started" ? WorkaroundItem.ProjectManagerStatus : "In Progress",
-                            "WorkaroundWorkflowStatus": "Initial Approval (Pending)"
+                            "ProjectManagerStatus": WorkaroundItem.ProjectManagerStatus === "Not Started" || WorkaroundItem.ProjectManagerStatus === "Approved" ? WorkaroundItem.ProjectManagerStatus : "In Progress",
+                            "WorkaroundWorkflowStatus": workflowStatus
                         };
                 
                         let results = updateSharePointListItem(PageContextRevisionID, metadata, listName);
                 
                         results.done(function (data) {
 
-                                                                
-                                    let WorkaroundID = WorkaroundItem.ID;
-
-                                    // for(var i=0; i<_attachments.length; ++i){   
-                                                                                                
-                                    //     let name = _attachments[i][0];
-                                    //     let serverRelativeURL = _attachments[i][1]; 
+                                    for ( var i=0; i<_attachments.length; ++i) {0
                                         
-                                    //     var listName = "Links";
-                                    //     var itemType = GetItemTypeForListName(listName);
-                                        
-                                    //     var item = {
-                                    //         "__metadata": { "type": itemType },
-                                    //         "Title": name,
-                                    //         "Link": serverRelativeURL,
-                                    //         "WorkAroundID": WorkaroundID,
-                                    //         "IsTestCaseAttachment": "No"
-                                    //     };
+                                        if ( _attachments[i][2] == undefined)
+                                        {
+                                            addLink("Links", i, _attachments, PageContextRevisionID, "Yes");
+                                        }
+                                    }
 
-                                    //     let attachment = addItemToSharePointList(item, listName);
-                                    //     attachment.done(function(data) {
-                                    //         console.log(data);
-                                    //     });
-                                    //     attachment.fail(function(error) {
-                                    //         alert(error);
-                                    //     });
-                                    // }
-
-                                    // for(var i=0; i<_testCaseAttachments.length; ++i){   
-                                                                            
-                                    //     let name = _testCaseAttachments[i][0];
-                                    //     let serverRelativeURL = _testCaseAttachments[i][1];  
-                                        
-                                    //     var listName = "Links";
-                                    //     var itemType = GetItemTypeForListName(listName);
-                                        
-                                    //     var item = {
-                                    //         "__metadata": { "type": itemType },
-                                    //         "Title": name,
-                                    //         "Link": serverRelativeURL,
-                                    //         "WorkAroundID": WorkaroundID,
-                                    //         "IsTestCaseAttachment": "Yes"
-                                    //     };
-
-                                    //     let attachment = addItemToSharePointList(item, listName);
-                                    //     attachment.done(function(data) {
-                                    //         console.log(data);
-                                    //     });
-                                    //     attachment.fail(function(error) {
-                                    //         alert(error);
-                                    //     });
-                                    // }
+                                    for(var i=0; i<_testCaseAttachments.length; ++i) {
+                                                                                
+                                        if ( _testCaseAttachments[i][2] == undefined) 
+                                        {
+                                            addLink("Links", i, _testCaseAttachments, PageContextRevisionID, "No");   
+                                        }
+                                    }                                                                                    
 
                                     jQuery.alert({        
                                         title: false,
@@ -357,7 +326,17 @@ function UpdateOMWorkAroundRecord()
 
                                         let iaIds = getImpactedAudiencesIds();   
                                         
-                                        let fieldComments = getComments($("#field-comments").val(), currentComments);                                        
+                                        let fieldComments = getComments($("#field-comments").val(), currentComments);
+                                        
+                                        let workflowStatus = "Initial Approval (Pending)";                                        
+
+                                        if ( WorkaroundItem.IBMBAStatus === "Approved" && WorkaroundItem.TestingTeamStatus === "Approved" && WorkaroundItem.StateBaLeadStatus === "Approved" && WorkaroundItem.ProjectManagerStatus === "Approved" ) {
+                                            workflowStatus = "O&M Initial Approval (Pending)";
+                                        } 
+
+                                        if ( WorkaroundItem.O_x0026_MBusinessAnalystStatus === "Approved" && WorkaroundItem.O_x0026_MTestingAnalystStatus === "Approved" && WorkaroundItem.O_x0026_MManagerStatus === "Approved" && WorkaroundItem.O_x0026_MDirectorStatus === "Approved" ) {
+                                            workflowStatus = "Final Approval (Pending)";
+                                        } 
 
                                         let metadata = {
                                             "__metadata": { "type": itemType },
@@ -384,67 +363,37 @@ function UpdateOMWorkAroundRecord()
                                             "State_x0020_MMRP_x0020_Testing_xId": analyst2Id,
                                             "State_x0020_MMRP_x0020_O_x0026_MId": managerId,
                                             "State_x0020_MMRP_x0020_O_x0026_M0Id": businessAnalystId,
-                                            "IsInitialEmailSendOut": "No",
+                                            "IsInitialOMEmailSendOut": "No",
                                             "IBMBAStatus": WorkaroundItem.IBMBAStatus === "Approved" ? WorkaroundItem.IBMBAStatus : "In Progress",
                                             "TestingTeamStatus": WorkaroundItem.TestingTeamStatus === "Approved" ? WorkaroundItem.IBMBAStatus : "In Progress",
                                             "StateBaLeadStatus": WorkaroundItem.StateBaLeadStatus === "Approved" ? WorkaroundItem.StateBaLeadStatus : "In Progress",
-                                            "ProjectManagerStatus": WorkaroundItem.ProjectManagerStatus === "Not Started" ? WorkaroundItem.ProjectManagerStatus : "In Progress",
-                                            "WorkaroundWorkflowStatus": "Initial Approval (Pending)"                     
+                                            "ProjectManagerStatus": WorkaroundItem.ProjectManagerStatus === "Not Started" || WorkaroundItem.ProjectManagerStatus === "Approved" ? WorkaroundItem.ProjectManagerStatus : "In Progress",                                          
+                                            "O_x0026_MBusinessAnalystStatus": WorkaroundItem.O_x0026_MBusinessAnalystStatus === "Approved" ? WorkaroundItem.O_x0026_MBusinessAnalystStatus : "In Progress",
+                                            "O_x0026_MTestingAnalystStatus": WorkaroundItem.O_x0026_MTestingAnalystStatus === "Approved" ? WorkaroundItem.O_x0026_MTestingAnalystStatus : "In Progress",
+                                            "O_x0026_MManagerStatus": WorkaroundItem.O_x0026_MManagerStatus === "Approved" ? WorkaroundItem.O_x0026_MManagerStatus : "In Progress",                                            
+                                            "O_x0026_MDirectorStatus": WorkaroundItem.O_x0026_MDirectorStatus === "Not Started" || WorkaroundItem.O_x0026_MDirectorStatus === "Approved" ? WorkaroundItem.O_x0026_MDirectorStatus : "In Progress",
+                                            "WorkaroundWorkflowStatus": workflowStatus                     
                                         };
                                 
                                         let results = updateSharePointListItem(PageContextRevisionID, metadata, listName);
                                 
                                         results.done(function (data) {
 
-                                            for(var i=0; i<_attachments.length; ++i){   
-                                                                                                        
-                                                let name = _attachments[i][0];
-                                                let serverRelativeURL = _attachments[i][1]; 
-                                                
-                                                var listName = "Links";
-                                                var itemType = GetItemTypeForListName(listName);
-                                                
-                                                var item = {
-                                                    "__metadata": { "type": itemType },
-                                                    "Title": name,
-                                                    "Link": serverRelativeURL,
-                                                    "WorkAroundID": WorkaroundID,
-                                                    "IsTestCaseAttachment": "No"
-                                                };
-
-                                                let attachment = addItemToSharePointList(item, listName);
-                                                attachment.done(function(data) {
-                                                    console.log(data);
-                                                });
-                                                attachment.fail(function(error) {
-                                                    alert(error);
-                                                });
+                                            for ( var i=0; i<_attachments.length; ++i) {0
+                                        
+                                                if ( _attachments[i][2] == undefined)
+                                                {
+                                                    addLink("Links", i, _attachments, PageContextRevisionID, "Yes");
+                                                }
                                             }
-
-                                            for(var i=0; i<_testCaseAttachments.length; ++i){   
-                                                                                    
-                                                let name = _testCaseAttachments[i][0];
-                                                let serverRelativeURL = _testCaseAttachments[i][1];  
-                                                
-                                                var listName = "Links";
-                                                var itemType = GetItemTypeForListName(listName);
-                                                
-                                                var item = {
-                                                    "__metadata": { "type": itemType },
-                                                    "Title": name,
-                                                    "Link": serverRelativeURL,
-                                                    "WorkAroundID": WorkaroundID,
-                                                    "IsTestCaseAttachment": "Yes"
-                                                };
-
-                                                let attachment = addItemToSharePointList(item, listName);
-                                                attachment.done(function(data) {
-                                                    console.log(data);
-                                                });
-                                                attachment.fail(function(error) {
-                                                    alert(error);
-                                                });
-                                            }
+        
+                                            for(var i=0; i<_testCaseAttachments.length; ++i) {
+                                                                                        
+                                                if ( _testCaseAttachments[i][2] == undefined) 
+                                                {
+                                                    addLink("Links", i, _testCaseAttachments, PageContextRevisionID, "No");   
+                                                }
+                                            }                                            
 
                                             jQuery.alert({        
                                                 title: false,
@@ -793,7 +742,31 @@ function uploadTestCaseAttachment()
 function uploadAttachment()
 {
     let startDiv = "<div class='col-2' style='text-align: right;'></div><div class='col-10'>";
-    addAttachment("getFile", "error-revision-file", _attachments, "attachmentsDiv", startDiv, false);
+    addAttachment("getFile", "error-revision-file", _attachments, "attachmentsDiv", startDiv, false);    
+}
+
+function addLink(listName, index, arrayBucket, WorkaroundID, IsTestCaseAttachment )
+{
+    let itemType = GetItemTypeForListName(listName);
+
+    let name = arrayBucket[index][0];
+    let serverRelativeURL = arrayBucket[index][1]; 
+                                                    
+    var item = {
+        "__metadata": { "type": itemType },
+        "Title": name,
+        "Link": serverRelativeURL,
+        "WorkAroundID": WorkaroundID,
+        "IsTestCaseAttachment": IsTestCaseAttachment
+    };
+
+    let link = addItemToSharePointList(item, listName);
+    link.done(function(data) {
+        console.log(data);
+    });
+    link.fail(function(error) {
+        alert(error);
+    });
 }
 
 function addAttachment(fileInputName, fileInputErrorName, arrayBucket, divBucket, startDiv, IsTestCaseAttachment)
@@ -856,11 +829,13 @@ function deleteAttachment(Index, IsTestCaseAttachment)
             let ServerRelativeUrl = _attachments[Index][1];
             let startDiv = "<div class='col-2' style='text-align: right;'></div><div class='col-10'>";
             DeleteAttachment(ServerRelativeUrl, Index, "attachmentsDiv", startDiv, false);
+            let WorkAroundId = getUrlParameter('WorkaroundId');
         }
         else {
             let ServerRelativeUrl = _testCaseAttachments[Index][1];
             let startDiv = "<div class='col-3' style='text-align: right;'></div><div class='col-9'>";
             DeleteTestCaseAttachment(ServerRelativeUrl, Index, "attachmentsTestCaseDiv", startDiv, true);
+            let WorkAroundId = getUrlParameter('WorkaroundId');
         }
         
     }

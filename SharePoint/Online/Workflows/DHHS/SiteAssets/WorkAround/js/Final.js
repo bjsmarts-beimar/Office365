@@ -88,13 +88,15 @@ jQuery(document).ready(function () {
                     jQuery("#omDirector").val(item.State_x0020_MMRP_x0020_Program_x.Title);
                 }
 
-
-                let ImpactedAudiences = item.Impacted_x0020_Audience.results;
+                if ( item.ImpactedAudiences ) {
+                
+                    let ImpactedAudiences = item.Impacted_x0020_Audience.results;
                                 
-                ImpactedAudiences.forEach(function(item){
-                    let fieldId = item.replace(/ /g,'');
-                    jQuery("#" +  fieldId).prop( "checked", true );
-                });
+                    ImpactedAudiences.forEach(function(item){
+                        let fieldId = item.replace(/ /g,'');
+                        jQuery("#" +  fieldId).prop( "checked", true );
+                    });
+                }                
                 
 
                 $("#typeWorkaround option").each(function (a, b) {
