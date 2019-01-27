@@ -1,7 +1,7 @@
 (function () {
     var overrideContext = {};
     overrideContext.Templates = {};
-    overrideContext.Templates.Header = "<h3 style='padding-top: 30px;'><b><i><u>Workflow Status Details Information</u></i><b></h3><br><br><table class='table table-striped table-hover'><tr><th>Workaround Title</th><th>Workaround Number</th><th>WorkAround Type</th><th>IBM BA</th><th>Testing Team</th><th>BA Lead</th><th>Project Manager</th><th>O&M Business Analyst</th><th>O&M Testing Analyst</th><th>O&M Manager</th><th>O&M Director</th></tr>";
+    overrideContext.Templates.Header = "<h3 style='padding-top: 30px;'><b><i><u>Workflow Status Details Information</u></i><b></h3><br><br><table class='table table-striped table-hover'><tr><th>TPC Title</th><th>TPC Number</th><th>TPC Type</th><th>IBM BA Lead</th><th>Testing Team Lead</th><th>State BA Lead</th><th>MMRP Program Director</th><th>O&M Business Analyst</th><th>O&M Testing Analyst</th><th>O&M Manager</th><th>O&M Director</th></tr>";
     overrideContext.Templates.Item = overrideTemplate;
     overrideContext.Templates.Footer = "</table>";
     SPClientTemplates.TemplateManager.RegisterTemplateOverrides(overrideContext);

@@ -69,6 +69,7 @@ function getUrlParameter(sParam) {
 
 function retrieveRevisionItem(RevisionID)  
 {  
+    
     jQuery.ajax  
     ({          url: _spPageContextInfo.webAbsoluteUrl + "/data/_api/web/lists/GetByTitle('revisions')/items?$select=Title,Link,Specification,Issue,HasExceptionForm&$filter=Revision_x0020_Id eq " + RevisionID,  
         type: "GET",  

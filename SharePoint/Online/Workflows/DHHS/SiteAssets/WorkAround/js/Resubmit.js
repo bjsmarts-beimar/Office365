@@ -1,78 +1,10 @@
 'use strict';
 
 var PageContextRevisionID = null;
-//var user, Titles, Labels, Emails;
-//var WorkAroudTypeId = 0;
+var WorkAroudTypeId = 0;
 var _attachments = new Array();
 var _testCaseAttachments = new Array();
 var urlQuery = "";
-// var WorkaroundItem = null;
-// var currentComments = null;
-
-
-// jQuery(document).ready(function () {
-
-//     // Check for FileReader API (HTML5) support.
-//     if (!window.FileReader) {
-//         alert('This browser does not support the FileReader API.');
-//     }  
-    
-//     initializePeoplePicker('peoplePickerDiv');  
-//     initializePeoplePicker('testersPeoplePickerDiv');
-//     initializePeoplePicker('BALeadPeoplePickerDiv');
-//     initializePeoplePicker('projectManagerPeoplePickerDiv');
-
-//     initializePeoplePicker('businesAnalystPeoplePickerDiv');
-//     initializePeoplePicker('analystPeoplePickerDiv');
-//     initializePeoplePicker('managerPeoplePickerDiv');
-//     initializePeoplePicker('directorPeoplePickerDiv');
-
-//     var WorkAroundId = getUrlParameter('WorkaroundId');
-    
-//     if ( WorkAroundId )
-//     {
-//         retrieveWorkAroundItem(WorkAroundId);
-        
-//         document.getElementById("ibmbaPeoplePickerDiv").style.display = "flex";
-//         document.getElementById("testingTeamPeoplePickerDiv").style.display = "flex";
-//         document.getElementById("sblTeamPeoplePickerDiv").style.display = "flex";
-//         document.getElementById("projectManagerTeamPeoplePickerDiv").style.display = "flex";
-
-//         if ( WorkAroudTypeId === 3)
-//         {
-//             document.getElementById("OMRelatedWorkAroundApproversDiv").style.display = "flex";
-//             document.getElementById("stateBusinessAnalystPeoplePickerDiv").style.display = "flex";
-//             document.getElementById("testingAnalystPeoplePickerDiv").style.display = "flex";
-//             document.getElementById("stateManagerPeoplePickerDiv").style.display = "flex";
-//             document.getElementById("programDirectorPeoplePickerDiv").style.display = "flex";
-//         }
-//     }    
-
-//     getDataFromlocalStorage();
-//     setTitleFromLocalStorage("EEMS Workaround Resubmit Form");
-//     setLabelsFromLocalStorage("1");
-//     setLabelsFromLocalStorage("2");
-//     setLabelsFromLocalStorage("3");
-//     setLabelsFromLocalStorage("4");
-//     setLabelsFromLocalStorage("5");
-//     setLabelsFromLocalStorage("6");
-//     setLabelsFromLocalStorage("7");
-//     setLabelsFromLocalStorage("8");
-//     setLabelsFromLocalStorage("9");
-//     setLabelsFromLocalStorage("10");
-//     setLabelsFromLocalStorage("11");
-//     setLabelsFromLocalStorage("12");        
-//     setLabelsFromLocalStorage("13");    
-//     setLabelsFromLocalStorage("14");    
-//     setLabelsFromLocalStorage("15");    
-//     setLabelsFromLocalStorage("16");    
-//     setLabelsFromLocalStorage("17");    
-//     setLabelsFromLocalStorage("18");    
-//     setLabelsFromLocalStorage("19");
-//     setLabelsFromLocalStorage("20");      
-
-                                 
-// });
 
 jQuery(document).ready(function () {
 
@@ -109,7 +41,7 @@ function ReSubmitFormWithValidation()
 {    
     if ( IsFormValid() )
     {
-        if ( WorkaroundItem.WorkaroundType !== "O&M" )
+        if ( WorkAroudTypeId != 3 )
         {
             UpdateWorkAroundRecord();
         }
@@ -118,7 +50,6 @@ function ReSubmitFormWithValidation()
         }        
     }
 }
-
 
 function UpdateWorkAroundRecord()
 {
@@ -166,11 +97,11 @@ function UpdateWorkAroundRecord()
                         let fieldComments = getComments($("#field-comments").val(), currentComments);
 
                                                 
-                        let workflowStatus = "Initial Approval (Pending)";
+                        // let workflowStatus = "Initial Approval (Pending)";
 
-                        if ( WorkaroundItem.IBMBAStatus === "Approved" && WorkaroundItem.TestingTeamStatus === "Approved" && WorkaroundItem.StateBaLeadStatus === "Approved" && WorkaroundItem.ProjectManagerStatus === "Approved" ) {
-                            workflowStatus = "Final Approval (Pending)";
-                        } 
+                        // if ( WorkaroundItem.IBMBAStatus === "Approved" && WorkaroundItem.TestingTeamStatus === "Approved" && WorkaroundItem.StateBaLeadStatus === "Approved" && WorkaroundItem.ProjectManagerStatus === "Approved" ) {
+                        //     workflowStatus = "Final Approval (Pending)";
+                        // } 
 
                         let metadata = {
                             "__metadata": { "type": itemType },
@@ -194,11 +125,11 @@ function UpdateWorkAroundRecord()
                             "State_x0020_BA_x0020_LeadId": analystId,
                             "MMRP_x0020_State_x0020_Project_xId": projectManagerId,
                             "IsInitialEmailSendOut": "No",
-                            "IBMBAStatus": WorkaroundItem.IBMBAStatus === "Approved" ? WorkaroundItem.IBMBAStatus : "In Progress",
-                            "TestingTeamStatus": WorkaroundItem.TestingTeamStatus === "Approved" ? WorkaroundItem.IBMBAStatus : "In Progress",
-                            "StateBaLeadStatus": WorkaroundItem.StateBaLeadStatus === "Approved" ? WorkaroundItem.StateBaLeadStatus : "In Progress",
-                            "ProjectManagerStatus": WorkaroundItem.ProjectManagerStatus === "Not Started" || WorkaroundItem.ProjectManagerStatus === "Approved" ? WorkaroundItem.ProjectManagerStatus : "In Progress",
-                            "WorkaroundWorkflowStatus": workflowStatus
+                            "IBMBAStatus": "In Progress",
+                            "TestingTeamStatus": "In Progress",
+                            "StateBaLeadStatus": "In Progress",
+                            "ProjectManagerStatus": "Not Started",
+                            "WorkaroundWorkflowStatus": "Initial Approval (Pending)"
                         };
                 
                         let results = updateSharePointListItem(PageContextRevisionID, metadata, listName);
@@ -209,7 +140,7 @@ function UpdateWorkAroundRecord()
                                         
                                         if ( _attachments[i][2] == undefined)
                                         {
-                                            addLink("Links", i, _attachments, PageContextRevisionID, "Yes");
+                                            addLink("Links", i, _attachments, PageContextRevisionID, "No");
                                         }
                                     }
 
@@ -217,13 +148,13 @@ function UpdateWorkAroundRecord()
                                                                                 
                                         if ( _testCaseAttachments[i][2] == undefined) 
                                         {
-                                            addLink("Links", i, _testCaseAttachments, PageContextRevisionID, "No");   
+                                            addLink("Links", i, _testCaseAttachments, PageContextRevisionID, "Yes");   
                                         }
                                     }                                                                                    
 
                                     jQuery.alert({        
                                         title: false,
-                                        content: '<div style="font-size: large;font-style: italic;">Your Workaround Process form has been resubmitted for Review.</div>',
+                                        content: '<div style="font-size: large;font-style: italic;">Your TPC Process form has been resubmitted for Review.</div>',
                                         columnClass: 'medium',
                                         buttons: {            
                                             Ok: {
@@ -363,16 +294,17 @@ function UpdateOMWorkAroundRecord()
                                             "State_x0020_MMRP_x0020_Testing_xId": analyst2Id,
                                             "State_x0020_MMRP_x0020_O_x0026_MId": managerId,
                                             "State_x0020_MMRP_x0020_O_x0026_M0Id": businessAnalystId,
+                                            "IsInitialEmailSendOut": "No",
                                             "IsInitialOMEmailSendOut": "No",
-                                            "IBMBAStatus": WorkaroundItem.IBMBAStatus === "Approved" ? WorkaroundItem.IBMBAStatus : "In Progress",
-                                            "TestingTeamStatus": WorkaroundItem.TestingTeamStatus === "Approved" ? WorkaroundItem.IBMBAStatus : "In Progress",
-                                            "StateBaLeadStatus": WorkaroundItem.StateBaLeadStatus === "Approved" ? WorkaroundItem.StateBaLeadStatus : "In Progress",
-                                            "ProjectManagerStatus": WorkaroundItem.ProjectManagerStatus === "Not Started" || WorkaroundItem.ProjectManagerStatus === "Approved" ? WorkaroundItem.ProjectManagerStatus : "In Progress",                                          
-                                            "O_x0026_MBusinessAnalystStatus": WorkaroundItem.O_x0026_MBusinessAnalystStatus === "Approved" ? WorkaroundItem.O_x0026_MBusinessAnalystStatus : "In Progress",
-                                            "O_x0026_MTestingAnalystStatus": WorkaroundItem.O_x0026_MTestingAnalystStatus === "Approved" ? WorkaroundItem.O_x0026_MTestingAnalystStatus : "In Progress",
-                                            "O_x0026_MManagerStatus": WorkaroundItem.O_x0026_MManagerStatus === "Approved" ? WorkaroundItem.O_x0026_MManagerStatus : "In Progress",                                            
-                                            "O_x0026_MDirectorStatus": WorkaroundItem.O_x0026_MDirectorStatus === "Not Started" || WorkaroundItem.O_x0026_MDirectorStatus === "Approved" ? WorkaroundItem.O_x0026_MDirectorStatus : "In Progress",
-                                            "WorkaroundWorkflowStatus": workflowStatus                     
+                                            "IBMBAStatus": "In Progress",
+                                            "TestingTeamStatus": "In Progress",
+                                            "StateBaLeadStatus": "In Progress",
+                                            "ProjectManagerStatus": "Not Started",                                          
+                                            "O_x0026_MBusinessAnalystStatus": "Not Started",
+                                            "O_x0026_MTestingAnalystStatus": "Not Started",
+                                            "O_x0026_MManagerStatus": "Not Started",                                            
+                                            "O_x0026_MDirectorStatus": "Not Started",
+                                            "WorkaroundWorkflowStatus": "Initial Approval (Pending)"                     
                                         };
                                 
                                         let results = updateSharePointListItem(PageContextRevisionID, metadata, listName);
@@ -383,7 +315,7 @@ function UpdateOMWorkAroundRecord()
                                         
                                                 if ( _attachments[i][2] == undefined)
                                                 {
-                                                    addLink("Links", i, _attachments, PageContextRevisionID, "Yes");
+                                                    addLink("Links", i, _attachments, PageContextRevisionID, "No");
                                                 }
                                             }
         
@@ -391,13 +323,13 @@ function UpdateOMWorkAroundRecord()
                                                                                         
                                                 if ( _testCaseAttachments[i][2] == undefined) 
                                                 {
-                                                    addLink("Links", i, _testCaseAttachments, PageContextRevisionID, "No");   
+                                                    addLink("Links", i, _testCaseAttachments, PageContextRevisionID, "Yes");   
                                                 }
                                             }                                            
 
                                             jQuery.alert({        
                                                 title: false,
-                                                content: '<div style="font-size: large;font-style: italic;">Your Workaround Process form has been resubmitted for Review.</div>',
+                                                content: '<div style="font-size: large;font-style: italic;">Your TPC Process form has been resubmitted for Review.</div>',
                                                 columnClass: 'medium',
                                                 buttons: {            
                                                     Ok: {
@@ -493,6 +425,10 @@ function IsFormValid()
         IsValid = false;        
     }
 
+    if ( !IsThisComboFieldValid("typeWorkaround")) {
+        IsValid = false;    
+    }
+
     if ( !IsThisComboFieldValid("testCase")) {
         IsValid = false;    
     }
@@ -567,6 +503,29 @@ function IsFormValid()
     {
         IsValid = false;        
     }
+
+    if ( WorkAroudTypeId == 3 )
+    {
+        if ( !IsPeoplePickerFieldValid(SPClientPeoplePicker.SPClientPeoplePickerDict.directorPeoplePickerDiv_TopSpan, "directorPeoplePickerDiv") )
+        {
+            IsValid = false;        
+        }
+
+        if ( !IsPeoplePickerFieldValid(SPClientPeoplePicker.SPClientPeoplePickerDict.analystPeoplePickerDiv_TopSpan, "analystPeoplePickerDiv") )
+        {
+            IsValid = false;        
+        }
+
+        if ( !IsPeoplePickerFieldValid(SPClientPeoplePicker.SPClientPeoplePickerDict.managerPeoplePickerDiv_TopSpan, "managerPeoplePickerDiv") )
+        {
+            IsValid = false;        
+        }
+        if ( !IsPeoplePickerFieldValid(SPClientPeoplePicker.SPClientPeoplePickerDict.businesAnalystPeoplePickerDiv_TopSpan, "businesAnalystPeoplePickerDiv") )
+        {
+            IsValid = false;        
+        }
+
+    }     
 
     return IsValid; 
 }
@@ -997,9 +956,72 @@ function addFileToFolder(arrayBuffer, fileInput, serverUrl, serverRelativeUrlToF
     });
 }
 
+function hasBeenSelected()
+{
+    WorkAroudTypeId = document.getElementById("typeWorkaround").value;    
+
+    if ( WorkAroudTypeId == 3 )
+    {
+        document.getElementById("DDIWorkAroundReviewersDiv").style.display = "flex";
+        document.getElementById("ibmbaPeoplePickerDiv").style.display = "flex";
+        document.getElementById("testingTeamPeoplePickerDiv").style.display = "flex";
+        document.getElementById("sblTeamPeoplePickerDiv").style.display = "flex";
+        document.getElementById("projectManagerTeamPeoplePickerDiv").style.display = "flex";
+        document.getElementById("OMRelatedWorkAroundApproversDiv").style.display = "flex";
+        document.getElementById("programDirectorPeoplePickerDiv").style.display = "flex";           
+        document.getElementById("testingAnalystPeoplePickerDiv").style.display = "flex";        
+        document.getElementById("stateManagerPeoplePickerDiv").style.display = "flex";        
+        document.getElementById("stateBusinessAnalystPeoplePickerDiv").style.display = "flex";
+             
+    }
+    else if ( WorkAroudTypeId != 0 )
+    {
+        document.getElementById("DDIWorkAroundReviewersDiv").style.display = "flex";
+        document.getElementById("ibmbaPeoplePickerDiv").style.display = "flex";
+        document.getElementById("testingTeamPeoplePickerDiv").style.display = "flex";
+        document.getElementById("sblTeamPeoplePickerDiv").style.display = "flex";
+        document.getElementById("projectManagerTeamPeoplePickerDiv").style.display = "flex";
+        document.getElementById("OMRelatedWorkAroundApproversDiv").style.display = "none";
+        document.getElementById("programDirectorPeoplePickerDiv").style.display = "none";  
+        document.getElementById("testingAnalystPeoplePickerDiv").style.display = "none";
+        document.getElementById("stateManagerPeoplePickerDiv").style.display = "none";
+        document.getElementById("stateBusinessAnalystPeoplePickerDiv").style.display = "none";
+        
+    }    
+    else {
+        document.getElementById("DDIWorkAroundReviewersDiv").style.display = "none";
+        document.getElementById("ibmbaPeoplePickerDiv").style.display = "none";
+        document.getElementById("testingTeamPeoplePickerDiv").style.display = "none";
+        document.getElementById("sblTeamPeoplePickerDiv").style.display = "none";
+        document.getElementById("projectManagerTeamPeoplePickerDiv").style.display = "none";
+        document.getElementById("OMRelatedWorkAroundApproversDiv").style.display = "none";
+        document.getElementById("programDirectorPeoplePickerDiv").style.display = "none";   
+        document.getElementById("testingAnalystPeoplePickerDiv").style.display = "none";
+        document.getElementById("stateManagerPeoplePickerDiv").style.display = "none";
+        document.getElementById("stateBusinessAnalystPeoplePickerDiv").style.display = "none";
+    }     
+}
+
+function goLiveSelected()
+{
+    var valueSelected = document.getElementById("golive").value;    
+
+    if ( valueSelected == 2 )
+    {
+        document.getElementById("ExplainLabelDiv").style.display = "flex";
+        document.getElementById("ExplainDiv").style.display = "flex";
+    }
+    else {
+        document.getElementById("ExplainLabelDiv").style.display = "none";
+        document.getElementById("ExplainDiv").style.display = "none";
+    }
+}
+
 // Display error messages. 
 function onError(error) {    
     alert(error.responseText);
     //console.log(error.responseText);
     //alert('Error has occurred. Please try to upload the revision file again.');
 }
+
+

@@ -36,7 +36,7 @@ function SubmitFormWithValidation()
     {
         jQuery.confirm({        
             title: false,
-            content: '<div style="font-size: large;font-style: italic;">Are you sure you want to retire this Workaround?</div>',
+            content: '<div style="font-size: large;font-style: italic;">Are you sure you want to retire this TPC?</div>',
             columnClass: 'large',
             buttons: {            
                 Ok: {
@@ -122,6 +122,7 @@ function getAccountId(logonName) {
     
     return deferred.promise();
 }
+
 
 function getWorkaroundMetaData(Decision, RetiredApproverId, commentsVal)
 {    

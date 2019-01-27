@@ -1,9 +1,9 @@
 'use strict';
 
 //let user, Titles, Labels, Emails;
-let WorkAroudTypeId = 0;
-let _attachments = new Array();
-let _testCaseAttachments = new Array();
+var WorkAroudTypeId = 0;
+var _attachments = new Array();
+var _testCaseAttachments = new Array();
 
 jQuery(document).ready(function () {
 
@@ -379,6 +379,22 @@ function CreateOMWorkAroundRecord()
                                                 "Accept": "application/json;odata=verbose",
                                                 "X-RequestDigest": $("#__REQUESTDIGEST").val()
                                             },
+                                            beforeSend : function() {
+                                                $.blockUI({ 
+                                                    message: '<h4>Wait ... Processing your request</h4>',
+                                                    css: { 
+                                                    border: 'none', 
+                                                    padding: '15px',                          
+                                                    backgroundColor: '#000', 
+                                                    '-webkit-border-radius': '10px', 
+                                                    '-moz-border-radius': '10px', 
+                                                    opacity: .5, 
+                                                    color: '#fff' 
+                                                } }); 
+                                            }, 
+                                            complete: function () {
+                                                $.unblockUI();                    
+                                            },
                                             success: function (data) {
                                                 
                                                 console.log(data); 
@@ -448,7 +464,8 @@ function CreateOMWorkAroundRecord()
                                                 let trainingTeamEmail = getEmailVerbagefromLocalStorage("Traning Team Notification Email");
                                                 let retiredApprovalEmail = getEmailVerbagefromLocalStorage("Retired Approval Email");
                                                 let retiredInitialEmail = getEmailVerbagefromLocalStorage("Retired Initial Email");
-                                                let afterRejectedSubmitEmail = getEmailVerbagefromLocalStorage("After Reject Resubmit Email");  
+                                                let afterRejectedSubmitEmail = getEmailVerbagefromLocalStorage("After Reject Resubmit Email"); 
+                                                let RetiredRejectEmail = getEmailVerbagefromLocalStorage("Retired Reject Email"); 
                                                 
                                                 let EmailTitle = email.EmailSubject.replace('{Title}', data.d.Title);
                                                 
@@ -526,6 +543,11 @@ function CreateOMWorkAroundRecord()
                                                 afterRejectEmailBody = afterRejectEmailBody.replace('{Title}', data.d.Title).replace('{ID}', data.d.ID).replace('{TypeID}', '1');
                                                 afterRejectEmailBody = afterRejectEmailBody.replace('{Title}', data.d.Title);
 
+                                                let RetiredRejectEmailTitle = RetiredRejectEmail.EmailSubject.replace('{Title}', data.d.Title);
+                                                let RetiredRejectEmailBody = stripHtml(RetiredRejectEmail.EmailBody);
+                                                RetiredRejectEmailBody = RetiredRejectEmailBody.replace('{Title}', data.d.Title).replace('{ID}', data.d.ID).replace('{TypeID}', '1');
+                                                RetiredRejectEmailBody = RetiredRejectEmailBody.replace('{Title}', data.d.Title);
+
                                                 let metadata = {
                                                                     "__metadata": { "type": itemType },
                                                                     "InitialNotificationEmailTitle": EmailTitle,
@@ -557,6 +579,8 @@ function CreateOMWorkAroundRecord()
                                                                     "RetiredInitialEmailBody": retiredInitialEmailBody.trim(),
                                                                     "AfterRejectResubmitEmailTitle": afterRejectEmailTitle,
                                                                     "AfterRejectResubmitEmailBody": afterRejectEmailBody.trim(),
+                                                                    "RetiredRejectedEmailTitle" : RetiredRejectEmailTitle,
+                                                                    "RetiredRejectedEmailBody" : RetiredRejectEmailBody.trim(),
                                                                     "IBMBAStatus": "In Progress",
                                                                     "TestingTeamStatus": "In Progress",
                                                                     "StateBaLeadStatus": "In Progress",                                                    
@@ -568,7 +592,7 @@ function CreateOMWorkAroundRecord()
 
                                                     jQuery.alert({        
                                                         title: false,
-                                                        content: '<div style="font-size: large;font-style: italic;">Your Workaround Process form has been submitted for Initial Review.</div>',
+                                                        content: '<div style="font-size: large;font-style: italic;">Your TPC Process form has been submitted for Initial Review.</div>',
                                                         columnClass: 'medium',
                                                         buttons: {            
                                                             Ok: {
@@ -710,6 +734,22 @@ function CreateWorkAroundRecord()
                                 "Accept": "application/json;odata=verbose",
                                 "X-RequestDigest": $("#__REQUESTDIGEST").val()
                             },
+                            beforeSend : function() {
+                                $.blockUI({ 
+                                    message: '<h4>Wait ... Processing your request</h4>',
+                                    css: { 
+                                    border: 'none', 
+                                    padding: '15px',                          
+                                    backgroundColor: '#000', 
+                                    '-webkit-border-radius': '10px', 
+                                    '-moz-border-radius': '10px', 
+                                    opacity: .5, 
+                                    color: '#fff' 
+                                } }); 
+                            }, 
+                            complete: function () {
+                                $.unblockUI();                    
+                            },
                             success: function (data) {
                                 
                                 console.log(data); 
@@ -773,12 +813,14 @@ function CreateWorkAroundRecord()
                                 let rejectEmail = getEmailVerbagefromLocalStorage("Rejected Notification Email");
                                 let initialApprovedEmail = getEmailVerbagefromLocalStorage("Initial Approval Email");
                                 let pendingFinalApproval = getEmailVerbagefromLocalStorage("Pending Final Approval Email");
-                                let finalApprovedEmail = getEmailVerbagefromLocalStorage("Final Approval Email");                                
+                                let finalApprovedEmail = getEmailVerbagefromLocalStorage("Final Approval Email");                
+                                let initialOMApprovedEmail = getEmailVerbagefromLocalStorage("Initiate OM Approval Notification Email");                
                                 let allInitialRejectedEmail = getEmailVerbagefromLocalStorage("All Rejected Notification Email");
                                 let trainingTeamEmail = getEmailVerbagefromLocalStorage("Traning Team Notification Email");
                                 let retiredApprovalEmail = getEmailVerbagefromLocalStorage("Retired Approval Email");
                                 let retiredInitialEmail = getEmailVerbagefromLocalStorage("Retired Initial Email");
-                                let afterRejectedSubmitEmail = getEmailVerbagefromLocalStorage("After Reject Resubmit Email");                                
+                                let afterRejectedSubmitEmail = getEmailVerbagefromLocalStorage("After Reject Resubmit Email");     
+                                let RetiredRejectEmail = getEmailVerbagefromLocalStorage("Retired Reject Email");                                                            
                                 
                                 let EmailTitle = email.EmailSubject.replace('{Title}', data.d.Title);
                                 
@@ -793,6 +835,18 @@ function CreateWorkAroundRecord()
                                 
                                 let EmailBody4 = stripHtml(email.EmailBody);
                                 EmailBody4 = EmailBody4.replace('{Title}', data.d.Title).replace('{ID}', data.d.ID).replace('{TypeID}', '4');
+
+                                let EmailBody6 = stripHtml(email.EmailBody);
+                                EmailBody6 = EmailBody6.replace('{Title}', data.d.Title).replace('{ID}', data.d.ID).replace('{TypeID}', '6');
+                                                
+                                let EmailBody7 = stripHtml(email.EmailBody);
+                                EmailBody7 = EmailBody7.replace('{Title}', data.d.Title).replace('{ID}', data.d.ID).replace('{TypeID}', '7');
+
+                                let EmailBody8 = stripHtml(email.EmailBody);
+                                EmailBody8 = EmailBody8.replace('{Title}', data.d.Title).replace('{ID}', data.d.ID).replace('{TypeID}', '8');
+
+                                let EmailBody9 = stripHtml(email.EmailBody);
+                                EmailBody9 = EmailBody9.replace('{Title}', data.d.Title).replace('{ID}', data.d.ID).replace('{TypeID}', '9');
 
                                 let rejectedEmailTitle = rejectEmail.EmailSubject.replace('{Title}', data.d.Title);
                                 let rejectedEmailBody = stripHtml(rejectEmail.EmailBody);
@@ -813,6 +867,11 @@ function CreateWorkAroundRecord()
                                 let finalApprovedEmailBody = stripHtml(finalApprovedEmail.EmailBody);
                                 finalApprovedEmailBody = finalApprovedEmailBody.replace('{Title}', data.d.Title).replace('{ID}', data.d.ID).replace('{TypeID}', '1');
                                 finalApprovedEmailBody = finalApprovedEmailBody.replace('{Title}', data.d.Title);
+
+                                let initialOMApprovedEmailTitle = initialOMApprovedEmail.EmailSubject.replace('{Title}', data.d.Title);
+                                let initialOMApprovedEmailBody = stripHtml(initialOMApprovedEmail.EmailBody);
+                                initialOMApprovedEmailBody = initialOMApprovedEmailBody.replace('{Title}', data.d.Title).replace('{ID}', data.d.ID).replace('{TypeID}', '5');
+                                initialOMApprovedEmailBody = initialOMApprovedEmailBody.replace('{Title}', data.d.Title);
 
                                 let AllInitialRejectedEmailTitle = allInitialRejectedEmail.EmailSubject.replace('{Title}', data.d.Title);
                                 let AllInitialRejectedEmailBody = stripHtml(allInitialRejectedEmail.EmailBody);
@@ -839,14 +898,22 @@ function CreateWorkAroundRecord()
                                 afterRejectEmailBody = afterRejectEmailBody.replace('{Title}', data.d.Title).replace('{ID}', data.d.ID).replace('{TypeID}', '1');
                                 afterRejectEmailBody = afterRejectEmailBody.replace('{Title}', data.d.Title);
 
+                                let RetiredRejectEmailTitle = RetiredRejectEmail.EmailSubject.replace('{Title}', data.d.Title);
+                                let RetiredRejectEmailBody = stripHtml(RetiredRejectEmail.EmailBody);
+                                RetiredRejectEmailBody = RetiredRejectEmailBody.replace('{Title}', data.d.Title).replace('{ID}', data.d.ID).replace('{TypeID}', '1');
+                                RetiredRejectEmailBody = RetiredRejectEmailBody.replace('{Title}', data.d.Title);
+
                                 let metadata = {
                                                     "__metadata": { "type": itemType },
                                                     "InitialNotificationEmailTitle": EmailTitle,
-
                                                     "BAInitialNotificationEmailBody": "Business Analyst \n" + EmailBody1.trim(),                                                    
                                                     "TAInitialNotificationEmailBody": "Testing Analyst \n" + EmailBody2.trim(),                                                    
                                                     "LAInitialNotificationEmailBody": "Lead Analyst \n" + EmailBody3.trim(),                                                    
                                                     "PMInitialNotificationEmailBody": "Project Manager \n" + EmailBody4.trim(),
+                                                    "OMBAInitialNotificationEmailBody": "O&M Business Analyst \n" + EmailBody6.trim(),
+                                                    "OMTAInitialNotificationEmailBody": "O&M Testing Analyst \n" + EmailBody7.trim(),
+                                                    "OMManagerInitialNotificationEmai": "O&M Manager \n" + EmailBody8.trim(),
+                                                    "OMDirectorInitialNotificationEma": "O&M Director \n" + EmailBody9.trim(),
                                                     "InitiatorInitialApprovedEmailTit": initialApprovedEmailTitle,
                                                     "InitiatorInitialApprovedEmailBod": "Initiator \n" + initialApprovedEmailBody.trim(),
                                                     "InitiatorPendingFinalEmailTitle": pendingFinalApprovalTitle,
@@ -855,6 +922,8 @@ function CreateWorkAroundRecord()
                                                     "InitiatorFinalApprovalEmailBody": "Initiator \n" + finalApprovedEmailBody.trim(),
                                                     "InitiatorInitialRejectedEmailTit": rejectedEmailTitle,
                                                     "InitiatorInitialRejectedEmailBod": "Initiator \n" + rejectedEmailBody.trim(),
+                                                    "InitialOMApprovalEmailTitle": initialOMApprovedEmailTitle,
+                                                    "InitialOMApprovalEmailBody": "Initiator \n" + initialOMApprovedEmailBody,
                                                     "AllInitialRejectedEmailTitle": AllInitialRejectedEmailTitle,
                                                     "AllInitialRejectedEmailBody": AllInitialRejectedEmailBody.trim(),
                                                     "trainingTeamEmailTitle": trainingTeamEmailTitle,
@@ -865,6 +934,8 @@ function CreateWorkAroundRecord()
                                                     "RetiredInitialEmailBody": retiredInitialEmailBody.trim(),
                                                     "AfterRejectResubmitEmailTitle": afterRejectEmailTitle,
                                                     "AfterRejectResubmitEmailBody": afterRejectEmailBody.trim(),
+                                                    "RetiredRejectedEmailTitle" : RetiredRejectEmailTitle,
+                                                    "RetiredRejectedEmailBody" : RetiredRejectEmailBody.trim(),
                                                     "IBMBAStatus": "In Progress",
                                                     "TestingTeamStatus": "In Progress",
                                                     "StateBaLeadStatus": "In Progress",                                                    
@@ -876,7 +947,7 @@ function CreateWorkAroundRecord()
                                                     
                                     jQuery.alert({        
                                                         title: false,
-                                                        content: '<div style="font-size: large;font-style: italic;">Your Workaround Process form has been submitted for Initial Review.</div>',
+                                                        content: '<div style="font-size: large;font-style: italic;">Your TPC Process form has been submitted for Initial Review.</div>',
                                                         columnClass: 'medium',
                                                         buttons: {            
                                                             Ok: {

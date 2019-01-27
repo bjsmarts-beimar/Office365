@@ -1,0 +1,59 @@
+<WebPartPages:XsltListViewWebPart runat="server" AllowHide="True" PartImageSmall="" PartOrder="1" Title="Employee Spotlight" ManualRefresh="False" ViewGuid="{DD98A16A-E9D9-4DB6-B2EA-D2FCB5C81A52}" HelpMode="Modeless" AllowEdit="True" SuppressWebPartChrome="False" ShowWithSampleData="False" ListId="b3bcac42-88ce-4652-bc5a-216adca886b2" GhostedXslLink="main.xsl" PageSize="-1" UseSQLDataSourcePaging="True" EnableOriginalValue="False" NoDefaultStyle="" ConnectionID="00000000-0000-0000-0000-000000000000" ExportControlledProperties="False" AutoRefreshInterval="60" ViewContentTypeId="0x" Description="Use this list to track upcoming events, status updates or other team news." AllowZoneChange="True" CatalogIconImageUrl="/_layouts/images/itann.png" ID="g_10b1fd0c_62ef_47f6_b4fb_20852c809392" MissingAssembly="Cannot import this Web Part." FrameState="Normal" ChromeType="TitleOnly" AllowMinimize="True" Dir="Default" ViewFlag="8388745" AllowConnect="True" ListUrl="" DetailLink="/Lists/Announcements/EmployeeSpotlight.aspx" WebId="00000000-0000-0000-0000-000000000000" PartImageLarge="/_layouts/images/itann.png" TitleUrl="/Lists/Announcements/EmployeeSpotlight.aspx" ListName="{B3BCAC42-88CE-4652-BC5A-216ADCA886B2}" ExportMode="NonSensitiveData" FrameType="TitleBarOnly" DataSourceID="" IsIncludedFilter="" AllowRemove="True" HelpLink="" IsIncluded="True" IsVisible="True" AsyncRefresh="False" AutoRefresh="False" ListDisplayName="" InitialAsyncDataFetch="False" __MarkupType="vsattributemarkup" __WebPartId="{DD98A16A-E9D9-4DB6-B2EA-D2FCB5C81A52}" __AllowXSLTEditing="true" __designer:CustomXsl="fldtypes_Ratings.xsl" WebPart="true" Height="" Width=""><DataFields>
+</DataFields>
+<ParameterBindings>
+				<ParameterBinding Name="dvt_sortdir" Location="Postback;Connection" />
+				<ParameterBinding Name="dvt_sortfield" Location="Postback;Connection" />
+				<ParameterBinding Name="dvt_startposition" Location="Postback" DefaultValue="" />
+				<ParameterBinding Name="dvt_firstrow" Location="Postback;Connection" />
+				<ParameterBinding Name="OpenMenuKeyAccessible" Location="Resource(wss,OpenMenuKeyAccessible)" />
+				<ParameterBinding Name="open_menu" Location="Resource(wss,open_menu)" />
+				<ParameterBinding Name="select_deselect_all" Location="Resource(wss,select_deselect_all)" />
+				<ParameterBinding Name="idPresEnabled" Location="Resource(wss,idPresEnabled)" />
+				<ParameterBinding Name="NoAnnouncements" Location="Resource(wss,NoAnnouncements)" />
+				<ParameterBinding Name="NoAnnouncementsHowTo" Location="Resource(wss,NoAnnouncementsHowTo)" />
+				<ParameterBinding Location="Resource(wss,idHomePageNewAnnounce)" Name="AddNewAnnouncement" />
+				<ParameterBinding Location="Resource(wss,MoreAnnouncements)" Name="MoreAnnouncements" />
+				<ParameterBinding Location="Resource(wss,2000)" Name="ByText" />
+			</ParameterBindings>
+<XmlDefinition>
+				<View Name="{DD98A16A-E9D9-4DB6-B2EA-D2FCB5C81A52}" MobileView="TRUE" Type="HTML" Hidden="TRUE" TabularView="FALSE" FreeForm="TRUE" DisplayName="" Url="/SitePages/test2.aspx" Level="255" BaseViewID="0" ContentTypeID="0x">
+					<Query>
+						<OrderBy>
+							<FieldRef Name="Modified" Ascending="FALSE"/>
+						</OrderBy>
+						<Where>
+							<And>
+								<And>
+									<Eq>
+										<FieldRef Name="Display_x0020_Area"/>
+										<Value Type="Text">eSpotlight</Value>
+									</Eq>
+									<Leq>
+										<FieldRef Name="Post_x0020_Date"/>
+										<Value Type="DateTime">
+											<Today/>
+										</Value>
+									</Leq>
+								</And>
+								<Geq>
+									<FieldRef Name="Expires"/>
+									<Value Type="DateTime">
+										<Today/>
+									</Value>
+								</Geq>
+							</And>
+						</Where>
+					</Query>
+					<ViewFields>
+						<FieldRef Name="LinkTitleNoMenu" Explicit="TRUE"/>
+						<FieldRef Name="Body" Explicit="TRUE"/>
+						<FieldRef Name="Author" Explicit="TRUE"/>
+						<FieldRef Name="Modified" Explicit="TRUE"/>
+						<FieldRef Name="Attachments" Explicit="TRUE"/>
+					</ViewFields>
+					<RowLimit>3</RowLimit>
+					<Aggregations Value="Off"/>
+					<Toolbar Type="Freeform"/>
+				</View>
+			</XmlDefinition>
+</WebPartPages:XsltListViewWebPart>

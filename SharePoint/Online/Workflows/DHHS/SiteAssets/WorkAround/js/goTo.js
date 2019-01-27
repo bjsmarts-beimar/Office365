@@ -24,7 +24,17 @@ jQuery(document).ready(function () {
     
     if ( WorkAroundId )
     {
-        loadindWorkaroundViewMode(WorkAroundId, currentComments);                
+        loadindWorkaroundViewMode(WorkAroundId, currentComments);     
+        
+        let query = getWorkAround(WorkAroundId);
+        query.done(function(workAroundItem) {
+
+                validatingStatusUserSecurity(workAroundItem.WorkaroundWorkflowStatus, workAroundItem.AuthorId);
+
+        });
+        query.fail(function(error) {
+                  alert(error);
+        });
     }         
                                  
 });
@@ -36,7 +46,7 @@ function SubmitForm()
 
     jQuery.confirm({        
         title: false,
-        content: '<div style="font-size: large;font-style: italic;">Are you sure you want to submit this Workaround for O&M Initial Review?</div>',
+        content: '<div style="font-size: large;font-style: italic;">Are you sure you want to submit this TPC for O&M Initial Review?</div>',
         columnClass: 'large',
         buttons: {            
             Ok: {
@@ -63,21 +73,8 @@ function SubmitForm()
                         let results = updateSharePointListItem(WorkaroundId, metadata, listName);
                         results.done(function (data) {
 
-                            jQuery.alert({        
-                                title: false,
-                                content: '<div style="font-size: large;font-style: italic;">Your Workaround Process form has been submitted for O&M Initial Review.</div>',
-                                columnClass: 'medium',
-                                buttons: {            
-                                    Ok: {
-                                        text: 'Ok',
-                                        btnClass: 'btn-default btn-md',
-                                        action: function(){
-                                            let page = "/Pages/feedback.aspx";
-                                            window.location = _spPageContextInfo.webAbsoluteUrl + page;                                         
-                                        }
-                                    }
-                                }
-                            });
+                            let page = "/Pages/feedback.aspx";
+                            window.location = _spPageContextInfo.webAbsoluteUrl + page;  
 
                         });
                         results.fail(function (error) {
@@ -95,4 +92,72 @@ function SubmitForm()
             }
         }
     });
+}
+
+function getWorkAround(WorkAroundId)
+{   
+    var deferred = jQuery.Deferred();
+
+    let item = null;
+
+    jQuery.ajax  
+    ({  
+        url: _spPageContextInfo.webAbsoluteUrl + "/data/_api/web/lists/GetByTitle('Workaround')/items?$filter=ID eq " + WorkAroundId,  
+        type: "GET",  
+        headers:  
+        {  
+            "Accept": "application/json;odata=verbose",  
+            "Content-Type": "application/json;odata=verbose",  
+            "X-RequestDigest": $("#__REQUESTDIGEST").val(),  
+            "IF-MATCH": "*",  
+            "X-HTTP-Method": null  
+        },  
+        cache: false,  
+        success: function(data)   
+        {              
+            console.log(data);
+            if ( data.d.results.length > 0 )
+            {
+                item = data.d.results[0];                  
+                deferred.resolve(item);
+            }  
+        },  
+        error: function(err)  
+        {  
+            alert(data.responseText);
+            deferred.reject(err);    
+        }  
+    });
+
+    return deferred.promise();
+}
+
+function validatingStatusUserSecurity(workaroundStatus, workaroundUserId) 
+{
+    let onError = false;
+
+    if ( workaroundStatus !== "Initial Approval (Approved)" )
+    {
+        jQuery("#error-status").show();
+        onError = true;
+    }
+    else {
+        jQuery("#error-status").hide();
+    }
+
+    if ( workaroundUserId !== _spPageContextInfo.userId )
+    {
+        jQuery("#error-user").show();
+        onError = true;
+    }
+    else {
+        jQuery("#error-user").hide();
+    }   
+
+    if ( onError ) {
+        jQuery("#SubmitBtn").hide();
+    }
+    else {
+        jQuery("#SubmitBtn").show();
+    }
 }
