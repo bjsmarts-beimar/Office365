@@ -1,0 +1,41 @@
+jQuery(document).ready(function () {
+
+    if($('#sideNavBox .menu-item.selected1').length){
+        $('li.static').removeClass('selected1');
+        $('#sideNavBox .menu-item.selected').parents('li.static').addClass('selected');
+        $('#sideNavBox .menu-item.selected1').parents('li.static').last().siblings()
+         .find('> ul').hide();
+       }
+      else
+      {
+      $('#sideNavBox .root.static > li.static > ul').hide();
+      $('#sideNavBox .root.static > li.static > ul').parent().children('a').children('span').children('span').each(function(){$(this).prepend("<span class='plusnode'>+ <span>")})
+      $('#sideNavBox .root.static > li.static > ul').parent().children('span').children('span').children('span').each(function(){$(this).prepend("<span class='plusnode'>+ <span>")})
+      } 
+      
+       $('#sideNavBox .root.static > li.static').each(function(){
+      if($(this).find('ul').length){
+         $(this).addClass('father').click(function(){
+          $('.selected1 > span > span > span > span').text("+ ")
+          $('.selected1 > a > span > span > span').text("+ ")
+      if($(this).children('ul').css('display') != 'none'){
+           $(this).removeClass('selected1').children('ul').slideUp();
+          }
+      else {
+           $(this).siblings().removeClass('selected1').children('ul').slideUp();
+           $(this).addClass('selected1').children('ul').slideDown();
+           $('.selected1 > span > span > span > span').text("- ")
+           $('.selected1 > a > span > span > span').text("- ")
+          }
+          $('a.static').click(function(event) {
+            event.stopPropagation();
+          });
+      
+      
+          return false;
+         });
+        }
+       });
+       
+});
+

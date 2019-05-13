@@ -50,23 +50,23 @@ jQuery(document).ready(function () {
                 }
                 else if ( ApprovalType == 4) {
                     
-                    validatingStatusUserSecurity(workAroundItem.ProjectManagerStatus, "In Progress", workAroundItem.MMRP_x0020_State_x0020_Project_xId);
+                    validatingStatusUserSecurity(workAroundItem.ProjectManagerStatus, "In Progress", workAroundItem.Project_x0020_ManagerId);
                 }
                 else if ( ApprovalType == 6) {
 
-                    validatingStatusUserSecurity(workAroundItem.O_x0026_MBusinessAnalystStatus, "In Progress", workAroundItem.State_x0020_MMRP_x0020_O_x0026_M0Id);
+                    validatingStatusUserSecurity(workAroundItem.OMBusinessAnalystStatus, "In Progress", workAroundItem.OM_x0020_Business_x0020_AnalystId);
                 }
                 else if ( ApprovalType == 7) {
 
-                    validatingStatusUserSecurity(workAroundItem.O_x0026_MTestingAnalystStatus, "In Progress", workAroundItem.State_x0020_MMRP_x0020_Testing_xId);
+                    validatingStatusUserSecurity(workAroundItem.OMTestingAnalystStatus, "In Progress", workAroundItem.OM_x0020_Testing_x0020_AnalystId);
                 }
                 else if ( ApprovalType == 8) {
 
-                    validatingStatusUserSecurity(workAroundItem.O_x0026_MManagerStatus, "In Progress", workAroundItem.State_x0020_MMRP_x0020_O_x0026_MId);
+                    validatingStatusUserSecurity(workAroundItem.OMManagerStatus, "In Progress", workAroundItem.OM_x0020_ManagerId);
                 }
                 else if ( ApprovalType == 9) {
 
-                    validatingStatusUserSecurity(workAroundItem.O_x0026_MDirectorStatus, "In Progress", workAroundItem.State_x0020_MMRP_x0020_Program_xId);
+                    validatingStatusUserSecurity(workAroundItem.OMDirectorStatus, "In Progress", workAroundItem.OM_x0020_Program_x0020_DirectorId);
                 }
                 else if ( ApprovalType == 10 ) {
                     
@@ -152,15 +152,15 @@ function Approve()
                                             window.location = serverUrl + page;
                                         }
                                     }
-                                    else if ( workAroundItem.O_x0026_MDirectorStatus == "Not Started")
+                                    else if ( workAroundItem.OMDirectorStatus == "Not Started")
                                     {
-                                        if ( workAroundItem.O_x0026_MBusinessAnalystStatus == "Approved" && workAroundItem.O_x0026_MTestingAnalystStatus == "Approved" && workAroundItem.O_x0026_MManagerStatus == "Approved") {
+                                        if ( workAroundItem.OMBusinessAnalystStatus == "Approved" && workAroundItem.OMTestingAnalystStatus == "Approved" && workAroundItem.OMManagerStatus == "Approved") {
                                             
                                             var itemType = GetItemTypeForListName("Workaround");  
 
                                             var data = {
                                                 "__metadata": { "type": itemType },
-                                                "O_x0026_MDirectorStatus": "In Progress",                                                            
+                                                "OMDirectorStatus": "In Progress",                                                            
                                             };
 
                                             var results = updateWorkAround(WorkaroundId, data);
@@ -421,17 +421,17 @@ function getWorkaroundMetaData(Decision, commentsVal, ReasonForRejectionVal, Wor
         else if ( ApprovalType == 5 )
         {
             
-            if ( WorkaroundTypeVal === "O&M" )
+            if ( WorkaroundTypeVal === "OM" )
             {
                 if ( Decision != "Rejected")
                 {
                     var data = {
                         "__metadata": { "type": itemType },
                         "Comments": commentsVal,
-                        "O_x0026_MBusinessAnalystStatus": "In Progress",    
-                        "O_x0026_MTestingAnalystStatus": "In Progress", 
-                        "O_x0026_MManagerStatus": "In Progress", 
-                        "WorkaroundWorkflowStatus": "O&M Initial Approval (Pending)",            
+                        "OMBusinessAnalystStatus": "In Progress",    
+                        "OMTestingAnalystStatus": "In Progress", 
+                        "OMManagerStatus": "In Progress", 
+                        "WorkaroundWorkflowStatus": "OM Initial Approval (Pending)",            
                     };
                     
                     return data;
@@ -491,8 +491,8 @@ function getWorkaroundMetaData(Decision, commentsVal, ReasonForRejectionVal, Wor
                 var data = {
                     "__metadata": { "type": itemType },
                     "Comments": commentsVal,
-                    "O_x0026_MBusinessAnalystStatus": Decision,       
-                    "O_x0026_MBAStatusDate": new Date() //.toLocaleString();          
+                    "OMBusinessAnalystStatus": Decision,       
+                    "OMBAStatusDate": new Date() //.toLocaleString();          
                 };
                 
                 return data;
@@ -508,12 +508,12 @@ function getWorkaroundMetaData(Decision, commentsVal, ReasonForRejectionVal, Wor
                     "TestingTeamStatusDate": new Date(), //.toLocaleString();
                     "StateBaLeadStatus": Decision,     
                     "StateBaLeadStatusDate": new Date(), //.toLocaleString();
-                    "O_x0026_MBusinessAnalystStatus": Decision,
-                    "O_x0026_MBAStatusDate": new Date(), //.toLocaleString();
-                    "O_x0026_MTestingAnalystStatus": Decision,   
-                    "O_x0026_MTAStatusDate": new Date(), //.toLocaleString();  
-                    "O_x0026_MManagerStatus": Decision,     
-                    "O_x0026_MManagerStatusDate": new Date(), //.toLocaleString();   
+                    "OMBusinessAnalystStatus": Decision,
+                    "OMBAStatusDate": new Date(), //.toLocaleString();
+                    "OMTestingAnalystStatus": Decision,   
+                    "OMTAStatusDate": new Date(), //.toLocaleString();  
+                    "OMManagerStatus": Decision,     
+                    "OMManagerStatusDate": new Date(), //.toLocaleString();   
                     "WorkaroundWorkflowStatus": Decision,            
                 };
                 
@@ -528,8 +528,8 @@ function getWorkaroundMetaData(Decision, commentsVal, ReasonForRejectionVal, Wor
                     "__metadata": { "type": itemType },
                     "Comments": commentsVal,
                     "ReasonForRejection": ReasonForRejectionVal,
-                    "O_x0026_MTestingAnalystStatus": Decision,       
-                    "O_x0026_MTAStatusDate": new Date() //.toLocaleString();         
+                    "OMTestingAnalystStatus": Decision,       
+                    "OMTAStatusDate": new Date() //.toLocaleString();         
                 };
                 
                 return data;
@@ -545,12 +545,12 @@ function getWorkaroundMetaData(Decision, commentsVal, ReasonForRejectionVal, Wor
                     "TestingTeamStatusDate": new Date(), //.toLocaleString();
                     "StateBaLeadStatus": Decision,     
                     "StateBaLeadStatusDate": new Date(), //.toLocaleString();
-                    "O_x0026_MBusinessAnalystStatus": Decision,
-                    "O_x0026_MBAStatusDate": new Date(), //.toLocaleString();
-                    "O_x0026_MTestingAnalystStatus": Decision,   
-                    "O_x0026_MTAStatusDate": new Date(), //.toLocaleString();  
-                    "O_x0026_MManagerStatus": Decision,     
-                    "O_x0026_MManagerStatusDate": new Date(), //.toLocaleString();   
+                    "OMBusinessAnalystStatus": Decision,
+                    "OMBAStatusDate": new Date(), //.toLocaleString();
+                    "OMTestingAnalystStatus": Decision,   
+                    "OMTAStatusDate": new Date(), //.toLocaleString();  
+                    "OMManagerStatus": Decision,     
+                    "OMManagerStatusDate": new Date(), //.toLocaleString();   
                     "WorkaroundWorkflowStatus": Decision,            
                 };
                 
@@ -564,8 +564,8 @@ function getWorkaroundMetaData(Decision, commentsVal, ReasonForRejectionVal, Wor
                 var data = {
                     "__metadata": { "type": itemType },
                     "Comments": commentsVal,
-                    "O_x0026_MManagerStatus": Decision,       
-                    "O_x0026_MManagerStatusDate": new Date() //.toLocaleString();           
+                    "OMManagerStatus": Decision,       
+                    "OMManagerStatusDate": new Date() //.toLocaleString();           
                 };
                 
                 return data;
@@ -581,12 +581,12 @@ function getWorkaroundMetaData(Decision, commentsVal, ReasonForRejectionVal, Wor
                     "TestingTeamStatusDate": new Date(), //.toLocaleString();
                     "StateBaLeadStatus": Decision,     
                     "StateBaLeadStatusDate": new Date(), //.toLocaleString();
-                    "O_x0026_MBusinessAnalystStatus": Decision,
-                    "O_x0026_MBAStatusDate": new Date(), //.toLocaleString();
-                    "O_x0026_MTestingAnalystStatus": Decision,   
-                    "O_x0026_MTAStatusDate": new Date(), //.toLocaleString();  
-                    "O_x0026_MManagerStatus": Decision,     
-                    "O_x0026_MManagerStatusDate": new Date(), //.toLocaleString();    
+                    "OMBusinessAnalystStatus": Decision,
+                    "OMBAStatusDate": new Date(), //.toLocaleString();
+                    "OMTestingAnalystStatus": Decision,   
+                    "OMTAStatusDate": new Date(), //.toLocaleString();  
+                    "OMManagerStatus": Decision,     
+                    "OMManagerStatusDate": new Date(), //.toLocaleString();    
                     "WorkaroundWorkflowStatus": Decision,            
                 };
                 
@@ -600,9 +600,9 @@ function getWorkaroundMetaData(Decision, commentsVal, ReasonForRejectionVal, Wor
                 var data = {
                     "__metadata": { "type": itemType },
                     "Comments": commentsVal,
-                    "O_x0026_MDirectorStatus": Decision,    
-                    "O_x0026_MDirectorStatusDate": new Date(), //.toLocaleString();   
-                    "WorkaroundWorkflowStatus": "O&M Initial Approval (Approved)",            
+                    "OMDirectorStatus": Decision,    
+                    "OMDirectorStatusDate": new Date(), //.toLocaleString();   
+                    "WorkaroundWorkflowStatus": "OM Initial Approval (Approved)",            
                 };
                 
                 return data;
@@ -618,14 +618,14 @@ function getWorkaroundMetaData(Decision, commentsVal, ReasonForRejectionVal, Wor
                     "TestingTeamStatusDate": new Date(), //.toLocaleString();
                     "StateBaLeadStatus": Decision,     
                     "StateBaLeadStatusDate": new Date(), //.toLocaleString();
-                    "O_x0026_MBusinessAnalystStatus": Decision,
-                    "O_x0026_MBAStatusDate": new Date(), //.toLocaleString();
-                    "O_x0026_MTestingAnalystStatus": Decision,   
-                    "O_x0026_MTAStatusDate": new Date(), //.toLocaleString();  
-                    "O_x0026_MManagerStatus": Decision,     
-                    "O_x0026_MManagerStatusDate": new Date(), //.toLocaleString();   
-                    "O_x0026_MDirectorStatus": Decision,   
-                    "O_x0026_MDirectorStatusDate": new Date(), //.toLocaleString();  
+                    "OMBusinessAnalystStatus": Decision,
+                    "OMBAStatusDate": new Date(), //.toLocaleString();
+                    "OMTestingAnalystStatus": Decision,   
+                    "OMTAStatusDate": new Date(), //.toLocaleString();  
+                    "OMManagerStatus": Decision,     
+                    "OMManagerStatusDate": new Date(), //.toLocaleString();   
+                    "OMDirectorStatus": Decision,   
+                    "OMDirectorStatusDate": new Date(), //.toLocaleString();  
                     "WorkaroundWorkflowStatus": Decision,            
                 };
                 
@@ -659,14 +659,14 @@ function getWorkaroundMetaData(Decision, commentsVal, ReasonForRejectionVal, Wor
                         "TestingTeamStatusDate": new Date(), //.toLocaleString();
                         "StateBaLeadStatus": Decision,     
                         "StateBaLeadStatusDate": new Date(), //.toLocaleString();
-                        "O_x0026_MBusinessAnalystStatus": Decision,
-                        "O_x0026_MBAStatusDate": new Date(), //.toLocaleString();
-                        "O_x0026_MTestingAnalystStatus": Decision,   
-                        "O_x0026_MTAStatusDate": new Date(), //.toLocaleString();  
-                        "O_x0026_MManagerStatus": Decision,     
-                        "O_x0026_MManagerStatusDate": new Date(), //.toLocaleString();   
-                        "O_x0026_MDirectorStatus": Decision,   
-                        "O_x0026_MDirectorStatusDate": new Date(), //.toLocaleString();  
+                        "OMBusinessAnalystStatus": Decision,
+                        "OMBAStatusDate": new Date(), //.toLocaleString();
+                        "OMTestingAnalystStatus": Decision,   
+                        "OMTAStatusDate": new Date(), //.toLocaleString();  
+                        "OMManagerStatus": Decision,     
+                        "OMManagerStatusDate": new Date(), //.toLocaleString();   
+                        "OMDirectorStatus": Decision,   
+                        "OMDirectorStatusDate": new Date(), //.toLocaleString();  
                         "finalApproverStatusDate": new Date(), //.toLocaleString();
                         "WorkaroundWorkflowStatus": Decision,            
                 };

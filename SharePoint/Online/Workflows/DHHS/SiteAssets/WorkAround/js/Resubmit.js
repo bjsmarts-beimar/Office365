@@ -123,14 +123,15 @@ function UpdateWorkAroundRecord()
                             "IBM_x0020_BAId": businessanalystId,
                             "Testing_x0020_TeamId": testerId,
                             "State_x0020_BA_x0020_LeadId": analystId,
-                            "MMRP_x0020_State_x0020_Project_xId": projectManagerId,
+                            "Project_x0020_ManagerId": projectManagerId,
                             "IsInitialEmailSendOut": "No",
+                            "IsInitialEmailPMSendOut": "No",
                             "IBMBAStatus": "In Progress",
                             "TestingTeamStatus": "In Progress",
                             "StateBaLeadStatus": "In Progress",
                             "ProjectManagerStatus": "Not Started",
                             "WorkaroundWorkflowStatus": "Initial Approval (Pending)"
-                        };
+                        };                        
                 
                         let results = updateSharePointListItem(PageContextRevisionID, metadata, listName);
                 
@@ -262,10 +263,10 @@ function UpdateOMWorkAroundRecord()
                                         let workflowStatus = "Initial Approval (Pending)";                                        
 
                                         if ( WorkaroundItem.IBMBAStatus === "Approved" && WorkaroundItem.TestingTeamStatus === "Approved" && WorkaroundItem.StateBaLeadStatus === "Approved" && WorkaroundItem.ProjectManagerStatus === "Approved" ) {
-                                            workflowStatus = "O&M Initial Approval (Pending)";
+                                            workflowStatus = "OM Initial Approval (Pending)";
                                         } 
 
-                                        if ( WorkaroundItem.O_x0026_MBusinessAnalystStatus === "Approved" && WorkaroundItem.O_x0026_MTestingAnalystStatus === "Approved" && WorkaroundItem.O_x0026_MManagerStatus === "Approved" && WorkaroundItem.O_x0026_MDirectorStatus === "Approved" ) {
+                                        if ( WorkaroundItem.OMBusinessAnalystStatus === "Approved" && WorkaroundItem.OMTestingAnalystStatus === "Approved" && WorkaroundItem.OMManagerStatus === "Approved" && WorkaroundItem.OMDirectorStatus === "Approved" ) {
                                             workflowStatus = "Final Approval (Pending)";
                                         } 
 
@@ -289,23 +290,24 @@ function UpdateOMWorkAroundRecord()
                                             "IBM_x0020_BAId": analystId,
                                             "Testing_x0020_TeamId": testerId,
                                             "State_x0020_BA_x0020_LeadId": analystLeadId,
-                                            "MMRP_x0020_State_x0020_Project_xId": projectManagerId,
-                                            "State_x0020_MMRP_x0020_Program_xId": directorId,
-                                            "State_x0020_MMRP_x0020_Testing_xId": analyst2Id,
-                                            "State_x0020_MMRP_x0020_O_x0026_MId": managerId,
-                                            "State_x0020_MMRP_x0020_O_x0026_M0Id": businessAnalystId,
+                                            "Project_x0020_ManagerId": projectManagerId,
+                                            "OM_x0020_Business_x0020_AnalystId": directorId,
+                                            "OM_x0020_Testing_x0020_AnalystId": analyst2Id,
+                                            "OM_x0020_ManagerId": managerId,
+                                            "OM_x0020_Program_x0020_DirectorId": businessAnalystId,
                                             "IsInitialEmailSendOut": "No",
+                                            "IsInitialEmailPMSendOut": "No",
                                             "IsInitialOMEmailSendOut": "No",
                                             "IBMBAStatus": "In Progress",
                                             "TestingTeamStatus": "In Progress",
                                             "StateBaLeadStatus": "In Progress",
                                             "ProjectManagerStatus": "Not Started",                                          
-                                            "O_x0026_MBusinessAnalystStatus": "Not Started",
-                                            "O_x0026_MTestingAnalystStatus": "Not Started",
-                                            "O_x0026_MManagerStatus": "Not Started",                                            
-                                            "O_x0026_MDirectorStatus": "Not Started",
+                                            "OMBusinessAnalystStatus": "Not Started",
+                                            "OMTestingAnalystStatus": "Not Started",
+                                            "OMManagerStatus": "Not Started",                                            
+                                            "OMDirectorStatus": "Not Started",
                                             "WorkaroundWorkflowStatus": "Initial Approval (Pending)"                     
-                                        };
+                                        };                                       
                                 
                                         let results = updateSharePointListItem(PageContextRevisionID, metadata, listName);
                                 
@@ -572,7 +574,7 @@ function retrieveWorkAroundItem(WorkAroundId)
                 setPeoplePickerField(SPClientPeoplePicker.SPClientPeoplePickerDict.BALeadPeoplePickerDiv_TopSpan, item.State_x0020_BA_x0020_Lead.EMail);
                 setPeoplePickerField(SPClientPeoplePicker.SPClientPeoplePickerDict.projectManagerPeoplePickerDiv_TopSpan, item.MMRP_x0020_State_x0020_Project_x.EMail);                            
 
-                if ( item.WorkaroundType === "O&M")
+                if ( item.WorkaroundType === "OM")
                 {
                     WorkAroudTypeId = 3;
                     setPeoplePickerField(SPClientPeoplePicker.SPClientPeoplePickerDict.businesAnalystPeoplePickerDiv_TopSpan, item.State_x0020_MMRP_x0020_O_x0026_M0.EMail);   
@@ -736,7 +738,7 @@ function addAttachment(fileInputName, fileInputErrorName, arrayBucket, divBucket
     {
         jQuery("#" + fileInputErrorName).hide();
 
-        var serverRelativeUrlToFolder = '/sites/SBH/wp/data/Attachments/';
+        var serverRelativeUrlToFolder = '/sites/tpc/data/Attachments/';
         var serverUrl = _spPageContextInfo.webAbsoluteUrl;
         
         // Initiate method calls using jQuery promises.

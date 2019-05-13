@@ -1,0 +1,27 @@
+. how to run a powershell script
+
+.\create_list_script.ps1 (enter)
+
+. Policy script execution disabled
+
+. Run this command
+
+Set-ExecutionPolicy -ExecutionPolicy bypass -scope CurrentUser
+
+ Error: script cannot be loaded because the execution of scripts is disabled on this system.
+ Resolution: 
+    run the following command > get-executionpolicy
+    As an Administrator, you can set the execution policy by typing this into your PowerShell window:
+    > Set-ExecutionPolicy RemoteSigned
+
+. SharePoint Online: Create a list using PowerShell
+http://www.sharepointnadeem.com/2015/03/sharepoint-online-create-list-using.html
+
+Here is a sample PowerShell code which creates a list (Document Library) in SharePoint online.
+Before running this code make sure SharePoint Online Client Components SDK and SharePoint Online Management Shell is installed on your machine. 
+https://www.microsoft.com/en-us/download/details.aspx?id=42038
+https://www.microsoft.com/en-us/download/details.aspx?id=35588
+
+
+https://sharepoint.stackexchange.com/questions/200630/how-to-move-dev-environment-changes-to-production-environment-spd-2013
+

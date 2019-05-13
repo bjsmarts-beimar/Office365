@@ -27,11 +27,23 @@ function loadingLocalStorageData(formTitle)
     setLabelsFromLocalStorage("20"); 
 }
 
+
 function loadindWorkaroundViewMode(WorkAroundId, currentComments)
 {
+
+    //MMRP_x0020_State_x0020_Project_x         Project_x0020_Manager
+    //State_x0020_MMRP_x0020_O_x0026_M0        OM_x0020_Business_x0020_Analyst  
+    //State_x0020_MMRP_x0020_Testing_x         OM_x0020_Testing_x0020_Analyst
+    //State_x0020_MMRP_x0020_O_x0026_M         OM_x0020_Manager
+    //State_x0020_MMRP_x0020_Program_x         OM_x0020_Program_x0020_Director
+
+
     //urlQuery = "?$select=WorkaroundWorkflowStatus,ReasonForRejection,ID,Title,Release_x0020_Number,Workaround_x0020_Trigger,Issue,DefectCRNumber,Workaround_x0020_Number,Created,WorkaroundType,WorkaroundUsage,WorkaroundGoLive,Test_x0020_Case,Impacted_x0020_Audience,Training_x0020_Developer/Title,Workaround_x0020_Steps,IBM_x0020_BA/Title,Testing_x0020_Team/Title,State_x0020_BA_x0020_Lead/Title,MMRP_x0020_State_x0020_Project_x/Title,State_x0020_MMRP_x0020_O_x0026_M0/Title,State_x0020_MMRP_x0020_Testing_x/Title,State_x0020_MMRP_x0020_O_x0026_M/Title,State_x0020_MMRP_x0020_Program_x/Title,Author/Title&$expand=Training_x0020_Developer,IBM_x0020_BA,Testing_x0020_Team,State_x0020_BA_x0020_Lead,MMRP_x0020_State_x0020_Project_x,State_x0020_MMRP_x0020_O_x0026_M0,State_x0020_MMRP_x0020_Testing_x,State_x0020_MMRP_x0020_O_x0026_M,State_x0020_MMRP_x0020_Program_x,Author&$filter=ID eq " + WorkAroundId;
     //let urlQuery = "?$select=finalApproverStatus,finalApproverStatusDate,ProjectManagerStatus,ProjectManagerStatusDate,StateBaLeadStatus,StateBaLeadStatusDate,TestingTeamStatus,TestingTeamStatusDate,IBMBAStatus,IBMBAStatusDate,WorkaroundWorkflowStatus,ReasonForRejection,ID,Title,Release_x0020_Number,Workaround_x0020_Trigger,Issue,DefectCRNumber,Workaround_x0020_Number,Created,WorkaroundType,WorkaroundUsage,WorkaroundGoLive,Test_x0020_Case,Impacted_x0020_Audience,Training_x0020_Developer/Title,Workaround_x0020_Steps,IBM_x0020_BA/Title,Testing_x0020_Team/Title,State_x0020_BA_x0020_Lead/Title,MMRP_x0020_State_x0020_Project_x/Title,State_x0020_MMRP_x0020_O_x0026_M0/Title,State_x0020_MMRP_x0020_Testing_x/Title,State_x0020_MMRP_x0020_O_x0026_M/Title,State_x0020_MMRP_x0020_Program_x/Title,Author/Title,finalApprover/Title&$expand=Training_x0020_Developer,IBM_x0020_BA,Testing_x0020_Team,State_x0020_BA_x0020_Lead,MMRP_x0020_State_x0020_Project_x,State_x0020_MMRP_x0020_O_x0026_M0,State_x0020_MMRP_x0020_Testing_x,State_x0020_MMRP_x0020_O_x0026_M,State_x0020_MMRP_x0020_Program_x,Author,finalApprover&$filter=ID eq " + WorkAroundId;
-    let urlQuery = "?$select=GoLiveComments,Test_x0020_Case_x0020_Pass,Test_x0020_Case_x0020_Fail,Impacted_x0020_Audience,finalApproverStatus,finalApproverStatusDate,O_x0026_MBusinessAnalystStatus,O_x0026_MBAStatusDate,O_x0026_MTestingAnalystStatus,O_x0026_MTAStatusDate,O_x0026_MManagerStatus,O_x0026_MManagerStatusDate,O_x0026_MDirectorStatus,O_x0026_MDirectorStatusDate,ProjectManagerStatus,ProjectManagerStatusDate,StateBaLeadStatus,StateBaLeadStatusDate,TestingTeamStatus,TestingTeamStatusDate,IBMBAStatus,IBMBAStatusDate,WorkaroundWorkflowStatus,ReasonForRejection,ID,Title,Release_x0020_Number,Workaround_x0020_Trigger,Issue,DefectCRNumber,Workaround_x0020_Number,Created,WorkaroundType,WorkaroundUsage,WorkaroundGoLive,Test_x0020_Case,Impacted_x0020_Audience,Training_x0020_Developer/Title,Workaround_x0020_Steps,IBM_x0020_BA/Title,Testing_x0020_Team/Title,State_x0020_BA_x0020_Lead/Title,MMRP_x0020_State_x0020_Project_x/Title,State_x0020_MMRP_x0020_O_x0026_M0/Title,State_x0020_MMRP_x0020_Testing_x/Title,State_x0020_MMRP_x0020_O_x0026_M/Title,State_x0020_MMRP_x0020_Program_x/Title,Author/Title,finalApprover/Title&$expand=Training_x0020_Developer,IBM_x0020_BA,Testing_x0020_Team,State_x0020_BA_x0020_Lead,MMRP_x0020_State_x0020_Project_x,State_x0020_MMRP_x0020_O_x0026_M0,State_x0020_MMRP_x0020_Testing_x,State_x0020_MMRP_x0020_O_x0026_M,State_x0020_MMRP_x0020_Program_x,Author,finalApprover&$filter=ID eq " + WorkAroundId;
+    //let urlQuery = "?$select=GoLiveComments,Test_x0020_Case_x0020_Pass,Test_x0020_Case_x0020_Fail,Impacted_x0020_Audience,finalApproverStatus,finalApproverStatusDate,O_x0026_MBusinessAnalystStatus,O_x0026_MBAStatusDate,O_x0026_MTestingAnalystStatus,O_x0026_MTAStatusDate,O_x0026_MManagerStatus,O_x0026_MManagerStatusDate,O_x0026_MDirectorStatus,O_x0026_MDirectorStatusDate,ProjectManagerStatus,ProjectManagerStatusDate,StateBaLeadStatus,StateBaLeadStatusDate,TestingTeamStatus,TestingTeamStatusDate,IBMBAStatus,IBMBAStatusDate,WorkaroundWorkflowStatus,ReasonForRejection,ID,Title,Release_x0020_Number,Workaround_x0020_Trigger,Issue,DefectCRNumber,Workaround_x0020_Number,Created,WorkaroundType,WorkaroundUsage,WorkaroundGoLive,Test_x0020_Case,Impacted_x0020_Audience,Training_x0020_Developer/Title,Workaround_x0020_Steps,IBM_x0020_BA/Title,Testing_x0020_Team/Title,State_x0020_BA_x0020_Lead/Title,MMRP_x0020_State_x0020_Project_x/Title,State_x0020_MMRP_x0020_O_x0026_M0/Title,State_x0020_MMRP_x0020_Testing_x/Title,State_x0020_MMRP_x0020_O_x0026_M/Title,State_x0020_MMRP_x0020_Program_x/Title,Author/Title,finalApprover/Title&$expand=Training_x0020_Developer,IBM_x0020_BA,Testing_x0020_Team,State_x0020_BA_x0020_Lead,MMRP_x0020_State_x0020_Project_x,State_x0020_MMRP_x0020_O_x0026_M0,State_x0020_MMRP_x0020_Testing_x,State_x0020_MMRP_x0020_O_x0026_M,State_x0020_MMRP_x0020_Program_x,Author,finalApprover&$filter=ID eq " + WorkAroundId;
+    let urlQuery = "?$select=GoLiveComments,Test_x0020_Case_x0020_Pass,Test_x0020_Case_x0020_Fail,Impacted_x0020_Audience,finalApproverStatus,finalApproverStatusDate,OMBusinessAnalystStatus,OMBAStatusDate,OMTestingAnalystStatus,OMTAStatusDate,OMManagerStatus,OMManagerStatusDate,OMDirectorStatus,OMDirectorStatusDate,ProjectManagerStatus,ProjectManagerStatusDate,StateBaLeadStatus,StateBaLeadStatusDate,TestingTeamStatus,TestingTeamStatusDate,IBMBAStatus,IBMBAStatusDate,WorkaroundWorkflowStatus,ReasonForRejection,ID,Title,Release_x0020_Number,Workaround_x0020_Trigger,Issue,DefectCRNumber,Workaround_x0020_Number,Created,WorkaroundType,WorkaroundUsage,WorkaroundGoLive,Test_x0020_Case,Impacted_x0020_Audience,Workaround_x0020_Steps,IBM_x0020_BA/Title,Testing_x0020_Team/Title,State_x0020_BA_x0020_Lead/Title,Project_x0020_Manager/Title,OM_x0020_Business_x0020_Analyst/Title,OM_x0020_Testing_x0020_Analyst/Title,OM_x0020_Manager/Title,OM_x0020_Program_x0020_Director/Title,Author/Title,finalApprover/Title&$expand=IBM_x0020_BA,Testing_x0020_Team,State_x0020_BA_x0020_Lead,Project_x0020_Manager,OM_x0020_Business_x0020_Analyst,OM_x0020_Testing_x0020_Analyst,OM_x0020_Manager,OM_x0020_Program_x0020_Director,Author,finalApprover&$filter=ID eq " + WorkAroundId;
+    //let urlQuery = "?$filter=ID eq " + WorkAroundId;
+    
         
     let results = retrieveSharePointListItemsByListName("Workaround", urlQuery);
 
@@ -55,11 +67,11 @@ function loadindWorkaroundViewMode(WorkAroundId, currentComments)
             jQuery("#ibmba").val(item.IBM_x0020_BA.Title);    
             jQuery("#tester").val(item.Testing_x0020_Team.Title); 
             jQuery("#analyst").val(item.State_x0020_BA_x0020_Lead.Title);
-            jQuery("#manager").val(item.MMRP_x0020_State_x0020_Project_x.Title);
-            jQuery("omBusinessAnalyst").val(item.State_x0020_MMRP_x0020_O_x0026_M0.Title);
+            jQuery("#manager").val(item.Project_x0020_Manager.Title);
+            jQuery("omBusinessAnalyst").val(item.OM_x0020_Business_x0020_Analyst.Title);
             jQuery("#submitter").text("Created at " + moment(item.Created).format('MM/DD/YYYY h:mm:ss a') + " by " + item.Author.Title);
 
-            if ( item.WorkaroundType === "O&M")            
+            if ( item.WorkaroundType === "OM")            
             {
                 document.getElementById("OMRelatedWorkAroundApproversDiv").style.display = "flex";
                 document.getElementById("stateBusinessAnalystPeoplePickerDiv").style.display = "flex";
@@ -67,10 +79,10 @@ function loadindWorkaroundViewMode(WorkAroundId, currentComments)
                 document.getElementById("stateManagerPeoplePickerDiv").style.display = "flex";
                 document.getElementById("programDirectorPeoplePickerDiv").style.display = "flex";
 
-                jQuery("#omBusinessAnalyst").val(item.State_x0020_MMRP_x0020_O_x0026_M0.Title);                    
-                jQuery("#omTestingAnalyst").val(item.State_x0020_MMRP_x0020_Testing_x.Title);                    
-                jQuery("#omManager").val(item.State_x0020_MMRP_x0020_O_x0026_M.Title);
-                jQuery("#omDirector").val(item.State_x0020_MMRP_x0020_Program_x.Title);
+                jQuery("#omBusinessAnalyst").val(item.OM_x0020_Business_x0020_Analyst.Title);                    
+                jQuery("#omTestingAnalyst").val(item.OM_x0020_Testing_x0020_Analyst.Title);                    
+                jQuery("#omManager").val(item.OM_x0020_Manager.Title);
+                jQuery("#omDirector").val(item.OM_x0020_Program_x0020_Director.Title);
 
                 $("#typeWorkaround option").each(function (a, b) {
                     if ($(this).val() == 3 ) $(this).attr("selected", "selected");
@@ -167,19 +179,19 @@ function loadindWorkaroundViewMode(WorkAroundId, currentComments)
 
                 jQuery("#finalAprover").val(item.finalApprover.Title);
 
-                if ( item.WorkaroundType === "O&M" )
+                if ( item.WorkaroundType === "OM" )
                 {
-                    jQuery("#omBAStatus").text(item.O_x0026_MBusinessAnalystStatus);
-                    jQuery("#omBAStatusDate").text(moment(item.O_x0026_MBAStatusDate).format('MM/DD/YYYY h:mm:ss a'));   
+                    jQuery("#omBAStatus").text(item.OMBusinessAnalystStatus);
+                    jQuery("#omBAStatusDate").text(moment(item.OMBAStatusDate).format('MM/DD/YYYY h:mm:ss a'));   
 
-                    jQuery("#omTAStatus").text(item.O_x0026_MTestingAnalystStatus);
-                    jQuery("#omTAStatusDate").text(moment(item.O_x0026_MTAStatusDate).format('MM/DD/YYYY h:mm:ss a'));   
+                    jQuery("#omTAStatus").text(item.OMTestingAnalystStatus);
+                    jQuery("#omTAStatusDate").text(moment(item.OMTAStatusDate).format('MM/DD/YYYY h:mm:ss a'));   
 
-                    jQuery("#omManagerStatus").text(item.O_x0026_MManagerStatus);
-                    jQuery("#omManagerStatusDate").text(moment(item.O_x0026_MManagerStatusDate).format('MM/DD/YYYY h:mm:ss a'));   
+                    jQuery("#omManagerStatus").text(item.OMManagerStatus);
+                    jQuery("#omManagerStatusDate").text(moment(item.OMManagerStatusDate).format('MM/DD/YYYY h:mm:ss a'));   
 
-                    jQuery("#omDirectorStatus").text(item.O_x0026_MDirectorStatus);
-                    jQuery("#omDirectorStatusDate").text(moment(item.O_x0026_MDirectorStatusDate).format('MM/DD/YYYY h:mm:ss a'));   
+                    jQuery("#omDirectorStatus").text(item.OMDirectorStatus);
+                    jQuery("#omDirectorStatusDate").text(moment(item.OMDirectorStatusDate).format('MM/DD/YYYY h:mm:ss a'));   
                 }
             }
             else {
@@ -253,7 +265,9 @@ function loadindWorkaroundEditMode(WorkAroundId)
 {
     //urlQuery = "?$select=WorkaroundWorkflowStatus,ReasonForRejection,ID,Title,Release_x0020_Number,Workaround_x0020_Trigger,Issue,DefectCRNumber,Workaround_x0020_Number,Created,WorkaroundType,WorkaroundUsage,WorkaroundGoLive,Test_x0020_Case,Impacted_x0020_Audience,Training_x0020_Developer/Title,Workaround_x0020_Steps,IBM_x0020_BA/Title,Testing_x0020_Team/Title,State_x0020_BA_x0020_Lead/Title,MMRP_x0020_State_x0020_Project_x/Title,State_x0020_MMRP_x0020_O_x0026_M0/Title,State_x0020_MMRP_x0020_Testing_x/Title,State_x0020_MMRP_x0020_O_x0026_M/Title,State_x0020_MMRP_x0020_Program_x/Title,Author/Title&$expand=Training_x0020_Developer,IBM_x0020_BA,Testing_x0020_Team,State_x0020_BA_x0020_Lead,MMRP_x0020_State_x0020_Project_x,State_x0020_MMRP_x0020_O_x0026_M0,State_x0020_MMRP_x0020_Testing_x,State_x0020_MMRP_x0020_O_x0026_M,State_x0020_MMRP_x0020_Program_x,Author&$filter=ID eq " + WorkAroundId;
     //urlQuery = "?$select=finalApproverStatus,finalApproverStatusDate,ProjectManagerStatus,ProjectManagerStatusDate,StateBaLeadStatus,StateBaLeadStatusDate,TestingTeamStatus,TestingTeamStatusDate,IBMBAStatus,IBMBAStatusDate,WorkaroundWorkflowStatus,ReasonForRejection,ID,Title,Release_x0020_Number,Workaround_x0020_Trigger,Issue,DefectCRNumber,Workaround_x0020_Number,Created,WorkaroundType,WorkaroundUsage,WorkaroundGoLive,Test_x0020_Case,Impacted_x0020_Audience,Training_x0020_Developer/Title,Workaround_x0020_Steps,IBM_x0020_BA/Title,Testing_x0020_Team/Title,State_x0020_BA_x0020_Lead/Title,MMRP_x0020_State_x0020_Project_x/Title,State_x0020_MMRP_x0020_O_x0026_M0/Title,State_x0020_MMRP_x0020_Testing_x/Title,State_x0020_MMRP_x0020_O_x0026_M/Title,State_x0020_MMRP_x0020_Program_x/Title,Author/Title,finalApprover/Title&$expand=Training_x0020_Developer,IBM_x0020_BA,Testing_x0020_Team,State_x0020_BA_x0020_Lead,MMRP_x0020_State_x0020_Project_x,State_x0020_MMRP_x0020_O_x0026_M0,State_x0020_MMRP_x0020_Testing_x,State_x0020_MMRP_x0020_O_x0026_M,State_x0020_MMRP_x0020_Program_x,Author,finalApprover&$filter=ID eq " + WorkAroundId;
-    let urlQuery =  "?$select=GoLiveComments,O_x0026_MDirectorStatus,O_x0026_MManagerStatus,O_x0026_MTestingAnalystStatus,O_x0026_MBusinessAnalystStatus,Test_x0020_Case_x0020_Pass,Test_x0020_Case_x0020_Fail,IBMBAStatus,TestingTeamStatus,StateBaLeadStatus,ProjectManagerStatus,ReasonForRejection,Comments,ID,Title,Release_x0020_Number,Workaround_x0020_Trigger,Issue,DefectCRNumber,Workaround_x0020_Number,Created,WorkaroundType,WorkaroundUsage,WorkaroundGoLive,Test_x0020_Case,Impacted_x0020_Audience,Training_x0020_Developer/Title,Workaround_x0020_Steps,IBMBAStatus,IBM_x0020_BA/EMail,TestingTeamStatus,Testing_x0020_Team/EMail,StateBaLeadStatus,State_x0020_BA_x0020_Lead/EMail,ProjectManagerStatus,MMRP_x0020_State_x0020_Project_x/EMail,State_x0020_MMRP_x0020_O_x0026_M0/EMail,State_x0020_MMRP_x0020_Testing_x/EMail,State_x0020_MMRP_x0020_O_x0026_M/EMail,State_x0020_MMRP_x0020_Program_x/EMail,Author/Title&$expand=Training_x0020_Developer,IBM_x0020_BA/Id,Testing_x0020_Team/Id,State_x0020_BA_x0020_Lead/Id,MMRP_x0020_State_x0020_Project_x/Id,State_x0020_MMRP_x0020_O_x0026_M0/Id,State_x0020_MMRP_x0020_Testing_x/Id,State_x0020_MMRP_x0020_O_x0026_M/Id,State_x0020_MMRP_x0020_Program_x/Id,Author&$filter=ID eq " + WorkAroundId;        
+    //let urlQuery =  "?$select=GoLiveComments,O_x0026_MDirectorStatus,O_x0026_MManagerStatus,O_x0026_MTestingAnalystStatus,O_x0026_MBusinessAnalystStatus,Test_x0020_Case_x0020_Pass,Test_x0020_Case_x0020_Fail,IBMBAStatus,TestingTeamStatus,StateBaLeadStatus,ProjectManagerStatus,ReasonForRejection,Comments,ID,Title,Release_x0020_Number,Workaround_x0020_Trigger,Issue,DefectCRNumber,Workaround_x0020_Number,Created,WorkaroundType,WorkaroundUsage,WorkaroundGoLive,Test_x0020_Case,Impacted_x0020_Audience,Training_x0020_Developer/Title,Workaround_x0020_Steps,IBMBAStatus,IBM_x0020_BA/EMail,TestingTeamStatus,Testing_x0020_Team/EMail,StateBaLeadStatus,State_x0020_BA_x0020_Lead/EMail,ProjectManagerStatus,MMRP_x0020_State_x0020_Project_x/EMail,State_x0020_MMRP_x0020_O_x0026_M0/EMail,State_x0020_MMRP_x0020_Testing_x/EMail,State_x0020_MMRP_x0020_O_x0026_M/EMail,State_x0020_MMRP_x0020_Program_x/EMail,Author/Title&$expand=Training_x0020_Developer,IBM_x0020_BA/Id,Testing_x0020_Team/Id,State_x0020_BA_x0020_Lead/Id,MMRP_x0020_State_x0020_Project_x/Id,State_x0020_MMRP_x0020_O_x0026_M0/Id,State_x0020_MMRP_x0020_Testing_x/Id,State_x0020_MMRP_x0020_O_x0026_M/Id,State_x0020_MMRP_x0020_Program_x/Id,Author&$filter=ID eq " + WorkAroundId;
+    let urlQuery =  "?$select=GoLiveComments,OMDirectorStatus,OMManagerStatus,OMTestingAnalystStatus,OMBusinessAnalystStatus,Test_x0020_Case_x0020_Pass,Test_x0020_Case_x0020_Fail,IBMBAStatus,TestingTeamStatus,StateBaLeadStatus,ProjectManagerStatus,ReasonForRejection,Comments,ID,Title,Release_x0020_Number,Workaround_x0020_Trigger,Issue,DefectCRNumber,Workaround_x0020_Number,Created,WorkaroundType,WorkaroundUsage,WorkaroundGoLive,Test_x0020_Case,Impacted_x0020_Audience,Workaround_x0020_Steps,IBMBAStatus,IBM_x0020_BA/EMail,TestingTeamStatus,Testing_x0020_Team/EMail,StateBaLeadStatus,State_x0020_BA_x0020_Lead/EMail,ProjectManagerStatus,Project_x0020_Manager/EMail,OM_x0020_Business_x0020_Analyst/EMail,OM_x0020_Testing_x0020_Analyst/EMail,OM_x0020_Manager/EMail,OM_x0020_Program_x0020_Director/EMail,Author/Title&$expand=IBM_x0020_BA/Id,Testing_x0020_Team/Id,State_x0020_BA_x0020_Lead/Id,Project_x0020_Manager/Id,OM_x0020_Business_x0020_Analyst/Id,OM_x0020_Testing_x0020_Analyst/Id,OM_x0020_Manager/Id,OM_x0020_Program_x0020_Director/Id,Author&$filter=ID eq " + WorkAroundId;
+    //let urlQuery =  "?$filter=ID eq " + WorkAroundId;        
         
     let results = retrieveSharePointListItemsByListName("Workaround", urlQuery);
 
@@ -279,9 +293,9 @@ function loadindWorkaroundEditMode(WorkAroundId)
             setPeoplePickerField(SPClientPeoplePicker.SPClientPeoplePickerDict.peoplePickerDiv_TopSpan, item.IBM_x0020_BA.EMail);
             setPeoplePickerField(SPClientPeoplePicker.SPClientPeoplePickerDict.testersPeoplePickerDiv_TopSpan, item.Testing_x0020_Team.EMail);    
             setPeoplePickerField(SPClientPeoplePicker.SPClientPeoplePickerDict.BALeadPeoplePickerDiv_TopSpan, item.State_x0020_BA_x0020_Lead.EMail);
-            setPeoplePickerField(SPClientPeoplePicker.SPClientPeoplePickerDict.projectManagerPeoplePickerDiv_TopSpan, item.MMRP_x0020_State_x0020_Project_x.EMail); 
+            setPeoplePickerField(SPClientPeoplePicker.SPClientPeoplePickerDict.projectManagerPeoplePickerDiv_TopSpan, item.Project_x0020_Manager.EMail); 
 
-            if ( item.WorkaroundType === "O&M")
+            if ( item.WorkaroundType === "OM")
             {
                 document.getElementById("OMRelatedWorkAroundApproversDiv").style.display = "flex";
                 document.getElementById("stateBusinessAnalystPeoplePickerDiv").style.display = "flex";
@@ -289,10 +303,10 @@ function loadindWorkaroundEditMode(WorkAroundId)
                 document.getElementById("stateManagerPeoplePickerDiv").style.display = "flex";
                 document.getElementById("programDirectorPeoplePickerDiv").style.display = "flex";
                 
-                setPeoplePickerField(SPClientPeoplePicker.SPClientPeoplePickerDict.businesAnalystPeoplePickerDiv_TopSpan, item.State_x0020_MMRP_x0020_O_x0026_M0.EMail);   
-                setPeoplePickerField(SPClientPeoplePicker.SPClientPeoplePickerDict.analystPeoplePickerDiv_TopSpan, item.State_x0020_MMRP_x0020_Testing_x.EMail);   
-                setPeoplePickerField(SPClientPeoplePicker.SPClientPeoplePickerDict.managerPeoplePickerDiv_TopSpan, item.State_x0020_MMRP_x0020_O_x0026_M.EMail);   
-                setPeoplePickerField(SPClientPeoplePicker.SPClientPeoplePickerDict.directorPeoplePickerDiv_TopSpan, item.State_x0020_MMRP_x0020_Program_x.EMail);
+                setPeoplePickerField(SPClientPeoplePicker.SPClientPeoplePickerDict.businesAnalystPeoplePickerDiv_TopSpan, item.OM_x0020_Business_x0020_Analyst.EMail);   
+                setPeoplePickerField(SPClientPeoplePicker.SPClientPeoplePickerDict.analystPeoplePickerDiv_TopSpan, item.OM_x0020_Testing_x0020_Analyst.EMail);   
+                setPeoplePickerField(SPClientPeoplePicker.SPClientPeoplePickerDict.managerPeoplePickerDiv_TopSpan, item.OM_x0020_Manager.EMail);   
+                setPeoplePickerField(SPClientPeoplePicker.SPClientPeoplePickerDict.directorPeoplePickerDiv_TopSpan, item.OM_x0020_Program_x0020_Director.EMail);
 
                 $("#typeWorkaround option").each(function (a, b) {
                     if ($(this).val() == 3 ) $(this).attr("selected", "selected");

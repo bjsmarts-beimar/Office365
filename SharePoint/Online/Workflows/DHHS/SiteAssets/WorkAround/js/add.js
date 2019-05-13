@@ -293,14 +293,14 @@ function CreateOMWorkAroundRecord()
     let explanationText = jQuery('#explanationText').val();
     let defectCR = jQuery('#defectCR').val();
     let WorkaroundNumber = document.getElementById('WorkaroundNumber').innerText;
-    let goLive = getSelectedTextFromField("golive");
-    let typeWorkaround = getSelectedTextFromField("typeWorkaround");    
+    let typeWorkaround = getSelectedTextFromField("typeWorkaround").replace("&", "");
+    let goLive = getSelectedTextFromField("golive");       
     let testCase = getSelectedTextFromField("testCase");
     let timeUsage = getSelectedTextFromField("timeUsage");
     let testcaseOption = jQuery('input[name=testcaseGroup]:checked').val();
     let testcasePass = testcaseOption == 1? "Yes": "No";
-    let testcaseFail = testcaseOption == 2? "Yes": "No";
-    
+    let testcaseFail = testcaseOption == 2? "Yes": "No";    
+             
     var account = getAccountId(SPClientPeoplePicker.SPClientPeoplePickerDict.peoplePickerDiv_TopSpan);
     account.done(function (data) {
         
@@ -314,12 +314,12 @@ function CreateOMWorkAroundRecord()
                 var analystLead = getAccountId(SPClientPeoplePicker.SPClientPeoplePickerDict.BALeadPeoplePickerDiv_TopSpan);
                 analystLead.done(function(data) {
 
-                    let analystPeoplePickerId = data;
+                    let analystLeadPeoplePickerId = data;
 
                     var projectManager = getAccountId(SPClientPeoplePicker.SPClientPeoplePickerDict.projectManagerPeoplePickerDiv_TopSpan);
                     projectManager.done(function(data) {
 
-                        let managerPeoplePickerId = data;
+                        let projectManagerPeoplePickerId = data;
 
                         var director = getAccountId(SPClientPeoplePicker.SPClientPeoplePickerDict.directorPeoplePickerDiv_TopSpan);
                         director.done(function(data) {
@@ -358,12 +358,12 @@ function CreateOMWorkAroundRecord()
                                             "WorkaroundUsage": timeUsage,
                                             "IBM_x0020_BAId": IBMBAPeoplePickerId,
                                             "Testing_x0020_TeamId": testerPeoplePickerId,
-                                            "State_x0020_BA_x0020_LeadId": analystPeoplePickerId,
-                                            "MMRP_x0020_State_x0020_Project_xId": managerPeoplePickerId,
-                                            "State_x0020_MMRP_x0020_Program_xId": directorPeoplePickerId,
-                                            "State_x0020_MMRP_x0020_Testing_xId": analystPeoplePickerId,
-                                            "State_x0020_MMRP_x0020_O_x0026_MId": managerPeoplePickerId,
-                                            "State_x0020_MMRP_x0020_O_x0026_M0Id": businesAnalystPeoplePickerId,
+                                            "State_x0020_BA_x0020_LeadId": analystLeadPeoplePickerId,                                             
+                                            "Project_x0020_ManagerId": projectManagerPeoplePickerId,
+                                            "OM_x0020_Business_x0020_AnalystId": businesAnalystPeoplePickerId,
+                                            "OM_x0020_Testing_x0020_AnalystId": analystPeoplePickerId,
+                                            "OM_x0020_ManagerId": directorPeoplePickerId,                                            
+                                            "OM_x0020_Program_x0020_DirectorId": managerPeoplePickerId,                                                                                        
                                             "Impacted_x0020_Audience": {"results": iaIds},
                                             "GoLiveComments": explanationText,
                                             "Test_x0020_Case_x0020_Pass": testcasePass,
@@ -469,7 +469,8 @@ function CreateOMWorkAroundRecord()
                                                 
                                                 let EmailTitle = email.EmailSubject.replace('{Title}', data.d.Title);
                                                 
-                                                let EmailBody1 = stripHtml(email.EmailBody);
+                                                //let EmailBody1 = stripHtml(email.EmailBody);
+                                                let EmailBody1 = email.EmailBody;
                                                 EmailBody1 = EmailBody1.replace('{Title}', data.d.Title).replace('{ID}', data.d.ID).replace('{TypeID}', '1');
 
                                                 let EmailBody2 = stripHtml(email.EmailBody);
@@ -551,28 +552,28 @@ function CreateOMWorkAroundRecord()
                                                 let metadata = {
                                                                     "__metadata": { "type": itemType },
                                                                     "InitialNotificationEmailTitle": EmailTitle,
-                                                                    "BAInitialNotificationEmailBody": "Business Analyst \n" + EmailBody1.trim(),                                                    
-                                                                    "TAInitialNotificationEmailBody": "Testing Analyst \n" + EmailBody2.trim(),                                                    
-                                                                    "LAInitialNotificationEmailBody": "Lead Analyst \n" + EmailBody3.trim(),                                                    
-                                                                    "PMInitialNotificationEmailBody": "Project Manager \n" + EmailBody4.trim(),
-                                                                    "OMBAInitialNotificationEmailBody": "O&M Business Analyst \n" + EmailBody6.trim(),
-                                                                    "OMTAInitialNotificationEmailBody": "O&M Testing Analyst \n" + EmailBody7.trim(),
-                                                                    "OMManagerInitialNotificationEmai": "O&M Manager \n" + EmailBody8.trim(),
-                                                                    "OMDirectorInitialNotificationEma": "O&M Director \n" + EmailBody9.trim(),
+                                                                    "BAInitialNotificationEmailBody": EmailBody1.trim(),                                                    
+                                                                    "TAInitialNotificationEmailBody": EmailBody2.trim(),                                                    
+                                                                    "LAInitialNotificationEmailBody": EmailBody3.trim(),                                                    
+                                                                    "PMInitialNotificationEmailBody": EmailBody4.trim(),
+                                                                    "OMBAInitialNotificationEmailBody": EmailBody6.trim(),
+                                                                    "OMTAInitialNotificationEmailBody": EmailBody7.trim(),
+                                                                    "OMManagerInitialNotificationEmai": EmailBody8.trim(),
+                                                                    "OMDirectorInitialNotificationEma": EmailBody9.trim(),
                                                                     "InitiatorInitialApprovedEmailTit": initialApprovedEmailTitle,
-                                                                    "InitiatorInitialApprovedEmailBod": "Initiator \n" + initialApprovedEmailBody.trim(),
+                                                                    "InitiatorInitialApprovedEmailBod": initialApprovedEmailBody.trim(),
                                                                     "InitiatorPendingFinalEmailTitle": pendingFinalApprovalTitle,
-                                                                    "InitiatorPendingFinalEmailBody": "Final Approver \n" + pendingFinalApprovalBody.trim(),
+                                                                    "InitiatorPendingFinalEmailBody": pendingFinalApprovalBody.trim(),
                                                                     "InitiatorFinalApprovedEmailTitle": finalApprovedEmailTitle,
                                                                     "InitiatorFinalApprovalEmailBody": finalApprovedEmailBody.trim(),
                                                                     "InitiatorInitialRejectedEmailTit": rejectedEmailTitle,
-                                                                    "InitiatorInitialRejectedEmailBod": "Initiator \n" + rejectedEmailBody.trim(),
+                                                                    "InitiatorInitialRejectedEmailBod": rejectedEmailBody.trim(),
                                                                     "InitialOMApprovalEmailTitle": initialOMApprovedEmailTitle,
-                                                                    "InitialOMApprovalEmailBody": "Initiator \n" + initialOMApprovedEmailBody,
+                                                                    "InitialOMApprovalEmailBody": initialOMApprovedEmailBody,
                                                                     "AllInitialRejectedEmailTitle": AllInitialRejectedEmailTitle,
-                                                                    "AllInitialRejectedEmailBody": "Initiator \n" + AllInitialRejectedEmailBody.trim(),
+                                                                    "AllInitialRejectedEmailBody": AllInitialRejectedEmailBody.trim(),
                                                                     "trainingTeamEmailTitle": trainingTeamEmailTitle,
-                                                                    "trainingTeamEmailBody": "Training Team \n" + trainingTeamEmailBody.trim(),
+                                                                    "trainingTeamEmailBody": trainingTeamEmailBody.trim(),
                                                                     "RetiredEmailApprovalTitle": retiredApprovalEmailTitle,
                                                                     "RetiredEmailApprovalBody": retiredApprovalEmailBody.trim(),
                                                                     "RetiredInitialEmailTitle": retiredInitialEmailTitle,
@@ -673,7 +674,7 @@ function CreateWorkAroundRecord()
     let defectCR = jQuery('#defectCR').val();
     let WorkaroundNumber = document.getElementById('WorkaroundNumber').innerText;
     let goLive = getSelectedTextFromField("golive");
-    let typeWorkaround = getSelectedTextFromField("typeWorkaround");    
+    let typeWorkaround = getSelectedTextFromField("typeWorkaround").replace("&", "");    
     let testCase = getSelectedTextFromField("testCase");
     let timeUsage = getSelectedTextFromField("timeUsage");
     let testcaseOption = jQuery('input[name=testcaseGroup]:checked').val();
@@ -717,8 +718,8 @@ function CreateWorkAroundRecord()
                             "WorkaroundUsage": timeUsage,
                             "IBM_x0020_BAId": IBMBAPeoplePickerId,
                             "Testing_x0020_TeamId": testerPeoplePickerId,
-                            "State_x0020_BA_x0020_LeadId": analystPeoplePickerId,
-                            "MMRP_x0020_State_x0020_Project_xId": managerPeoplePickerId,
+                            "State_x0020_BA_x0020_LeadId": analystPeoplePickerId,                                             
+                            "Project_x0020_ManagerId": managerPeoplePickerId,
                             "Impacted_x0020_Audience": {"results": iaIds},
                             "GoLiveComments": explanationText,
                             "Test_x0020_Case_x0020_Pass": testcasePass,
@@ -824,7 +825,8 @@ function CreateWorkAroundRecord()
                                 
                                 let EmailTitle = email.EmailSubject.replace('{Title}', data.d.Title);
                                 
-                                let EmailBody1 = stripHtml(email.EmailBody);
+                                let EmailBody1 = stripHtml(email.EmailBody);                                
+                                
                                 EmailBody1 = EmailBody1.replace('{Title}', data.d.Title).replace('{ID}', data.d.ID).replace('{TypeID}', '1');
 
                                 let EmailBody2 = stripHtml(email.EmailBody);
@@ -906,28 +908,28 @@ function CreateWorkAroundRecord()
                                 let metadata = {
                                                     "__metadata": { "type": itemType },
                                                     "InitialNotificationEmailTitle": EmailTitle,
-                                                    "BAInitialNotificationEmailBody": "Business Analyst \n" + EmailBody1.trim(),                                                    
-                                                    "TAInitialNotificationEmailBody": "Testing Analyst \n" + EmailBody2.trim(),                                                    
-                                                    "LAInitialNotificationEmailBody": "Lead Analyst \n" + EmailBody3.trim(),                                                    
-                                                    "PMInitialNotificationEmailBody": "Project Manager \n" + EmailBody4.trim(),
-                                                    "OMBAInitialNotificationEmailBody": "O&M Business Analyst \n" + EmailBody6.trim(),
-                                                    "OMTAInitialNotificationEmailBody": "O&M Testing Analyst \n" + EmailBody7.trim(),
-                                                    "OMManagerInitialNotificationEmai": "O&M Manager \n" + EmailBody8.trim(),
-                                                    "OMDirectorInitialNotificationEma": "O&M Director \n" + EmailBody9.trim(),
+                                                    "BAInitialNotificationEmailBody": EmailBody1.trim(),                                                    
+                                                    "TAInitialNotificationEmailBody": EmailBody2.trim(),                                                    
+                                                    "LAInitialNotificationEmailBody": EmailBody3.trim(),                                                    
+                                                    "PMInitialNotificationEmailBody": EmailBody4.trim(),
+                                                    "OMBAInitialNotificationEmailBody": EmailBody6.trim(),
+                                                    "OMTAInitialNotificationEmailBody": EmailBody7.trim(),
+                                                    "OMManagerInitialNotificationEmai": EmailBody8.trim(),
+                                                    "OMDirectorInitialNotificationEma": EmailBody9.trim(),
                                                     "InitiatorInitialApprovedEmailTit": initialApprovedEmailTitle,
-                                                    "InitiatorInitialApprovedEmailBod": "Initiator \n" + initialApprovedEmailBody.trim(),
+                                                    "InitiatorInitialApprovedEmailBod": initialApprovedEmailBody.trim(),
                                                     "InitiatorPendingFinalEmailTitle": pendingFinalApprovalTitle,
-                                                    "InitiatorPendingFinalEmailBody": "Final Approver \n" + pendingFinalApprovalBody.trim(),
+                                                    "InitiatorPendingFinalEmailBody": pendingFinalApprovalBody.trim(),
                                                     "InitiatorFinalApprovedEmailTitle": finalApprovedEmailTitle,
-                                                    "InitiatorFinalApprovalEmailBody": "Initiator \n" + finalApprovedEmailBody.trim(),
+                                                    "InitiatorFinalApprovalEmailBody": finalApprovedEmailBody.trim(),
                                                     "InitiatorInitialRejectedEmailTit": rejectedEmailTitle,
-                                                    "InitiatorInitialRejectedEmailBod": "Initiator \n" + rejectedEmailBody.trim(),
+                                                    "InitiatorInitialRejectedEmailBod": rejectedEmailBody.trim(),
                                                     "InitialOMApprovalEmailTitle": initialOMApprovedEmailTitle,
-                                                    "InitialOMApprovalEmailBody": "Initiator \n" + initialOMApprovedEmailBody,
+                                                    "InitialOMApprovalEmailBody": initialOMApprovedEmailBody,
                                                     "AllInitialRejectedEmailTitle": AllInitialRejectedEmailTitle,
                                                     "AllInitialRejectedEmailBody": AllInitialRejectedEmailBody.trim(),
                                                     "trainingTeamEmailTitle": trainingTeamEmailTitle,
-                                                    "trainingTeamEmailBody": "Training Team \n" + trainingTeamEmailBody.trim(),
+                                                    "trainingTeamEmailBody": trainingTeamEmailBody.trim(),
                                                     "RetiredEmailApprovalTitle": retiredApprovalEmailTitle,
                                                     "RetiredEmailApprovalBody": retiredApprovalEmailBody.trim(),
                                                     "RetiredInitialEmailTitle": retiredInitialEmailTitle,
@@ -1012,7 +1014,7 @@ function addAttachment(fileInputName, fileInputErrorName, arrayBucket, divBucket
     {
         jQuery("#" + fileInputErrorName).hide();
 
-        var serverRelativeUrlToFolder = '/sites/SBH/wp/data/Attachments/';
+        var serverRelativeUrlToFolder = '/sites/tpc/data/Attachments/';
         var serverUrl = _spPageContextInfo.webAbsoluteUrl;
         
         // Initiate method calls using jQuery promises.

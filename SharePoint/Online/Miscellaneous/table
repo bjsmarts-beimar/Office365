@@ -1,0 +1,64 @@
+​<h1> 
+   <strong>Title &gt;&#160;Sub Title</strong><br/></h1>
+<br/>
+<table cellspacing="0" width="100%" class="ms-rteTable-4">
+   <tbody>
+      <tr class="ms-rteTableEvenRow-4">
+         <td class="ms-rteTableEvenCol-4" style="width: 25%; text-align: center;"> 
+            <span class="ms-rteFontSize-4">
+               <span class="ms-rteThemeForeColor-5-4 ms-rteFontSize-4" style="text-decoration: none solid #005594;">
+                  <strong>​Input​​​​</strong></span><br/></span></td>
+         <td class="ms-rteTableOddCol-4" style="width: 25%; text-align: center;"> 
+            <span class="ms-rteFontSize-4">
+               <span class="ms-rteThemeForeColor-5-4 ms-rteFontSize-4" style="text-decoration: none solid #005594;">
+                  <strong>​Activity​​</strong></span><br/></span></td>
+         <td class="ms-rteTableEvenCol-4" style="width: 25%; text-align: center;"> 
+            <span class="ms-rteFontSize-4">
+               <span class="ms-rteThemeForeColor-5-4 ms-rteFontSize-4" style="text-decoration: none solid #005594;">
+                  <strong style="text-decoration: none solid #005594;">​Output</strong></span><br/></span></td>
+         <td class="ms-rteTableOddCol-4" style="width: 25%;"> 
+            <div style="text-align: center;"> 
+               <span class="ms-rteFontSize-4">​​<strong class="ms-rteThemeForeColor-5-4 ms-rteFontSize-4" style="text-decoration: none solid #005594;">Responsibility</strong></span></div> 
+            <br/> 
+         </td>
+      </tr>
+      <tr class="ms-rteTableOddRow-4">
+         <td class="ms-rteTableEvenCol-4" rowspan="1" style="width: 25%; text-align: center;"> 
+            <strong>​Approved Project Scope/Intake/CDML/PPM</strong><br/></td>
+         <td class="ms-rteTableOddCol-4" rowspan="1" style="width: 25%; text-align: center;"> 
+            <strong>Complete High-Level test estimation&#160;​</strong></td>
+         <td class="ms-rteTableEvenCol-4" rowspan="1" style="width: 25%;"> 
+            <div style="text-align: center;"> 
+               <strong>High Level Test Estimation​​​</strong></div> 
+            <div style="text-align: center;"> 
+               <strong><br/></strong></div> 
+            <div style="text-align: center;"> 
+               <strong><a href="/:x:/r/sites/tcoe/Shared%20Documents/PMO_TCOE_Test%20Estimation_TEMPLATE_v2.1-Instructions.xlsx?d=w5a971d74c7db4f50b882bbeb71fc3cef&amp;csf=1">Test Estimate Template</a><br/></strong></div> 
+            <br/> 
+         </td>
+         <td class="ms-rteTableOddCol-4" rowspan="1" style="width: 25%;">
+            <table cellspacing="0" width="100%" class="ms-rteTable-default">
+               <tbody>
+                  <tr class="ms-rteTableEvenRow-default">
+                     <td class="ms-rteTableEvenCol-default" rowspan="1" colspan="1" style="width: 33.3333%; background-color: lightblue;"> 
+                        <strong>​Created By</strong><br/></td>
+                     <td class="ms-rteTableOddCol-default" rowspan="1" colspan="1" style="width: 33.3333%; background-color: lightblue;"> 
+                        <strong>Reviewers​</strong></td>
+                     <td class="ms-rteTableEvenCol-default" rowspan="1" colspan="1" style="width: 33.3333%; background-color: lightblue;"> 
+                        <strong>Approvers​</strong></td>
+                  </tr>
+                  <tr class="ms-rteTableOddRow-default">
+                     <td class="ms-rteTableEvenCol-default"> 
+                        <strong>TCOE Lead/QA Team​</strong><br/></td>
+                     <td class="ms-rteTableOddCol-default"> 
+                        <strong>Project Manager, PMO Director , IV &amp; V​</strong></td>
+                     <td class="ms-rteTableEvenCol-default"> 
+                        <strong>Project Manager, IV&amp;V​​</strong></td>
+                  </tr>
+               </tbody>
+            </table>​</td>
+      </tr>
+   </tbody>
+</table>
+<br/>
+<br/>​<br/>​<br/>​<br/>​<br/>

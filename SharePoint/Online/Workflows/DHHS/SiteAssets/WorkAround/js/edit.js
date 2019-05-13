@@ -71,7 +71,7 @@ jQuery(document).ready(function () {
                 jQuery("omBusinessAnalyst").val(item.State_x0020_MMRP_x0020_O_x0026_M0.Title);
                 jQuery("#submitter").text("Created at " + moment(item.Created).format('MM/DD/YYYY h:mm:ss a') + " by " + item.Author.Title);
 
-                if ( item.WorkaroundType === "O&M")
+                if ( item.WorkaroundType === "OM")
                 {
                     WorkAroudTypeId = 3;
                 }                

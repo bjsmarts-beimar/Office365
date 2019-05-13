@@ -1,0 +1,18 @@
+
+Links
+https://social.technet.microsoft.com/Forums/en-US/a9fb3163-109c-4309-96d2-4f2f19e6824a/sharepoint-and-jquery8211getting-amp-setting-sharepoint-form-fields?forum=sharepointgeneralprevious
+
+
+
+<script src="https://schhs.sharepoint.com/sites/infowise/SiteAssets/jQuery/jquery-1.9.1.min.js" type="text/javascript"></script>
+<script>
+    $(document).ready(function () {
+
+	$("select[title='Colors']").change(function () {
+
+		var elem = $("select[title='Colors']");
+		$("textarea[title='Description']").val(elem[0].value);
+		
+	});		
+    });
+</script>

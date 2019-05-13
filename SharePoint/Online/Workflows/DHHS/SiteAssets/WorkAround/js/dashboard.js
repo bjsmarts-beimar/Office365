@@ -11,6 +11,12 @@ jQuery(document).ready(function () {
 
     getDataFromlocalStorage();
 
+    //loadChartData();
+    
+});
+
+function loadChartData() {
+
     let ddi1, ddi2, ddi3, ddi4, ddi5, ddi6;
 
     let urlQuery = "?$filter=(WorkaroundType eq 'DDI Pre-Implementation') and (WorkaroundWorkflowStatus ne 'Completed')";
@@ -81,8 +87,7 @@ jQuery(document).ready(function () {
     results.fail(function(err) {
         alert(err.responseText);
     });
-    
-});
+}
 
 function drawChart(dataset) {    
 

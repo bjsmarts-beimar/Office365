@@ -437,8 +437,8 @@ function validatingStatusUserSecurity(workaroundStatus, workaroundUserId, workar
 {
     let onError = false;
 
-    if ( workaroundType === "O&M" ) {
-        if ( workaroundStatus !== "O&M Initial Approval (Approved)" )
+    if ( workaroundType === "OM" ) {
+        if ( workaroundStatus !== "OM Initial Approval (Approved)" )
         {
             jQuery("#error-status").show();
             onError = true;

@@ -33,9 +33,9 @@
 <asp:ContentPlaceHolder ID="PlaceHolderAdditionalPageHead" runat="server" />
 <SharePoint:DelegateControl runat="server" ControlId="AdditionalPageHead" AllowMultipleControls="true" />
 <SharePoint:CssRegistration Name="Themable/corev15.css" runat="server" />
-<SharePoint:CssRegistration name="/_catalogs/masterpage/ShareBoot/css/bootstrap.css" After="corev15.css" runat="server" />
-<SharePoint:CssRegistration name="/_catalogs/masterpage/ShareBoot/css/font-awesome.css" After="corev15.css" runat="server" />
-<SharePoint:CssRegistration name="/_catalogs/masterpage/ShareBoot/css/ShareBoot.css" After="corev15.css" runat="server" />	
+<SharePoint:CssRegistration name="/sites/bl/_catalogs/masterpage/ShareBoot/css/bootstrap.css" After="corev15.css" runat="server" />
+<SharePoint:CssRegistration name="/sites/bl/_catalogs/masterpage/ShareBoot/css/font-awesome.css" After="corev15.css" runat="server" />
+<SharePoint:CssRegistration name="/sites/bl/_catalogs/masterpage/ShareBoot/css/ShareBoot.css" After="corev15.css" runat="server" />	
 </head>
 	
 <body>
@@ -150,9 +150,9 @@
 </div>
 
 <!-- JavaScript -->
-<script src="/_catalogs/masterpage/ShareBoot/js/jquery.js"></script>
-<script src="/_catalogs/masterpage/ShareBoot/js/bootstrap.js"></script>
-<script src="/_catalogs/masterpage/ShareBoot/js/ShareBoot.js"></script>
+<script src="/sites/bl/_catalogs/masterpage/ShareBoot/js/jquery.js"></script>
+<script src="/sites/bl/_catalogs/masterpage/ShareBoot/js/bootstrap.js"></script>
+<script src="/sites/bl/_catalogs/masterpage/ShareBoot/js/ShareBoot.js"></script>
 			
 <!-- Form Digest -->
 <asp:ContentPlaceHolder id="PlaceHolderFormDigest" runat="server"><SharePoint:formdigest runat="server" /></asp:ContentPlaceHolder>

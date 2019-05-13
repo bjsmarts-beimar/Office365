@@ -1,0 +1,61 @@
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery.SPServices/2014.02/jquery.SPServices.min.js"></script>
+
+<script type="text/javascript">
+
+jQuery(document).ready(function($) {
+   GetPics("HomepagePhotos");
+});
+  function GetPics(hp) {
+      //query to retrieve all items
+      var query = "<Query><Where><Neq><FieldRef Name='ID' /><Value Type='Number'></Value></Neq></Where></Query>";
+      //fields containing Carousel infomration. FileRef is picture URL with some junk to strip
+      var camlViewFields = "<ViewFields><FieldRef Name='FileRef' /><FieldRef Name='Title' /><FieldRef Name='Description' /></ViewFields>";
+      //using a counter to find the FIRST slide and give it the class active.
+      var i = 0;
+      $().SPServices({
+          operation: "GetListItems",
+          async: true,
+          listName: hp,
+          CAMLViewFields: camlViewFields,
+          CAMLQuery: query,
+          completefunc: function(xData, Status) {
+              $(xData.responseXML).SPFilterNode("z:row").each(function() {
+                  //Define variables
+                  //You can do a console.log(xData.responseXML) and see all the fields real quickly
+                  var filename = ($(this).attr("ows_FileRef"));
+                  var title = ($(this).attr("ows_Title"));
+                  //Description here is what is used for Alt text
+                  var desc = ($(this).attr("ows_Description"));
+                  //Filename has some data before it, so replace 1;# info before URL     
+                  var picture = filename.match(/(?:(?!#).)*$/);
+                  //Check if it is the first entry... if so add active.
+                  //You will see ?RenditionID=5 after the immage. I am using Image Reditions to make sure the images are the correct size... though this does not optimize. https://msdn.microsoft.com/en-us/library/office/jj720398.aspx
+                  if (i == 0) {
+                      $("#MyCarousel .carousel-indicators").append("<li data-target='#hubCarousel' data-slide-to=" + i + " class='active'></li>");
+                      $("#MyCarousel .carousel-inner").append("<div class='item active'><img src='/" + picture + "?RenditionID=5' alt='" + desc + "'><div class='carousel-caption'><strong>" + title + "</strong></div></div>");
+
+                  } else {
+                      $("#MyCarousel .carousel-indicators").append("<li data-target='#hubCarousel' data-slide-to=" + i + "></li>");
+                      $("#MyCarousel .carousel-inner").append("<div class='item'><img src='/" + picture + "?RenditionID=5' alt='" + desc + "'><div class='carousel-caption'><strong>" + title + "</strong></div></div>");
+                  }
+                  //increase count until .each is done.
+                  i++;
+              }); 
+          }
+      }); 
+  }
+</script>
+
+<div id="MyCarousel" class="carousel slide" data-ride="carousel">
+  <ol class="carousel-indicators"></ol>
+  <div class="carousel-inner"></div>
+  <a class="left carousel-control" href="#MyCarousel" role="button" data-slide="prev">
+    <span class="fa fa-chevron-left"></span>
+  </a>
+  <a class="right carousel-control" href="#MyCarousel" role="button" data-slide="next">
+    <span class="fa fa-chevron-right"></span>
+  </a>
+</div>

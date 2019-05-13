@@ -64,10 +64,10 @@ function SubmitForm()
                         var metadata = {
                             "__metadata": { "type": itemType },
                             "Comments": commentsVal,
-                            "O_x0026_MBusinessAnalystStatus": "In Progress",    
-                            "O_x0026_MTestingAnalystStatus": "In Progress", 
-                            "O_x0026_MManagerStatus": "In Progress", 
-                            "WorkaroundWorkflowStatus": "O&M Initial Approval (Pending)",            
+                            "OMBusinessAnalystStatus": "In Progress",    
+                            "OMTestingAnalystStatus": "In Progress", 
+                            "OMManagerStatus": "In Progress", 
+                            "WorkaroundWorkflowStatus": "OM Initial Approval (Pending)",            
                         };                        
 
                         let results = updateSharePointListItem(WorkaroundId, metadata, listName);

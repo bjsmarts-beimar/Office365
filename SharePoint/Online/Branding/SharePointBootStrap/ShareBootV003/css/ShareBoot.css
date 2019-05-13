@@ -71,3 +71,11 @@ footer {margin:0;}
 /* Left Menu */
 .ms-core-listMenu-verticalBox > .ms-core-listMenu-item, .ms-core-listMenu-verticalBox li.static > .ms-core-listMenu-item {display:block; padding:5px !important;}
 .ms-core-listMenu-verticalBox li.static > ul.static > li.static > .ms-core-listMenu-item {padding:3px 3px 3px 10px !important;}
+
+.o365spo.o365cst.o365cs-base .o365cs-topnavBGColor {
+    background-color: #ffffff !important;    
+}
+
+.o365cs-base .o365cs-topnavBGColor, .o365cs-base .o365cs-topnavBGColor-2, .o365cs-base.o365cs-topnavBGColor, .o365cs-base.o365cs-topnavBGColor-2 {
+    background-color: black !important;
+}
