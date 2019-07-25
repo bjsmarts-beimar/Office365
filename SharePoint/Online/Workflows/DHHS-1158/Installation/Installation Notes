@@ -1,0 +1,22 @@
+- Run the following scripts on the following order: 
+
+> create_dl_Attachments.ps1
+> create_list_Alerts.ps1
+> create_list_CostCenter.ps1
+> create_list_Counties.ps1
+> create_list_Emails.ps1
+> create_list_FuntionalAreas.ps1
+> create_list_Labels.ps1
+> create_list_Ledgers.ps1
+> create_list_Links.ps1
+> create_list_Programs.ps1
+> create_list_Titles.ps1
+
+- go to "SiteAssets" and create a folder "AR1158"
+
+- go to "SiteAssets/AR1158" and create: css, images, js, blockUI, bootstrap, jQuery, moment folders
+
+- load css and js files 
+
+- create "new.aspx" page
+

@@ -6,34 +6,34 @@ function getDataFromlocalStorage()
 {
     if ( localStorage )
     {
-        let _Titles = localStorage.getItem("Titles");
+        let _Titles = localStorage.getItem("tpcTitles");
 
         if ( _Titles )            
         {
             console.log('localStorage Titles: ', JSON.parse(_Titles));            
             Titles = JSON.parse(_Titles);
 
-            let _Emails = localStorage.getItem("Emails");            
+            let _Emails = localStorage.getItem("tpcEmails");            
             if ( _Emails )
             {
                 console.log('localStorage Emails: ', JSON.parse(_Emails));
                 Emails = JSON.parse(_Emails);
 
-                let _Labels = localStorage.getItem("Labels");
+                let _Labels = localStorage.getItem("tpcLabels");
 
                 if ( _Labels )
                 {
                     console.log('localStorage Labels: ', JSON.parse(_Labels));
                     Labels = JSON.parse(_Labels);
 
-                    let _Alerts = localStorage.getItem("Alerts");
+                    let _Alerts = localStorage.getItem("tpcAlerts");
 
                     if ( _Alerts )
                     {
                         console.log('localstorage Alerts: ', JSON.parse(_Alerts));
                         Alerts = JSON.parse(_Alerts);
 
-                        let _Approvers = localStorage.getItem("Approvers");
+                        let _Approvers = localStorage.getItem("tpcApprovers");
 
                         if ( _Approvers )
                         {
@@ -46,7 +46,7 @@ function getDataFromlocalStorage()
 
                             let resultsApprovers = retrieveSharePointListItemsByListName("Approvers", urlQuery);
                             resultsApprovers.done(function (data) {
-                                localStorage.setItem("Approvers", JSON.stringify(data.d.results));                        
+                                localStorage.setItem("tpcApprovers", JSON.stringify(data.d.results));                        
                                 getDataFromlocalStorage();
                             });
                             resultsApprovers.fail(function(err) {
@@ -59,7 +59,7 @@ function getDataFromlocalStorage()
 
                         let resultsAlerts = retrieveSharePointListItemsByListName("Alerts", urlQuery);
                         resultsAlerts.done(function (data) {
-                            localStorage.setItem("Alerts", JSON.stringify(data.d.results));                        
+                            localStorage.setItem("tpcAlerts", JSON.stringify(data.d.results));                        
                             getDataFromlocalStorage();
                         });
                         resultsAlerts.fail(function(err) {
@@ -74,7 +74,7 @@ function getDataFromlocalStorage()
 
                     let resultsLabels = retrieveSharePointListItemsByListName("Labels", urlQuery);
                     resultsLabels.done(function (data) {
-                        localStorage.setItem("Labels", JSON.stringify(data.d.results));                        
+                        localStorage.setItem("tpcLabels", JSON.stringify(data.d.results));                        
                         getDataFromlocalStorage();
                     });
                     resultsLabels.fail(function(err) {
@@ -88,7 +88,7 @@ function getDataFromlocalStorage()
 
                 let resultsEmails = retrieveSharePointListItemsByListName("Emails", urlQuery);
                     resultsEmails.done(function (data) {
-                        localStorage.setItem("Emails", JSON.stringify(data.d.results));                        
+                        localStorage.setItem("tpcEmails", JSON.stringify(data.d.results));                        
                         getDataFromlocalStorage();
                     });
                     resultsEmails.fail(function(err) {
@@ -102,7 +102,7 @@ function getDataFromlocalStorage()
 
             let results = retrieveSharePointListItemsByListName("Titles", urlQuery);
             results.done(function (data) {
-                localStorage.setItem("Titles", JSON.stringify(data.d.results));                
+                localStorage.setItem("tpcTitles", JSON.stringify(data.d.results));                
                 getDataFromlocalStorage();
             });
             results.fail(function(err) {
@@ -116,29 +116,29 @@ function removeAllItemsFromLocalStorage()
 {
     if ( localStorage )
     {
-        if ( localStorage.getItem("Titles") ) 
+        if ( localStorage.getItem("tpcTitles") ) 
         {
-            localStorage.removeItem("Titles");
+            localStorage.removeItem("tpcTitles");
         }
         
-        if ( localStorage.getItem("Emails") )
+        if ( localStorage.getItem("tpcEmails") )
         {
-            localStorage.removeItem("Emails");
+            localStorage.removeItem("tpcEmails");
         }
 
-        if ( localStorage.getItem("Labels") )
+        if ( localStorage.getItem("tpcLabels") )
         {
-            localStorage.removeItem("Labels")
+            localStorage.removeItem("tpcLabels")
         }
 
-        if ( localStorage.getItem("Alerts") )
+        if ( localStorage.getItem("tpcAlerts") )
         {
-            localStorage.removeItem("Alerts")
+            localStorage.removeItem("tpcAlerts")
         }
 
-        if ( localStorage.getItem("Approvers") )
+        if ( localStorage.getItem("tpcApprovers") )
         {
-            localStorage.removeItem("Approvers")
+            localStorage.removeItem("tpcApprovers")
         }
     }
 

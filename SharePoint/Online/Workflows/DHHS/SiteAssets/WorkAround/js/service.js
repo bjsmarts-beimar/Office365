@@ -124,29 +124,38 @@ function getAccountId(peoplePickerDiv_TopSpan) {
     }
 
     // Get the first user's ID by using the login name.
-    var logonName = users[0].Key;
 
-    var item = {  
-        'logonName': logonName  
-    };  
+    if ( users[0] )
+    {
+        var logonName = users[0].Key;
 
-    jQuery.ajax({  
-        url: _spPageContextInfo.siteAbsoluteUrl + "/_api/web/ensureuser",  
-        type: "POST",  
-        //async: false,  
-        contentType: "application/json;odata=verbose",  
-        data: JSON.stringify(item),  
-        headers: {  
-            "Accept": "application/json;odata=verbose",  
-            "X-RequestDigest": $("#__REQUESTDIGEST").val()  
-        },  
-        success:function(data){
-            deferred.resolve(data.d.Id);
-        },
-        error:function(err){
-            deferred.reject(err);
-        }
-    });  
+        var item = {  
+            'logonName': logonName  
+        };  
+
+        jQuery.ajax({  
+            url: _spPageContextInfo.siteAbsoluteUrl + "/_api/web/ensureuser",  
+            type: "POST",  
+            //async: false,  
+            contentType: "application/json;odata=verbose",  
+            data: JSON.stringify(item),  
+            headers: {  
+                "Accept": "application/json;odata=verbose",  
+                "X-RequestDigest": $("#__REQUESTDIGEST").val()  
+            },  
+            success:function(data){
+                deferred.resolve(data.d.Id);
+            },
+            error:function(err){
+                deferred.reject(err);
+            }
+        });
+    }
+    else {
+        deferred.resolve(null);
+    }
+
+      
     
     return deferred.promise();
 }

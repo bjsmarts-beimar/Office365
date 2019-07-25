@@ -287,13 +287,13 @@ function UpdateOMWorkAroundRecord()
                                             "GoLiveComments": explanationText,
                                             "Test_x0020_Case_x0020_Pass": testcasePass,
                                             "Test_x0020_Case_x0020_Fail": testcaseFail,
-                                            "IBM_x0020_BAId": analystId,
-                                            "Testing_x0020_TeamId": testerId,
-                                            "State_x0020_BA_x0020_LeadId": analystLeadId,
-                                            "Project_x0020_ManagerId": projectManagerId,
+                                            // "IBM_x0020_BAId": analystId,
+                                            // "Testing_x0020_TeamId": testerId,
+                                            // "State_x0020_BA_x0020_LeadId": analystLeadId,
+                                            // "Project_x0020_ManagerId": projectManagerId,
                                             "OM_x0020_Business_x0020_AnalystId": directorId,
                                             "OM_x0020_Testing_x0020_AnalystId": analyst2Id,
-                                            "OM_x0020_ManagerId": managerId,
+                                            // "OM_x0020_ManagerId": managerId,
                                             "OM_x0020_Program_x0020_DirectorId": businessAnalystId,
                                             "IsInitialEmailSendOut": "No",
                                             "IsInitialEmailPMSendOut": "No",
@@ -306,7 +306,7 @@ function UpdateOMWorkAroundRecord()
                                             "OMTestingAnalystStatus": "Not Started",
                                             "OMManagerStatus": "Not Started",                                            
                                             "OMDirectorStatus": "Not Started",
-                                            "WorkaroundWorkflowStatus": "Initial Approval (Pending)"                     
+                                            "WorkaroundWorkflowStatus": "OM Initial Approval (Pending)"                     
                                         };                                       
                                 
                                         let results = updateSharePointListItem(PageContextRevisionID, metadata, listName);

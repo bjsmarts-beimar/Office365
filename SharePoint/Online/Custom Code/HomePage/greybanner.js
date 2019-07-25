@@ -2,38 +2,10 @@
 $(document).ready(function () {
 
     loading();
-
+    
  });
 
 function loading() {     
-
-    //  var url = "https://team.scdhhs.gov/_vti_bin/ListData.svc/CommonlyUsedLinks?$filter=DisplayAreaValue%20eq%20%27Ribbon%27&$orderby=ShowOrder";
-
-    //  $.ajax({
-    //             url: url,
-    //             method: "GET",
-    //             headers: { "Accept": "application/json; odata=verbose" },
-    //             success: function (data) {
-                                        
-    //                 console.log('used links data', data);
-
-    //                 var HoritHtml = "";                    
-
-    //                 for ( var i=0; i<data.d.results.length; i++)
-    //                 {
-    //                     var PresentLink = data.d.results[i].Link.split(',');
-    //                     var PresentLinkText = PresentLink.slice(1).join(',');
-                        
-    //                     HoriHtml = "<li><a href=\"" + PresentLink[0] + "\">" + PresentLinkText + "</a></li>";  
-    //                     console.log(HoritHtml);
-    //                     $("#HorNovi").append(HoriHtml);                      
-    //                 }                    
-                                                            
-    //             },
-    //             error: function (data) {
-    //                 console.log(data.d);
-    //             }
-    //         });  
     
     $().SPServices({
         operation: "GetListItems",
@@ -52,10 +24,6 @@ function loading() {
                 $("#HorNovi").append(HoriHtml);
 
             });
-
-
         }
-
     });
-
 }

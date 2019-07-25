@@ -125,54 +125,34 @@ function Approve()
                                 var query = getWorkAround(WorkaroundId);
                                 query.done(function(workAroundItem) {
 
-                                    if ( workAroundItem.ProjectManagerStatus == "Not Started")
-                                    {
-                                        if ( workAroundItem.IBMBAStatus == "Approved" && workAroundItem.TestingTeamStatus == "Approved" && workAroundItem.StateBaLeadStatus == "Approved" && workAroundItem.ProjectManagerStatus != "Approved" )
+                                    if ( workAroundItem.WorkaroundType !== "OM") {
+
+                                        if ( workAroundItem.ProjectManagerStatus == "Not Started")
                                         {
-                                            var itemType = GetItemTypeForListName("Workaround");  
+                                            if ( workAroundItem.IBMBAStatus == "Approved" && workAroundItem.TestingTeamStatus == "Approved" && workAroundItem.StateBaLeadStatus == "Approved" && workAroundItem.ProjectManagerStatus != "Approved" )
+                                            {
+                                                var itemType = GetItemTypeForListName("Workaround");  
 
-                                            var data = {
-                                                "__metadata": { "type": itemType },
-                                                "ProjectManagerStatus": "In Progress",                                                            
-                                            };
+                                                var data = {
+                                                    "__metadata": { "type": itemType },
+                                                    "ProjectManagerStatus": "In Progress",                                                            
+                                                };
 
-                                            var assignWorkAroundToProjectManager = updateWorkAround(WorkaroundId, data);
-                                            assignWorkAroundToProjectManager.done(function(data) {
+                                                var assignWorkAroundToProjectManager = updateWorkAround(WorkaroundId, data);
+                                                assignWorkAroundToProjectManager.done(function(data) {
 
+                                                    var serverUrl = _spPageContextInfo.webAbsoluteUrl;
+                                                    window.location = serverUrl + page;
+
+                                                });
+                                                assignWorkAroundToProjectManager.fail(function(error) {
+                                                    alert(error);
+                                                });
+                                            }
+                                            else {
                                                 var serverUrl = _spPageContextInfo.webAbsoluteUrl;
                                                 window.location = serverUrl + page;
-
-                                            });
-                                            assignWorkAroundToProjectManager.fail(function(error) {
-                                                alert(error);
-                                            });
-                                        }
-                                        else {
-                                            var serverUrl = _spPageContextInfo.webAbsoluteUrl;
-                                            window.location = serverUrl + page;
-                                        }
-                                    }
-                                    else if ( workAroundItem.OMDirectorStatus == "Not Started")
-                                    {
-                                        if ( workAroundItem.OMBusinessAnalystStatus == "Approved" && workAroundItem.OMTestingAnalystStatus == "Approved" && workAroundItem.OMManagerStatus == "Approved") {
-                                            
-                                            var itemType = GetItemTypeForListName("Workaround");  
-
-                                            var data = {
-                                                "__metadata": { "type": itemType },
-                                                "OMDirectorStatus": "In Progress",                                                            
-                                            };
-
-                                            var results = updateWorkAround(WorkaroundId, data);
-                                            results.done(function(data) {
-
-                                                var serverUrl = _spPageContextInfo.webAbsoluteUrl;
-                                                window.location = serverUrl + page;
-
-                                            });
-                                            results.fail(function(error) {
-                                                alert(error);
-                                            });
+                                            }
                                         }
                                         else {
                                             var serverUrl = _spPageContextInfo.webAbsoluteUrl;
@@ -180,9 +160,41 @@ function Approve()
                                         }
                                     }
                                     else {
-                                        var serverUrl = _spPageContextInfo.webAbsoluteUrl;
-                                        window.location = serverUrl + page;
+                                        if ( workAroundItem.OMDirectorStatus == "Not Started")
+                                        {
+                                            //if ( workAroundItem.OMBusinessAnalystStatus == "Approved" && workAroundItem.OMTestingAnalystStatus == "Approved" && workAroundItem.OMManagerStatus == "Approved") {
+                                            if ( workAroundItem.OMBusinessAnalystStatus == "Approved" && workAroundItem.OMTestingAnalystStatus == "Approved" ) {
+                                                
+                                                var itemType = GetItemTypeForListName("Workaround");  
+
+                                                var data = {
+                                                    "__metadata": { "type": itemType },
+                                                    "OMDirectorStatus": "In Progress",                                                            
+                                                };
+
+                                                var results = updateWorkAround(WorkaroundId, data);
+                                                results.done(function(data) {
+
+                                                    var serverUrl = _spPageContextInfo.webAbsoluteUrl;
+                                                    window.location = serverUrl + page;
+
+                                                });
+                                                results.fail(function(error) {
+                                                    alert(error);
+                                                });
+                                            }
+                                            else {
+                                                var serverUrl = _spPageContextInfo.webAbsoluteUrl;
+                                                window.location = serverUrl + page;
+                                            }
+                                        }
+                                        else {
+                                            var serverUrl = _spPageContextInfo.webAbsoluteUrl;
+                                            window.location = serverUrl + page;
+                                        }
+
                                     }
+                                    
                                 });
                                 query.fail(function(error) {
                                     alert(error);
@@ -502,12 +514,12 @@ function getWorkaroundMetaData(Decision, commentsVal, ReasonForRejectionVal, Wor
                     "__metadata": { "type": itemType },
                     "Comments": commentsVal,
                     "ReasonForRejection": ReasonForRejectionVal,                         
-                    "IBMBAStatus": Decision,     
-                    "IBMBAStatusDate": new Date(), //.toLocaleString();
-                    "TestingTeamStatus": Decision,    
-                    "TestingTeamStatusDate": new Date(), //.toLocaleString();
-                    "StateBaLeadStatus": Decision,     
-                    "StateBaLeadStatusDate": new Date(), //.toLocaleString();
+                    // "IBMBAStatus": Decision,     
+                    // "IBMBAStatusDate": new Date(), //.toLocaleString();
+                    // "TestingTeamStatus": Decision,    
+                    // "TestingTeamStatusDate": new Date(), //.toLocaleString();
+                    // "StateBaLeadStatus": Decision,     
+                    // "StateBaLeadStatusDate": new Date(), //.toLocaleString();
                     "OMBusinessAnalystStatus": Decision,
                     "OMBAStatusDate": new Date(), //.toLocaleString();
                     "OMTestingAnalystStatus": Decision,   
@@ -539,12 +551,12 @@ function getWorkaroundMetaData(Decision, commentsVal, ReasonForRejectionVal, Wor
                     "__metadata": { "type": itemType },
                     "Comments": commentsVal,
                     "ReasonForRejection": ReasonForRejectionVal,
-                    "IBMBAStatus": Decision,     
-                    "IBMBAStatusDate": new Date(), //.toLocaleString();
-                    "TestingTeamStatus": Decision,    
-                    "TestingTeamStatusDate": new Date(), //.toLocaleString();
-                    "StateBaLeadStatus": Decision,     
-                    "StateBaLeadStatusDate": new Date(), //.toLocaleString();
+                    // "IBMBAStatus": Decision,     
+                    // "IBMBAStatusDate": new Date(), //.toLocaleString();
+                    // "TestingTeamStatus": Decision,    
+                    // "TestingTeamStatusDate": new Date(), //.toLocaleString();
+                    // "StateBaLeadStatus": Decision,     
+                    // "StateBaLeadStatusDate": new Date(), //.toLocaleString();
                     "OMBusinessAnalystStatus": Decision,
                     "OMBAStatusDate": new Date(), //.toLocaleString();
                     "OMTestingAnalystStatus": Decision,   
@@ -575,12 +587,12 @@ function getWorkaroundMetaData(Decision, commentsVal, ReasonForRejectionVal, Wor
                     "__metadata": { "type": itemType },
                     "Comments": commentsVal,
                     "ReasonForRejection": ReasonForRejectionVal,
-                    "IBMBAStatus": Decision,     
-                    "IBMBAStatusDate": new Date(), //.toLocaleString();
-                    "TestingTeamStatus": Decision,    
-                    "TestingTeamStatusDate": new Date(), //.toLocaleString();
-                    "StateBaLeadStatus": Decision,     
-                    "StateBaLeadStatusDate": new Date(), //.toLocaleString();
+                    // "IBMBAStatus": Decision,     
+                    // "IBMBAStatusDate": new Date(), //.toLocaleString();
+                    // "TestingTeamStatus": Decision,    
+                    // "TestingTeamStatusDate": new Date(), //.toLocaleString();
+                    // "StateBaLeadStatus": Decision,     
+                    // "StateBaLeadStatusDate": new Date(), //.toLocaleString();
                     "OMBusinessAnalystStatus": Decision,
                     "OMBAStatusDate": new Date(), //.toLocaleString();
                     "OMTestingAnalystStatus": Decision,   
@@ -612,12 +624,12 @@ function getWorkaroundMetaData(Decision, commentsVal, ReasonForRejectionVal, Wor
                     "__metadata": { "type": itemType },
                     "Comments": commentsVal,
                     "ReasonForRejection": ReasonForRejectionVal,
-                    "IBMBAStatus": Decision,     
-                    "IBMBAStatusDate": new Date(), //.toLocaleString();
-                    "TestingTeamStatus": Decision,    
-                    "TestingTeamStatusDate": new Date(), //.toLocaleString();
-                    "StateBaLeadStatus": Decision,     
-                    "StateBaLeadStatusDate": new Date(), //.toLocaleString();
+                    // "IBMBAStatus": Decision,     
+                    // "IBMBAStatusDate": new Date(), //.toLocaleString();
+                    // "TestingTeamStatus": Decision,    
+                    // "TestingTeamStatusDate": new Date(), //.toLocaleString();
+                    // "StateBaLeadStatus": Decision,     
+                    // "StateBaLeadStatusDate": new Date(), //.toLocaleString();
                     "OMBusinessAnalystStatus": Decision,
                     "OMBAStatusDate": new Date(), //.toLocaleString();
                     "OMTestingAnalystStatus": Decision,   
@@ -653,12 +665,12 @@ function getWorkaroundMetaData(Decision, commentsVal, ReasonForRejectionVal, Wor
                         "__metadata": { "type": itemType },
                         "Comments": commentsVal,
                         "ReasonForRejection": ReasonForRejectionVal,
-                        "IBMBAStatus": Decision,     
-                        "IBMBAStatusDate": new Date(), //.toLocaleString();
-                        "TestingTeamStatus": Decision,    
-                        "TestingTeamStatusDate": new Date(), //.toLocaleString();
-                        "StateBaLeadStatus": Decision,     
-                        "StateBaLeadStatusDate": new Date(), //.toLocaleString();
+                        // "IBMBAStatus": Decision,     
+                        // "IBMBAStatusDate": new Date(), //.toLocaleString();
+                        // "TestingTeamStatus": Decision,    
+                        // "TestingTeamStatusDate": new Date(), //.toLocaleString();
+                        // "StateBaLeadStatus": Decision,     
+                        // "StateBaLeadStatusDate": new Date(), //.toLocaleString();
                         "OMBusinessAnalystStatus": Decision,
                         "OMBAStatusDate": new Date(), //.toLocaleString();
                         "OMTestingAnalystStatus": Decision,   

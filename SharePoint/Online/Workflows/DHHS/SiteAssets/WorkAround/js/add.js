@@ -119,24 +119,27 @@ function SubmitFormWithValidation()
         IsFormValid = false;        
     }
 
-    if ( !IsPeoplePickerFieldValid(SPClientPeoplePicker.SPClientPeoplePickerDict.peoplePickerDiv_TopSpan, "peoplePickerDiv") )
+    if ( WorkAroudTypeId != 3)
     {
-        IsFormValid = false;        
-    }
+        if ( !IsPeoplePickerFieldValid(SPClientPeoplePicker.SPClientPeoplePickerDict.peoplePickerDiv_TopSpan, "peoplePickerDiv") )
+        {
+            IsFormValid = false;        
+        }
 
-    if ( !IsPeoplePickerFieldValid(SPClientPeoplePicker.SPClientPeoplePickerDict.testersPeoplePickerDiv_TopSpan, "testersPeoplePickerDiv") )
-    {
-        IsFormValid = false;        
-    }
+        if ( !IsPeoplePickerFieldValid(SPClientPeoplePicker.SPClientPeoplePickerDict.testersPeoplePickerDiv_TopSpan, "testersPeoplePickerDiv") )
+        {
+            IsFormValid = false;        
+        }
 
-    if ( !IsPeoplePickerFieldValid(SPClientPeoplePicker.SPClientPeoplePickerDict.BALeadPeoplePickerDiv_TopSpan, "BALeadPeoplePickerDiv") )
-    {
-        IsFormValid = false;        
-    }
+        if ( !IsPeoplePickerFieldValid(SPClientPeoplePicker.SPClientPeoplePickerDict.BALeadPeoplePickerDiv_TopSpan, "BALeadPeoplePickerDiv") )
+        {
+            IsFormValid = false;        
+        }
 
-    if ( !IsPeoplePickerFieldValid(SPClientPeoplePicker.SPClientPeoplePickerDict.projectManagerPeoplePickerDiv_TopSpan, "projectManagerPeoplePickerDiv") )
-    {
-        IsFormValid = false;        
+        if ( !IsPeoplePickerFieldValid(SPClientPeoplePicker.SPClientPeoplePickerDict.projectManagerPeoplePickerDiv_TopSpan, "projectManagerPeoplePickerDiv") )
+        {
+            IsFormValid = false;        
+        }
     }
 
     if ( WorkAroudTypeId == 3 )
@@ -151,10 +154,11 @@ function SubmitFormWithValidation()
             IsFormValid = false;        
         }
 
-        if ( !IsPeoplePickerFieldValid(SPClientPeoplePicker.SPClientPeoplePickerDict.managerPeoplePickerDiv_TopSpan, "managerPeoplePickerDiv") )
-        {
-            IsFormValid = false;        
-        }
+        // if ( !IsPeoplePickerFieldValid(SPClientPeoplePicker.SPClientPeoplePickerDict.managerPeoplePickerDiv_TopSpan, "managerPeoplePickerDiv") )
+        // {
+        //     IsFormValid = false;        
+        // }
+
         if ( !IsPeoplePickerFieldValid(SPClientPeoplePicker.SPClientPeoplePickerDict.businesAnalystPeoplePickerDiv_TopSpan, "businesAnalystPeoplePickerDiv") )
         {
             IsFormValid = false;        
@@ -181,15 +185,16 @@ function hasBeenSelected()
 
     if ( WorkAroudTypeId == 3 )
     {
-        document.getElementById("DDIWorkAroundReviewersDiv").style.display = "flex";
-        document.getElementById("ibmbaPeoplePickerDiv").style.display = "flex";
-        document.getElementById("testingTeamPeoplePickerDiv").style.display = "flex";
-        document.getElementById("sblTeamPeoplePickerDiv").style.display = "flex";
-        document.getElementById("projectManagerTeamPeoplePickerDiv").style.display = "flex";
+
+        document.getElementById("DDIWorkAroundReviewersDiv").style.display = "none";
+        document.getElementById("ibmbaPeoplePickerDiv").style.display = "none";
+        document.getElementById("testingTeamPeoplePickerDiv").style.display = "none";
+        document.getElementById("sblTeamPeoplePickerDiv").style.display = "none";
+        document.getElementById("projectManagerTeamPeoplePickerDiv").style.display = "none";
         document.getElementById("OMRelatedWorkAroundApproversDiv").style.display = "flex";
         document.getElementById("programDirectorPeoplePickerDiv").style.display = "flex";           
         document.getElementById("testingAnalystPeoplePickerDiv").style.display = "flex";        
-        document.getElementById("stateManagerPeoplePickerDiv").style.display = "flex";        
+        document.getElementById("stateManagerPeoplePickerDiv").style.display = "none";        
         document.getElementById("stateBusinessAnalystPeoplePickerDiv").style.display = "flex";
              
     }
@@ -356,14 +361,14 @@ function CreateOMWorkAroundRecord()
                                             "WorkaroundType": typeWorkaround,
                                             "Test_x0020_Case": testCase,
                                             "WorkaroundUsage": timeUsage,
-                                            "IBM_x0020_BAId": IBMBAPeoplePickerId,
-                                            "Testing_x0020_TeamId": testerPeoplePickerId,
-                                            "State_x0020_BA_x0020_LeadId": analystLeadPeoplePickerId,                                             
-                                            "Project_x0020_ManagerId": projectManagerPeoplePickerId,
+                                            // "IBM_x0020_BAId": IBMBAPeoplePickerId,
+                                            // "Testing_x0020_TeamId": testerPeoplePickerId,
+                                            // "State_x0020_BA_x0020_LeadId": analystLeadPeoplePickerId,                                             
+                                            // "Project_x0020_ManagerId": projectManagerPeoplePickerId,
                                             "OM_x0020_Business_x0020_AnalystId": businesAnalystPeoplePickerId,
                                             "OM_x0020_Testing_x0020_AnalystId": analystPeoplePickerId,
-                                            "OM_x0020_ManagerId": directorPeoplePickerId,                                            
-                                            "OM_x0020_Program_x0020_DirectorId": managerPeoplePickerId,                                                                                        
+                                            //"OM_x0020_ManagerId": directorPeoplePickerId,                                            
+                                            "OM_x0020_Program_x0020_DirectorId": directorPeoplePickerId,                                                                                        
                                             "Impacted_x0020_Audience": {"results": iaIds},
                                             "GoLiveComments": explanationText,
                                             "Test_x0020_Case_x0020_Pass": testcasePass,
@@ -582,11 +587,18 @@ function CreateOMWorkAroundRecord()
                                                                     "AfterRejectResubmitEmailBody": afterRejectEmailBody.trim(),
                                                                     "RetiredRejectedEmailTitle" : RetiredRejectEmailTitle,
                                                                     "RetiredRejectedEmailBody" : RetiredRejectEmailBody.trim(),
-                                                                    "IBMBAStatus": "In Progress",
-                                                                    "TestingTeamStatus": "In Progress",
-                                                                    "StateBaLeadStatus": "In Progress",                                                    
-                                                                    "WorkaroundWorkflowStatus": "Initial Approval (Pending)"
+                                                                    //"IBMBAStatus": "In Progress",
+                                                                    //"TestingTeamStatus": "In Progress",
+                                                                    //"StateBaLeadStatus": "In Progress",               
+                                                                    //"WorkaroundWorkflowStatus": "Initial Approval (Pending)"
+                                                                    "OMBusinessAnalystStatus": "In Progress",
+                                                                    "OMTestingAnalystStatus": "In Progress", 
+                                                                    //"OMManagerStatus": "In Progress", 
+                                                                    "WorkaroundWorkflowStatus": "OM Initial Approval (Pending)",                                                                    
                                                 };
+
+                                                    
+                             
 
                                                 let results = updateSharePointListItem(WorkaroundID, metadata, listName);
                                                 results.done(function (data) {

@@ -2,6 +2,8 @@
 
 $(document).ready(function() {    
 
+    //$("#ctl00_PlaceHolderSiteName_onetidProjectPropertyTitle").hide();
+
     $().SPServices({
         operation: "GetListItems",
         async: false,

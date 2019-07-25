@@ -4,7 +4,7 @@ Import-Module 'C:\Program Files\Common Files\Microsoft Shared\Web Server Extensi
 #Add-Type -Path 'C:\Program Files\Common Files\Microsoft Shared\Web Server Extensions\16\ISAPI\Microsoft.SharePoint.Client.dll'
 
 #Mysite URL
-$site = 'https://schhs.sharepoint.com/sites/SBH/ar/data'
+$site = 'https://schhs.sharepoint.com/sites/ar/data'
 
 #Admin User Principal Name
 $admin = 'beimar.medina@scdhhs.gov'

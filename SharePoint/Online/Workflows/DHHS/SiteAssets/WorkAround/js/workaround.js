@@ -76,7 +76,7 @@ function loadindWorkaroundViewMode(WorkAroundId, currentComments)
                 document.getElementById("OMRelatedWorkAroundApproversDiv").style.display = "flex";
                 document.getElementById("stateBusinessAnalystPeoplePickerDiv").style.display = "flex";
                 document.getElementById("testingAnalystPeoplePickerDiv").style.display = "flex";
-                document.getElementById("stateManagerPeoplePickerDiv").style.display = "flex";
+                //document.getElementById("stateManagerPeoplePickerDiv").style.display = "flex";
                 document.getElementById("programDirectorPeoplePickerDiv").style.display = "flex";
 
                 jQuery("#omBusinessAnalyst").val(item.OM_x0020_Business_x0020_Analyst.Title);                    
@@ -90,6 +90,12 @@ function loadindWorkaroundViewMode(WorkAroundId, currentComments)
             }
             else {
 
+                document.getElementById("DDIWorkAroundReviewersDiv").style.display = "flex";
+                document.getElementById("ibmbaPeoplePickerDiv").style.display = "flex";
+                document.getElementById("testingTeamPeoplePickerDiv").style.display = "flex";
+                document.getElementById("sblTeamPeoplePickerDiv").style.display = "flex";
+                document.getElementById("projectManagerTeamPeoplePickerDiv").style.display = "flex";
+                
                 $("#typeWorkaround option").each(function (a, b) {
                     if ($(this).html() == item.WorkaroundType ) $(this).attr("selected", "selected");
                 });
@@ -300,7 +306,7 @@ function loadindWorkaroundEditMode(WorkAroundId)
                 document.getElementById("OMRelatedWorkAroundApproversDiv").style.display = "flex";
                 document.getElementById("stateBusinessAnalystPeoplePickerDiv").style.display = "flex";
                 document.getElementById("testingAnalystPeoplePickerDiv").style.display = "flex";
-                document.getElementById("stateManagerPeoplePickerDiv").style.display = "flex";
+                //document.getElementById("stateManagerPeoplePickerDiv").style.display = "flex";
                 document.getElementById("programDirectorPeoplePickerDiv").style.display = "flex";
                 
                 setPeoplePickerField(SPClientPeoplePicker.SPClientPeoplePickerDict.businesAnalystPeoplePickerDiv_TopSpan, item.OM_x0020_Business_x0020_Analyst.EMail);   
