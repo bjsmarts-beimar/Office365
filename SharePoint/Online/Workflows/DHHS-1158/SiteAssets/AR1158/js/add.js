@@ -151,6 +151,10 @@ function SubmitFormWithValidation() {
         IsFormValid = false;
     }
 
+    if ( !IsThisDateInThePast("dueDate") ) {
+        IsFormValid = false;
+    }
+
     if ( !IsPeoplePickerFieldValid(SPClientPeoplePicker.SPClientPeoplePickerDict.peoplePickerDiv_TopSpan, "peoplePickerDiv") )
     {
         IsFormValid = false;        

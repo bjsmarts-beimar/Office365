@@ -78,6 +78,46 @@ function IsThisTextFieldValid(fieldName)
     }    
 }
 
+function IsThisDateInThePast(fieldName) 
+{
+    let field = document.getElementById(fieldName);
+    let errorField = document.getElementById("error-" + fieldName);
+    
+    if ( field.value.length == 0 ) 
+    {
+        errorField.style.display = "none";
+        return true;
+    }
+    else {        
+
+        if ( isValidDate(field.value) ) {
+
+            let dueDate = new Date(field.value);
+            let today = new Date();
+            let yesterday = new Date(today.getTime() - (24 * 60 * 60 * 1000));
+
+            if ( yesterday < dueDate ) {
+                errorField.style.display = "none";
+                return true;
+            }
+            else {
+                errorField.style.display = "inline";
+                return false;
+            }
+
+            return true;
+        }
+    }
+
+}
+
+function isValidDate(s) {
+    var separators = ['\\.', '\\-', '\\/'];
+    var bits = s.split(new RegExp(separators.join('|'), 'g'));
+    var d = new Date(bits[2], bits[1] - 1, bits[0]);
+    return d.getFullYear() == bits[2] && d.getMonth() + 1 == bits[1];
+} 
+
 function getUrlParameter(sParam) {
     var sPageURL = decodeURIComponent(window.location.search.substring(1)),
         sURLVariables = sPageURL.split('&'),

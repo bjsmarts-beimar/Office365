@@ -12,7 +12,9 @@ function loadingAccordion1()
             async: false,
             listName: "Announcements",
             CAMLViewFields: "<ViewFields><FieldRef Name='Title' /><FieldRef Name='ID' /><FieldRef Name='EncodedAbsUrl' /><FieldRef Name='Body' /></ViewFields>",
-            CAMLQuery: "<Query><Where><And><Geq><FieldRef Name='Expires'/><Value Type='DateTime'><Today/></Value></Geq><And><Eq><FieldRef Name='_ModerationStatus' /><Value Type='ModStat'>0</Value></Eq><And><Leq><FieldRef Name='Post_x0020_Date'/><Value Type='DateTime'><Today/></Value></Leq><Eq><FieldRef Name='Display_x0020_Area'/><Value Type='Choice'>Announcements</Value></Eq></And></And></And></Where><OrderBy><FieldRef Name='Modified' Ascending='FALSE' /></OrderBy></Query>",
+            //CAMLQuery: "<Query><Where><And><Geq><FieldRef Name='Expires'/><Value Type='DateTime'><Today/></Value></Geq><And><Eq><FieldRef Name='_ModerationStatus' /><Value Type='ModStat'>0</Value></Eq><And><Leq><FieldRef Name='Post_x0020_Date'/><Value Type='DateTime'><Today/></Value></Leq><Eq><FieldRef Name='Display_x0020_Area'/><Value Type='Choice'>Announcements</Value></Eq></And></And></And></Where><OrderBy><FieldRef Name='Modified' Ascending='FALSE' /></OrderBy></Query>",
+            //CAMLQuery: "<Query><Where><And><Geq><FieldRef Name='Expires'/><Value Type='DateTime'><Today/></Value></Geq><Eq><FieldRef Name='Display_x0020_Area' /><Value Type='String'>Announcements</Value></Eq></And></Where><OrderBy><FieldRef Name='Modified' Ascending='FALSE' /></OrderBy></Query>",
+            CAMLQuery: "<Query><Where><Eq><FieldRef Name='Display_x0020_Area' /><Value Type='String'>Announcements</Value></Eq></Where><OrderBy><FieldRef Name='Modified' Ascending='FALSE' /></OrderBy></Query>",        
             completefunc: function (xData, Status) {
 
                 $(xData.responseXML).SPFilterNode("z:row").each(function () {

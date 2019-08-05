@@ -1,0 +1,134 @@
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-lite/1.1.0/material.min.css" >
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/dataTables.material.min.css" >
+
+<style>
+
+.table-custom-header {
+    background: blue !important;
+    color: white !important;
+    font-size: initial !important;
+}
+</style>
+
+<!-- Javascript Files -->
+<script src="https://code.jquery.com/jquery-3.3.1.js" type="text/javascript"></script>
+<script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js" type="text/javascript"></script>
+<script src="https://cdn.datatables.net/1.10.19/js/dataTables.material.min.js" type="text/javascript"></script>
+
+<script>
+    
+    $(document).ready(function() {
+            loadListItems(); //to load list items        
+    });
+
+    function loadListItems() {
+            //var oDataUrl = _spPageContextInfo.webAbsoluteUrl + "/_api/web/lists/getbytitle('TicketInfo')/items?$select=ID,Title,Ticket_x0020_Name,Start_x0020_Date,End_x0020_Date,Status,Project_x0020_Details,TeamMember/Title,Manager_x0020_Name/Title&$expand=TeamMember,Manager_x0020_Name";
+            var oDataUrl = _spPageContextInfo.webAbsoluteUrl + "/data/_api/web/lists/getbytitle('AR1158Form')/items?$select=ID,Title,ProviderCaseNumber,RequestorSignature,Created&$orderby=Created asc";            
+            console.log(_spPageContextInfo);
+            $.ajax({
+                    url: oDataUrl,
+                    type: "GET",
+                    dataType: "json",
+                    headers: {
+                            "accept": "application/json;odata=verbose"
+                    },
+                    success: successFunction,
+                    error: errorFunction
+            });
+    }
+    
+    function successFunction(data) {
+
+            console.log(data);
+
+            try {
+
+                var dataTableExample = $('#pDashboard').DataTable();
+
+                if (dataTableExample != 'undefined') {
+                        dataTableExample.destroy();
+                }
+
+                dataTableExample = $('#pDashboard').DataTable( {
+                    columnDefs: [
+                        {
+                                targets: [ 0, 1, 2, 3 ],
+                                width: '10%',
+                                className: 'mdl-data-table__cell--non-numeric'
+                        }
+                    ],
+
+                    "aaData": data.d.results,
+                    "aoColumns": [{
+                                "mData": "ID",
+                        }, {
+                                "mData": "Title"
+                        }, {
+                                "mData": "ProviderCaseNumber"
+                        }, {
+                                "mData": "RequestorSignature"
+                        }	
+                        
+                    ]
+                });
+            }
+            catch {
+
+            }
+
+    }
+
+    function errorFunction() {
+            
+    }
+
+    function printPartOfPage(elementId) {
+        var printContent = document.getElementById(elementId);
+        var windowUrl = '';
+        var uniqueName = new Date();
+        var windowName = 'Print' ;
+        var printWindow = window.open(windowUrl, windowName, 'left=-20,top=-20,width=0,height=0');
+        printWindow.document.write('<HTML><Head><Title></Title>');
+        printWindow.document.write('</Head><Body style="margin-left:50px;margin-top:50px;font-size:10pt;">');
+        printWindow.document.write(printContent.innerHTML);
+        printWindow.document.write('</Body></HTML>');
+        printWindow.document.close();
+        printWindow.focus();
+        printWindow.print();
+        printWindow.close();
+    }
+
+
+    
+</script>
+    
+<body>
+
+    <img alt="" src="https://schhs.sharepoint.com/:i:/r/sites/ar/Style%20Library/printers/printer01.png?csf=1&e=FzpaXy" onclick="JavaScript:printPartOfPage('searchTable');" />
+
+    <div class="container">
+        <div class="row">
+    
+                <div class="col-md-12">
+                <div id="searchTable">
+                
+                        <div class="table-responsive">
+                        <table id="pDashboard" class="mdl-data-table" cellspacing="0" style="width:100% !important;">
+                                <thead>  
+                                <tr>
+                                        <th class="table-custom-header">ID</th>
+                                        <th class="table-custom-header">Name of the Debtor</th>
+                                        <th class="table-custom-header">Provider Id</th>
+                                        <th class="table-custom-header">Requestor</th>                                                          
+                                </tr>  
+                                </thead>  
+                                <tfoot> </tfoot>  
+                        </table>
+                        </div>        
+                </div>
+               </div>
+        </div>
+    </div>
+</body>
+
