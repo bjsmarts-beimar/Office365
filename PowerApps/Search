@@ -1,0 +1,17 @@
+
+Links
+
+https://www.youtube.com/watch?v=L4pPCDXoL7c
+https://michalguzowski.pl/how-to-overcome-500-items-limit-in-powerapps/
+https://michalguzowski.pl/search-in-sharepoint-from-powerapps/
+
+https://jobs.collab365.community/delegation-of-filtering-and-search-data-in-powerapps/
+https://community.dynamics.com/365/b/sachinbansalmicrosoft/posts/powerapps-delegation-with-example-500-records-limit-app-s-performance
+https://docs.microsoft.com/en-us/powerapps/maker/canvas-apps/delegation-overview#delegable-data-sources
+https://blog.coeo.com/davidmorrison/powerapps-500-record-limit-delegation-and-how-to-work-around-it
+
+Search() is not a delegateable function in Sharepoint lists.  
+Instead, use Filter('SharepointListName',StartsWith(SearchBarName.Text, "Title") .  
+This will enable you to search lists larger than 2000 items.
+
+

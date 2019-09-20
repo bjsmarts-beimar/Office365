@@ -24,7 +24,7 @@ function Approve()
 {
     jQuery.confirm({        
         title: false,
-        content: '<div style="font-size: large;font-style: italic;">Are you sure you want to Approve this TPC?</div>',
+        content: '<div style="font-size: large;font-style: italic;">Are you sure you want to Approve this Accounts Receivable Certification?</div>',
         columnClass: 'large',
         buttons: {            
             Ok: {
@@ -83,7 +83,7 @@ function Reject()
     {   
         jQuery.confirm({        
             title: false,
-            content: '<div style="font-size: large;font-style: italic;">Are you sure you want to Reject this TPC?</div>',
+            content: '<div style="font-size: large;font-style: italic;">Are you sure you want to Reject this Accounts Receivable Certification?</div>',
             columnClass: 'medium',
             buttons: {            
                 Ok: {

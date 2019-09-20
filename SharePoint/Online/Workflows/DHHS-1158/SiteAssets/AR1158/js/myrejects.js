@@ -14,7 +14,7 @@
 
            
         var backgroundColor = getRowBackgroundColor(ctx.CurrentItem.Created);
-        let comments = getfewComments(strippedHtml(ctx.CurrentItem.ReasonForRejection), 60);  
+        let comments = getfewComments(ctx.CurrentItem.ReasonForRejection, 60);  
 
         
         if ( backgroundColor != "red")
@@ -39,7 +39,7 @@
     + ctx.CurrentItem.Created
     + "</td>"
     + "<td>" 
-    + comments
+    + stripHtml(comments)
     + "</td>"
     + "</tr>";
     }

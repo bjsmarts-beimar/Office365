@@ -1,0 +1,12 @@
+
+Build An App
+============
+
+1. Gathered your requirements: tables, forms, fields, field Types
+2. Create your wireframe: https://www.invisionapp.com
+3. Create a Spreadsheet for your SharePoint Site Columns and your data views
+4. Create a Powershell Script to create your list with your Site Columns and list Views
+5. Create the site where your App will reside
+6. Deploy your PowerShell Script to create your list on the site you created in previous step
+7. Create the App
+8. If you have to change the Layout of your App created in previous step.

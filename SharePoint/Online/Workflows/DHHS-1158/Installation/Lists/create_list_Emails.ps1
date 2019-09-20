@@ -73,7 +73,7 @@ $item = $list.AddItem($listItemInfo)
 $item["EmailID"] = 2
 $item["Title"] = "Initial Supervisor Notification Email"
 $item["EmailSubject"] = "New 1158 Form submitted for approval - '{Title}'"
-$item["EmailBody"] = "<p>Hi,<br><br>Find the new 1158 form submitted for approval click <a href='/sites/SBH/ar/Pages/approval.aspx?RecordID={ID}&ApprovalType={TypeID}'>here</a><br><br>Thank You</p>"
+$item["EmailBody"] = "<p>Hi,<br><br>Find the new 1158 form submitted for approval click <a href='/sites/ar/Pages/approval.aspx?RecordID={ID}&ApprovalType={TypeID}'>here</a><br><br>Thank You</p>"
 $item.Update()
 $Context.ExecuteQuery()
 
@@ -83,7 +83,7 @@ $item = $list.AddItem($listItemInfo)
 $item["EmailID"] = 3
 $item["Title"] = "Initial Approval Email"
 $item["EmailSubject"] = "Form 1158 approved - '{Title}'"
-$item["EmailBody"] = "<p>Hi,<br><br>Form 1158 got approved by {Supervisor} - {Supervisor Signature}<br><br>Title - {Title}<br><br>Find 1158 click <a href='/sites/SBH/ar/Pages/view.aspx?RecordID={ID}&ApprovalType={TypeID}'>here</a><br><br>Thank You</p>"
+$item["EmailBody"] = "<p>Hi,<br><br>Form 1158 got approved by {Supervisor} - {Supervisor Signature}<br><br>Title - {Title}<br><br>Find 1158 click <a href='/sites/ar/Pages/view.aspx?RecordID={ID}&ApprovalType={TypeID}'>here</a><br><br>Thank You</p>"
 $item.Update()
 $Context.ExecuteQuery()
 
@@ -93,7 +93,7 @@ $item = $list.AddItem($listItemInfo)
 $item["EmailID"] = 4
 $item["Title"] = "Initial Group Approval Email"
 $item["EmailSubject"] = "New 1158 submitted and approved by supervisor - '{Title}'"
-$item["EmailBody"] = "<p>Hi,<br><br>New 1158 form got submitted and approved by {Supervisor} - {Supervisor Signature} <br><br>Title - {Title} <br><br> Find the form <a href='/sites/SBH/ar/Pages/approval.aspx?RecordID={ID}&ApprovalType={TypeID}'>here</a> <br><br>Thank You</p>"
+$item["EmailBody"] = "<p>Hi,<br><br>New 1158 form got submitted and approved by {Supervisor} - {Supervisor Signature} <br><br>Title - {Title} <br><br> Find the form <a href='/sites/ar/Pages/approval.aspx?RecordID={ID}&ApprovalType={TypeID}'>here</a> <br><br>Thank You</p>"
 $item.Update()
 $Context.ExecuteQuery()
 
@@ -103,7 +103,7 @@ $item = $list.AddItem($listItemInfo)
 $item["EmailID"] = 5
 $item["Title"] = "Rejection Email"
 $item["EmailSubject"] = "Form 1158 got rejected - '{Title}'"
-$item["EmailBody"] = "<p>Hi, <br><br>Form 1158 get rejeted<br><br>Title - {Title}<br><br> find 1158 click <a href='/sites/SBH/ar/Pages/resubmit.aspx?RecordID={ID}'>here</a><br><br>Thank You</p>"
+$item["EmailBody"] = "<p>Hi, <br><br>Form 1158 get rejeted<br><br>Title - {Title}<br><br> find 1158 click <a href='/sites/ar/Pages/resubmit.aspx?RecordID={ID}'>here</a><br><br>Thank You</p>"
 $item.Update()
 $Context.ExecuteQuery()
 
@@ -123,7 +123,7 @@ $item = $list.AddItem($listItemInfo)
 $item["EmailID"] = 7
 $item["Title"] = "Resubmit Supervisor Email"
 $item["EmailSubject"] = "New 1158 Form resubmitted for approval - '{Title}'"
-$item["EmailBody"] = "<p>Hi,<br><br>Find the new 1158 form resubmitted for approval click <a href='/sites/SBH/ar/Pages/approval.aspx?RecordID={ID}&ApprovalType={TypeID}'>here</a><br><br>Thank You</p>"
+$item["EmailBody"] = "<p>Hi,<br><br>Find the new 1158 form resubmitted for approval click <a href='/sites/ar/Pages/approval.aspx?RecordID={ID}&ApprovalType={TypeID}'>here</a><br><br>Thank You</p>"
 $item.Update()
 $Context.ExecuteQuery()
 
@@ -133,7 +133,7 @@ $item = $list.AddItem($listItemInfo)
 $item["EmailID"] = 8
 $item["Title"] = "Final Notification Approval Email"
 $item["EmailSubject"] = "New 1158 Form got final approval - '{Title}'"
-$item["EmailBody"] = "<p>Hi,<br><br>Find the approved 1158 click <a href='/sites/SBH/ar/Pages/view.aspx?RecordID={ID}&ApprovalType={TypeID}'>here</a><br><br>Thank You</p>"
+$item["EmailBody"] = "<p>Hi,<br><br>Find the approved 1158 click <a href='/sites/ar/Pages/view.aspx?RecordID={ID}&ApprovalType={TypeID}'>here</a><br><br>Thank You</p>"
 $item.Update()
 $Context.ExecuteQuery()
 

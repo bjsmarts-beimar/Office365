@@ -1,0 +1,37 @@
+
+
+. Create Site (DONE)
+. Create List Definitions (DONE)
+. Hide all lists from all users (DONE)
+. Create Landing Page (DONE)
+. The instructions language for the “Manager Name” field should say the following:
+    HSCII (Regional/County Office) or PMI (Processing Center)  (DONE)
+. Could we also please add the following instructions language for the optional “Regional Director” field?
+    Regional/County Offices Only (DONE)
+. Create New Form (DONE)
+. Add based Security Link to the Landing Page Workflow: "Rebuttal Role Security Workflow V1" (DONE)
+. Create Notification Workflow to notify initiator and Supervisors "Rebuttal Initial Notification Workflow V1" (DONE)
+. Create DataTable form to display all open items (DONE)
+. Create Review Form to review rebuttal form and to "send" response to Submitter (DONE)
+. Create Notification Workflow to send the response to Submitter and Supervisor "Rebuttal Response Notification Workflow V1" (DONE)
+
+. Create a Navigation Page for reviewers to see open items, closed items, application settings and log out (DONE)
+. Create DataTable form to display all closed items (DONE) 
+. Create Screen to display application settings: "Add New Reviewer", "Add  Site Owner", "Go to data", "Add or Edit New Location",
+  "Add or Edit Rebuttal Type" (DONE)
+
+
+
+
+Set(ChoiceVar,Filter(Choices(RequestList.WorkflowStatus),Value="Save As Draft"));
+Patch(RequestList, Defaults(RequestList), {Title: "", WorkflowStatus: {'@odata.type': "#Microsoft.Azure.Connectors.SharePoint.SPListExpandedReference",
+     Id: 0,
+     Value: "Save As Draft"
+   }})
+
+
+SupervisorRoleSecurityRebuttalAppV1
+
+
+Set(IsAdmin, false); Set(UserGroupInfo, SupervisorRoleSecurityRebuttalAppV1.Run((User().Email))); Set(IsAdmin, If(UserGroupInfo.isadminuser = "True", true))
+

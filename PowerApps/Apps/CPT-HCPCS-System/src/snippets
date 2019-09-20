@@ -1,0 +1,35 @@
+
+
+Set dropdown with a default Value
+---------------------------------
+
+If(ScreenInitiationForm.Mode=FormMode.New,
+   {'@odata.type': "#Microsoft.Azure.Connectors.SharePoint.SPListExpandedReference",
+     Id: 0,
+     Value: "Save As Draft"
+   },
+   ThisItem.WorkflowStatus
+)
+
+Set dropdown choice using a button
+----------------------------------
+
+Initialize a global variable
+Set(ChoiceVar, Blank())
+
+Set the DefaultSelectItems property of the combo to global variable
+ChoiceVar
+
+Set the OnSelect property of button to the following:
+Set(ChoiceVar,Filter(Choices(RequestList.WorkflowStatus),Value="Save As Draft"))
+
+
+https://docs.microsoft.com/en-us/powerapps/maker/canvas-apps/functions/function-patch
+
+Add data to sharepoint list manually (patching)
+-----------------------------------------------
+
+Patch(RequestList, Defaults(RequestList), {Title: "", WorkflowStatus: {'@odata.type': "#Microsoft.Azure.Connectors.SharePoint.SPListExpandedReference",
+     Id: 0,
+     Value: "Save As Draft"
+   }})

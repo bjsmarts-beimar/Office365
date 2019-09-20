@@ -53,7 +53,7 @@ function loadingRecordViewMode(RecordID)
 
         loadingRecord(item);    
 
-        currentComments = item.Comments;
+        currentComments = stripHtml(item.Comments);
 
         jQuery("#supervisor").val(item.Supervisor.Title);
 
@@ -105,7 +105,7 @@ function loadingRecordEditMode(RecordID)
 
         loadingRecord(item);
 
-        currentComments = item.Comments;
+        currentComments = stripHtml(item.Comments);
 
         setPeoplePickerField(SPClientPeoplePicker.SPClientPeoplePickerDict.peoplePickerDiv_TopSpan, item.Supervisor.EMail);   
         

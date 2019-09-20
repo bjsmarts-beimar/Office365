@@ -5,9 +5,12 @@
 <style>
 
 .table-custom-header {
-    background: blue !important;
+    background: #08553A !important;
     color: white !important;
     font-size: initial !important;
+}
+.mdl-button--raised.mdl-button--colored {
+        background: #08553A !important;
 }
 </style>
 
@@ -42,6 +45,8 @@
 
             console.log(data);
 
+            let recordId = 0;
+
             try {
 
                 var dataTableExample = $('#pDashboard').DataTable();
@@ -62,8 +67,16 @@
                     "aaData": data.d.results,
                     "aoColumns": [{
                                 "mData": "ID",
+                                "render": function(mData) {
+                                        recordId = mData;
+                                        return mData;
+                                }
                         }, {
-                                "mData": "Title"
+                                "mData": "Title",
+                                "render": function(mData) {
+                                          //console.log('recordId:', recordId);
+                                          return "<a style='color: #08553A;' href='/sites/ar/Pages/view.aspx?RecordID=" + recordId + "'>" + mData + "</a>";
+                                }
                         }, {
                                 "mData": "ProviderCaseNumber"
                         }, {
@@ -83,29 +96,27 @@
             
     }
 
-    function printPartOfPage(elementId) {
-        var printContent = document.getElementById(elementId);
-        var windowUrl = '';
-        var uniqueName = new Date();
-        var windowName = 'Print' ;
-        var printWindow = window.open(windowUrl, windowName, 'left=-20,top=-20,width=0,height=0');
-        printWindow.document.write('<HTML><Head><Title></Title>');
-        printWindow.document.write('</Head><Body style="margin-left:50px;margin-top:50px;font-size:10pt;">');
-        printWindow.document.write(printContent.innerHTML);
-        printWindow.document.write('</Body></HTML>');
-        printWindow.document.close();
-        printWindow.focus();
-        printWindow.print();
-        printWindow.close();
-    }
-
-
+//     function printPartOfPage(elementId) {
+//         var printContent = document.getElementById(elementId);
+//         var windowUrl = '';
+//         var uniqueName = new Date();
+//         var windowName = 'Print' ;
+//         var printWindow = window.open(windowUrl, windowName, 'left=-20,top=-20,width=0,height=0');
+//         printWindow.document.write('<HTML><Head><Title></Title>');
+//         printWindow.document.write('</Head><Body style="margin-left:50px;margin-top:50px;font-size:10pt;">');
+//         printWindow.document.write(printContent.innerHTML);
+//         printWindow.document.write('</Body></HTML>');
+//         printWindow.document.close();
+//         printWindow.focus();
+//         printWindow.print();
+//         printWindow.close();
+//     }
     
 </script>
     
 <body>
 
-    <img alt="" src="https://schhs.sharepoint.com/:i:/r/sites/ar/Style%20Library/printers/printer01.png?csf=1&e=FzpaXy" onclick="JavaScript:printPartOfPage('searchTable');" />
+    <!-- <img alt="" src="https://schhs.sharepoint.com/:i:/r/sites/ar/Style%20Library/printers/printer01.png?csf=1&e=FzpaXy" onclick="JavaScript:printPartOfPage('searchTable');" /> -->
 
     <div class="container">
         <div class="row">

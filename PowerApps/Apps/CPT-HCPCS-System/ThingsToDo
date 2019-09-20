@@ -1,0 +1,47 @@
+
+
+. Create Site (DONE)
+. Create List Definitions (DONE)
+. Hide all lists from all users (DONE)
+. Create Landing Page (DONE)
+. Add based Security Link to the Landing Page for Administrators and Reviewers (DONE)
+. add role based Security Workflow to verify if the user belongs to Administrators Group or Reviewers Group (DONE)
+
+
+UTF Time
+load data
+2000 limit issue
+colors {red: yellow: green}
+locking feature
+
+RGBA(255, 255, 0, 0.6)          yellow
+RGBA(0, 255, 0, 0.5)            green
+RGBA(255, 0, 0, 0.6)            red
+
+RGBA(0, 0, 0, 1)                black
+RGBA(255, 255, 255, 1)          white
+
+
+
+. Create Initiation Form To Submit As SaveAsDraft or Preliminary Review 
+. Create a Notification Workflow to notify Initiator and Reviewer for Preliminary Review or Formal Review
+. Create a datatable form to allow reviewer to query pending review, not accepted, and completed
+. Create Review Form to send Response from Reviewer to Initiator
+. Create a Notification Workflow to notify reviewer that a request is late 2-weeks.
+. Create a Notification Workflow to notify reviewer that a request is late 2-weeks and 5 days
+. Create a Escalation Process
+
+Medical Code Updates Notification Workflow V1
+1. Send Email to Reviewers when Workflow Status = "Preliminary"
+2. Send Email To Reviewers when Workflow Status = "Formal Review"
+3. Add Reviewers to the SharePoint Group Reviewers, check first if they are there first
+
+
+If (LeftNavigation.Selected.Nav.Text="Log out", Navigate(HomeScreen), LeftNavigation.Selected.Nav.Text="Formal Review", Set(globalDataTableView, "Formal Review"), LeftNavigation.Selected.Nav.Text="Preliminary Review", Set(globalDataTableView, "Preliminary Review"), LeftNavigation.Selected.Nav.Text="Save As Draft", Set(globalDataTableView, "Save As Draft"))
+
+
+Save As Draft
+Preliminary Review
+Formal Review
+Completed
+Escalated

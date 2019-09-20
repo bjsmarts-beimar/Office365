@@ -1,0 +1,11 @@
+
+Set(ChoiceVar,Filter(Choices(RequestList.WorkflowStatus),Value="Save As Draft"));
+Patch(RequestList, Defaults(RequestList), {Title: "", WorkflowStatus: {'@odata.type': "#Microsoft.Azure.Connectors.SharePoint.SPListExpandedReference",
+     Id: 0,
+     Value: "Save As Draft"
+   }})
+
+
+Set(ChoiceVar,Filter(Choices(RequestList.WorkflowStatus),Value="Pending Preliminary Review"));SubmitForm(NewForm);Set(globalSuccessMessage, "Your Request has been submitted successfully"); Navigate(SuccessScreen)
+
+Set(ChoiceVar,Filter(Choices(RequestList.WorkflowStatus),Value="Pending Formal Review")); SubmitForm(NewForm);Set(globalSuccessMessage, "Your Request has been submitted successfully"); Navigate(SuccessScreen)

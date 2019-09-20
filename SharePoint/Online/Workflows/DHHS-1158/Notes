@@ -6,7 +6,6 @@ https://gijgo.com/datepicker
 
 
 
-
 Menu
 ====
 
@@ -17,17 +16,31 @@ Group: Accounts Receivable Members
     My 1158 Forms               ==>    My Items
     My 1158 Rejected Forms      ==>    My Rejected Items
     My 1158 Completed Forms     ==>    My Completed Items
+    Search 1158 Forms
 
 Group: Accounts Receivable Members
 
     1158 Pending Manager Approvals      ==>    1158 Pending Approval Forms
+    Search 1158 Forms
 
 Group: Accounts Receivable Approvers
 
-    All 1158 Pending Approvals          ==>    Pending Items
-
+    All 1158 Pending Forms          ==>    Pending Items
+    All 1158 Rejected Forms         ==>    Rejected Items
+    All 1158 Completed Forms        ==>    Completed Items
+    Search 1158 Forms 
 
 
 Note: Maybe not need it
 All 1158 Rejected Forms     ==>    Rejected Items
 All 1158 Completed Forms    ==>    Completed Items
+
+
+WorkflowStatus
+==============
+Not Started
+Initial Approval (Pending)
+Initial Approval (Approved)
+Final Approval (Pending)
+Final Approval (Approved)
+Rejected

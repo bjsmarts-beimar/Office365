@@ -39,7 +39,7 @@
     + ctx.CurrentItem.Created
     + "</td>"
     + "<td>" 
-    + comments
+    + stripHtml(comments)
     + "</td>"
     + "</tr>";
     }

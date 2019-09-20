@@ -1,0 +1,55 @@
+
+
+HR EPSM Rebuttal
+https://schhs.sharepoint.com/sites/HREPSMRebuttal
+
+RebuttalList
+https://schhs.sharepoint.com/sites/HREPSMRebuttal/Lists/RebuttalList/
+
+
+Email Account for Notification "Send As"
+SharepointNoReply@scdhhs.gov
+
+
+Solution 1: Rebuttal Form App
+
+Embed Url:
+
+<iframe width="1600px" height="900px" frameborder="0" allowfullscreen="true" src="https://gov.web.powerapps.us/webplayer/iframeapp?hideNavBar=true&source=iframe&screenColor=rgba(104,101,171,1)&appId=/providers/Microsoft.PowerApps/apps/ee5a31ac-03f6-4b3d-b176-d3626038035a" />
+
+<iframe width="100%" height="100%" frameborder="0" allowfullscreen="true" src="https://gov.web.powerapps.us/webplayer/iframeapp?hideNavBar=true&source=iframe&screenColor=rgba(104,101,171,1)&appId=/providers/Microsoft.PowerApps/apps/ee5a31ac-03f6-4b3d-b176-d3626038035a" />
+
+
+https://www.screencast.com/t/lo5oeVFy
+
+https://www.screencast.com/t/lo5oeVFy
+
+https://schhs.sharepoint.com/sites/WorkArea/
+https://schhs.sharepoint.com/sites/WorkArea/SitePages/Rebuttal.aspx
+
+https://www.technologytobusiness.com/microsoft-flow-logic-apps/workflow-not-authorized-account-send-email
+
+
+
+
+
+
+https://gov.web.powerapps.us/apps/ee5a31ac-03f6-4b3d-b176-d3626038035a"?tenantId=45843448-87c2-4911-a7e2-1079f0f4aac3
+
+
+
+Notes:
+
+The width and height propertiesare set to 98%, to ensure that there is no grey background area around your app.
+hideNavBar - It is a Boolean which controls whether the PowerApps header is visible or not.
+screenColor- controls the loading screen color while the app loads
+
+Solution 2: Rebuttal Review Form App
+
+
+Role Based Security in PowerApps
+http://www.artisconsulting.com/geetha-sivasailam/2018/11/13/role-based-security-in-powerapps-using-sharepointnbspgroups
+
+
+
+Save     Send Rebuttal Response

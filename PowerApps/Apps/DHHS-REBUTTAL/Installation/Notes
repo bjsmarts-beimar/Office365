@@ -1,0 +1,30 @@
+
+
+Site:
+
+sites/rebuttal
+sites/rcws
+
+
+HRRebuttalList
+
+1. title (free Text)
+2. supervisorName (People)
+3. 
+4.
+5. Location [Region 1, Region 2, Region 3, Region 4, Richland Processing Center, Aiken Processing Center, Spantanburg Processing Center, Midlands Processing Center]
+6. typeOfRebuttal [Timeliness Metric, Accuracy Metric, Timeliness and Accuracy Metrics, Other]
+7. Comments (Text Area)
+
+==============================================================================================
+8. dateCreated (Date)
+9. preMeetingFindings (Text Area)
+10. rebuttalCommitteeNotes (Text Area)
+11. rebuttalCommitteeDate (Date)
+12. 
+13.
+14. dateResponseDate (Date)
+15. workflowStatus [Open/Closed]
+
+
+
