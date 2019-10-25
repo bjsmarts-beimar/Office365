@@ -11,3 +11,7 @@ https://docs.microsoft.com/en-us/sharepoint/dev/spfx/web-parts/get-started/build
 
 SharePoint Framework Client-Side Web Part Samples & Tutorial Materials
 https://github.com/SharePoint/sp-dev-fx-webparts/
+
+
+This is a modern webpart built on the GA version of the SharePoint Framework demonstrating how to build a custom web part with a calendar capabilities in it.
+https://github.com/SharePoint/sp-dev-fx-webparts/tree/master/samples/js-modern-calendar

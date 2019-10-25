@@ -27,7 +27,7 @@
 
     function loadListItems() {
             //var oDataUrl = _spPageContextInfo.webAbsoluteUrl + "/_api/web/lists/getbytitle('TicketInfo')/items?$select=ID,Title,Ticket_x0020_Name,Start_x0020_Date,End_x0020_Date,Status,Project_x0020_Details,TeamMember/Title,Manager_x0020_Name/Title&$expand=TeamMember,Manager_x0020_Name";
-            var oDataUrl = _spPageContextInfo.webAbsoluteUrl + "/data/_api/web/lists/getbytitle('AR1158Form')/items?$select=ID,Title,ProviderCaseNumber,RequestorSignature,Created&$orderby=Created asc";            
+            var oDataUrl = _spPageContextInfo.webAbsoluteUrl + "/data/_api/web/lists/getbytitle('AR1158Form')/items?$select=ID,Title,ProviderCaseNumber,RequestorSignature,Created,Program/Title,Supervisor/Title&$expand=Program,Supervisor&$orderby=Created asc";            
             console.log(_spPageContextInfo);
             $.ajax({
                     url: oDataUrl,
@@ -58,20 +58,22 @@
                 dataTableExample = $('#pDashboard').DataTable( {
                     columnDefs: [
                         {
-                                targets: [ 0, 1, 2, 3 ],
+                                targets: [ 0, 1, 2, 3, 4, 5 ],
                                 width: '10%',
                                 className: 'mdl-data-table__cell--non-numeric'
                         }
                     ],
 
                     "aaData": data.d.results,
-                    "aoColumns": [{
+                    "aoColumns": [
+                        {
                                 "mData": "ID",
                                 "render": function(mData) {
                                         recordId = mData;
-                                        return mData;
+                                        return mData;                                        
                                 }
-                        }, {
+                        }, 
+                        {
                                 "mData": "Title",
                                 "render": function(mData) {
                                           //console.log('recordId:', recordId);
@@ -81,12 +83,16 @@
                                 "mData": "ProviderCaseNumber"
                         }, {
                                 "mData": "RequestorSignature"
+                        }, {
+                                "mData": "Supervisor.Title"
+                        }, {
+                                "mData": "Program.Title"
                         }	
                         
                     ]
                 });
             }
-            catch {
+            catch(err) {
 
             }
 
@@ -127,11 +133,13 @@
                         <div class="table-responsive">
                         <table id="pDashboard" class="mdl-data-table" cellspacing="0" style="width:100% !important;">
                                 <thead>  
-                                <tr>
-                                        <th class="table-custom-header">ID</th>
+                                <tr>               
+                                        <th class="table-custom-header">ID</th>                         
                                         <th class="table-custom-header">Name of the Debtor</th>
-                                        <th class="table-custom-header">Provider Id</th>
-                                        <th class="table-custom-header">Requestor</th>                                                          
+                                        <th class="table-custom-header">Provider ID#</th>
+                                        <th class="table-custom-header">Requestor</th>
+                                        <th class="table-custom-header">Supervisor</th>
+                                        <th class="table-custom-header">Program</th>                                                          
                                 </tr>  
                                 </thead>  
                                 <tfoot> </tfoot>  

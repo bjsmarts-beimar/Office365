@@ -1,47 +1,66 @@
 
+Things to do 
+============
 
 . Create Site (DONE)
 . Create List Definitions (DONE)
 . Hide all lists from all users (DONE)
 . Create Landing Page (DONE)
 . Add based Security Link to the Landing Page for Administrators and Reviewers (DONE)
+    Medical Code Updates Role Security Workflow V1 (DONE)
 . add role based Security Workflow to verify if the user belongs to Administrators Group or Reviewers Group (DONE)
+    Medical Code Updates Role Security Workflow V1
+. Create Initiation Form To Submit As SaveAsDraft or Preliminary Review or Formal Review (DONE) 
+. Create a Notification Workflow to notify Initiator and Reviewers for Preliminary Review or Formal Review (DONE)
+    Medical Code Updates Notification Workflow V1
+. Create Save As Draft Queue, Preliminary Review Queue and Formal Review Queue filter by Inititiator (DONE)
+. Formal Review Queue should have conditional formatting green, yellow and red (DONE)
+. Create Preliminary Review Queue and Formal Review Queue for Administrators NO FILTER (DONE)
+. Formal Review Queue for Administrators should have conditional formatting green, yellow and red (DONE)
+. Create Administrator total counts dashboard
+. Create Preliminary Review Queue and Formal Review Queue filter by Reviewer (DONE)
+. Formal Review Queue should have conditional formatting green, yellow and red (DONE)
+. Create a locking feature to only allow ONE REVIEWER to work in a request at the time, 
+  OTHERS REVIEWERS should be notified that another REVIEWER it is working on the request
+. Create Reviewer total counts dashboard
+
+. A Notification should be send out to initiator when a reviewer reviews a Preliminary Review Request 
+. if a second reviewer reviews the request it is not necessary to send out notification 
+    Medical Code Updates Reviewer Preliminary Review Workflow V1
+. A Notification should be send out to initiator when a reviewer completes review a Request
+    Medical Code Updates Reviewer Response Workflow V1
+
+. A Notification should be send out to initiator when a request has been escalated to Upper Management
+. A Notification should be send out to Director and Assistance Director using Escalation Chart list
+. Create an Escalation Group
+. Add Director and Assistance Director to Escalation Group
+. Update the request workflow status equal "Escalated"
+. Add "My Escalation" to the Home App Screen
+. Add "Escalation" datatable to Administrator, Reviewer and regular user
+
+Medical Code Updates Escalate Workflow V1
+
+Medical Code Updates Workflows
+==============================
+Medical Code Updates Notification Workflow V1 {notify preliminary review, formal review to reviewers and send response to Initiator}
+Medical Code Updates Role Security Workflow V1
+Medical Code Updates Notify Initiator Workflow V1
+Medical Code Updates 2 Weeks Notification Workflow V1
+Medical Code Updates Escalate Workflow V1
 
 
-UTF Time
 load data
 2000 limit issue
-colors {red: yellow: green}
-locking feature
 
 RGBA(255, 255, 0, 0.6)          yellow
 RGBA(0, 255, 0, 0.5)            green
 RGBA(255, 0, 0, 0.6)            red
-
 RGBA(0, 0, 0, 1)                black
 RGBA(255, 255, 255, 1)          white
 
-
-
-. Create Initiation Form To Submit As SaveAsDraft or Preliminary Review 
-. Create a Notification Workflow to notify Initiator and Reviewer for Preliminary Review or Formal Review
-. Create a datatable form to allow reviewer to query pending review, not accepted, and completed
-. Create Review Form to send Response from Reviewer to Initiator
-. Create a Notification Workflow to notify reviewer that a request is late 2-weeks.
-. Create a Notification Workflow to notify reviewer that a request is late 2-weeks and 5 days
-. Create a Escalation Process
-
-Medical Code Updates Notification Workflow V1
-1. Send Email to Reviewers when Workflow Status = "Preliminary"
-2. Send Email To Reviewers when Workflow Status = "Formal Review"
-3. Add Reviewers to the SharePoint Group Reviewers, check first if they are there first
-
-
-If (LeftNavigation.Selected.Nav.Text="Log out", Navigate(HomeScreen), LeftNavigation.Selected.Nav.Text="Formal Review", Set(globalDataTableView, "Formal Review"), LeftNavigation.Selected.Nav.Text="Preliminary Review", Set(globalDataTableView, "Preliminary Review"), LeftNavigation.Selected.Nav.Text="Save As Draft", Set(globalDataTableView, "Save As Draft"))
-
-
 Save As Draft
 Preliminary Review
+Preliminary Review Completed
 Formal Review
 Completed
 Escalated

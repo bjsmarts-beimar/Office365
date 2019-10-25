@@ -195,7 +195,7 @@ function deleteAttachment(LinkID, Index)
 
 function addAttachment()
 {    
-    let serverRelativeUrlToFolder = '/sites/SBH/ar/data/Attachments/';
+    let serverRelativeUrlToFolder = '/sites/ar/data/Attachments/';
     uploadfile("getFile", "error-revision-file", "attachmentsDiv", serverRelativeUrlToFolder);
 }
 

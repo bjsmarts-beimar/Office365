@@ -155,8 +155,8 @@ function stripHtml(html){
     temporalDivElement.innerHTML = html;
     
     // Retrieve the text property of the element (cross-browser support)    
-    return temporalDivElement.textContent || temporalDivElement.innerText || "";
-    //return temporalDivElement.innerHTML || temporalDivElement.innerText || "";
+    //return temporalDivElement.textContent || temporalDivElement.innerText || "";
+    return temporalDivElement.innerHTML || temporalDivElement.innerText || "";
 }
 
 function strippedHtml(html){

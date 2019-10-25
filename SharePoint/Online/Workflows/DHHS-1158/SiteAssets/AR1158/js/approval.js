@@ -152,7 +152,7 @@ function isFormValid()
     return false;
 }
 
-function getWorkaroundMetaData(Decision, listName, commentsVal, ReasonForRejectionVal,)
+function getWorkaroundMetaData(Decision, listName, commentsVal, ReasonForRejectionVal)
 {
     let ApprovalType = getUrlParameter('ApprovalType');
     let itemType = GetItemTypeForListName(listName);
