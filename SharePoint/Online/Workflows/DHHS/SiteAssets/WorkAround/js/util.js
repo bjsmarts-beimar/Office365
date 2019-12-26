@@ -133,7 +133,7 @@ function getComments(comments, currentComments)
                         
     if ( currentComments !== null ) {
         //comments = currentComments + '<br>' + $("#field-comments").val() + '<br>' + signature + '<br>';
-        returnVal = currentComments + '<br>' + comments + '<br>' + signature + '<br>';
+        returnVal = currentComments + '\n' + comments + '\n' + signature + '\n';
     }
     else {
         if ( $("#field-comments").val().length > 0  )

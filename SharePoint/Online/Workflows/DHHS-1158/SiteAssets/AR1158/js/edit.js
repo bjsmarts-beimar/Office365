@@ -11,8 +11,10 @@ jQuery(document).ready(function () {
         alert('This browser does not support the FileReader API.');
     }        
 
+
     loadingLocalStorageData("Initiation Form");        
     initializePeoplePicker('peoplePickerDiv'); 
+    initializeLongSizePeoplePicker('peopleRequestorPickerDiv');
 
     let currencyMask = new IMask(
         document.getElementById('amountDue'),
@@ -61,6 +63,17 @@ function SaveFormWithValidation()
     }
 }
 
+function populate() {
+    
+    let accountRequestor = getAccountTitle(SPClientPeoplePicker.SPClientPeoplePickerDict.peopleRequestorPickerDiv_TopSpan);
+    accountRequestor.done(function (data) {
+        jQuery("#requestorTitle").val(data);
+    });
+    accountRequestor.fail(function(error) {
+            alert(error.responseText);
+    });        
+}
+
 function Cancel()
 {
     let page = "/Pages/default.aspx";
@@ -77,7 +90,8 @@ function update1158Record()
     let dC = document.getElementById("debtClassification").value;
     let cN = document.getElementById("countyName").value;
     let address = jQuery('#address').val();
-    let state = jQuery('#state').val();
+    // let state = jQuery('#state').val();
+    let state = document.getElementById("stateName").value;
     let city = jQuery('#city').val();
     let zipcode = jQuery('#zipcode').val();
     let provider = jQuery('#provider').val();        
@@ -97,83 +111,109 @@ function update1158Record()
 
     let comments = jQuery("#field-comments").val();    
 
-    let signature = jQuery('#requestorSignature').val();   
+    // let signature = jQuery('#requestorSignature').val();
+    //jQuery("#requestor").val(item.Requestor.Title);   
     let requestorTitle  = jQuery('#requestorTitle').val();
-    let countyDivision = jQuery('#countyDivision').val();
+    // let countyDivision = jQuery('#countyDivision').val();
 
     let account = getAccountId(SPClientPeoplePicker.SPClientPeoplePickerDict.peoplePickerDiv_TopSpan);
     account.done(function (data) {
 
-        let SupervisorPeoplePickerId = data;
+        let SupervisorPeoplePickerId = data.Id;
 
-        let item = {
-            "__metadata": { "type": itemType },        
-            "Title": title,
-            "CertificationAction": cA,
-            "DebtClassification": dC,
-            "CountyId": cN,
-            "Address": address,
-            "State": state,
-            "City": city,
-            "ZipCode": zipcode,
-            "ProviderCaseNumber": provider,        
-            "ProgramId": programId,
-            "ServiceType": service,
-            "AmountDue": amountDue,   
-            "Federal": federal,
-            "StateSource": stateSource,
-            "Other": other,
-            "FundSource": otherFund,    
-            "GeneralLedgerId": generalLedgerId,
-            "CostCenterId": costCenterId,
-            "FunctionalAreasId": functionalAreaId,
-            "Payment": payment,
-            "SupervisorId": SupervisorPeoplePickerId,
-            "RequestorSignature": signature,       
-            "RequestorTitle": requestorTitle,
-            "CountyDivision": countyDivision, 
-            "Comments": comments
-        };
-    
-        handleDateField(item, { DueDate: jQuery('#dueDate').val() }, jQuery('#dueDate').val());
-        handleDateField(item, { FromDate: jQuery('#from').val() }, jQuery('#from').val());
-        handleDateField(item, { ToDate: jQuery('#to').val() }, jQuery('#to').val());
+        let accountRequestor = getAccountId(SPClientPeoplePicker.SPClientPeoplePickerDict.peopleRequestorPickerDiv_TopSpan);
+        accountRequestor.done(function (data) {
 
-        let results = updateSharePointListItem(PageContextGlobalID, item, listName);                
-        results.done(function (data) {
+            let RequestorPeoplePickerId = data.Id;            
 
-            let urlQuery = "?$select=ID,Title,Link&$filter=RecordID eq " + PageContextGlobalID;
+            let item = {
+                "__metadata": { "type": itemType },        
+                "Title": title,
+                "CertificationAction": cA,
+                "DebtClassification": dC,
+                "CountyId": cN,
+                "Address": address,
+                // "State": state,
+                "StateAddressId": state,
+                "City": city,
+                "ZipCode": zipcode,
+                "ProviderCaseNumber": provider,        
+                "ProgramId": programId,
+                "ServiceType": service,
+                "AmountDue": amountDue,   
+                "Federal": federal,
+                "StateSource": stateSource,
+                "Other": other,
+                "FundSource": otherFund,    
+                "GeneralLedgerId": generalLedgerId,
+                "CostCenterId": costCenterId,
+                "FunctionalAreasId": functionalAreaId,
+                "Payment": payment,
+                "SupervisorId": SupervisorPeoplePickerId,
+                "RequestorId": RequestorPeoplePickerId,
+                // "RequestorSignature": signature,       
+                "RequestorTitle": requestorTitle,
+                // "CountyDivision": countyDivision, 
+                "Comments": comments
+            };
+        
+            handleDateField(item, { DueDate: jQuery('#dueDate').val() }, jQuery('#dueDate').val());
+            handleDateField(item, { FromDate: jQuery('#from').val() }, jQuery('#from').val());
+            handleDateField(item, { ToDate: jQuery('#to').val() }, jQuery('#to').val());
 
-            let results = retrieveSharePointListItemsByListName("Links", urlQuery);
+            let results = updateSharePointListItem(PageContextGlobalID, item, listName);                
             results.done(function (data) {
 
-                for ( var i=0; i<data.d.results.length; i++)
-                {
-                    returnAction = deleteItem(data.d.results[i].ID, "Links");
-                    returnAction.done(function (data) {
-                        console.log('link record has been deleted', data.d.results[i].ID);
-                    });
-                    returnAction.fail(function (error) {
-                        alert(error.responseText);
-                    });
+                let urlQuery = "?$select=ID,Title,Link&$filter=RecordID eq " + PageContextGlobalID;
+
+                let results = retrieveSharePointListItemsByListName("Links", urlQuery);
+                results.done(function (data) {
+
+                    for ( var i=0; i<data.d.results.length; i++)
+                    {
+                        returnAction = deleteItem(data.d.results[i].ID, "Links");
+                        returnAction.done(function (data) {
+                            console.log('link record has been deleted', data.d.results[i].ID);
+                        });
+                        returnAction.fail(function (error) {
+                            alert(error.responseText);
+                        });
+                    }
+
+                });
+                results.fail(function(err) {
+                    alert(err.responseText);
+                });
+
+                for ( var i=0; i<_attachments.length; ++i) {0
+                                                            
+                    addLink("Links", i, _attachments, PageContextGlobalID);                
                 }
+                
+                jQuery.alert({        
+                    title: false,
+                    content: '<div style="font-size: large;font-style: italic;">Your 1158 form has been updated successfully.</div>',
+                    columnClass: 'medium',
+                    buttons: {            
+                        Ok: {
+                            text: 'Ok',
+                            btnClass: 'btn-default btn-md',
+                            action: function(){
+                                let page = "/Pages/MyAR.aspx";
+                                window.location = _spPageContextInfo.webAbsoluteUrl + page;
+                            }
+                        }
+                    }
+                });
 
             });
-            results.fail(function(err) {
-                alert(err.responseText);
+            results.fail(function (error) {
+                    alert(error.responseText);
             });
-
-            for ( var i=0; i<_attachments.length; ++i) {0
-                                                        
-                 addLink("Links", i, _attachments, PageContextGlobalID);                
-            }
-
-            // let page = "/Pages/MyAR.aspx";
-            // window.location = _spPageContextInfo.webAbsoluteUrl + page;
 
         });
-        results.fail(function (error) {
-                alert(error.responseText);
+        accountRequestor.fail(function(error) {
+            alert(error.responseText);
         });
 
     });
@@ -236,9 +276,13 @@ function IsFormValid()
         IsFormValid = false;        
     }
 
-    if ( !IsThisTextFieldValid("state") )
-    {
-        IsFormValid = false;        
+    // if ( !IsThisTextFieldValid("state") )
+    // {
+    //     IsFormValid = false;        
+    // }
+
+    if ( !IsThisComboFieldValid("stateName")) {
+        IsFormValid = false;
     }
 
     if ( !IsThisTextFieldValid("city") )
@@ -280,19 +324,24 @@ function IsFormValid()
         IsFormValid = false;
     }
 
-    if ( !IsThisTextFieldValid("requestorSignature")) {
-        IsFormValid = false; 
-    }
+    // if ( !IsThisTextFieldValid("requestorSignature")) {
+    //     IsFormValid = false; 
+    // }
 
     if ( !IsThisTextFieldValid("requestorTitle")) {
         IsFormValid = false;
     }
 
-    if ( !IsThisTextFieldValid("countyDivision")) {
-        IsFormValid = false;
-    }
+    // if ( !IsThisTextFieldValid("countyDivision")) {
+    //     IsFormValid = false;
+    // }
 
     if ( !IsPeoplePickerFieldValid(SPClientPeoplePicker.SPClientPeoplePickerDict.peoplePickerDiv_TopSpan, "peoplePickerDiv") )
+    {
+        IsFormValid = false;        
+    }
+
+    if ( !IsPeoplePickerFieldValid(SPClientPeoplePicker.SPClientPeoplePickerDict.peopleRequestorPickerDiv_TopSpan, "peopleRequestorPickerDiv") )
     {
         IsFormValid = false;        
     }

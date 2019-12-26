@@ -121,6 +121,45 @@ function updateSharePointListItem(WorkaroundId, data, listName)
     return deferred.promise();
 }
 
+function getAccountTitle(peoplePickerDiv_TopSpan) {
+
+    var deferred = jQuery.Deferred();
+
+    // Get the people picker object from the page.
+    //var peoplePicker = SPClientPeoplePicker.SPClientPeoplePickerDict.peoplePickerDiv_TopSpan;
+    var peoplePicker = peoplePickerDiv_TopSpan;
+
+    // Get information about all users.
+    var users = peoplePicker.GetAllUserInfo();
+    var userInfo = '';
+    for (var i = 0; i < users.length; i++) {
+        var user = users[i];
+        for (var userProperty in user) { 
+            userInfo += userProperty + ':  ' + user[userProperty] + '<br>';
+        }
+    }
+    
+    let requestorJobTitle = "";
+
+    if ( users.length > 0 )
+    {
+        if ( users[0] && users[0].EntityData )
+        {
+            requestorJobTitle = users[0].EntityData.Title;
+            deferred.resolve(requestorJobTitle);
+        }
+        else {
+            deferred.reject('Error has occurred.');
+        }
+    }
+    else {
+        deferred.resolve(requestorJobTitle);
+    }            
+    
+    return deferred.promise();
+
+}
+
 function getAccountId(peoplePickerDiv_TopSpan) {
 
     var deferred = jQuery.Deferred();

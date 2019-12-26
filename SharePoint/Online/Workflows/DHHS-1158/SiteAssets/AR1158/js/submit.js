@@ -13,6 +13,7 @@ jQuery(document).ready(function () {
 
     loadingLocalStorageData("Initiation Form");        
     initializePeoplePicker('peoplePickerDiv'); 
+    initializeLongSizePeoplePicker('peopleRequestorPickerDiv');
 
     let currencyMask = new IMask(
         document.getElementById('amountDue'),
@@ -75,7 +76,8 @@ function update1158Record()
     let dC = document.getElementById("debtClassification").value;
     let cN = document.getElementById("countyName").value;
     let address = jQuery('#address').val();
-    let state = jQuery('#state').val();
+    //let state = jQuery('#state').val();
+    let state = document.getElementById("stateName").value;
     let city = jQuery('#city').val();
     let zipcode = jQuery('#zipcode').val();
     let provider = jQuery('#provider').val();        
@@ -95,14 +97,19 @@ function update1158Record()
 
     let comments = jQuery("#field-comments").val();    
 
-    let signature = jQuery('#requestorSignature').val();   
+    //let signature = jQuery('#requestorSignature').val();       
     let requestorTitle  = jQuery('#requestorTitle').val();
-    let countyDivision = jQuery('#countyDivision').val();
+    //let countyDivision = jQuery('#countyDivision').val();
 
     let account = getAccountId(SPClientPeoplePicker.SPClientPeoplePickerDict.peoplePickerDiv_TopSpan);
     account.done(function (data) {
 
       let SupervisorPeoplePickerId = data.Id;
+
+      let accountRequestor = getAccountId(SPClientPeoplePicker.SPClientPeoplePickerDict.peopleRequestorPickerDiv_TopSpan);
+      accountRequestor.done(function (data) {
+
+        let RequestorPeoplePickerId = data.Id;
 
         let item = {
             "__metadata": { "type": itemType },        
@@ -127,9 +134,10 @@ function update1158Record()
             "FunctionalAreasId": functionalAreaId,
             "Payment": payment,
             "SupervisorId": SupervisorPeoplePickerId,
-            "RequestorSignature": signature,       
+            "RequestorId": RequestorPeoplePickerId,
+            //"RequestorSignature": signature,       
             "RequestorTitle": requestorTitle,
-            "CountyDivision": countyDivision, 
+            //"CountyDivision": countyDivision, 
             "WorkflowStatus": "Initial Approval (Pending)",
             "Comments": comments
         };
@@ -174,6 +182,11 @@ function update1158Record()
         results.fail(function (error) {
                 alert(error.responseText);
         });
+
+      });
+      accountRequestor.fail(function(error) {
+          alert(error.responseText);
+      });
 
     });
     account.fail(function(error) {
@@ -235,14 +248,18 @@ function IsFormValid()
         IsFormValid = false;        
     }
 
-    if ( !IsThisTextFieldValid("state") )
-    {
-        IsFormValid = false;        
-    }
+    // if ( !IsThisTextFieldValid("state") )
+    // {
+    //     IsFormValid = false;        
+    // }
 
     if ( !IsThisTextFieldValid("city") )
     {
         IsFormValid = false;        
+    }
+
+    if ( !IsThisComboFieldValid("stateName")) {
+        IsFormValid = false;
     }
 
     if ( !IsThisTextFieldValid("zipcode") )
@@ -279,19 +296,24 @@ function IsFormValid()
         IsFormValid = false;
     }
 
-    if ( !IsThisTextFieldValid("requestorSignature")) {
-        IsFormValid = false; 
-    }
+    // if ( !IsThisTextFieldValid("requestorSignature")) {
+    //     IsFormValid = false; 
+    // }
 
     if ( !IsThisTextFieldValid("requestorTitle")) {
         IsFormValid = false;
     }
 
-    if ( !IsThisTextFieldValid("countyDivision")) {
-        IsFormValid = false;
-    }
+    // if ( !IsThisTextFieldValid("countyDivision")) {
+    //     IsFormValid = false;
+    // }
 
     if ( !IsPeoplePickerFieldValid(SPClientPeoplePicker.SPClientPeoplePickerDict.peoplePickerDiv_TopSpan, "peoplePickerDiv") )
+    {
+        IsFormValid = false;        
+    }
+
+    if ( !IsPeoplePickerFieldValid(SPClientPeoplePicker.SPClientPeoplePickerDict.peopleRequestorPickerDiv_TopSpan, "peopleRequestorPickerDiv") )
     {
         IsFormValid = false;        
     }

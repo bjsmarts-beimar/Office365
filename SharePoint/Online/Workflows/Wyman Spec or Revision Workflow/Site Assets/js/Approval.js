@@ -182,12 +182,12 @@ function updateTask(Decision, TaskID)
     var commentsVal = "";
 
     if ( currentComments !== null ) {
-        commentsVal = currentComments + '<br>' + $("#field-comments").val() + '<br>' + signature + '<br>';
+        commentsVal = currentComments + '\n' + $("#field-comments").val() + '\n' + signature + '\n';
     }
     else {
         if ( $("#field-comments").val().length > 0  )
         {
-            commentsVal = $("#field-comments").val() + '<br>' + signature;
+            commentsVal = $("#field-comments").val() + '\n' + signature;
         }
     }
         

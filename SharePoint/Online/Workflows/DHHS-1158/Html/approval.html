@@ -26,10 +26,19 @@
 <main class="container pt-5">        
         <div class="card-block mb-5">
         <form>
+
+          <div class="form-group row">
+            <div class="col-12">
+                <span style="display: none;" id="error-user-display" name="error-user-display">
+                        <div class="alert alert-danger form-label-workaround"><strong style="font-size: xx-large;">This 1158 form has been removed by Initiator !!! </strong></div>
+                </span>
+            </div>
+          </div>
           <div class="note">
                 <p>Accounts Receivable Certification</p>
           </div>
           <div class="form-content">
+
                 <div class="form-group row">                        
                         <div class="col-4">
                               <label for="certificationLabel" class="col-form-label form-label-workaround">1. <span id="label2" name="label2"></span></label>
@@ -70,11 +79,14 @@
                 <div class="form-group row">
                                 <div class="col-4">
                                         <label for="stateLabel" class="col-form-label form-label-workaround">6. <span id="label6" name="label6"></span></label>
-                                        <input class="form-control form-readOnly" type="text" id="state" maxlength="255" autocomplete="off" disabled>                                        
+                                        <input class="form-control form-readOnly" type="text" id="city" maxlength="255" autocomplete="off" disabled>                                        
                                 </div>
                                 <div class="col-4">
                                         <label for="cityLabel" class="col-form-label form-label-workaround">7. <span id="label7" name="label7"></span></label>
-                                        <input class="form-control form-readOnly" type="text" id="city" maxlength="255" autocomplete="off" disabled>                                        
+                                        <!-- <input class="form-control form-readOnly" type="text" id="city" maxlength="255" autocomplete="off" disabled>                                         -->
+                                        <select class="form-control form-readOnly" id="stateName" disabled>
+                                                        <option value="0">Select ... </option>
+                                        </select>
                                 </div>
                                 <div class="col-4">
                                         <label for="zipcodeLabel" class="col-form-label form-label-workaround">8. <span id="label8" name="label8"></span></label>
@@ -203,7 +215,7 @@
           <div class="note">
                 <p>Requestor Signature</p>                
           </div>
-          <div class="form-content">
+          <!-- <div class="form-content">
                 <div class="form-group row">
                      <div class="col-12">
                         <input class="form-control form-readOnly" type="text" id="requestorSignature" maxlength="255" autocomplete="off" disabled>                                                     
@@ -217,6 +229,23 @@
                           <input class="form-control form-readOnly" type="text" id="countyDivision" maxlength="255" autocomplete="off" disabled>                          
                      </div>                                                
                 </div>                          
+          </div> -->
+          <div class="form-content">
+                        <div class="form-group row">
+                             <div class="col-12">
+                                <!-- <input class="form-control form-readOnly" type="text" id="requestorSignature" maxlength="255" autocomplete="off" disabled>    -->
+                                <label for="federalLabel" class="col-form-label form-label-workaround">25. <span id="label25" name="label25"></span></label>
+                                <input class="form-control form-readOnly" type="text" id="requestor" maxlength="255" autocomplete="off" disabled>                                                  
+                             </div>
+                             <div class="col-12">
+                                  <label for="federalLabel" class="col-form-label form-label-workaround">26. <span id="label26" name="label26"></span></label>
+                                  <input class="form-control form-readOnly" type="text" id="requestorTitle" maxlength="255" autocomplete="off" disabled>                          
+                             </div>
+                             <!-- <div class="col-6">
+                                  <label for="federalLabel" class="col-form-label form-label-workaround">26. <span id="label26" name="label26"></span></label>
+                                  <input class="form-control form-readOnly" type="text" id="countyDivision" maxlength="255" autocomplete="off" disabled>                          
+                             </div>                                                 -->
+                        </div>                          
           </div>
           <div class="note">
                 <p>Supervisor Information</p>                

@@ -246,12 +246,12 @@ function Reject()
                             let ReasonForRejection = "";
 
                             if ( currentComments !== null ) {
-                                comments = currentComments + '<br>' + $("#field-comments").val() + '<br>' + signature + '<br>';
+                                comments = currentComments + '\n' + $("#field-comments").val() + '\n' + signature + '\n';
                             }
                             else {
                                 if ( $("#field-comments").val().length > 0  )
                                 {
-                                    comments = $("#field-comments").val() + '<br>' + signature;
+                                    comments = $("#field-comments").val() + '\n' + signature;
                                     ReasonForRejection = $("#field-comments").val();
                                 }
                             }

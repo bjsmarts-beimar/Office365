@@ -7,6 +7,27 @@ function setPeoplePickerField(peoplePicker, EMail)
 }
 
 // Render and initialize the client-side People Picker.
+function initializeLongSizePeoplePicker(peoplePickerElementId) {
+
+    // Create a schema to store picker properties, and set the properties.
+    var schema = {};
+    //schema['PrincipalAccountType'] = 'User,DL,SecGroup,SPGroup';
+    schema['PrincipalAccountType'] = 'User';
+    schema['SearchPrincipalSource'] = 15;
+    schema['ResolvePrincipalSource'] = 15;
+    schema['AllowMultipleValues'] = false;
+    schema['MaximumEntitySuggestions'] = 50;
+    schema['Width'] = '958px';
+
+    // Render and initialize the picker. 
+    // Pass the ID of the DOM element that contains the picker, an array of initial
+    // PickerEntity objects to set the picker value, and a schema that defines
+    // picker properties.
+    //this.SPClientPeoplePicker_InitStandaloneControlWrapper(peoplePickerElementId, null, schema);
+    SPClientPeoplePicker_InitStandaloneControlWrapper(peoplePickerElementId, null, schema);
+}
+
+// Render and initialize the client-side People Picker.
 function initializePeoplePicker(peoplePickerElementId) {
 
     // Create a schema to store picker properties, and set the properties.
@@ -78,10 +99,53 @@ function IsThisTextFieldValid(fieldName)
     }    
 }
 
-function IsThisDateInThePast(fieldName) 
+function IsThisAValidDate(fieldName) 
 {
     let field = document.getElementById(fieldName);
     let errorField = document.getElementById("error-" + fieldName);
+
+    if ( field.value.length == 0 ) 
+    {
+        errorField.style.display = "none";
+        return true;
+    }
+    else {
+        if  ( isValidDate(field.value)) {
+            errorField.style.display = "none";
+            return true;
+        }
+        else {
+            errorField.style.display = "inline";
+            return false;
+        }
+    }
+}
+
+function HideTopMessage(WorkflowStatus) 
+{
+    let errorField = document.getElementById("error-user-display");
+    let ApproveBtn = document.getElementById("ApproveBtn");
+    let RejectBtn = document.getElementById("RejectBtn");
+
+    if ( WorkflowStatus === "Deleted") {
+        errorField.style.display = "inline";
+        ApproveBtn.style.display = "none";
+        RejectBtn.style.display = "none";
+    }
+    else {
+        if ( errorField !== null)
+            errorField.style.display = "none";
+        if ( ApproveBtn !== null )
+            ApproveBtn.style.display = "inline";
+        if ( RejectBtn !== null )
+            RejectBtn.style.display = "inline";
+    }
+}
+
+function IsThisDateInThePast(fieldName) 
+{
+    let field = document.getElementById(fieldName);
+    let errorField = document.getElementById("error-" + fieldName + "-2");
     
     if ( field.value.length == 0 ) 
     {
@@ -107,6 +171,7 @@ function IsThisDateInThePast(fieldName)
 
             return true;
         }
+
     }
 
 }
@@ -144,6 +209,26 @@ function getSelectedTextFromField(name)
     }    
 
     return selectedText;
+}
+
+
+
+function stripHtmlEdit(html) {
+
+    let text = stripHtml(html);
+    let returnVal = text.substring(0, text.indexOf('\n'));
+    return returnVal;
+}
+
+function stripHtmlV2(html) {
+    // Create a new div element
+    var temporalDivElement = document.createElement("div");
+    
+    // Set the HTML content with the providen
+    temporalDivElement.innerHTML = html;
+    
+    // Retrieve the text property of the element (cross-browser support)    
+    return temporalDivElement.textContent || temporalDivElement.innerText || "";
 }
 
 function stripHtml(html){
@@ -185,12 +270,12 @@ function getComments(comments, currentComments)
                         
     if ( currentComments !== null ) {
         //comments = currentComments + '<br>' + $("#field-comments").val() + '<br>' + signature + '<br>';
-        returnVal = currentComments + '<br>' + comments + '<br>' + signature + '<br>';
+        returnVal = currentComments + '\n' + comments + '\n' + signature + '\n';
     }
     else {
         if ( $("#field-comments").val().length > 0  )
         {
-            returnVal = comments + '<br>' + signature;
+            returnVal = comments + '\n' + signature;
         }
     }
 

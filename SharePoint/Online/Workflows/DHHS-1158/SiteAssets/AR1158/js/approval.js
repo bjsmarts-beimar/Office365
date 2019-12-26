@@ -20,6 +20,7 @@ jQuery(document).ready(function () {
     }           
 });
 
+
 function Approve()
 {
     jQuery.confirm({        
@@ -40,13 +41,13 @@ function Approve()
                     let signature = "Wrote on " + utc;
                     let comments = "";
                         
-                    if ( currentComments !== null ) {
-                        comments = currentComments + '<br>' + $("#approval-comments").val() + '<br>' + signature + '<br>';
+                    if ( currentComments !== null && currentComments.length > 0 ) {
+                        comments = currentComments + '\n' + $("#approval-comments").val() + '\n' + signature + '\n';
                     }
                     else {
                         if ( $("#approval-comments").val().length > 0  )
                         {
-                            comments = $("#approval-comments").val() + '<br>' + signature;
+                            comments = $("#approval-comments").val() + '\n' + signature;
                         }
                     }
 
@@ -100,14 +101,14 @@ function Reject()
                         let comments = "";
                         let ReasonForRejection = "";
 
-                        if ( currentComments !== null ) {
-                            comments = currentComments + '<br>' + $("#approval-comments").val() + '<br>' + signature + '<br>';
+                        if ( currentComments !== null && currentComments.length > 0 ) {
+                            comments = currentComments + '\n' + $("#approval-comments").val() + '\n' + signature + '\n';
                             ReasonForRejection = $("#approval-comments").val();
                         }
                         else {
                             if ( $("#approval-comments").val().length > 0  )
                             {
-                                comments = $("#approval-comments").val() + '<br>' + signature;
+                                comments = $("#approval-comments").val() + '\n' + signature;
                                 ReasonForRejection = $("#approval-comments").val();
                             }
                         }
@@ -166,7 +167,8 @@ function getWorkaroundMetaData(Decision, listName, commentsVal, ReasonForRejecti
                 let metadata = {
                     "__metadata": { "type": itemType },
                     "Comments": commentsVal,
-                    "WorkflowStatus": "Initial Approval (Approved)"
+                    "WorkflowStatus": "Initial Approval (Approved)",
+                    "InitialApproved": new Date()
                 };
 
                 return metadata;
@@ -185,6 +187,7 @@ function getWorkaroundMetaData(Decision, listName, commentsVal, ReasonForRejecti
             }
         }
 
+
         if ( ApprovalType == 2)
         {
             if ( Decision != "Rejected")
@@ -192,7 +195,9 @@ function getWorkaroundMetaData(Decision, listName, commentsVal, ReasonForRejecti
                 let metadata = {
                     "__metadata": { "type": itemType },
                     "Comments": commentsVal,
-                    "WorkflowStatus": "Final Approval (Approved)"
+                    "WorkflowStatus": "Final Approval (Approved)",
+                    "ClerkId": _spPageContextInfo.userId,
+                    "FinalApproved": new Date()
                 };
 
                 return metadata;
@@ -214,7 +219,4 @@ function getWorkaroundMetaData(Decision, listName, commentsVal, ReasonForRejecti
     else {
         return null;
     }
-
-    
-
 }

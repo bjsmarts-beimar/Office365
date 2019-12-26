@@ -92,7 +92,7 @@ function uploadfile(fileInputName, fileInputErrorName, divBucket, serverRelative
 
                     let full_list = startDiv;
                     for(var i=0; i<_attachments.length; ++i){                        
-                        full_list = full_list + _attachments[i][0]+ "&nbsp;&nbsp;&nbsp;<span class='ms-delAttachments'><img src='/_layouts/15/images/rect.gif?rev=44'>&nbsp;<a href='javascript:deleteAttachment(" + -1 + ", " + i + ")'>Delete</a></span><br>";
+                        full_list = full_list + "<a href='" + _attachments[i][1] + "' target='_blank'>" + _attachments[i][0]+ "</a>&nbsp;&nbsp;&nbsp;<span class='ms-delAttachments'><img src='/_layouts/15/images/rect.gif?rev=44'>&nbsp;<a href='javascript:deleteAttachment(" + -1 + ", " + i + ")'>Delete</a></span><br>";
                     } 
 
                     full_list = full_list + "</div>";

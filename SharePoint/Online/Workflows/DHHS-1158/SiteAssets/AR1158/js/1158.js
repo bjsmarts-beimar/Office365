@@ -32,9 +32,11 @@ function loadingLocalStorageData(formTitle)
     setLabelsFromLocalStorage("25"); 
     setLabelsFromLocalStorage("26"); 
     setLabelsFromLocalStorage("27"); 
-    setLabelsFromLocalStorage("28"); 
+    setLabelsFromLocalStorage("28");
+    setLabelsFromLocalStorage("29"); 
 
     getCountiesFromLocalStorage("countyName");    
+    getStatesFromLocalStorage("stateName");
     getProgramsFromLocalStorage("programInvolved");
     getLedgersFromLocalStorage("generalLedger");
     getCostCenterFromLocalStorage("costCenter");
@@ -43,7 +45,7 @@ function loadingLocalStorageData(formTitle)
 
 function loadingRecordViewMode(RecordID)
 {
-    let urlQuery =  "?$select=ID,Comments,RequestorSignature,RequestorTitle,CountyDivision,Payment,Other,FundSource,ServiceType,AmountDue,DueDate,Federal,StateSource,ToDate,FromDate,Title,CertificationAction,DebtClassification,Address,City,State,ZipCode,ProviderCaseNumber,Author/Title,County/Title,Program/Title,GeneralLedger/Title,CostCenter/Title,FunctionalAreas/Title,Supervisor/Title,Supervisor/EMail&$expand=Author,County,Program,GeneralLedger,CostCenter,FunctionalAreas,Supervisor&$filter=ID eq " + RecordID;
+    let urlQuery =  "?$select=ID,WorkflowStatus,InitialApproved,FinalApproved,Comments,RequestorSignature,RequestorTitle,CountyDivision,Payment,Other,FundSource,ServiceType,AmountDue,DueDate,Federal,StateSource,ToDate,FromDate,Title,CertificationAction,DebtClassification,Address,City,State,ZipCode,ProviderCaseNumber,Author/Title,County/Title,StateAddress/Title,Program/Title,GeneralLedger/Title,CostCenter/Title,FunctionalAreas/Title,Supervisor/Title,Clerk/Title,Supervisor/EMail,Requestor/Title&$expand=Author,County,StateAddress,Program,GeneralLedger,CostCenter,FunctionalAreas,Supervisor,Clerk,Requestor&$filter=ID eq " + RecordID;
 
     let results = retrieveSharePointListItemsByListName("AR1158Form", urlQuery);
 
@@ -53,9 +55,23 @@ function loadingRecordViewMode(RecordID)
 
         loadingRecord(item);    
 
-        currentComments = stripHtml(item.Comments);
+        currentComments = stripHtmlV2(item.Comments);
+        HideTopMessage(item.WorkflowStatus);
 
+        jQuery("#field-comments").val(stripHtml(item.Comments));
         jQuery("#supervisor").val(item.Supervisor.Title);
+
+        if ( item.WorkflowStatus === "Final Approval (Approved)")
+        {            
+            jQuery("#clerk").val(item.Clerk.Title);
+            jQuery("#initialApprovedDate").val(moment(item.InitialApproved).format('MM/DD/YYYY'));
+            jQuery("#finalApprovedDate").val(moment(item.FinalApproved).format('MM/DD/YYYY'));
+        }        
+        else {
+            jQuery("#clerk").val("N/A");
+            jQuery("#initialApprovedDate").val("N/A");
+            jQuery("#finalApprovedDate").val("N/A");
+        }
 
         urlQuery = "?$select=Title,Link&$filter=RecordID eq " + item.ID;
 
@@ -93,7 +109,7 @@ function loadingRecordViewMode(RecordID)
 
 function loadingRecordEditMode(RecordID)
 {
-    let urlQuery =  "?$select=ID,ReasonForRejection,Comments,RequestorSignature,RequestorTitle,CountyDivision,Payment,Other,FundSource,ServiceType,AmountDue,DueDate,Federal,StateSource,ToDate,FromDate,Title,CertificationAction,DebtClassification,Address,City,State,ZipCode,ProviderCaseNumber,Author/Title,County/Title,Program/Title,GeneralLedger/Title,CostCenter/Title,FunctionalAreas/Title,Supervisor/Title,Supervisor/EMail&$expand=Author,County,Program,GeneralLedger,CostCenter,FunctionalAreas,Supervisor&$filter=ID eq " + RecordID;
+    let urlQuery =  "?$select=ID,ReasonForRejection,Comments,RequestorSignature,RequestorTitle,CountyDivision,Payment,Other,FundSource,ServiceType,AmountDue,DueDate,Federal,StateSource,ToDate,FromDate,Title,CertificationAction,DebtClassification,Address,City,State,ZipCode,ProviderCaseNumber,Author/Title,County/Title,StateAddress/Title,Program/Title,GeneralLedger/Title,CostCenter/Title,FunctionalAreas/Title,Supervisor/Title,Supervisor/EMail,Requestor/Title,Requestor/EMail&$expand=Author,County,StateAddress,Program,GeneralLedger,CostCenter,FunctionalAreas,Supervisor,Requestor&$filter=ID eq " + RecordID;
 
     let results = retrieveSharePointListItemsByListName("AR1158Form", urlQuery);
 
@@ -106,8 +122,10 @@ function loadingRecordEditMode(RecordID)
         loadingRecord(item);
 
         currentComments = stripHtml(item.Comments);
-
-        setPeoplePickerField(SPClientPeoplePicker.SPClientPeoplePickerDict.peoplePickerDiv_TopSpan, item.Supervisor.EMail);   
+        
+        jQuery("#field-comments").val(stripHtmlEdit(item.Comments));
+        setPeoplePickerField(SPClientPeoplePicker.SPClientPeoplePickerDict.peoplePickerDiv_TopSpan, item.Supervisor.EMail);
+        setPeoplePickerField(SPClientPeoplePicker.SPClientPeoplePickerDict.peopleRequestorPickerDiv_TopSpan, item.Requestor.EMail);   
         
         urlQuery = "?$select=ID,Title,Link&$filter=RecordID eq " + item.ID;
 
@@ -152,11 +170,16 @@ function loadingRecord(item)
         jQuery("#title").val(item.Title);
         jQuery("#address").val(item.Address);
         jQuery("#city").val(item.City);
-        jQuery("#state").val(item.State);
+        //jQuery("#state").val(item.State);
+
+        $("#stateName option").each(function (a, b) {
+            if ($(this).html() == item.StateAddress.Title ) $(this).attr("selected", "selected");
+        });
+
         jQuery("#zipcode").val(item.ZipCode);
         jQuery("#provider").val(item.ProviderCaseNumber);
-        jQuery("#field-comments").val(item.Comments);
-
+        //jQuery("#field-comments").val(stripHtml(item.Comments));
+        
         $("#certificationAction option").each(function (a, b) {
             if ($(this).html() == item.CertificationAction ) $(this).attr("selected", "selected");
         });
@@ -212,8 +235,63 @@ function loadingRecord(item)
             if ($(this).html() == item.Payment ) $(this).attr("selected", "selected");
         });
 
-        jQuery("#requestorSignature").val(item.RequestorSignature);
+        //jQuery("#requestorSignature").val(item.RequestorSignature);
+        jQuery("#requestor").val(item.Requestor.Title);
         jQuery("#requestorTitle").val(item.RequestorTitle);
-        jQuery("#countyDivision").val(item.CountyDivision);   
+        //jQuery("#countyDivision").val(item.CountyDivision);   
+}
+
+function deleteSubmission(RecordID)
+{
+
+        let page = "/Pages/" + window.location.pathname.substring(window.location.pathname.lastIndexOf("/") + 1);
+    
+        jQuery.confirm({        
+            title: false,
+            content: '<div style="font-size: large;font-style: italic;">Are you sure you want to Delete this Submission?</div>',
+            columnClass: 'medium',
+            buttons: {            
+                Ok: {
+                    text: 'Yes',
+                    btnClass: 'btn-default btn-md',
+                    action: function() {
+
+                        let listName = "AR1158Form";                        
+
+                        let itemType = GetItemTypeForListName(listName);
+                        let metadata = {
+                            "__metadata": { "type": itemType },
+                            "WorkflowStatus": "Deleted"
+                        };
+            
+                        let results = updateSharePointListItem(RecordID, metadata, listName);
+                        results.done(function (data) {
+        
+                            window.location = _spPageContextInfo.webAbsoluteUrl + page;
+            
+                        });
+                        results.fail(function (error) {
+                            alert('Error has occurred: ' + error.responseText); 
+                        });
+
+                    }
+                },
+                Cancel: {
+                    text: 'No',
+                    btnClass: 'btn-default btn-md',
+                    action: function(){
+                        
+                    }
+                }
+            }
+        });
+    
+}
+
+
+
+function updateSubmission(RecordID)
+{
+    location.href='edit.aspx?RecordID=' + RecordID
 }
 

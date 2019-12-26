@@ -1,0 +1,36 @@
+
+Useful Links
+
+Health Analyzer in SharePoint 2010
+https://www.mssqltips.com/sqlservertip/3908/health-analyzer-in-sharepoint-2010/
+
+SharePoint Performance Monitoring Tool V2.0
+http://sam-sharepoint-products.blogspot.com/2016/11/sharepoint-20102013-farm-performance.html
+
+This article provides information about monitoring and performance counters for Microsoft SharePoint Server 2010 farm
+https://docs.microsoft.com/en-us/previous-versions/office/sharepoint-server-2010/ff758658(v=office.14)?redirectedfrom=MSDN
+
+Microsoft SharePoint 2010 Products Management Pack for System Center Operations Manager 2007
+https://www.microsoft.com/en-us/download/details.aspx?id=4419
+
+SharePoint 2010: Best Practices for Database Configuration
+https://angler.wordpress.com/2011/06/17/sharepoint-2010-best-practices-for-database-configuration/
+
+SharePoint 2010 : Performance Monitoring - Enabling HTTP Request Monitoring and Throttling
+http://guides.wmlcloud.com/technology/sharepoint-2010---performance-monitoring---enabling-http-request-monitoring-and-throttling.aspx
+
+What the SharePoint 2010 End-of-Life Campaign Means For You
+https://blog.pixelmill.com/3945/what-the-sharepoint-2010-end-of-life-campaign-means-for-you/?gclid=EAIaIQobChMImZOkoYO_5QIVmoVaBR22JwP4EAMYAiAAEgJgUfD_BwE
+
+Configure Diagnostic Logging in SharePoint 2010 - Best Practices, FAQs
+https://www.sharepointdiary.com/2012/12/diagnostic-logging-in-sharepoint-2010.html
+
+How to collect IIS Logs for a SharePoint Web Application
+https://blog.bugrapostaci.com/2012/04/12/how-to-collect-iis-logs-for-a-sharepoint-web-application/
+
+ULS Viewer, for SharePoint 2010 Troubleshooting
+https://blogs.msdn.microsoft.com/opal/2009/12/22/uls-viewer-for-sharepoint-2010-troubleshooting/
+
+TROUBLESHOOTING IIS AND SHAREPOINT WHEN A WORKER PROCESS GOES HAYWIRE
+https://collabshow.com/2011/07/12/troubleshooting-iis-and-sharepoint-when-a-worker-process-goes-haywire/
+

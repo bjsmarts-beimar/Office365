@@ -1,6 +1,6 @@
 'use strict';
 
-var user, Titles, Labels, Emails, Alerts, Counties, Programs, Ledgers, CCenters, FAreas;
+var user, Titles, Labels, Emails, Alerts, Counties, States, Programs, Ledgers, CCenters, FAreas;
 
 function getDataFromlocalStorage()
 {
@@ -65,7 +65,28 @@ function getDataFromlocalStorage()
 
                                             console.log('localstorage Functional Areas: ', JSON.parse(_FAreas));
                                             FAreas = JSON.parse(_FAreas);
-                                            return;
+
+                                            let _States = localStorage.getItem("arStates");
+
+                                            if (_States) {
+                                             
+                                                console.log('localstorage States: ', JSON.parse(_States));
+                                                States = JSON.parse(_States);
+                                                return;
+                                            }
+                                            else {
+
+                                                let urlQuery = "?$select=ID,Title";                        
+
+                                                let resultsStates = retrieveSharePointListItemsByListName("States", urlQuery);
+                                                resultsStates.done(function (data) {
+                                                    localStorage.setItem("arStates", JSON.stringify(data.d.results));                        
+                                                    getDataFromlocalStorage();
+                                                });
+                                                resultsStates.fail(function(err) {
+                                                    alert(err.responseText);
+                                                }); 
+                                            }                                            
                                         }
                                         else {
 
@@ -242,6 +263,11 @@ function removeAllItemsFromLocalStorage()
         {
             localStorage.removeItem("arFunctionalAreas")
         }
+
+        if ( localStorage.getItem("arStates") )
+        {
+            localStorage.removeItem("arStates")
+        }
     }
 
     return true;
@@ -292,7 +318,18 @@ function getCountiesFromLocalStorage(selectName)
     }
 }
 
-Programs, Ledgers, CCenters, FAreas
+function getStatesFromLocalStorage(selectName)
+{
+    for( var i=0; i<States.length; i++)
+    {
+        if ( States[i].Title == "South Carolina") {
+            $("#" + selectName).append('<option value=' + States[i].ID + ' selected>' + States[i].Title + '</option>');
+        }
+        else {
+            $("#" + selectName).append('<option value=' + States[i].ID + '>' + States[i].Title + '</option>');
+        }        
+    }
+}
 
 function getProgramsFromLocalStorage(selectName)
 {
@@ -314,7 +351,7 @@ function getCostCenterFromLocalStorage(selectName)
 {
     for( var i=0; i<CCenters.length; i++)
     {
-        $("#" + selectName).append('<option value=' + CCenters[i].ID + '>' + CCenters[i].Title + '</option>');
+        $("#" + selectName).append('<option value=' + CCenters[i].ID + ' selected>' + CCenters[i].Title + '</option>');
     }
 }
 

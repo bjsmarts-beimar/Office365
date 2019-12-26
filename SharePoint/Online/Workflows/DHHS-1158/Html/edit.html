@@ -79,13 +79,17 @@
                 <div class="form-group row">
                                 <div class="col-4">
                                         <label for="stateLabel" class="col-form-label form-label-workaround">6. <span id="label6" name="label6"></span></label>
-                                        <input class="form-control" type="text" id="state" maxlength="255" autocomplete="off" >                
-                                        <span id="error-state" class="form-error-label-workaround" style="display: none">You must provide State</span>                        
+                                        <!-- <input class="form-control" type="text" id="state" maxlength="255" autocomplete="off" >                 -->
+                                        <input class="form-control" type="text" id="city" maxlength="255" autocomplete="off" >
+                                        <span id="error-city" class="form-error-label-workaround" style="display: none">You must provide State</span>                        
                                 </div>
                                 <div class="col-4">
                                         <label for="cityLabel" class="col-form-label form-label-workaround">7. <span id="label7" name="label7"></span></label>
-                                        <input class="form-control" type="text" id="city" maxlength="255" autocomplete="off" >          
-                                        <span id="error-city" class="form-error-label-workaround" style="display: none">You must provide City</span>                              
+                                        <!-- <input class="form-control" type="text" id="city" maxlength="255" autocomplete="off" >           -->
+                                        <select class="form-control" id="stateName" >
+                                                <option value="0">Select ... </option>
+                                        </select>
+                                        <span id="error-stateName" class="form-error-label-workaround" style="display: none">You must provide City</span>                              
                                 </div>
                                 <div class="col-4">
                                         <label for="zipcodeLabel" class="col-form-label form-label-workaround">8. <span id="label8" name="label8"></span></label>
@@ -225,19 +229,21 @@
           <div class="form-content">
                 <div class="form-group row">
                      <div class="col-12">
-                        <input class="form-control" type="text" id="requestorSignature" maxlength="255" autocomplete="off" >   
-                        <span id="error-requestorSignature" class="form-error-label-workaround" style="display: none">You must provider Requestor Signature</span>                                                  
+                        <label for="federalLabel" class="col-form-label form-label-workaround">25. <span id="label25" name="label25"></span></label>
+                        <!-- <input class="form-control" type="text" id="requestorSignature" maxlength="255" autocomplete="off" >    -->
+                        <div id="peopleRequestorPickerDiv"></div> 
+                        <span id="error-peopleRequestorPickerDiv" class="form-error-label-workaround" style="display: none">You must provider Requestor</span>                                                  
                      </div>
-                     <div class="col-6">
-                          <label for="federalLabel" class="col-form-label form-label-workaround">25. <span id="label25" name="label25"></span></label>
-                          <input class="form-control" type="text" id="requestorTitle" maxlength="255" autocomplete="off" >    
+                     <div class="col-12">
+                          <label for="federalLabel" class="col-form-label form-label-workaround">26. <span id="label26" name="label26"></span></label>
+                          <input class="form-control" type="text" id="requestorTitle" onfocus="populate()" maxlength="255" autocomplete="off" >    
                           <span id="error-requestorTitle" class="form-error-label-workaround" style="display: none">You must provider Requestor Title</span>                      
                      </div>
-                     <div class="col-6">
+                     <!-- <div class="col-6">
                           <label for="federalLabel" class="col-form-label form-label-workaround">26. <span id="label26" name="label26"></span></label>
                           <input class="form-control" type="text" id="countyDivision" maxlength="255" autocomplete="off" >  
                           <span id="error-countyDivision" class="form-error-label-workaround" style="display: none">You must provider County/Division</span>                        
-                     </div>                                                
+                     </div>                                                 -->
                 </div>                          
           </div>
           <div class="note">
@@ -271,7 +277,7 @@
            <br>
            <div class="form-group row">  
                 <div class="col-6">
-                        <button id="ApproveBtn" type="button" class="btn btn-success btn-lg btn-block btn-huge" onclick="SaveFormWithValidation()">Save</button>
+                        <button id="ApproveBtn" type="button" class="btn btn-success btn-lg btn-block btn-huge" onclick="SaveFormWithValidation()">Update</button>
                 </div>
                 <div class="col-6">
                         <button id="RejectBtn" type="button" class="btn btn-danger btn-lg btn-block btn-huge" onclick="Cancel()">Cancel</button>
