@@ -1,0 +1,42 @@
+
+
+https://www.c-sharpcorner.com/article/build-and-deploy-the-client-side-web-part-spfx-in-sharepoint-online/
+
+Step 1
+Open the cmd prompt, once your development is done.
+
+Step 2
+Run the command given below to clean the project and subsequently press enter.
+gulp clean
+
+Step 3
+Before you run the Gulp bundle, make the change of CDN path (folder from document library or original CDN 
+path), go to config/write-manifests.json file.
+
+Ex: 
+
+Step 4
+Now, run Gulp bundle --ship and SharePoint Framework will generate debug bundles in the dist folder.
+gulp bundle --ship
+
+Step 5
+Finally, run the gulp package-solution --ship. To create .sppkg file, it must deployed in SharePoint app catalog.
+This .sppkg file is locating in SharePoint folder inside the project folder.
+gulp package-solution --ship
+
+Step 6
+Once we run the commands given above, then get the bundle file from your project folder,
+Open your project folder - Temp - deploy. 
+In deploy folder, copy all the files and add in SharePoint library path or CDN, which you mentioned in write-manifests.json file.
+Upload the files to SharePoint document library.
+
+Step 7
+Once you completed the steps given above, upload the app in an app catalog and install in your SharePoint site.
+Get .sppkg file from <project folder> - Sharepoint - solution - <helloworldsample-webpart.sppkg>
+Inside SharePoint folder, click solution folder to get .sppkg file
+Inside solution folder, copy the .sppkg file and upload it in an app catalog.
+
+
+
+
+
