@@ -1,0 +1,8 @@
+
+
+http://sharepoint-tricks.com/remove-title-header-on-sharepoint-online/
+
+$PageName = "SF.aspx"
+$LoginUrl = "https://schhs.sharepoint.com/sites/RRSPO"
+Connect-PnPOnline -Url $LoginUrl -UseWebLogin
+Set-PnPClientSidePage -Identity $PageName -LayoutType Home
