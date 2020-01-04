@@ -30,6 +30,44 @@ function retrieveSharePointListItemsByListName(listName, urlQuery)
     return deferred.promise();
 }
 
+function retrieveSharePointListItemById(listName, RecordId)
+{   
+    var deferred = jQuery.Deferred();
+
+    let item = null;
+
+    jQuery.ajax  
+    ({  
+        url: _spPageContextInfo.webAbsoluteUrl + "/data/_api/web/lists/GetByTitle('" + listName + "')/items?$filter=ID eq " + RecordId,  
+        type: "GET",  
+        headers:  
+        {  
+            "Accept": "application/json;odata=verbose",  
+            "Content-Type": "application/json;odata=verbose",  
+            "X-RequestDigest": $("#__REQUESTDIGEST").val(),  
+            "IF-MATCH": "*",  
+            "X-HTTP-Method": null  
+        },  
+        cache: false,  
+        success: function(data)   
+        {              
+            console.log(data);
+            if ( data.d.results.length > 0 )
+            {
+                item = data.d.results[0];                  
+                deferred.resolve(item);
+            }  
+        },  
+        error: function(err)  
+        {  
+            alert(data.responseText);
+            deferred.reject(err);    
+        }  
+    });
+
+    return deferred.promise();
+}
+
 function addItemToSharePointList(item, listName)
 {
 

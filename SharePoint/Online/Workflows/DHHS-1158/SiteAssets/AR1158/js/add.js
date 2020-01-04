@@ -175,14 +175,32 @@ function SubmitFormWithValidation() {
         IsFormValid = false;
     }
 
-    if ( !IsPeoplePickerFieldValid(SPClientPeoplePicker.SPClientPeoplePickerDict.peoplePickerDiv_TopSpan, "peoplePickerDiv") )
-    {
-        IsFormValid = false;        
-    }
+    let IsRequestorValid = false;
 
     if ( !IsPeoplePickerFieldValid(SPClientPeoplePicker.SPClientPeoplePickerDict.peopleRequestorPickerDiv_TopSpan, "peopleRequestorPickerDiv") )
     {
         IsFormValid = false;        
+    }
+    else {
+        IsRequestorValid = true;
+    }
+
+    let IsSubmitterValid = false;
+
+    if ( !IsPeoplePickerFieldValid(SPClientPeoplePicker.SPClientPeoplePickerDict.peoplePickerDiv_TopSpan, "peoplePickerDiv") )
+    {
+        IsFormValid = false;        
+    }
+    else {
+        IsSubmitterValid = true;
+    }
+
+    if ( IsRequestorValid && IsSubmitterValid )
+    {
+        if ( !IsIdenticalAccount() ) {
+
+            IsFormValid = false;
+        }
     }
 
     if ( IsFormValid )
@@ -193,6 +211,42 @@ function SubmitFormWithValidation() {
     else {        
         jQuery("#" + "error-overall").show();
     }
+}
+
+function IsIdenticalAccount()
+{
+    let account = getAccountId(SPClientPeoplePicker.SPClientPeoplePickerDict.peoplePickerDiv_TopSpan);
+    account.done(function (data) {
+
+        let SupervisorPeoplePickerId = data.Id;
+        
+        let accountRequestor = getAccountId(SPClientPeoplePicker.SPClientPeoplePickerDict.peopleRequestorPickerDiv_TopSpan);
+        accountRequestor.done(function (data) {
+
+            let RequestorPeoplePickerId = data.Id;
+
+            if ( SupervisorPeoplePickerId === RequestorPeoplePickerId ) {
+
+                let errorField = document.getElementById("error-peoplePickerIdenticalDiv");
+                errorField.style.display = "flex";
+                return true;
+            }
+            else {
+
+                let errorField = document.getElementById("error-peoplePickerIdenticalDiv");
+                errorField.style.display = "none";
+                return false;
+            }
+
+        });
+        accountRequestor.fail(function(error) {
+            alert(error.responseText);
+        });
+        
+    });
+    account.fail(function(error) {
+        alert(error.responseText);
+    });
 }
 
 function OnCancel() {

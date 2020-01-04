@@ -17,9 +17,84 @@ jQuery(document).ready(function () {
     if ( RecordID )
     {        
         loadingRecordViewMode(RecordID);
+
+        let ApprovalType = getUrlParameter('ApprovalType');
+
+        if ( ApprovalType ) 
+        {
+            let results = retrieveSharePointListItemById("AR1158Form", RecordID);
+            results.done(function(Item) {
+
+                if ( ApprovalType == 1 ) {
+
+                    validatingStatusUserSecurityLevel1(Item.WorkflowStatus, "Initial Approval (Pending)", Item.SupervisorId);
+                }
+                if ( ApprovalType == 2 ) {
+
+                    validatingStatusUserSecurityLevel2(Item.WorkflowStatus, "Initial Approval (Approved)");
+                }
+
+            });
+            results.fail(function(error) {
+                  alert(error);
+            });
+        }
     }           
 });
 
+function validatingStatusUserSecurityLevel2(workaroundStatus, currentStatus) 
+{
+    
+    let onError = false;
+
+    if ( workaroundStatus !== currentStatus )
+    {
+        jQuery("#error-status").show();
+        onError = true;
+    }
+    else {
+        jQuery("#error-status").hide();
+    }   
+
+    if ( onError ) {
+        document.getElementById("btnDiv").style.display = "none";
+    }
+    else {
+        document.getElementById("btnDiv").style.display = "flex";
+    }
+}
+
+
+function validatingStatusUserSecurityLevel1(workaroundStatus, currentStatus, workaroundUserId) 
+{
+    
+    let onError = false;
+
+    if ( workaroundStatus !== currentStatus )
+    {
+        jQuery("#error-status").show();
+        onError = true;
+    }
+    else {
+        jQuery("#error-status").hide();
+    }
+
+    if ( workaroundUserId !== _spPageContextInfo.userId )
+    {
+        jQuery("#error-user").show();
+        onError = true;
+    }
+    else {
+        jQuery("#error-user").hide();
+    }   
+
+    if ( onError ) {
+        document.getElementById("btnDiv").style.display = "none";
+    }
+    else {
+        document.getElementById("btnDiv").style.display = "flex";
+    }
+}
 
 function Approve()
 {
