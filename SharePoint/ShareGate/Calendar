@@ -11,3 +11,5 @@ https://schhs.sharepoint.com/sites/RRSPO/SitePages/Web-Part-Calendar.aspx
 src="https://schhs.sharepoint.com/sites/RRSPO/Lists/Calendar/calendar.aspx" 
 scrolling="no" style="margin-left: -240px; margin-top: -294px;">
 </iframe>
+
+https://github.com/SharePoint/sp-dev-fx-webparts/blob/master/samples/js-modern-calendar/README.md

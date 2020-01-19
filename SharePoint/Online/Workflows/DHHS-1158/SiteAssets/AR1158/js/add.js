@@ -197,9 +197,20 @@ function SubmitFormWithValidation() {
 
     if ( IsRequestorValid && IsSubmitterValid )
     {
-        if ( !IsIdenticalAccount() ) {
 
+        let requestor = document.getElementById('peopleRequestorPickerDiv');
+        let supervisorDiv = document.getElementById('peoplePickerDiv');
+
+        if ( requestor.innerText === supervisorDiv.innerText ) {
+
+            let errorField = document.getElementById("error-peoplePickerIdenticalDiv");
+            errorField.style.display = "flex";
             IsFormValid = false;
+        }
+        else {
+
+            let errorField = document.getElementById("error-peoplePickerIdenticalDiv");
+            errorField.style.display = "none";
         }
     }
 
@@ -213,7 +224,7 @@ function SubmitFormWithValidation() {
     }
 }
 
-function IsIdenticalAccount()
+function AreIdenticalAccounts()
 {
     let account = getAccountId(SPClientPeoplePicker.SPClientPeoplePickerDict.peoplePickerDiv_TopSpan);
     account.done(function (data) {
