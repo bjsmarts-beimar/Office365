@@ -58,6 +58,8 @@ jQuery(document).ready(function () {
             num: {
               // nested masks are available!
               mask: Number,
+              scale: 2,
+              radix: '.',
               thousandsSeparator: ','
             }
           }

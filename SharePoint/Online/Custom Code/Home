@@ -1,0 +1,42 @@
+<!-- Styles -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+<style>
+
+#pageTitle {
+    display:none;    
+}
+
+#zz9_TopNavigationMenu {
+        display: none;
+}
+
+.titleBack {
+    background-color: #E3E3E2; 
+    padding-left: 20px; 
+    padding-top: 20px; 
+    padding-right: 20px; 
+    padding-block-end: 20px;
+}
+
+</style>
+
+<!-- Javascript Files -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+<br><br><br>
+
+<div class="container-fluid">
+        <div class="row">
+            <div class="form-group titleBack">
+            <h2>
+            SCDHHS is currently in the process of migrating all agency SharePoint sites to the SharePoint Online platform. The Connector page can still be accessed at team.scdhhs.gov while the migration is underway.
+            </h2>
+            </div>
+        </div>
+        <div class="row">
+                <div class="form-group">
+                        <img width="1200px" style="height: 720px" src="/SiteAssets/images.jpg" />
+                </div>
+        </div>
+</div>
