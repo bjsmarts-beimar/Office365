@@ -58,7 +58,9 @@ function loadingRecordViewMode(RecordID)
         currentComments = stripHtmlV2(item.Comments);
         HideTopMessage(item.WorkflowStatus);
 
-        jQuery("#field-comments").val(stripHtml(item.Comments));
+        //jQuery("#field-comments").val(stripHtml(item.Comments));
+        jQuery("#field-comments").text(stripHtml(item.Comments));
+
         jQuery("#supervisor").val(item.Supervisor.Title);
 
         if ( item.WorkflowStatus === "Final Approval (Approved)")

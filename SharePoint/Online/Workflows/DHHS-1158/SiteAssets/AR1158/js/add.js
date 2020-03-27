@@ -308,18 +308,20 @@ function create1158Record()
     let functionalAreaId = document.getElementById("functionalArea").value;
     let payment = document.getElementById("paymentInformation").value;
 
-    let utc = new Date().toLocaleString(); 
-    let sign = "Wrote on " + utc;
+    // let utc = new Date().toLocaleString(); 
+    // let sign = "Wrote on " + utc;
     
     //let comments = $("#field-comments").val() + '<br>' + sign + '<br>';
     //let comments = $("#field-comments").val() + '\n' + sign + '\n';
 
-    let comments = "";
+    // let comments = "";
     
-    if ( $("#field-comments").val().length > 0 ) {
+    // if ( $("#field-comments").val().length > 0 ) {
 
-        comments = $("#field-comments").val() + '\n' + sign + '\n';
-    }
+    //     comments = $("#field-comments").val() + '\n' + sign + '\n';
+    // }
+
+    let comments = $("#field-comments").val()
 
     //let signature = jQuery('#requestorSignature').val();   
     let requestorTitle  = jQuery('#requestorTitle').val();

@@ -116,14 +116,21 @@ function Approve()
                     let signature = "Wrote on " + utc;
                     let comments = "";
                         
-                    if ( currentComments !== null && currentComments.length > 0 ) {
-                        comments = currentComments + '\n' + $("#approval-comments").val() + '\n' + signature + '\n';
+                    // if ( currentComments !== null && currentComments.length > 0 ) {
+                    //     comments = currentComments + '\n' + $("#approval-comments").val() + '\n' + signature + '\n';
+                    // }
+                    // else {
+                    //     if ( $("#approval-comments").val().length > 0  )
+                    //     {
+                    //         comments = $("#approval-comments").val() + '\n' + signature;
+                    //     }
+                    // }
+
+                    if ( $("#approval-comments").val().length > 0  ) {
+                        comments = currentComments + '\n' + $("#approval-comments").val();
                     }
                     else {
-                        if ( $("#approval-comments").val().length > 0  )
-                        {
-                            comments = $("#approval-comments").val() + '\n' + signature;
-                        }
+                        comments = currentComments;
                     }
 
                     let metadata = getWorkaroundMetaData("Approved", listName, comments, "");
@@ -176,16 +183,25 @@ function Reject()
                         let comments = "";
                         let ReasonForRejection = "";
 
-                        if ( currentComments !== null && currentComments.length > 0 ) {
-                            comments = currentComments + '\n' + $("#approval-comments").val() + '\n' + signature + '\n';
+                        // if ( currentComments !== null && currentComments.length > 0 ) {
+                        //     comments = currentComments + '\n' + $("#approval-comments").val() + '\n' + signature + '\n';
+                        //     ReasonForRejection = $("#approval-comments").val();
+                        // }
+                        // else {
+                        //     if ( $("#approval-comments").val().length > 0  )
+                        //     {
+                        //         comments = $("#approval-comments").val() + '\n' + signature;
+                        //         ReasonForRejection = $("#approval-comments").val();
+                        //     }
+                        // }
+
+                        if ( $("#approval-comments").val().length > 0  )
+                        {
+                            comments = currentComments + $("#approval-comments").val();
                             ReasonForRejection = $("#approval-comments").val();
                         }
                         else {
-                            if ( $("#approval-comments").val().length > 0  )
-                            {
-                                comments = $("#approval-comments").val() + '\n' + signature;
-                                ReasonForRejection = $("#approval-comments").val();
-                            }
+                            comments = currentComments;
                         }
 
                         let metadata = getWorkaroundMetaData("Rejected", listName, comments, ReasonForRejection);

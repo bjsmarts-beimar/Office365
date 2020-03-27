@@ -216,8 +216,9 @@ function getSelectedTextFromField(name)
 function stripHtmlEdit(html) {
 
     let text = stripHtml(html);
-    let returnVal = text.substring(0, text.indexOf('\n'));
-    return returnVal;
+    return text;
+    //let returnVal = text.substring(0, text.indexOf('\n'));
+    //return returnVal;
 }
 
 function stripHtmlV2(html) {
@@ -237,7 +238,12 @@ function stripHtml(html){
     var temporalDivElement = document.createElement("div");
     
     // Set the HTML content with the providen
-    temporalDivElement.innerHTML = html;
+    if ( html !== null ) {
+        temporalDivElement.innerHTML = html;
+    }
+    else {
+        temporalDivElement.innerHTML = '';
+    }
     
     // Retrieve the text property of the element (cross-browser support)    
     //return temporalDivElement.textContent || temporalDivElement.innerText || "";
@@ -248,9 +254,15 @@ function strippedHtml(html){
     
     // Create a new div element
     var temporalDivElement = document.createElement("div");
-    
+
     // Set the HTML content with the providen
-    temporalDivElement.innerHTML = html;
+
+    if ( html !== null ) {
+        temporalDivElement.innerHTML = html;
+    }
+    else {
+        temporalDivElement.innerHTML = '';
+    }
     
     // Retrieve the text property of the element (cross-browser support)    
     return temporalDivElement.textContent || temporalDivElement.innerText || "";    
