@@ -10,8 +10,8 @@ $site = 'https://schhs.sharepoint.com/sites/SCDHHSLeaveRequestForm'
 $admin = 'beimar.medina@scdhhs.gov'
 
 #Get Password as secure String
-$password = Read-Host 'Enter Password' -AsSecureString
-#$password = ConvertTo-SecureString "YourPassword" -asplaintext -force
+#$password = Read-Host 'Enter Password' -AsSecureString
+$password = ConvertTo-SecureString "Tipit098!!" -asplaintext -force
 #Get the Client Context and Bind the Site Collection
 $context = New-Object Microsoft.SharePoint.Client.ClientContext($site)
 
@@ -22,7 +22,7 @@ $context.Credentials = $credentials
 #Create List
 $listCreationInformation = New-Object Microsoft.SharePoint.Client.ListCreationInformation
 $listCreationInformation.Title = "EmergencyFormList"
-$listCreationInformation.Description = "Rebuttal List created through PowerShell"
+$listCreationInformation.Description = "EmergencyFormList List created through PowerShell"
 $listCreationInformation.TemplateType = 100
 $list = $context.Web.Lists.Add($listCreationInformation)
 $context.Load($list)
@@ -84,11 +84,6 @@ $context.ExecuteQuery()
 
 #AfterHoursPhoneNumber - Text Field
 $list.Fields.AddFieldAsXml("<Field Type='Text' DisplayName='AfterHoursPhoneNumber' Name='AfterHoursPhoneNumber' StaticName='AfterHoursPhoneNumber' />",$true,[Microsoft.SharePoint.Client.AddFieldOptions]::AddFieldToDefaultView)
-$list.Update()
-$context.ExecuteQuery()
-
-#AfterHoursEmail - Text Field
-$list.Fields.AddFieldAsXml("<Field Type='Text' DisplayName='AfterHoursEmail' Name='AfterHoursEmail' StaticName='AfterHoursEmail' />",$true,[Microsoft.SharePoint.Client.AddFieldOptions]::AddFieldToDefaultView)
 $list.Update()
 $context.ExecuteQuery()
 

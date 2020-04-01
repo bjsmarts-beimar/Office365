@@ -10,8 +10,8 @@ $site = 'https://schhs.sharepoint.com/sites/SCDHHSLeaveRequestForm'
 $admin = 'beimar.medina@scdhhs.gov'
 
 #Get Password as secure String
-$password = Read-Host 'Enter Password' -AsSecureString
-#$password = ConvertTo-SecureString "YourPassword" -asplaintext -force
+#$password = Read-Host 'Enter Password' -AsSecureString
+$password = ConvertTo-SecureString "Tipit098!!" -asplaintext -force
 #Get the Client Context and Bind the Site Collection
 $context = New-Object Microsoft.SharePoint.Client.ClientContext($site)
 
@@ -29,9 +29,9 @@ $context.Load($list)
 $context.ExecuteQuery()
 
 #Hide the list
-# $list.Hidden = $True
-# $list.Update()
-# $context.ExecuteQuery()
+$list.Hidden = $True
+$list.Update()
+$context.ExecuteQuery()
 
 #Adds an item to the list
 $listItemInfo = New-Object Microsoft.SharePoint.Client.ListItemCreationInformation

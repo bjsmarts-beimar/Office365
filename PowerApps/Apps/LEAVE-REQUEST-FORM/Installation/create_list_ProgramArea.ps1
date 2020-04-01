@@ -29,9 +29,9 @@ $context.Load($list)
 $context.ExecuteQuery()
 
 #Hide the list
-# $list.Hidden = $True
-# $list.Update()
-# $context.ExecuteQuery()
+$list.Hidden = $True
+$list.Update()
+$context.ExecuteQuery()
 
 #Adds an item to the list
 $listItemInfo = New-Object Microsoft.SharePoint.Client.ListItemCreationInformation

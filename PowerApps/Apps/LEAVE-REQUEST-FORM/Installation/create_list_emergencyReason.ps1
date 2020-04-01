@@ -21,64 +21,29 @@ $context.Credentials = $credentials
 
 #Create List
 $listCreationInformation = New-Object Microsoft.SharePoint.Client.ListCreationInformation
-$listCreationInformation.Title = "Vendor"
-$listCreationInformation.Description = "Vendor created through PowerShell"
+$listCreationInformation.Title = "EmergencyReason"
+$listCreationInformation.Description = "EmergencyReason created through PowerShell"
 $listCreationInformation.TemplateType = 100
 $list = $context.Web.Lists.Add($listCreationInformation)
 $context.Load($list)
 $context.ExecuteQuery()
 
 #Hide the list
-$list.Hidden = $True
-$list.Update()
-$context.ExecuteQuery()
+# $list.Hidden = $True
+# $list.Update()
+# $context.ExecuteQuery()
 
 #Adds an item to the list
 $listItemInfo = New-Object Microsoft.SharePoint.Client.ListItemCreationInformation
 $item = $list.AddItem($listItemInfo)
-$item["Title"] = "N/A - I am not a contracted employee"
+$item["Title"] = "Caring for my child whose school or place of care is closed (or child care provider is unavailable) due to COVID-19 related reasons. [Eligible for 2/3 regular rate of pay]"
 $item.Update()
 $Context.ExecuteQuery()
 
 #Adds an item to the list
 $listItemInfo = New-Object Microsoft.SharePoint.Client.ListItemCreationInformation
 $item = $list.AddItem($listItemInfo)
-$item["Title"] = "AppleOne"
-$item.Update()
-$Context.ExecuteQuery()
-
-#Adds an item to the list
-$listItemInfo = New-Object Microsoft.SharePoint.Client.ListItemCreationInformation
-$item = $list.AddItem($listItemInfo)
-$item["Title"] = "Finding Great People"
-$item.Update()
-$Context.ExecuteQuery()
-
-#Adds an item to the list
-$listItemInfo = New-Object Microsoft.SharePoint.Client.ListItemCreationInformation
-$item = $list.AddItem($listItemInfo)
-$item["Title"] = "Gallman Personnel Services"
-$item.Update()
-$Context.ExecuteQuery()
-
-#Adds an item to the list
-$listItemInfo = New-Object Microsoft.SharePoint.Client.ListItemCreationInformation
-$item = $list.AddItem($listItemInfo)
-$item["Title"] = "Kelly Services"
-$item.Update()
-$Context.ExecuteQuery()
-
-#Adds an item to the list
-$listItemInfo = New-Object Microsoft.SharePoint.Client.ListItemCreationInformation
-$item = $list.AddItem($listItemInfo)
-$item["Title"] = "Roper"
-$item.Update()
-$Context.ExecuteQuery()
-
-#Adds an item to the list
-$listItemInfo = New-Object Microsoft.SharePoint.Client.ListItemCreationInformation
-$item = $list.AddItem($listItemInfo)
-$item["Title"] = "Other"
+$item["Title"] = "I am not requesting Emergency FMLA"
 $item.Update()
 $Context.ExecuteQuery()
 
