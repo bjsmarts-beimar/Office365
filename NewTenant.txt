@@ -27,7 +27,10 @@ Tenant Information:
 Date Created: March 29
 User Account: sales@bjsmarts.com
 Password: P@ss(0)d!
-Office 365 User Account: sales@bjsmartsusa.onmicrosoft.com bmedina@bjsmartsusa.onmicrosoft.com Tuk67364
+Office 365 User Account: 
+sales@bjsmartsusa.onmicrosoft.com 
+bmedina@bjsmartsusa.onmicrosoft.com 
+carol@bjsmartsusa.onmicrosoft.com
 
 
 
