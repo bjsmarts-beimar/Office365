@@ -13,3 +13,11 @@ https://poszytek.eu/en/microsoft-en/office-365-en/powerapps-en/importing-powerap
 Note: You need to get install WINRAR to the desktop make a copy of the json file using WINRAR normal copy didn't work
 
 Note: I cannot open PowerApps in my mobile because my account it's not working
+
+
+how to find Sharepoint Guid of a list
+https://stackoverflow.com/questions/19630267/how-to-find-sharepoint-guid-of-a-list
+http://www.surfpointtech.com/2013/10/14/sharepoint-list-id-and-view-id-calculator/
+
+Environment and tenant app migration through Packaging
+https://docs.microsoft.com/en-us/power-platform/admin/environment-and-tenant-migration

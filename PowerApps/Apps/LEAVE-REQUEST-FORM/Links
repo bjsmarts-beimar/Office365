@@ -9,7 +9,13 @@ https://www.youtube.com/watch?v=MHE4TU8jkwQ
 
 https://www.linkedin.com/pulse/print-form-powerapps-kind-oliver-wirkus
 
-
 https://www.bythedevs.com/post/print-data-from-a-canvas-app-without-using-msflow
+
+
+{
+‘@odata.type’: “#Microsoft.Azure.Connectors.SharePoint.SPListExpandedReference”,
+Id:BrowseGallery1.Selected.ID,
+Value:BrowseGallery1.Selected.Title
+}
 
 
