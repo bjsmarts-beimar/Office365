@@ -4,14 +4,14 @@ Import-Module 'C:\Program Files\Common Files\Microsoft Shared\Web Server Extensi
 #Add-Type -Path 'C:\Program Files\Common Files\Microsoft Shared\Web Server Extensions\16\ISAPI\Microsoft.SharePoint.Client.dll'
 
 #Mysite URL
-$site = 'https://schhs.sharepoint.com/sites/SCDHHSLeaveRequestForm'
+$site = 'https://schhs.sharepoint.com/sites/Powerapps'
 
 #Admin User Principal Name
 $admin = 'beimar.medina@scdhhs.gov'
 
 #Get Password as secure String
-$password = Read-Host 'Enter Password' -AsSecureString
-#$password = ConvertTo-SecureString "YourPassword" -asplaintext -force
+# $password = Read-Host 'Enter Password' -AsSecureString
+$password = ConvertTo-SecureString "Tipit098!!" -asplaintext -force
 #Get the Client Context and Bind the Site Collection
 $context = New-Object Microsoft.SharePoint.Client.ClientContext($site)
 
@@ -28,15 +28,21 @@ $list = $context.Web.Lists.Add($listCreationInformation)
 $context.Load($list)
 $context.ExecuteQuery()
 
-#sharepoint online create folder powershell
-$inputFolderName = 'Printing/Input' 
-$list.RootFolder.Folders.Add($inputFolderName)
-$Ctx.ExecuteQuery()
+Write-Output "Document Library has been created successfully!."
+
+$ListName = 'Printing'
+$ParentFolder= $context.Web.GetFolderByServerRelativeUrl($ListName)
+
+$inputFolderName = 'Input' 
+$Folder = $ParentFolder.Folders.Add($inputFolderName)  
+$context.Load($Folder)  
+$context.ExecuteQuery()  
+
 Write-host "Folder '$inputFolderName' Created Successfully!" -ForegroundColor Green
 
-$outputFolderName = 'Printing/Output' 
-$list.RootFolder.Folders.Add($outputFolderName)
-$Ctx.ExecuteQuery()
-Write-host "Folder '$outputFolderName' Created Successfully!" -ForegroundColor Green
+$outputFolderName = 'Output' 
+$Folder = $ParentFolder.Folders.Add($outputFolderName)  
+$context.Load($Folder)  
+$context.ExecuteQuery()  
 
-Write-Output "Document Library has been created successfully!."
+Write-host "Folder '$outputFolderName' Created Successfully!" -ForegroundColor Green

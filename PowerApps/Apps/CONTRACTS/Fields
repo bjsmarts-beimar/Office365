@@ -1,0 +1,198 @@
+Contracts Information Section
+-----------------------------
+Contract Type – DropDownList - [New, Renewal, Extension, Amendment]  
+Action – DropDownList - [Increase, Decrease] 
+Justification Type – Muliple Checkboxes [Contract, HIPPA BA, Grant, Subrecipient, MOA, State Agency,  Sole Source, Emergency, Administration] 
+Category – DropDownList - [Administrative, Grant, Medicaid, Procurement] 
+Service Type – DropDownList [?, ?, ?, ?, ?] 
+Note * Category and Service Type are connected 
+Program Contact – TextField 
+Phone – Textfield 
+Bureau Division – DrowDownList - [?, ?, ?, ?, ?] 
+Office – TextField 
+Note* Bureau Division and Office are connected 
+Procurement Specialist – DropDownList - [?, ?, ?, ?, ?] 
+Provider Name – DropDownList [?, ?, ?, ?, ?] 
+Note* Provider Name is connected to some fields ? 
+Provider Details (uncheck this box to display details) 
+Provider Contact – Name – TextField 
+Provider Contact – Phone – TextField 
+Provider Contact – Provider SSN/FEIN - TextField 
+Provider Address – TextField 
+Begin Date – DateField 
+End Date – DateField 
+Extension Date – DateField 
+Previous Contract Number – TextField 
+Note* Previous Contract numbers should be put in using the following format or the Renewal Contract Number WILLNOT be generated (new contract number appears in Contract Number field in next row): 
+Contract Number – TextField – ReadOnly 
+Note*  Category + End Date Year (CCYY) + Sequence Number (####) + Service Type 
+ Example: A 2 1541 A should be put in as A20121541A 
+Purpose – NoteField 
+Administrative Cost Share - CheckBox 
+Increase exceeds $25000 SCDHHS - CheckBox 
+No Funds Contract – CheckBox 
+Note * This field is connected to something ??? 
+Additional Funding Bureau  - CheckBox 
+Attachments
+
+Program Budget/Appropriation
+----------------------------
+Budgeted Service - DropDownList - [?, ?, ?, ?, ?] 
+SFY - TextField
+Cost Center - TextField
+Total$ - DecimalField
+State$ - DecimalField
+Federal$ - DecimalField
+Other$- DecimalField
+Other Fund Source - DropDownList - [Cash, CPE, Donor Rev]
+Budget Service Totals- DecimalField - Total$
+Budget Service Totals- DecimalField - State$
+Budget Service Totals- DecimalField - Federal$
+Budget Service Totals- DecimalField - Other$
+Previously Approved Amounts - DecimalField - Total$ 
+Previously Approved Amounts - DecimalField - State$
+Previously Approved Amounts - DecimalField - Federal$
+Previously Approved Amounts - DecimalField - Other$
+Total Contract - DecimalField - Total$
+Total Contract - DecimalField - State$
+Total Contract - DecimalField - Federal$
+Total Contract - DecimalField - Other$
+
+Rate Information
+----------------
+Service Description – DropDownList [?, ?, ?, ?, ?] 
+Procedure Code - TextField 
+Prodecure Modifier - TextField
+Unit - TextField
+Requested Rate(s) - TextField
+Approval (Yes/No) - DropDownList - [Yes/No]
+
+Initial Approval
+----------------
+Contract Intiator Approval - Status - DropDownList - [Pending, Approved, Rejected]
+Contract Intiator Approval - Signature - TextField
+Contract Intiator Approval - I agree - CheckBox
+Contract Intiator Approval - Date - DateField
+Contract Intiator Approval - Comments
+
+Originating Bureau/Division Approval - Division Director Approval - Status - DropDownList - [Pending, Approved, Rejected]
+Originating Bureau/Division Approval - Division Director Approval - Signature - TextField
+Originating Bureau/Division Approval - Division Director Approval - I agree - CheckBox
+Originating Bureau/Division Approval - Division Director Approval - Date - DateField
+Originating Bureau/Division Approval - Division Director Approval - Comments
+
+Originating Bureau/Division Approval - Program  Director Approval - Status - DropDownList - [Pending, Approved, Rejected]
+Originating Bureau/Division Approval - Program  Director Approval - Signature - TextField
+Originating Bureau/Division Approval - Program  Director Approval - I agree - CheckBox
+Originating Bureau/Division Approval - Program  Director - Date - DateField
+Originating Bureau/Division Approval - Program  Director - Comments
+
+Originating Bureau/Division Approval - Deputy Director Approval - Status - DropDownList - [Pending, Approved, Rejected]
+Originating Bureau/Division Approval - Deputy Director Approval - Signature - TextField
+Originating Bureau/Division Approval - Deputy Director Approval - I agree - CheckBox
+Originating Bureau/Division Approval - Deputy Director Approval - Date - DateField
+Originating Bureau/Division Approval - Deputy Director Approval - Comments
+
+Ancillary Reimbursements Approval - Status - DropDownList - [Pending, Approved, Rejected]
+Ancillary Reimbursements Approval - Signature - TextField
+Ancillary Reimbursements Approval - I agree - CheckBox
+Ancillary Reimbursements Approval - Date - DateField
+Ancillary Reimbursements Approval - Comments
+
+Division of Contracts Approval - Procurement Specialist Approval - Status - DropDownList - [Pending, Approved, Rejected]
+Division of Contracts Approval - Procurement Specialist Approval - Signature - TextField
+Division of Contracts Approval - Procurement Specialist Approval - I agree - CheckBox
+Division of Contracts Approval - Procurement Specialist Approval - Date - DateField
+Division of Contracts Approval - Procurement Specialist Approval - Comments
+
+General Counsel Approval - Status - DropDownList - [Pending, Approved, Rejected]
+General Counsel Approval - Signature - TextField
+General Counsel Approval - I agree - CheckBox
+General Counsel Approval - Date - DateField
+General Counsel Approval - Comments
+
+Finance and Administration Approval
+-----------------------------------
+
+Budgeted Service – DropDownList [?, ?, ?, ?, ?]
+SFY - TextField
+G/L Account - TextField
+Functional Area - TextField
+Cost Center - TextField
+Total$ - DecimalField
+State$ - DecimalField
+Federal$ - DecimalField
+Other$ - DecimalField
+Other Fund Source - DropDownList - [Cash, CPE, Donor Rev]
+
+Budgeted Service Totals - Total$
+Budgeted Service Totals - State$
+Budgeted Service Totals - Federal$
+Budgeted Service Totals - Other$
+
+Finance Approval - Status - DropDownList - [Pending, Approved, Rejected]
+Finance Approval - Signature - TextField
+Finance Approval - I agree - CheckBox
+Finance Approval - Date - DateField
+Finance Approval - Comments
+
+Donor Revenue/MMIS Approval - Status - DropDownList - [Pending, Approved, Rejected]
+Donor Revenue/MMIS Approval - Signature - TextField
+Donor Revenue/MMIS Approval- I agree - CheckBox
+Donor Revenue/MMIS Approval - Date - DateField
+Donor Revenue/MMIS Approval - Comments
+
+Finance & Administration Deputy Director Approval - Status - DropDownList - [Pending, Approved, Rejected]
+Finance & Administration Deputy Director Approval - Signature - TextField
+Finance & Administration Deputy Director Approval - I agree - CheckBox
+Finance & Administration Deputy Director Approval - Date - DateField
+Finance & Administration Deputy Director Approval - Comments
+
+Division of Contracts Final Approval - Status - DropDownList - [Pending, Approved, Rejected]
+Division of Contracts Final Approval - Signature - TextField
+Division of Contracts Final Approval - I agree - CheckBox
+Division of Contracts Final Approval - Date - DateField
+Division of Contracts Final Approval - Comments
+
+Hidden fields
+-------------
+Name  - TextField
+Category - TextField
+Division Director Status TextField
+Funding Bureau Status - TextField
+Division of Contracts Status - TextField
+FA Deputy Director Status - TextField
+Ancillary Status - TextField
+Program Director Status - TextField
+Deputy Director Status - TextField
+MMO 136 - Checkboxes
+Pending Reasons - TextField
+Sole Source - Checkbox
+Subrecipient - Checkbox
+Emergency Procurement - Checkbox
+WF 102 Var - TextField
+DCSignature Check - TextField
+N Counter - TextField
+First Count - TextField
+NCDDto PS - TextField
+DCSignature - TextField
+PS Count - TextField
+GC Count - TextField
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
