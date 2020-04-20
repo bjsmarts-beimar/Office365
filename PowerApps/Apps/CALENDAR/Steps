@@ -1,0 +1,25 @@
+
+. Create the Calendar List
+. Create some dummy data
+. Create the App
+. Add the Calendar Screen to the App
+. Add the following code to App OnVisible Property
+
+Set(_dateSelected, Today())
+Set(_firstDayOfMonth, DateAdd(Today(), 1 - Day(Today()), Days))
+Set(_firstDayInView, DateAdd(_firstDayOfMonth, -(Weekday(_firstDayOfMonth) - 2 + 1), Days))
+Set(_lastDayOfMonth, DateAdd(DateAdd(_firstDayOfMonth, 1, Months), -1, Days))
+Set(_minDate, DateAdd(_firstDayOfMonth, -(Weekday(_firstDayOfMonth) -2 + 1), Days))
+Set(_maxDate, DateAdd(DateAdd(_firstDayOfMonth, -(Weekday(_firstDayOfMonth) - 2 + 1), Days), 40, Days))
+
+. Connect to DataSource Ex. SharePoint List
+. Set OnVisible Property for all controls in the screen to true
+. Remove the following fields
+   1. LblNoEvents1
+   2. iconEmptyState1
+   3. dropdownCalendarSelection1
+   4. iconCalendar1
+   5. lblResetToday1
+
+. Fix all connections
+
