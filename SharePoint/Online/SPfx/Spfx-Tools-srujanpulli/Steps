@@ -1,0 +1,18 @@
+
+Installation, Deployment and Configuration
+==========================================
+
+. git clone https://github.com/srujanpulli/SPFx.git
+. Edit following file hideQuickLaunch/config/write-manifests.json
+    "cdnBasePath": "https://schhs.sharepoint.com/sites/HOME/SiteAssets/hideQuickLaunch"
+. Run the following command > gulp clean
+. Run the following command > gulp bundle --ship
+. Run the following command > gulp package-solution --ship
+. Once we run the commands given above, then get the bundle file from your project folder,
+. Open your project folder - Temp - deploy. 
+. In deploy folder, copy all the files and add in SharePoint library path or CDN, which you mentioned in write-manifests.json file.
+. Upload the files to SharePoint document library.
+. Once you completed the steps given above, upload the app in an app catalog and install in your SharePoint site.
+. Get .sppkg file from <project folder> - Sharepoint - solution - <helloworldsample-webpart.sppkg>
+. Inside SharePoint folder, click solution folder to get .sppkg file
+. Inside solution folder, copy the .sppkg file and upload it in an app catalog.
