@@ -1,8 +1,57 @@
 
 
+Justification Type
+------------------
+IF MMO136 checkbox is click THEN MMO136 variable set true
+IF SoleSource checkbox is click THEN SoleSource variable set true
+IF Subrecipient checkbox is click THEN Subrecipient variable set true
+IF EmergencyProc checkbox is click THEN EmergencyProc variable set true
+
 Business Rule - Category -> Service Type
+----------------------------------------
 
 Notes: Category List is connected to the Service List
 
-Business Rule - Bureau/Division -> Office 
+Business Rule - Bureau/Division -> Office
+----------------------------------------- 
+
+Notes: Division List has a field called Bureau when selected if populates the office field
+
+End Date
+--------
+Contract End Date cannot be prior Contract Begin Date
+
+Procurement Specialist 
+----------------------
+gets populated using Procurement List
+
+Provider Name
+-------------
+Provider name gets selected form 'Contact List' and the following fiedls gets populated
+
+Provider Name, Phone, Email, Address and Email
+
+Contract Number
+---------------
+
+Previous Contract numbers should be put in using the following format or the Renewal Contract Number WILLNOT be generated (new contract number appears in Contract Number field in next row):
+ 
+Category + End Date Year (CCYY) + Sequence Number (####) + Service Type
+ 
+Example: A 2 1541 A should be put in as A20121541A
+
+Generate Renewal Contract Number
+--------------------------------
+
+Validates contract number matches the following path A000000000A
+
+concat(substring(PreviousContractNumber, 1, 1), substring(string(EndDate), 1, 4), substring(PreviousContractNumber, 6))
+
+Example: A201913408A becomes A13408A
+
+Additional Funding Bureau
+-------------------------
+Checkbox enable Funding Division dropdown
+
+
 

@@ -2,7 +2,20 @@
 
 http://sharepoint-tricks.com/remove-title-header-on-sharepoint-online/
 
-$PageName = "Index.aspx"
-$LoginUrl = "https://schhs.sharepoint.com"
+$adminUPN="beimar.medina@scdhhs.gov"
+$orgName="scdhhs.gov"
+$userCredential = Get-Credential -UserName $adminUPN -Message "Type the password."
+Connect-SPOService -Url https://schhs-admin.sharepoint.com/ -Credential $userCredential
+
+Remove header
+-------------
+$PageName = "Sites.aspx"
+$LoginUrl = "https://schhs.sharepoint.com/sites/ProjectManagement"
 Connect-PnPOnline -Url $LoginUrl -UseWebLogin
 Set-PnPClientSidePage -Identity $PageName -LayoutType Home
+
+Remove Footer
+-------------
+$LoginUrl = "https://schhs.sharepoint.com/sites/ProjectManagement"
+Connect-PnPOnline -Url $LoginUrl –UseWebLogin 
+Set-PnPFooter -Enabled:$false
