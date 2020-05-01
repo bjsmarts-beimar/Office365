@@ -1,0 +1,23 @@
+#MUST BE A TENANT ADMIN TO RUN THIS
+
+Install-Module -Name Microsoft.PowerApps.Administration.PowerShell
+Install-Module -Name Microsoft.PowerApps.PowerShell -AllowClobber
+
+Import-Module -Name Microsoft.PowerApps.Administration.PowerShell
+Import-Module -Name Microsoft.PowerApps.PowerShell
+
+# This call opens prompt to collect credentials (Azure Active Directory account and password) used by the commands 
+Add-PowerAppsAccount
+
+#Use the "COVID Response App" App ID
+
+
+
+#To clear a featured app use Clear-AdminPowerAppAsFeatured 
+#Change the App ID for each new app (APPGUIDHERE)
+Set-AdminPowerAppAsFeatured -AppName APPGUIDHERE
+
+
+#To clear a hero app use Clear-AdminPowerAppAsHero 
+#Change the App ID for each new app (APPGUIDHERE)
+Set-AdminPowerAppAsHero -AppName APPGUIDHERE

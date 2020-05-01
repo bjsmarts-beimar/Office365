@@ -1,0 +1,13 @@
+#MUST BE A TENANT ADMIN TO RUN THIS
+
+Install-Module -Name Microsoft.PowerApps.Administration.PowerShell
+Install-Module -Name Microsoft.PowerApps.PowerShell -AllowClobber
+
+Import-Module -Name Microsoft.PowerApps.Administration.PowerShell
+Import-Module -Name Microsoft.PowerApps.PowerShell
+
+# This call opens prompt to collect credentials (Azure Active Directory account and password) used by the commands 
+Add-PowerAppsAccount
+
+#Change the App ID for each new app (APPGUIDHERE)
+Set-AdminPowerAppApisToBypassConsent -AppName APPGUIDHERE
