@@ -1,10 +1,12 @@
 
 Applications
 ------------
-DHHS Canvas App - Contracts - End User App
-DHHS Canvas Contracts Admin App - Contracts Flow Status - Data Contracts App Administrator
-DHSS Canvas Reference Admin App - Contracts Data Reference - Data Contracts App Administrator
-DHHS Model-Driven App - Data, User, Configuration App Administrator
+DHHS Canvas Contracts App - Contracts - End User App
+DHHS Canvas Contracts Workflow App - Contracts Workflow - Data Contracts App Administrator
+DHSS Canvas Contracts Reference App - Contracts Reference - Data Contracts App Administrator
+DHSS Canvas Dashboard App - Contracts Dashboards - Data Contracts App Administrator
+DHSS Canvas Help App - Contracts Help & Training - End User App
+DHHS Model-Driven Contracts App - Data|User|Configuration|Deployment|Administration App Administrator
 
 Navigation from Power App to different PowerApp using Launch(); Note * App Id
 
