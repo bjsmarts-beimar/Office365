@@ -1,0 +1,130 @@
+
+
+https://www.sergios.com
+
+======
+Portal
+======
+
+Public Pages
+------------
+Home
+About
+Locations (7 Locations 7 Pages)
+Menu
+Catering (Catering Inquiry Entity)
+Private Dining (Event Inquiry Entity)
+Contact (Contact Entity)
+Email SignUp (Email SignUp Entity)
+Privacy Policy
+Terms of use
+Careers
+
+Authenticated Pages
+-------------------
+Order Online
+
+
+=======
+Backend
+=======
+1. Contact
+   Name
+   Email
+   Phone Number
+   What are you getting in touch about?
+   Your Message
+
+2. Email SignUp
+   First Name
+   Last Name
+   Email
+
+3. Entrees
+   Picture
+   Name
+   Description 
+   Price
+   Meal Type [Breakfast|Lunch|Dinner|Kids|Specials]
+   Meal Group Type [Tapas & Tablas|Soups|Salads|Desserts|Beverages|Beef & Pork|Fish|La Flaca|Sandwichs]
+
+4. Catering Inquiry
+   First Name
+   Last Name
+   Phone Number
+   Company
+   Event Date
+   Event Time
+   Type of Event
+   Number of People
+   Additional Information
+
+5. Event Inquiry
+   Email
+   First Name
+   Last Name
+   Phone Number
+   Company
+   Which space are you interested in?
+   Event Date
+   Event Time
+   Type of Event
+   Number of People
+   Additonal Information
+
+6. Employment Application
+   First Name
+   Last Name
+   Address1
+   Address2
+   Home Phone
+   Cell Phone
+   Email
+   Social Security # (SSN)
+   What Position are you applying for?
+   Select which Sergio's locations?
+   Employment Desired
+   Shift Availability
+   Salaried Desired
+   Please indicate specific days and times you are NOT available to work:
+   How did you learn about Sergio's Family Restaurant?
+   If not a U.S. Citizen, are you lawfully permitted to be employed in the United States?: required
+   If you are under 18 years of age, can you provide required work permits?: required
+   Have you ever been employed with us before?: required
+   Do you presently have any relatives working for Sergio's Family Restaurant?
+   With or without accommodation, are you able to perform the essential job functions of the position for which you are applying?
+   Have you ever been convicted of any criminal offense, including, but not limited to robbery, embezzlement, forgery, use, possession or sale of drugs, tax evasion, DUI, or any criminal offense involving dishonesty or breach of trust?
+   Have you ever been charged with a crime and pleaded nolo contendre, had adjudication withheld, or pleaded nolo pross to include, but not limited to, any criminal offense listed above?
+   Please indicate the skills/equipment in which you have experience
+   Please check any languages in which you speak fluently
+   Resume
+   Work History(s)
+   Name of School
+   Type of School
+   Reference(s)
+   Signature
+   Date
+
+
+7. Work History
+   Company
+   Position/Title
+   Employed From
+   Employed To
+   Reason for Leaving
+   Supervisor Name
+   Phone
+
+8. Reference
+   FirstName
+   LastName
+   Occupation
+   Relationship
+   Phone
+   Years Known 
+
+========
+Frontend
+========
+Model-Driven Application Administration
+Canvas Application Order Food System

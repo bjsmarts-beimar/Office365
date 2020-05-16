@@ -8,13 +8,17 @@ Dynamics 365
 https://port.crm.dynamics.com/G/TrialInstances/TrialInstancePicker.aspx
 
 
+Dynamics 365 CE
+https://bjsmartsusa0.crm.dynamics.com/main.aspx?forceUCI=1&pagetype=apps
+
+
 Dynamics 365 Finance and Operations
 https://trial-rza0ys.sandbox.operations.dynamics.com
 
 Dynamics 365 Human Resources
 https://aos-rts-sf-cac8deb39f9-prod-centralus.hr.talent.dynamics.com/namespaces/94c00f9c-9027-452f-9378-3b2948ceb71b/?cmp=USMF&mi=DefaultDashboard
 
-Dynamics 365 Busines Central/NAV
+Dynamics 365 Busines Central
 https://businesscentral.dynamics.com
 
 Dynamics 365 Retails
