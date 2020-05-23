@@ -1,0 +1,24 @@
+.site-nav {
+    font-family: "Montserrat";
+    font-weight: 400;
+    font-size: 1.5rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    text-align: center;
+    position: relative;
+    z-index: 0;
+    color: #e12639;
+}
+.site-nav-menu {
+    margin-bottom: 0;
+}
+.site-nav ul, .site-nav li {
+    display: block;
+}
+.site-nav ul {
+    padding-left: 0;
+    list-style: none;
+}
+.site-nav li {
+    display: inline-block;
+}
