@@ -1,9 +1,13 @@
-Contracts Information Section
+
+CONTRACTS ENTITY
+================
+
+Contracts Information Section (TAB)
 -----------------------------
 Contract Type – DropDownList - [New, Renewal, Extension, Amendment]  
 Action – DropDownList - [Increase, Decrease] 
 Justification Type – Muliple Checkboxes [Contract, HIPPA BA, Grant, Subrecipient, MOA, State Agency,  Sole Source, Emergency, Administration] 
-Category – DropDownList - [Administrative, Grant, Medicaid, Procurement] 
+Category – DropDownList - [?, ?, ?, ?] 
 Service Type – DropDownList [?, ?, ?, ?, ?] 
 Note * Category and Service Type are connected 
 Program Contact – TextField 
@@ -32,10 +36,9 @@ Administrative Cost Share - CheckBox
 Increase exceeds $25000 SCDHHS - CheckBox 
 No Funds Contract – CheckBox 
 Note * This field is connected to something ??? 
-Additional Funding Bureau  - CheckBox 
-Attachments
+Additional Funding Bureau  - CheckBox
 
-Program Budget/Appropriation
+Program Budget/Appropriation (TAB)
 ----------------------------
 Budgeted Service - DropDownList - [?, ?, ?, ?, ?] 
 SFY - TextField
@@ -58,7 +61,7 @@ Total Contract - DecimalField - State$
 Total Contract - DecimalField - Federal$
 Total Contract - DecimalField - Other$
 
-Rate Information
+Rate Information (TAB)
 ----------------
 Service Description – DropDownList [?, ?, ?, ?, ?] 
 Procedure Code - TextField 
@@ -66,6 +69,9 @@ Prodecure Modifier - TextField
 Unit - TextField
 Requested Rate(s) - TextField
 Approval (Yes/No) - DropDownList - [Yes/No]
+
+Attachments (TAB)
+-----------------
 
 Initial Approval
 ----------------

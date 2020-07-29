@@ -1,32 +1,25 @@
 
 Applications
 ============
+DHHS Model-Driven Contracts App - Data|User|Configuration|Deployment|Administration App Administrator
+
 DHHS Canvas Contracts App - Contracts - End User App
 DHHS Canvas Contracts Workflow App - Contracts Workflow - Data Contracts App Administrator
 DHSS Canvas Contracts Reference App - Contracts Reference - Data Contracts App Administrator
 DHSS Canvas Dashboard App - Contracts Dashboards - Data Contracts App Administrator
 DHSS Canvas Help App - Contracts Help & Training - End User App
-DHHS Model-Driven Contracts App - Data|User|Configuration|Deployment|Administration App Administrator
 
 Navigation from Power App to different PowerApp using Launch(); Note * App Id
-
 
 Navigation
 ==========
 
 Areas
 -----
-Contracts
-References
-Dashboards
+Content
 Administration
+Dashboards
 Help
-
-Administration (Area)
---------------------
-App 
-AppConfig 
-AppFeedback
 
 Help (Area)
 -----------
@@ -37,7 +30,7 @@ Dashboard (Area) Note * don't do it yet
 Pending Approval
 (Pending)
 
-References (Area)
+Administration (Area)
 -----------------
 WorkflowEmailMapping
 Bureau
@@ -49,6 +42,6 @@ ProcurementSpecialist
 Service
 ContactsList
 
-Contracts (Area)
+Content (Area)
 ---------
-Contract
+Contracts

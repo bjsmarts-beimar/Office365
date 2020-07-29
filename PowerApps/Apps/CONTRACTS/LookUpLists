@@ -22,9 +22,8 @@ Bureau
 
 Other Fund Sources
 ------------------
-CPE
-Cash
-Donor Rev
+Title 
+Description
 
 Pending Reasons
 ---------------
@@ -33,6 +32,7 @@ Title
 Procurement Specialist
 ----------------------
 Title
+Procurement Specialist Name
 
 Service 
 -------
@@ -43,6 +43,25 @@ Category
 
 Contacts List
 -------------
+Title
+PROVIDER
+COMPLETE PROVIDER NAME 
+SERVICE 
+COMPLETE PROVIDER ADDRESS
+CORRESPONDENCE CONTACT PERSON & TITLE 
+CONTACT EMAIL ADDRESS 
+PHONE NUMBER 
+FAX NUMBER 
+AUTHORIZED SIGNER 
+EMAIL ADDRESS 
+SECONDARY CONTACT EMAIL ADDRESS 
+SECONDARY CONTACT PHONE NUMBER 
+OTHER CONTACT 
+OTHER CONTACT EMAIL ADDRESS 
+OTHER CONTACT PHONE NUMBER
+
+
+
 
 
 

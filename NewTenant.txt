@@ -3,7 +3,6 @@ Link to create a Office 365 Trial Tenant:
 https://danusher.com/how-do-i-cloud/how-to-create-an-e3-e5-trial-tenant/
 
 
-
 Dynamics 365
 https://port.crm.dynamics.com/G/TrialInstances/TrialInstancePicker.aspx
 
@@ -24,17 +23,18 @@ https://businesscentral.dynamics.com
 Dynamics 365 Retails
 https://d365rtrialha46.retail.dynamics.com
 
+https://docs.microsoft.com/en-us/powerapps/maker/dev-community-plan
+
+Azure DevOps
+https://azure.microsoft.com/en-us/solutions/devops/
 
 https://trials.dynamics.com/
 
 Tenant Information:
-Date Created: March 29
-User Account: sales@bjsmarts.com
+Date Created: June 3
+User Account: beimar@bjsmarts98LLC.onmicrosoft.com
 Password: P@ss(0)d!
 Office 365 User Account: 
-sales@bjsmartsusa.onmicrosoft.com 
-bmedina@bjsmartsusa.onmicrosoft.com 
-carol@bjsmartsusa.onmicrosoft.com
 
 
 

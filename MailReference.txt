@@ -1,8 +1,13 @@
+
+GoDaddy.com
+user: medin_b@yahoo.com
+
 Administrator Mail Server account
 =================================
 Link: https://mailadmin.zoho.com/
 user: beimar.medina@bjsmarts.com
-pass: P@ss(0)d!
+user: beimar.medina@bjsmartsusa.com
+
 
 BJSmarts User Accounts
 ======================
@@ -13,3 +18,11 @@ jmedina@bjsmarts.com
 aparedez@bjsmarts.com
 john.smith@bjsmarts.com
 john.johnson@bjsmarts.com
+david@bjsmarts.com
+
+Visual Studio Dev Essentials
+============================
+
+bmedina@bjsmarts.com
+beimar.medina@bjsmartsusa.com
+john.johnson@bjsmartsusa.com 
