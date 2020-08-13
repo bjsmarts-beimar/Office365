@@ -25,6 +25,8 @@ https://d365rtrialha46.retail.dynamics.com
 
 https://docs.microsoft.com/en-us/powerapps/maker/dev-community-plan
 
+https://my.visualstudio.com
+
 Azure DevOps
 https://azure.microsoft.com/en-us/solutions/devops/
 
@@ -33,8 +35,20 @@ https://trials.dynamics.com/
 Tenant Information:
 Date Created: June 3
 User Account: beimar@bjsmarts98LLC.onmicrosoft.com
-Password: P@ss(0)d!
-Office 365 User Account: 
+
+
+Paid Tenant Information
+-----------------------
+Date Created: August 8
+Main Account: beimar.medina@outlook.com
+User Account: bjmedina@bjsmarts365.onmicrosoft.com
+
+https://www.infosaic.com/
+PC in the cloud
+
+
+
+
 
 
 
