@@ -28,51 +28,40 @@ Order Online
 =======
 Backend
 =======
-1. ContactUs [DONE]
+1. Message 
    Name
    Email
    Phone Number
-   What are you getting in touch about?
+   What are you getting in touch about? General Inquiry|Press Inquiry
    Your Message
 
-2. Email SignUp [DONE]
+2. SignUp 
    First Name
    Last Name
    Email
 
-3. Event Inquiry [DONE]
+3. Event 
    Email
    First Name
    Last Name
    Phone Number
    Company
-   Which space are you interested in?
+   Which space are you interested in?   [Banquet|Private Room]
    Event Date
    Event Time
-   Type of Event
+   Type of Event [Catering|Private]
    Number of People
    Additonal Information
 
-4. Entrees
+4. Meal
    Picture
    Name
    Description 
    Price
    Meal Type [Breakfast|Lunch|Dinner|Kids|Specials]
-   Meal Group Type [Tapas & Tablas|Soups|Salads|Desserts|Beverages|Beef & Pork|Fish|La Flaca|Sandwichs]
+   Section Type [Tapas & Tablas|Soups|Salads|Desserts|Beverages|Beef & Pork|Fish|La Flaca|Sandwichs]
 
-5. Catering Inquiry
-   First Name
-   Last Name
-   Phone Number
-   Company
-   Event Date
-   Event Time
-   Type of Event
-   Number of People
-   Additional Information
-
-6. Employment Application
+6. Job Application
    First Name
    Last Name
    Address1

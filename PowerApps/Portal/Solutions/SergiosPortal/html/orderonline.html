@@ -1,0 +1,12 @@
+{% if user %}
+{% else %}
+<script>
+  window.location.href = '~/SignIn';
+</script>
+{% endif %}
+
+{% if user %}
+Hello, {{ user.firstname }}
+{% else %}
+Hello World!
+{% endif %}

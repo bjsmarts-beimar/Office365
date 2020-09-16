@@ -1,5 +1,5 @@
 .site-nav {
-    font-family: "Montserrat";
+    font-family: cursive;
     font-weight: 400;
     font-size: 1.5rem;
     text-transform: uppercase;
@@ -21,4 +21,13 @@
 }
 .site-nav li {
     display: inline-block;
+}
+.site-nav-link {
+    color: white;
+}
+.site-nav-link:hover {
+    color: red;
+}
+.text-align-center {
+    text-align: center;
 }

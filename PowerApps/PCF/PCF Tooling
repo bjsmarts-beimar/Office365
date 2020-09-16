@@ -1,0 +1,52 @@
+
+Developers can implement Power Apps Component Framework (PCF) controls to completely alter how fields, 
+views or other form-based objects operate. And, because they leverage modern web tools/languages, it is easy 
+to get a PCF control deployed out into the application.
+
+Create a PowerApps Component Framework (PCF) component
+
+initialize a new PCF component
+configure a PCF component manifest
+implement the component interfaces
+package, deploy, and consume the component
+use Web API device capabilities and other component framework services
+
+Stepping back into the world of Dynamics CRM for a few seconds, and we can see that our options for modifying 
+the out of the box forms (now a central component as part of model-driven apps) are somewhat limited. Although developers 
+have a high degree of control over the general layout of a form, our ability to modify how a text field is displayed remains 
+virtually non-existent. Instead, developers would have to revert to building out HTML Web Resource files and then embedding 
+these within a form instead. 
+
+ Power Apps Component Framework (PCF) controls have advantages they have over traditional Web Resources include:
+
+The ability to bundle all aspects of your project together into a single solution file.
+Because the application renders custom controls at the same time as the form itself, 
+users get a completely seamless experience when using a model-driven app.
+They are developed using modern web technologies, such as NPM, Node.js and TypeScript.
+(Eventual) support for all types of Power Apps, both model and canvas.
+
+Install the following: 
+
+Download & Install Nodejs
+Note: be sure to tick the option to download additional tools, one of which installs Visual Studio 2017 Build Tools. 
+After this has installed, be sure to go into the Visual Studio 2017 installer and add on the individual component 
+NuGet targets & Build Tasks, an additional pre-requisite.
+https://nodejs.org/en/download/
+
+Download & Install .NET Framework 4.6.2
+https://dotnet.microsoft.com/download/dotnet-framework/net462
+
+Download & Install .NET Core 3.1
+https://dotnet.microsoft.com/download/dotnet/current
+
+Download & Install PowerApps CLI 
+https://aka.ms/PowerAppsCLI
+
+Open Developer Command Prompt for VS 2017
+run the following command: pac install latest
+
+
+
+
+
+

@@ -9,8 +9,8 @@ Connect-SPOService -Url https://schhs-admin.sharepoint.com/ -Credential $userCre
 
 Remove header
 -------------
-$PageName = "Sites.aspx"
-$LoginUrl = "https://schhs.sharepoint.com/sites/ProjectManagement"
+$PageName = "ActionsOptions.aspx"
+$LoginUrl = "https://schhs.sharepoint.com/sites/AppealsExchange"
 Connect-PnPOnline -Url $LoginUrl -UseWebLogin
 Set-PnPClientSidePage -Identity $PageName -LayoutType Home
 
