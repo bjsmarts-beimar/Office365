@@ -1,0 +1,125 @@
+<div class="container">
+    <div class="row">
+        <button type="button" class="btn btn-secondary" style="width:24%" onclick="Javascript:document.location=document.URL.split('?')[0] + '?meal=Breakfast'">Breakfast</button>
+        <button type="button" class="btn btn-secondary" style="width:24%" onclick="Javascript:document.location=document.URL.split('?')[0] + '?meal=Specials'">Specials</button>
+        <button type="button" class="btn btn-secondary" style="width:24%" onclick="Javascript:document.location=document.URL.split('?')[0]">Main Menu</button>
+        <button type="button" class="btn btn-secondary" style="width:24%" onclick="Javascript:document.location=document.URL.split('?')[0] + '?meal=Catering'">Catering Menu</button>
+    </div>
+</div>
+<div class="container">
+    <div class="row" style="padding-top:8px;">
+        
+        {% entityview logical_name: 'bjsmarts_meal' name:"Active Meals", page_size: 50 %}        
+        
+        {% assign meal = request.params['meal'] %}  
+        {% assign title = "Sergio's Menu " %}
+        <h4>{{ title }} {{meal}}</h4>
+
+        {% if meal %}
+        {% assign meals = entityview.records | where: "bjsmarts_mealtype.label", meal | order_by: "bjsmarts_sectiontype" %}
+        {% else %}
+        {% assign meals = entityview.records | where: "bjsmarts_mealtype.label", "lunch" | order_by: "bjsmarts_sectiontype" %}
+        {% endif %}
+        
+        Loaded meals : {{ meals.total_records }} total records.   
+        Loaded entityview : {{ entityview.total_records }} total records.           
+        Loaded meals using entityview : {{ meals.total_records }} total records.  
+        
+        {% assign meals = entityview.records %}   
+                
+        {% for item in meals %}
+        <div class="log-lg-4">
+            <div class="panel panel-default">
+                <div class="panel-heading">{{}}</div>
+                <div class="panel-body" style="border:1px solid #CCCCCC;height:90px">                    
+                    <div>{{item.bjsmarts_name}}</div>
+                    <div>{{item.bjsmarts_description}}</div>
+                    <div>Meal Type: {{item.bjsmarts_mealtype}}</div>
+                    <div>Section Type: {{item.bjsmarts_sectiontype}}</div>
+                    <div>Price: ${{item.bjsmarts_price | round:2}}</div>
+                    <div style="clear:left"></div> 
+                </div>
+            </div>
+        </div>        
+        {% endfor %}
+        {% endentityview %}
+    </div>
+</div>
+
+
+
+<div class="container">
+    <div class="row">
+        <button type="button" class="btn btn-secondary" style="width:24%" onclick="Javascript:document.location=document.URL.split('?')[0] + '?meal=Breakfast'">Breakfast</button>
+        <button type="button" class="btn btn-secondary" style="width:24%" onclick="Javascript:document.location=document.URL.split('?')[0] + '?meal=Specials'">Specials</button>
+        <button type="button" class="btn btn-secondary" style="width:24%" onclick="Javascript:document.location=document.URL.split('?')[0]">Main Menu</button>
+        <button type="button" class="btn btn-secondary" style="width:24%" onclick="Javascript:document.location=document.URL.split('?')[0] + '?meal=Catering'">Catering Menu</button>
+    </div>
+</div>
+<div class="container">
+    <div class="row" style="padding-top:8px;">
+        
+        {% entityview logical_name: 'bjsmarts_meal' name:"Active Meals", page_size: 50 %}   
+        
+
+        Loaded entityview : {{ entityview.total_records }} total records.  
+        
+        {% for col in entityview.columns %}
+
+        column name: {{ col.logical_name }}
+
+        {% endfor %}
+        
+        {% endentityview %}
+
+        {% entityview logical_name: 'bjsmarts_meal' name:"Breakfast Meals", page_size: 50 %}   
+        
+        Loaded entityview : {{ entityview.total_records }} total records.    
+
+        {% for col in entityview.columns %}
+
+        column name: {{ col.logical_name }}
+
+        {% endfor %}
+
+        {% endentityview %}
+                
+    </div>
+</div>
+
+
+
+
+<div class="container">
+    <div class="row">
+        <button type="button" class="btn btn-secondary" style="width:24%" onclick="Javascript:document.location=document.URL.split('?')[0] + '?meal=breakfast'">Breakfast</button>
+        <button type="button" class="btn btn-secondary" style="width:24%" onclick="Javascript:document.location=document.URL.split('?')[0] + '?meal=specials'">Specials</button>
+        <button type="button" class="btn btn-secondary" style="width:24%" onclick="Javascript:document.location=document.URL.split('?')[0]">Main Menu</button>
+        <button type="button" class="btn btn-secondary" style="width:24%" onclick="Javascript:document.location=document.URL.split('?')[0] + '?meal=catering'">Catering Menu</button>
+    </div>
+</div>
+<div class="container">
+    <div class="row" style="padding-top:8px;">
+        
+        {% entityview logical_name: 'bjsmarts_meal' name:"Active Meals", page_size: 50 %}
+        Loaded entity view with {{ entityview.total_records }} total records.
+        {% assign meal = request.params['meal'] %}       
+        {% assign title = "Sergio's Menu - " %}
+        <h4>{{ title }} {{meal}}</h4>         
+        {% assign meals = entityview.records %}        
+        {% for item in meals %}
+        <div class="log-lg-4">
+            <div class="panel panel-default">
+                <div class="panel-heading">{{}}</div>
+                <div class="panel-body" style="border:1px solid #CCCCCC;height:90px">                    
+                    <div>{{item.bjsmarts_name}}</div>
+                    <div>{{item.bjsmarts_description}}</div>
+                    <div>Price: ${{item.bjsmarts_price | round:2}}</div>
+                    <div style="clear:left"></div> 
+                </div>
+            </div>
+        </div>        
+        {% endfor %}
+        {% endentityview %}
+    </div>
+</div>
