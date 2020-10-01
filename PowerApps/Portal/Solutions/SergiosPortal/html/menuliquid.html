@@ -1,6 +1,4 @@
 
-
-
 <div class="container">
     <div class="row">
         <button type="button" class="btn btn-secondary" style="width:24%" onclick="Javascript:document.location=document.URL.split('?')[0] + '?meal=Breakfast'">Breakfast</button>
@@ -9,6 +7,7 @@
         <button type="button" class="btn btn-secondary" style="width:24%" onclick="Javascript:document.location=document.URL.split('?')[0] + '?meal=Catering'">Catering Menu</button>
     </div>
 </div>
+<div class="content">
 <div class="container">
     <div class="row" style="padding-top:8px;">
 
@@ -24,7 +23,7 @@
         {% if meal == "Specials" %}
             
         {% entityview logical_name: 'bjsmarts_meal' name:"Specials", page_size: 50 %}   
-        Loaded entityview : {{ entityview.total_records }} total records.    
+          
 
         {% assign groups = entityview.records | group_by: 'bjsmarts_sectiontype.label' %}
 
@@ -33,17 +32,16 @@
         {% assign meals = entityview.records | where: "bjsmarts_sectiontype.label", group.key | order_by: "bjsmarts_order" %}
         
         {% for item in meals %}
-        <div class="log-lg-4">
-            <div class="panel panel-default">
-                <div class="panel-heading">{{}}</div>
-                <div class="panel-body" style="border:1px solid #CCCCCC;height:90px">                    
+        
+            <div class="panel panel-default">                
+                <div class="panel-body" style="border:1px solid #CCCCCC;height:90px;width: 95.5%;">                    
                     <div>{{item.bjsmarts_name}}</div>
                     <div>{{item.bjsmarts_description}}</div>
                     <div>Price: ${{item.bjsmarts_price | round:2}}</div>
                     <div style="clear:left"></div> 
                 </div>
             </div>
-        </div>        
+                
         {% endfor %}
         {% endfor %}
         {% endentityview %}
@@ -52,7 +50,7 @@
         {% if meal == "Breakfast" %}
             
         {% entityview logical_name: 'bjsmarts_meal' name:"Breakfast Meals", page_size: 50 %}   
-        Loaded entityview : {{ entityview.total_records }} total records.    
+           
 
         {% assign groups = entityview.records | group_by: 'bjsmarts_sectiontype.label' %}
 
@@ -61,17 +59,16 @@
         {% assign meals = entityview.records | where: "bjsmarts_sectiontype.label", group.key | order_by: "bjsmarts_order" %}
         
         {% for item in meals %}
-        <div class="log-lg-4">
+        
             <div class="panel panel-default">
-                <div class="panel-heading">{{}}</div>
-                <div class="panel-body" style="border:1px solid #CCCCCC;height:90px">                    
+                <div class="panel-body" style="border:1px solid #CCCCCC;height:90px;width: 95.5%;">                    
                     <div>{{item.bjsmarts_name}}</div>
                     <div>{{item.bjsmarts_description}}</div>
                     <div>Price: ${{item.bjsmarts_price | round:2}}</div>
                     <div style="clear:left"></div> 
                 </div>
             </div>
-        </div>        
+                
         {% endfor %}
         {% endfor %}
         {% endentityview %}
@@ -80,7 +77,7 @@
         {% if meal == Null %}
             
         {% entityview logical_name: 'bjsmarts_meal' name:"Main Menu", page_size: 50 %}   
-        Loaded entityview : {{ entityview.total_records }} total records.    
+           
 
         {% assign groups = entityview.records | group_by: 'bjsmarts_sectiontype.label' %}
 
@@ -89,20 +86,20 @@
         {% assign meals = entityview.records | where: "bjsmarts_sectiontype.label", group.key | order_by: "bjsmarts_order" %}
         
         {% for item in meals %}
-        <div class="log-lg-4">
+        
             <div class="panel panel-default">
-                <div class="panel-heading">{{}}</div>
-                <div class="panel-body" style="border:1px solid #CCCCCC;height:90px">                    
+                <div class="panel-body" style="border:1px solid #CCCCCC;height:90px;width: 95.5%;">                    
                     <div>{{item.bjsmarts_name}}</div>
                     <div>{{item.bjsmarts_description}}</div>
                     <div>Price: ${{item.bjsmarts_price | round:2}}</div>
                     <div style="clear:left"></div> 
                 </div>
             </div>
-        </div>        
+                
         {% endfor %}
         {% endfor %}
         {% endentityview %}
         {% endif %}  
     </div>
+</div>
 </div>
