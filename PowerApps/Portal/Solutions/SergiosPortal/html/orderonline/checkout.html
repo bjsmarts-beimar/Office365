@@ -1,0 +1,137 @@
+
+<script>
+
+    var VarTotalPrice = 0;
+
+    $(document).ready(function() {
+        
+        console.log('loading data .....');
+
+        if ( localStorage ) {
+
+            let sergioItems = localStorage.getItem("sergioItems");        
+
+            if ( sergioItems ) {
+                Items = JSON.parse(sergioItems);                   
+
+                $('#box').empty();
+                let newHTML='';
+                let totalPrice = 0;
+                
+                newHTML+='<ul style="list-style-type: none;">';
+                $.each(Items, function( i, item ) {
+                    //newHTML+='<div class="Name">'+item.foodName +'</div><div class="Price">'+item.foodPrice+'</div>';
+                    let amt = parseFloat(item.foodPrice);
+                    let price = amt.toFixed(2);
+                    totalPrice = parseFloat(totalPrice) + parseFloat(price);
+                    newHTML+='<li class="row"><div class="col-xs-5 col-sm-4 col-md-4"><img src="https://sergiodev.powerappsportals.com/very-empty.jpg" style="width: 170px; height: 120px; padding-bottom: 5px;"></div><div class="col-xs-7 col-sm-8 col-md-8"><span style="display: block;"><h4>$'+item.foodName +'</h4></span><span><h4>'+price+'</h4></span></div></li>';
+                });
+                newHTML+='</ul>';
+
+                let tax = parseFloat(totalPrice) * 0.15;
+                let total = parseFloat(totalPrice) + parseFloat(tax);
+
+                VarTotalPrice = total;
+
+                $('#subTotal').html(totalPrice.toFixed(2));
+                $('#Counter').html(Items.length);
+                $('#box').html( newHTML);
+                $('#_subTotal').html(totalPrice.toFixed(2));
+                $('#_Tax').html(tax.toFixed(2));
+                $('#_Total').html(total.toFixed(2));
+            }
+
+        }
+        
+    } ); 
+    
+    function validateForm(location, fullname) {
+
+        debugger;
+  
+        let orderId = getUniqueID();
+        let orderDate = Date.now();
+
+        console.log(orderId)
+        console.log(location);
+        console.log(fullname);
+        console.log(VarTotalPrice);
+
+        if ( localStorage ) {
+            let sergioItems = localStorage.getItem("sergioItems");  
+            if ( sergioItems ) {
+                Items = JSON.parse(sergioItems);        
+            }      
+        }
+
+        return true;  
+    } 
+
+    function getUniqueID(){
+      
+      return Date.now() + ( (Math.random()*100000).toFixed())
+    
+    }
+
+</script>
+
+<div class="container">
+    <div class="row">
+        <p>Version 1.2</p>        
+    </div>
+</div>
+
+<div class="container">
+    {% assign location = request.params['location'] %} 
+    {% assign fullname = user.fullname %}
+    <form onsubmit="return validateForm('{{location}}', '{{fullname}}' )" method="post">
+    <div class="row" style="text-align: center;">
+        
+        <div class="col-md-12">
+            <h2>YOUR CURRENT LOCATION - {{location}}</h2>            
+        </div>
+    </div>    
+    <div class="row">
+        <div class="col-md-6">
+               
+            <div class="form-group">
+                <h2> PAYMENT INFORMATION</h2>
+            </div>            
+            <div class="form-group">
+                <label for="InputFirst">FIRST NAME</label>
+                <input type="input" name="first" class="form-control" id="first" required>                       
+            </div>
+              
+              <div class="form-group">
+                <label for="InputLast">LAST NAME</label>                
+                <input type="input" name="last" class="form-control" id="last" required>                       
+              </div>
+              
+              <div class="form-group">
+                <label for="InputEmail">EMAIL</label>
+                <input type="email" name="email"  class="form-control" id="email" required>
+              </div>
+                                
+              <div class="form-group">
+                <label for="InputPhone">PHONE</label>
+                <input type="input" name="phone" class="form-control" id="phone" required>                       
+              </div>
+            
+        </div>
+        <div class="col-md-6">
+            <h2> LET'S REVIEW</h2>
+            <h4 style="display: inline-flex;"> YOUR ITEM (<div id="Counter"></div>)</h4>
+            <h4 style="display: inline-flex;padding-left: 150px;"> SUBTOTAL : &nbsp;&nbsp;&nbsp;&nbsp; $<div id="subTotal"></div></h4>
+            <div id="box"></div>
+            <h4 style="display: block; text-align: right;"> SUBTOTAL : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<div style="display: inline;" id="_subTotal"></div></h4>
+            <h4 style="display: block; text-align: right;"> TAX : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<div style="display: inline;" id="_Tax"></div></h4>
+            <h4 style="display: block; text-align: right;"> TOTAL : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<div style="display: inline;" id="_Total"></div></h4>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <button type="submit" class="btn btn-danger btn-lg btn-block">Order Now</button>
+        </div>        
+    </div>   
+    </form>     
+</div> 

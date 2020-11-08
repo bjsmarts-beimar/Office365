@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>jQuery UI Accordion - Default functionality</title>
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <link rel="stylesheet" href="/resources/demos/style.css">
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  <script>
+
+  $( function() {
+    //$( "#accordion" ).accordion();        
+
+    var caseGUID = parent.Xrm.Page.data.entity.getId();  
+
+    main(caseGUID);
+    
+  } );
+
+  function main(caseGUID) {
+
+        var fetchXmlQuery = '<fetch><entity name="bjsmarts_producto"><all-attributes/><filter><condition attribute="bjsmarts_productsid" operator="eq" value="' + caseGUID + '"/></filter></entity></fetch>';
+
+        //var fetchXmlQuery = '<fetch version="1.0" output-format="xml-platform" mapping="logical" distinct="false"><entity name="bjsmarts_producto"><attribute name="bjsmarts_productoid" /><attribute name="bjsmarts_name" /><attribute name="createdon" /><order attribute="bjsmarts_name" descending="false" /><filter type="and"><condition attribute="bjsmarts_productsid" operator="eq" uiname="Order A" uitype="bjsmarts_order" value="{E178CFD2-F9ED-EA11-A817-000D3A3B478B}" /></filter></entity></fetch>';
+        
+        if(fetchXmlQuery != null)
+        {
+            var globalContext = parent.Xrm.Utility.getGlobalContext();
+  
+            var req = new XMLHttpRequest();  
+            req.open(  
+            "GET",  
+            globalContext.getClientUrl() +  
+                "/api/data/v9.0/bjsmarts_productos?fetchXml=" +  
+                encodeURIComponent(fetchXmlQuery),  
+            true  
+            );  
+            req.setRequestHeader("Prefer", 'odata.include-annotations="*"');  
+            req.onreadystatechange = function() {  
+                
+                if (this.readyState === 4) {  
+                
+                    req.onreadystatechange = null;  
+                    if (this.status === 200) {
+                        debugger;  
+                        var results = JSON.parse(this.response);  
+                        console.log('data', results);  
+                    } 
+                    else {  
+                        alert('Error has occurred: ' + this.statusText);  
+                    }  
+                }  
+            };  
+            req.send();   
+        }
+                
+  }
+  </script>
+</head>
+<body>
+ 
+<p>Testing !!!!!</p>
+ 
+ 
+</body>
+</html>

@@ -1,0 +1,6 @@
+$(document).ready(function(){
+
+    $('#FieldtoShow_1').show();
+	$('#FieldtoShow_2').hide();
+
+});

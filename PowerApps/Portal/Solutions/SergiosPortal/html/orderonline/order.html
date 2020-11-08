@@ -1,0 +1,224 @@
+
+
+<script src='https://kit.fontawesome.com/a076d05399.js'></script>
+
+<script>
+ 
+function launchModal(foodId, foodName, foodPrice, location)
+{
+    debugger;
+    console.log('id: ' + foodId);
+    console.log('name: ' + foodName);
+    console.log('location: ' + location);
+
+    let Items = [];
+
+    if ( localStorage ) {
+
+        let sergioItems = localStorage.getItem("sergioItems");        
+
+        if ( sergioItems ) {
+
+            Items = JSON.parse(sergioItems);   
+            Items.push({foodId: foodId, foodName: foodName, foodPrice: foodPrice});
+            localStorage.setItem('sergioItems', JSON.stringify(Items)); 
+        }
+        else {
+
+            Items.push({foodId: foodId, foodName: foodName, foodPrice: foodPrice});
+            localStorage.setItem('sergioItems', JSON.stringify(Items)); 
+        }
+    }    
+
+    $("#myFoodDescription").html(foodName);
+    $('#myModal').modal('show');
+}
+</script>
+
+{% if user %}
+{% else %}
+<script>
+  window.location.href = '~/SignIn';
+</script>
+{% endif %}
+
+<div class="container">
+    <div class="row">
+        <p>Version 1.0</p>        
+    </div>
+</div>
+
+<div class="container">
+        <div class="row" style="padding-top:8px;">
+    
+            {% assign location = request.params['location'] %} 
+            
+            <h4>Your Current location - {{location}}</h4>            
+        </div>
+        <div class="row">
+            <div class="col-md-3 text-center"><button class="btn" style='font-size: 24px; background-color: black; border: 2px solid white; width: 100%;' onclick="Javascript:document.location=document.URL.split('?')[0] + '?meal=Breakfast&location={{location}}'"><i class="fa fa-coffee" style='font-size:32px;color:red'></i> Breakfast </button></div>
+            <div class="col-md-3 text-center"><button class="btn" style='font-size: 24px; background-color: black; border: 2px solid white; width: 100%;' onclick="Javascript:document.location=document.URL.split('?')[0] + '?meal=Specials&location={{location}}'"><i class="fa fa-thumbs-up" style='font-size:32px;color:red'></i> Specials </button></div>
+            <div class="col-md-3 text-center"><button class="btn" style='font-size: 24px; background-color: black; border: 2px solid white; width: 100%;' onclick="Javascript:document.location=document.URL.split('?')[0] + '?location={{location}}'"><i class="fas fa-utensils" style='font-size:32px;color:red'></i> Main Menu </button></div>
+            <div class="col-md-3 text-center"><button class="btn" style='font-size: 24px; background-color: black; border: 2px solid white; width: 100%;' onclick="Javascript:document.location=document.URL.split('?')[0] + '?meal=Catering&location={{location}}'"><i class="fas fa-walking" style='font-size:32px;color:red'></i> Catering </button></div>
+        </div>        
+</div> 
+
+<div class="content">
+    <div class="container">
+        <div class="row" style="padding-top:8px;">
+    
+            {% assign meal = request.params['meal'] %}  
+            {% assign title = "Sergio's Menu " %}
+            
+            {% if meal %}
+            <h3>{{ title }} - {{meal}}</h3>
+            {% else %}
+            <h3>{{ title }} </h3>
+            {% endif %}
+    
+            {% if meal == "Specials" %}
+                
+            {% entityview logical_name: 'bjsmarts_meal' name:"Specials", page_size: 50 %}   
+              
+    
+            {% assign groups = entityview.records | group_by: 'bjsmarts_sectiontype.label' %}
+    
+            {% for group in groups %}
+            
+            {% assign meals = entityview.records | where: "bjsmarts_sectiontype.label", group.key | order_by: "bjsmarts_order" %}
+            
+            {% for item in meals %}                
+                            
+                <div class="col-sm-6 col-md-3">
+                    <div class="thumbnail">
+                      <img src="https://sergiodev.powerappsportals.com/very-empty.jpg" alt="...">
+                      <div class="caption" style="height: 200px;">
+                        <h4>{{item.bjsmarts_name}}</h4>                           
+                        <p>{{item.bjsmarts_description}}</p>
+                        <p>Price: ${{item.bjsmarts_price | round:2}}</p>                        
+                      </div>          
+                      <p><button type="button" class="btn btn-primary" onclick="launchModal('{{item.id}}', '{{item.bjsmarts_name}}', '{{item.bjsmarts_price}}', '{{location}}')">Add To Bag</button></p>                                                     
+                    </div>
+                </div>
+
+                <!-- Modal -->
+                <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                    <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                          <h1 class="modal-title" style="text-align: center; font-size: 36px;" id="myModalLabel">ITEM ADDED</h1>
+                        </div>
+                        <div class="modal-body">
+                          <h1 style="text-align: center;" id="myFoodDescription"></h1>
+                        </div>
+                        <div class="modal-footer" style="text-align: center;">
+                        <button type="button" class="btn btn-light" data-dismiss="modal">ADD MORE FOOD</button>
+                        <button type="button" onclick="window.location.href='/checkout?location={{location}}'" class="btn btn-danger">CHECK OUT</button>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+                    
+            {% endfor %}
+            {% endfor %}
+            {% endentityview %}
+            {% endif %}
+    
+            {% if meal == "Breakfast" %}
+                
+            {% entityview logical_name: 'bjsmarts_meal' name:"Breakfast Meals", page_size: 50 %}   
+               
+    
+            {% assign groups = entityview.records | group_by: 'bjsmarts_sectiontype.label' %}
+    
+            {% for group in groups %}
+                
+            {% assign meals = entityview.records | where: "bjsmarts_sectiontype.label", group.key | order_by: "bjsmarts_order" %}
+            
+            {% for item in meals %}                                        
+
+            <div class="col-sm-6 col-md-3">
+              <div class="thumbnail">
+                <img src="https://sergiodev.powerappsportals.com/very-empty.jpg" alt="...">
+                <div class="caption" style="height: 200px;">
+                  <h4>{{item.bjsmarts_name}}</h4>                           
+                  <p>{{item.bjsmarts_description}}</p>
+                  <p>Price: ${{item.bjsmarts_price | round:2}}</p>                        
+                </div>          
+                <p><button type="button" class="btn btn-primary" onclick="launchModal('{{item.id}}', '{{item.bjsmarts_name}}', '{{item.bjsmarts_price}}', '{{location}}')">Add To Bag</button></p>                                                     
+              </div>
+            </div>
+
+            <!-- Modal -->
+            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+              <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                  <div class="modal-header">
+                    <h1 class="modal-title" style="text-align: center; font-size: 36px;" id="myModalLabel">ITEM ADDED</h1>
+                  </div>
+                  <div class="modal-body">
+                    <h1 style="text-align: center;" id="myFoodDescription"></h1>
+                  </div>
+                  <div class="modal-footer" style="text-align: center;">
+                  <button type="button" class="btn btn-light" data-dismiss="modal">ADD MORE FOOD</button>
+                  <button type="button" onclick="window.location.href='/checkout?location={{location}}'" class="btn btn-danger">CHECK OUT</button>
+                  </div>
+              </div>
+              </div>
+            </div>
+                    
+            {% endfor %}
+            {% endfor %}
+            {% endentityview %}
+            {% endif %}             
+            
+            {% if meal == Null %}
+                
+            {% entityview logical_name: 'bjsmarts_meal' name:"Main Menu", page_size: 50 %}   
+               
+    
+            {% assign groups = entityview.records | group_by: 'bjsmarts_sectiontype.label' %}
+    
+            {% for group in groups %}
+            
+            {% assign meals = entityview.records | where: "bjsmarts_sectiontype.label", group.key | order_by: "bjsmarts_order" %}
+            
+            {% for item in meals %}                            
+
+            <div class="col-sm-6 col-md-3">
+              <div class="thumbnail">
+                <img src="https://sergiodev.powerappsportals.com/very-empty.jpg" alt="...">
+                <div class="caption" style="height: 200px;">
+                  <h4>{{item.bjsmarts_name}}</h4>                           
+                  <p>{{item.bjsmarts_description}}</p>
+                  <p>Price: ${{item.bjsmarts_price | round:2}}</p>                        
+                </div>          
+                <p><button type="button" class="btn btn-primary" onclick="launchModal('{{item.id}}', '{{item.bjsmarts_name}}', '{{item.bjsmarts_price}}', '{{location}}')">Add To Bag</button></p>                                                     
+              </div>
+            </div>
+
+            <!-- Modal -->
+            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+              <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                  <div class="modal-header">
+                    <h1 class="modal-title" style="text-align: center; font-size: 36px;" id="myModalLabel">ITEM ADDED</h1>
+                  </div>
+                  <div class="modal-body">
+                    <h1 style="text-align: center;" id="myFoodDescription"></h1>
+                  </div>
+                  <div class="modal-footer" style="text-align: center;">
+                  <button type="button" class="btn btn-light" data-dismiss="modal">ADD MORE FOOD</button>
+                  <button type="button" onclick="window.location.href='/checkout?location={{location}}'" class="btn btn-danger">CHECK OUT</button>
+                  </div>
+              </div>
+              </div>
+            </div>
+                    
+            {% endfor %}
+            {% endfor %}
+            {% endentityview %}
+            {% endif %}  
+        </div>
+    </div>
+    </div>

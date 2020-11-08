@@ -33,3 +33,28 @@ https://readyxrm.blog/2019/07/24/configure-azure-ad-b2c-for-powerapps-portals/
 
 Dynamics 365 tutorials
 https://www.youtube.com/watch?v=NpHwOKM9Ls8&list=PL5dtzuEgjWgm0Xlk5IfDr4D3-4D9KWYc1z
+
+
+
+
+$(document).ready(function(){
+ 
+ document.getElementById("bjsmarts_first").addEventListener("input", myFirst);
+ document.getElementById("bjsmarts_last").addEventListener("input", myLast);
+
+ //$('#bjsmarts_name_label').hide();
+ //$('#bjsmarts_name').hide();
+ 
+});
+
+function myFirst() {
+    var fullname = document.getElementById("bjsmarts_first").value;
+    $("#bjsmarts_name").attr("value", fullname);
+}
+
+function myLast() {
+    var firstName = document.getElementById("bjsmarts_first").value;
+    var lastName = document.getElementById("bjsmarts_last").value;
+    $("#bjsmarts_name").attr("value", firstName + " " + lastName);
+}
+

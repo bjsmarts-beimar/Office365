@@ -1,0 +1,28 @@
+
+Order
+-----
+OrderID
+CustomerID (Contact)
+OrderDate
+
+Contact one-to-many Orders
+Order one-to-one Order Detail
+
+Order Detail
+------------
+OrderID
+MealID
+UnitPrice
+Quantity
+
+Order Detail one-to-Many Meal
+
+customer can have multiple hotel reservations
+hotel reservations can have multiple customers
+
+customer can have multiple Orders
+Orders can have multiple Meals
+
+
+
+

@@ -1,0 +1,21 @@
+$(document).ready(function(){
+
+// To get loggedin user guid
+
+var username = '{{ user.Id }}';
+
+// To get loggedin user name
+
+var username = '{{ user.fullname}}';
+
+// To check loggedin user webrole
+
+{% if user.roles contains 'ABC'%}
+
+// Write your hide/show logic
+
+{% else if user.roles contains 'PQR'%}
+
+// Write your hide/show logic
+
+});

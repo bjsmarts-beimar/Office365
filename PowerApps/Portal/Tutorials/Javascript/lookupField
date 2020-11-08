@@ -1,0 +1,5 @@
+$(document).ready(function() {
+    $("#defaultpricelevelid_name").attr("value", "{{pricelistName}}");
+    $("#defaultpricelevelid").attr("value", "{{pricelistId}}");
+    $("#defaultpricelevelid_entityname").attr("value", "pricelevel");
+  });

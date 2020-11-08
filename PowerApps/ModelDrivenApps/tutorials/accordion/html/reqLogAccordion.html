@@ -1,0 +1,297 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>jQuery UI Accordion - Default functionality</title>
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.css">
+  <link rel="stylesheet" href="/resources/demos/style.css">
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+
+  <!-- Compiled and minified CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
+  <!-- Compiled and minified JavaScript -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+        
+
+  <style>
+    .section {
+        font-size: 14pt;
+        font-family: SegoeUI, "Segoe UI";
+    }
+    .instruction {
+        display: inline-block; 
+        width: 100%;        
+    }
+    .header {
+        display: inline-block; 
+        width: 100%;        
+    }
+    .right {
+        float: right;
+    }
+    .left {
+        float: left;
+    }
+  </style>
+  <script>
+  $( function() {
+    
+    $( "#accordion" ).accordion({
+      heightStyle: "content"
+    });
+    
+    var auditGUID = parent.Xrm.Page.data.entity.getId(); 
+    console.log('Entity Id: ' + auditGUID);
+
+    //Meeting Request    
+    query(auditGUID, 481600000, $('#MeetingRequest'));
+
+    //Information Request
+    query(auditGUID, 481600001, $('#InformationRequest'));
+
+    //Entrance Conference
+    query(auditGUID, 481600002, $('#EntranceConference'));
+
+    //Exit Conference
+    query(auditGUID, 481600003, $('#ExitConference'));
+
+    //Statement of Facts
+    query(auditGUID, 481600004, $('#StatementofFacts'));
+
+    //Agency Response
+    query(auditGUID, 481600005, $('#AgencyResponse'));
+
+  } );
+
+  function query(auditGUID, requestTypeID, tableName) {
+    
+    //var fetchXmlQuery = '<fetch version="1.0" output-format="xml-platform" mapping="logical" distinct="false"><entity name="sbaocio_request"><attribute name="sbaocio_requestid" /><attribute name="sbaocio_name" /><attribute name="createdon" /><attribute name="sbaocio_leadofficeassignedtoinforeq" /><attribute name="sbaocio_leadofficeliasioninforeq" /><attribute name="sbaocio_duedateforresponse" /><attribute name="sbaocio_datereceived" /><order attribute="sbaocio_name" descending="false" /><filter type="and"><condition attribute="sbaocio_auditid" operator="eq" uiname="BJM - Project Name" uitype="incident" value="{DC4E5375-946A-43A2-93CA-6770B507B9CB}" /><condition attribute="sbaocio_requesttype" operator="eq" value="481600001" /></filter></entity></fetch>';
+    var fetchXmlQuery = '<fetch version="1.0" output-format="xml-platform" mapping="logical" distinct="false"><entity name="sbaocio_request"><attribute name="sbaocio_requestid" /><attribute name="sbaocio_name" /><attribute name="createdon" /><attribute name="sbaocio_leadofficeassignedtoinforeq" /><attribute name="sbaocio_leadofficeliasioninforeq" /><attribute name="sbaocio_duedateforresponse" /><attribute name="sbaocio_datereceived" /><order attribute="sbaocio_name" descending="false" /><filter type="and"><condition attribute="sbaocio_auditid" operator="eq" uitype="incident" value="' + auditGUID  + '" /><condition attribute="sbaocio_requesttype" operator="eq" value="' + requestTypeID + '" /></filter></entity></fetch>';
+
+    if(fetchXmlQuery != null)
+    {
+        var globalContext = parent.Xrm.Utility.getGlobalContext();
+
+        var req = new XMLHttpRequest();  
+        req.open(  
+        "GET",  
+        globalContext.getClientUrl() +  
+            "/api/data/v9.0/sbaocio_requests?fetchXml=" +  
+            encodeURIComponent(fetchXmlQuery),  
+        true  
+        );  
+        req.setRequestHeader("Prefer", 'odata.include-annotations="*"');  
+        req.onreadystatechange = function() {  
+            
+            if (this.readyState === 4) {  
+            
+                req.onreadystatechange = null;  
+                if (this.status === 200) {
+
+                    results = JSON.parse(this.response);  
+                    console.log('value', results.value);
+                    
+                    //$('#MeetingRequest').DataTable( {
+                    tableName.DataTable( {
+                        "data": results.value,
+                        "columns": [
+                            {
+                                "title": "Created On",
+                                "data": "createdon",
+                                "render": function (data) {
+                                          return moment(data).format('L');
+                                }
+  
+                            },
+                            { 
+                                "title": "Request Name",
+                                "data": "sbaocio_name",
+                                "render": function(data, type, row, meta) {
+                                    return "<a target='_blank' href='" + globalContext.getClientUrl() + "/main.aspx?appid=3530e73a-c993-ea11-a811-001dd8309076&pagetype=entityrecord&etn=sbaocio_request&id=" + row.sbaocio_requestid + "'>" + row.sbaocio_name + "</a>"; 
+                                }
+
+                            }                            
+                        ],
+                        searching: false,
+                        lengthChange: false
+                    } );  
+                } 
+                else {  
+                    console.log('Error has occurred: ', this.statusText);  
+                }  
+            }  
+        };  
+        req.send();   
+    }
+  }
+
+  function OpenQuickCreate(RequestType) {
+    
+    debugger;
+
+    var incidentId = parent.Xrm.Page.data.entity.getId(); 
+
+    var parentAccount = {
+      entityType: "incident",
+      id: incidentId
+    };
+
+    var parameters = {};
+
+    parameters["sbaocio_requesttype"] = RequestType; 
+
+    // *** Call the Xrm.Utility needed to add a contact.
+    parent.Xrm.Utility.openQuickCreate("sbaocio_request", parentAccount, parameters).then(function (lookup) { successCallback(lookup); }, function (error) { errorCallback(error);});
+    
+  }
+  
+  function successCallback(lookup) {
+    //alert("lookup: " + lookup.savedEntityReference.id);
+    //alert("lookup: " + lookup.savedEntityReference.name);
+
+    debugger;
+
+    location.reload();
+  }
+
+  function errorCallback(e) {
+  // *** No new contact created, which is an error we can ignore!
+    alert("Error: " + e.errorCode + " " + e.message);
+  }
+
+  </script>
+</head>
+<body>  
+<div id="accordion">
+  <h3>Meeting Request</h3>
+  <div>
+    <div class="instruction">
+      Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. 
+    </div>
+    <div class="header">
+        <div class="section left">Active Meeting Requests</div>
+        <div class="right"><a href="#" onclick="OpenQuickCreate('481600000')" class="waves-effect waves-light btn" style="background-color: #007fff; color: white;">New Meeting Request</a></div>
+    </div>
+    
+    <p>
+        <table id="MeetingRequest" class="display compact" style="width:100%">
+            <thead>
+                <tr>
+                    <th>Created On</th>
+                    <th>Request Name</th>                                     
+                </tr>
+            </thead>            
+        </table>
+    </p>
+  </div>
+  <h3>Information Request</h3>
+  <div>
+    <div class="instruction">
+      Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. 
+    </div>
+    <div class="header">
+      <div class="section left">Active Information Requests</div>
+      <div class="right"><a href="#" onclick="OpenQuickCreate('481600001')" class="waves-effect waves-light btn" style="background-color: #007fff; color: white;">New Information Request</a></div>
+    </div>
+    <p>
+        <table id="InformationRequest" class="display compact" style="width:100%">
+            <thead>
+                <tr>
+                    <th>Created On</th>
+                    <th>Request Name</th>                                     
+                </tr>
+            </thead>            
+        </table>
+    </p>
+  </div>
+  <h3>Entrance Conference</h3>
+  <div>
+    <div class="instruction">
+      Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. 
+    </div>
+    <div class="header">
+      <div class="section left">Active Entrance Conferences</div>
+      <div class="right"><a href="#" onclick="OpenQuickCreate('481600002')" class="waves-effect waves-light btn" style="background-color: #007fff; color: white;">New Entrance Conference</a></div>
+    </div>
+    <p>
+      <table id="EntranceConference" class="display compact" style="width:100%">
+        <thead>
+            <tr>
+                <th>Created On</th>
+                <th>Request Name</th>                                     
+            </tr>
+        </thead>            
+      </table>
+    </p>    
+  </div>
+  <h3>Exit Conference</h3>
+  <div>
+    <div class="instruction">
+      Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. 
+    </div>
+    <div class="header">
+      <div class="section left">Active Exit Conferences</div>
+      <div class="right"><a href="#" onclick="OpenQuickCreate('481600003')" class="waves-effect waves-light btn" style="background-color: #007fff; color: white;">New Exit Conference</a></div>
+    </div>
+    <p>
+      <table id="ExitConference" class="display compact" style="width:100%">
+        <thead>
+            <tr>
+                <th>Created On</th>
+                <th>Request Name</th>                                     
+            </tr>
+        </thead>            
+    </table>
+    </p>    
+  </div>
+  <h3>Statement of Facts</h3>
+  <div>
+    <div class="instruction">
+      Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. 
+    </div>
+    <div class="header">
+      <div class="section left">Active Statement of Facts</div>
+      <div class="right"><a href="#" onclick="OpenQuickCreate('481600004')" class="waves-effect waves-light btn" style="background-color: #007fff; color: white;">New Statement of Facts</a></div>
+    </div>
+    <p>
+      <table id="StatementofFacts" class="display compact" style="width:100%">
+        <thead>
+            <tr>
+                <th>Created On</th>
+                <th>Request Name</th>                                     
+            </tr>
+        </thead>            
+      </table>
+    </p>
+  </div>
+  <h3>Agency Response</h3>
+  <div>
+    <div class="instruction">
+      Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. 
+    </div>
+    <div class="header">
+      <div class="section left">Active Agency Responses</div>
+      <div class="right"><a href="#" onclick="OpenQuickCreate('481600005')" class="waves-effect waves-light btn" style="background-color: #007fff; color: white;">New Agency Response</a></div>
+    </div>
+    <p>
+      <table id="AgencyResponse" class="display compact" style="width:100%">
+        <thead>
+            <tr>
+                <th>Created On</th>
+                <th>Request Name</th>                                     
+            </tr>
+        </thead>            
+      </table>
+    </p>
+  </div>
+</div>
+ 
+ 
+</body>
+</html>

@@ -40,6 +40,11 @@ Backend
    Last Name
    Email
 
+Mistake it's better to have 2 entities
+
+Catering
+Private Dining
+
 3. Event 
    Email
    First Name
@@ -53,6 +58,16 @@ Backend
    Number of People
    Additonal Information
 
+   Event Name
+   Event Start Date
+   Event End Date
+   How would you prefer to be contacted [Phone|Email]
+   Ext.
+   Subscribe to our Newsletter and Promotional Emails [Yes|No]
+   Location [Sergio's Bird Road|Sergio's Coral Way|Sergio's Hialeah Garden]
+   How did you hear about us? [Instagram|Facebook|Search Engine|Other]
+
+
 4. Meal
    Picture
    Name
@@ -61,7 +76,15 @@ Backend
    Meal Type [Breakfast|Lunch|Dinner|Kids|Specials]
    Section Type [Tapas & Tablas|Soups|Salads|Desserts|Beverages|Beef & Pork|Fish|La Flaca|Sandwichs]
 
-6. Job Application
+Application
+Eligibility
+Experience
+WorkHistory
+School
+Reference
+
+
+6. Employment Application
    First Name
    Last Name
    Address1
