@@ -1,0 +1,148 @@
+
+Solution Name:          SCDHHS Inventory App Solution
+Publisher:              scdhhs
+Model Driven App:       SCDHHS Inventory Application
+Model Driven Admin App: SCDHHS Inventory Admin Tool
+Security Role           Inventory Basic User
+Security Role           Inventory Power User
+
+Application URL:    https://org662396a8.crm9.dynamics.com/main.aspx?appid=5defcc4a-6b96-eb11-b1ac-001dd804a502
+
+API URL: https://org662396a8.api.crm9.dynamics.com/api/data/v9.2/scdhhs_supplybacklogs
+
+Navigation
+==========
+Areas:  Dashboard|Inventory|Furniture|
+
+Supplies
+-> Supplies
+-> Received Inventory
+-> Inventory Transfers
+-> Supply Backlog
+
+Furnitures
+-> Furnitures
+-> Received Inventory
+-> Inventory Transfers
+-> Furniture Backlog
+
+
+Supplies
+=======
+Name
+Description
+Supply Type [PPE|Janitorial Supply]
+Quantity
+Order
+
+Inventory Receipt
+================
+Created On
+Description
+
+Inventory Supply 
+========================
+Supply
+Quantity
+Inventory Receipt
+
+Supply Transfer Receipt
+=================
+Created On
+Physical Location
+Description
+
+Transfer Supply
+==============
+Supply
+Quantity
+Inventory Transfer 
+
+Supply Backlog
+==============
+Created On
+Description
+Supply
+Quantity
+
+Supply Back Order
+=================
+Supply Backlog
+
+Workflows
+=========
+
+Inventory-Supply-Delivery
+Inventory-Supply-Transfer
+Supply Quantity Change: Store Old Supply Quantity
+Update-Supply-Delivery
+Transfer Supply Quantity Change: Store Old Transfer Supply Quantity
+Update-Supply-Transfer
+
+Reports
+=======
+User Monthly Received Inventory
+User Monthly Transfer Inventory
+
+Furniture
+=========
+Name
+Description
+Quantity 
+Order
+
+Furniture Inventory Receipt
+==========================
+Description
+Created On
+
+Furniture Deliver
+========================
+Furniture
+Quantity
+Furniture Inventory Receipt
+
+Furniture Transfer Receipt
+============================
+Description
+Created On
+
+Furniture Transfer
+=======================
+Furniture
+Quantity
+Furniture Transfer Receipt 
+
+Furniture Backlog
+=================
+Created On
+Description
+Furniture
+Quantity
+
+Furniture Back Order
+====================
+Furniture Backlog  
+
+Workflows
+=========
+Furniture-App-Delivery-Receipt-Flow
+Furniture-App-Transfer-Flow
+Furniture Quantity Change: Store Old Furniture Quantity 
+Furniture-Update-Supply-Delivery
+Furniture Quantity Change: Store Old Furniture Quantity 
+Furniture-Update-Supply-Transfer
+
+Supply-Backlog-Fulfill-Notification-Flow
+Furniture-Backlog-Fulfill-Notification-Flow
+
+Reports
+=======
+User Monthly Received Furniture
+User Monthly Transfer Furniture
+
+
+
+
+
+

@@ -33,6 +33,7 @@ $list.Hidden = $True
 $list.Update()
 $context.ExecuteQuery()
 
+
 #Adds an item to the list
 $listItemInfo = New-Object Microsoft.SharePoint.Client.ListItemCreationInformation
 $item = $list.AddItem($listItemInfo)
