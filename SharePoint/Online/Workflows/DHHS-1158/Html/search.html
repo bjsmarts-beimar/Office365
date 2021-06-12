@@ -29,7 +29,7 @@
 
     function loadListItems() {
             //var oDataUrl = _spPageContextInfo.webAbsoluteUrl + "/_api/web/lists/getbytitle('TicketInfo')/items?$select=ID,Title,Ticket_x0020_Name,Start_x0020_Date,End_x0020_Date,Status,Project_x0020_Details,TeamMember/Title,Manager_x0020_Name/Title&$expand=TeamMember,Manager_x0020_Name";
-            var oDataUrl = _spPageContextInfo.webAbsoluteUrl + "/data/_api/web/lists/getbytitle('AR1158Form')/items?$select=ID,Title,WorkflowStatus,ProviderCaseNumber,RequestorSignature,Created,Program/Title,Supervisor/Title,Requestor/Title,Created&$expand=Program,Supervisor,Requestor&$filter=WorkflowStatus ne 'Deleted'&$orderby=Created asc";            
+            var oDataUrl = _spPageContextInfo.webAbsoluteUrl + "/data/_api/web/lists/getbytitle('AR1158Form')/items?$top=5000&$select=ID,Title,WorkflowStatus,ProviderCaseNumber,RequestorSignature,Created,Program/Title,Supervisor/Title,Requestor/Title,Created&$expand=Program,Supervisor,Requestor&$filter=WorkflowStatus ne 'Deleted'&$orderby=Created asc";            
             console.log(_spPageContextInfo);
             $.ajax({
                     url: oDataUrl,
