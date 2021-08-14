@@ -1,0 +1,20 @@
+
+
+
+bauensolutions
+==============
+
+
+1. Authenticate
+
+pac auth create -u https://imlcctest.crm.dynamics.com/
+
+2. List available portals
+
+pac paportal list
+
+3. Download portals content
+
+For the id parameter, use the WebSiteId returned from the output of the previous step.
+
+pac paportal download --path C:\Dev\bauensolutions\portals -id d78574f9-20c3-4dcc-8d8d-85cf5b7ac141
