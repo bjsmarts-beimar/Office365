@@ -11,7 +11,7 @@ $admin = 'beimar.medina@scdhhs.gov'
 
 #Get Password as secure String
 #$password = Read-Host 'Enter Password' -AsSecureString
-$password = ConvertTo-SecureString "Tipit098!!" -asplaintext -force
+#$password = ConvertTo-SecureString "YourPassword" -asplaintext -force
 #Get the Client Context and Bind the Site Collection
 $context = New-Object Microsoft.SharePoint.Client.ClientContext($site)
 
